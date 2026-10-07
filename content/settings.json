@@ -1,0 +1,20 @@
+{
+  "nomeSito": "Home & Co.",
+  "claim": "Il negozio su misura per la tua casa!",
+  "societa": {
+    "ragioneSociale": "HCO SRL",
+    "indirizzo": "Viale Marconi 38, 59100 Prato (PO)",
+    "piva": "02504120979",
+    "email": "info@home-co.it"
+  },
+  "social": {
+    "instagram": "https://www.instagram.com/homeandco.casa",
+    "facebook": "https://www.facebook.com/homeandco.casa"
+  },
+  "whatsapp": {
+    "numero": null,
+    "messaggioPredefinito": "Ciao Home & Co.! Vorrei un'informazione."
+  },
+  "siteUrl": "https://home-co.it",
+  "analytics": { "gaId": null, "metaPixelId": null }
+}

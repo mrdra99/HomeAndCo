@@ -1,45 +1,50 @@
-#--------------------------#
-# Magento Default Files    #
-#--------------------------#
+# dipendenze
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
-/PATCH_*.sh
+# build Next.js / export statico
+.next/
+out/
+build/
+*.tsbuildinfo
+next-env.d.ts
 
-/app/etc/local.xml
+# Cloudflare / Vercel
+.wrangler/
+.vercel/
 
-/media/*
-!/media/.htaccess
+# ambiente (i valori reali non si committano; .env.example sì)
+.env
+.env*.local
+!.env.example
 
-!/media/customer
-/media/customer/*
-!/media/customer/.htaccess
+# log e debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
 
-!/media/dhl
-/media/dhl/*
-!/media/dhl/logo.jpg
+# test e coverage
+coverage/
+playwright-report/
+test-results/
 
-!/media/downloadable
-/media/downloadable/*
-!/media/downloadable/.htaccess
+# editor e sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+*.swp
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
 
-!/media/xmlconnect
-/media/xmlconnect/*
-
-!/media/xmlconnect/custom
-/media/xmlconnect/custom/*
-!/media/xmlconnect/custom/ok.gif
-
-!/media/xmlconnect/original
-/media/xmlconnect/original/*
-!/media/xmlconnect/original/ok.gif
-
-!/media/xmlconnect/system
-/media/xmlconnect/system/*
-!/media/xmlconnect/system/ok.gif
-
-/var/*
-!/var/.htaccess
-
-!/var/package
-/var/package/*
-!/var/package/*.xml
-
+# Claude Code: impostazioni locali personali
+.claude/settings.local.json

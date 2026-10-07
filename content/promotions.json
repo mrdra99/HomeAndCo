@@ -1,0 +1,28 @@
+[
+  {
+    "id": "promo-halloween",
+    "titolo": "Speciale Halloween",
+    "testo": "Decorazioni, maschere e idee per la festa: sfoglia il volantino e passa in negozio.",
+    "immagine": { "src": null, "alt": "Decorazioni di Halloween", "label": "Halloween" },
+    "validoDal": "2026-10-01",
+    "validoAl": "2026-10-31",
+    "link": "/offerte/",
+    "provvisorio": true
+  },
+  {
+    "id": "promo-bucato",
+    "titolo": "Bucato in scorta",
+    "testo": "Detersivi e ammorbidenti nei formati famiglia a prezzo speciale.",
+    "immagine": { "src": null, "alt": "Detersivi per il bucato", "label": "Bucato" },
+    "corridoio": "pulizia-e-cura-persona",
+    "provvisorio": true
+  },
+  {
+    "id": "promo-animali",
+    "titolo": "Coccole per i tuoi amici",
+    "testo": "Cibo e accessori per cani e gatti con prezzi pensati per chi ama davvero i propri animali.",
+    "immagine": { "src": null, "alt": "Cane e gatto", "label": "Animali" },
+    "corridoio": "animali",
+    "provvisorio": true
+  }
+]

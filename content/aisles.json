@@ -1,0 +1,140 @@
+[
+  {
+    "slug": "casa-e-cucina",
+    "titolo": "Casa e cucina",
+    "titoloBreve": "Casa e cucina",
+    "descrizione": "Pentole, piatti, contenitori e tutto per una cucina che funziona.",
+    "descrizioneLunga": "Dalla colazione alla cena di famiglia: pentole e padelle, servizi di piatti e bicchieri, contenitori per conservare, utensili furbi e piccoli elettrodomestici. Trovi l'essenziale a prezzi onesti e quel pezzo in più che rende la tavola, e la giornata, più bella.",
+    "immagine": { "src": null, "alt": "Cucina accogliente con stoviglie colorate", "label": "Casa e cucina" },
+    "icona": "cucina",
+    "colore": "#0B6CB0",
+    "inEvidenza": [
+      { "titolo": "Pentole e padelle", "descrizione": "Set antiaderenti per tutti i fornelli, anche a induzione.", "immagine": { "src": null, "alt": "Set di pentole", "label": "Pentole" }, "badge": "Più scelti" },
+      { "titolo": "Tavola e servizi", "descrizione": "Piatti, bicchieri e posate per ogni giorno e per le occasioni.", "immagine": { "src": null, "alt": "Tavola apparecchiata", "label": "Tavola" } },
+      { "titolo": "Contenitori e dispensa", "descrizione": "Barattoli, scatole e vasetti per tenere tutto in ordine e fresco.", "immagine": { "src": null, "alt": "Contenitori per alimenti", "label": "Dispensa" } },
+      { "titolo": "Piccoli elettrodomestici", "descrizione": "Bollitori, tostapane e frullatori che semplificano la giornata.", "immagine": { "src": null, "alt": "Piccoli elettrodomestici", "label": "Elettrodomestici" }, "badge": "Novità" }
+    ],
+    "ordine": 1,
+    "visibile": true,
+    "seo": {
+      "title": "Casa e cucina | Home & Co.",
+      "description": "Pentole, piatti, contenitori e piccoli elettrodomestici a prezzi convenienti nei negozi Home & Co. di Prato, Lucca e Sesto Fiorentino."
+    },
+    "provvisorio": true
+  },
+  {
+    "slug": "biancheria-e-arredo",
+    "titolo": "Biancheria e complementi d'arredo",
+    "titoloBreve": "Biancheria e arredo",
+    "descrizione": "Lenzuola, asciugamani, tende e complementi per vestire ogni stanza.",
+    "descrizioneLunga": "Cambia volto alla casa senza spendere una fortuna: lenzuola morbide, piumini e coperte, asciugamani spugnosi, tende, tappeti, cuscini e piccoli complementi d'arredo. Colori e tessuti per tutti i gusti, dal classico al moderno.",
+    "immagine": { "src": null, "alt": "Camera da letto con biancheria colorata", "label": "Biancheria e arredo" },
+    "icona": "tessile",
+    "colore": "#D81B6A",
+    "inEvidenza": [
+      { "titolo": "Lenzuola e copriletto", "descrizione": "Cotone morbido in tante fantasie, dal matrimoniale al singolo.", "immagine": { "src": null, "alt": "Lenzuola", "label": "Lenzuola" }, "badge": "Più scelti" },
+      { "titolo": "Asciugamani e accappatoi", "descrizione": "Spugna spessa e assorbente per un bagno da hotel.", "immagine": { "src": null, "alt": "Asciugamani", "label": "Asciugamani" } },
+      { "titolo": "Tende e tappeti", "descrizione": "Per dare carattere a finestre e pavimenti, su misura di ogni ambiente.", "immagine": { "src": null, "alt": "Tende e tappeti", "label": "Tende e tappeti" } },
+      { "titolo": "Cuscini e plaid", "descrizione": "I dettagli caldi che trasformano il divano in un rifugio.", "immagine": { "src": null, "alt": "Cuscini e plaid", "label": "Cuscini e plaid" }, "badge": "Novità" }
+    ],
+    "ordine": 2,
+    "visibile": true,
+    "seo": {
+      "title": "Biancheria e complementi d'arredo | Home & Co.",
+      "description": "Lenzuola, asciugamani, tende, tappeti e complementi d'arredo per la tua casa. Scoprili da Home & Co. in Toscana."
+    },
+    "provvisorio": true
+  },
+  {
+    "slug": "pulizia-e-cura-persona",
+    "titolo": "Pulizia della casa e cura della persona",
+    "titoloBreve": "Pulizia e cura persona",
+    "descrizione": "Detersivi, accessori per pulire e prodotti per il benessere di ogni giorno.",
+    "descrizioneLunga": "Una casa splendente e un po' di coccole per te: detersivi per pavimenti, bucato e superfici, scope, mop e panni, carta e igiene, ma anche shampoo, saponi, creme e prodotti per la cura personale delle migliori marche.",
+    "immagine": { "src": null, "alt": "Prodotti per la pulizia e la cura della persona", "label": "Pulizia e cura persona" },
+    "icona": "pulizia",
+    "colore": "#0B6CB0",
+    "inEvidenza": [
+      { "titolo": "Bucato e detersivi", "descrizione": "Detersivi e ammorbidenti nei formati convenienti per tutta la famiglia.", "immagine": { "src": null, "alt": "Detersivi per il bucato", "label": "Bucato" }, "badge": "Più scelti" },
+      { "titolo": "Scope, mop e panni", "descrizione": "Gli attrezzi giusti per pulire meglio e con meno fatica.", "immagine": { "src": null, "alt": "Scope e mop", "label": "Scope e mop" } },
+      { "titolo": "Igiene e carta", "descrizione": "Carta igienica, fazzoletti e rotoloni a scorta, sempre in offerta.", "immagine": { "src": null, "alt": "Carta e igiene", "label": "Carta e igiene" } },
+      { "titolo": "Bagno e benessere", "descrizione": "Shampoo, bagnoschiuma e creme per prenderti cura di te.", "immagine": { "src": null, "alt": "Prodotti per la cura persona", "label": "Benessere" } }
+    ],
+    "ordine": 3,
+    "visibile": true,
+    "seo": {
+      "title": "Pulizia casa e cura della persona | Home & Co.",
+      "description": "Detersivi, accessori per la pulizia e prodotti per la cura della persona a prezzi convenienti da Home & Co."
+    },
+    "provvisorio": true
+  },
+  {
+    "slug": "animali",
+    "titolo": "Articoli e cura per animali",
+    "titoloBreve": "Animali",
+    "descrizione": "Cibo, cucce, giochi e accessori per cani, gatti e piccoli amici.",
+    "descrizioneLunga": "I tuoi amici a quattro zampe meritano il meglio: crocchette e umido, snack, cucce e cuscini, ciotole, guinzagli, giochi e prodotti per l'igiene e la cura. Anche per uccellini e pesci trovi tutto l'occorrente.",
+    "immagine": { "src": null, "alt": "Cane e gatto con accessori", "label": "Animali" },
+    "icona": "animali",
+    "colore": "#D81B6A",
+    "inEvidenza": [
+      { "titolo": "Cibo per cani e gatti", "descrizione": "Crocchette, umido e snack delle marche che i tuoi animali amano.", "immagine": { "src": null, "alt": "Cibo per animali", "label": "Cibo" }, "badge": "Più scelti" },
+      { "titolo": "Cucce e cuscini", "descrizione": "Comode e lavabili: il posto perfetto per fare le fusa o un riposino.", "immagine": { "src": null, "alt": "Cuccia per cani", "label": "Cucce" } },
+      { "titolo": "Giochi e passeggiate", "descrizione": "Guinzagli, pettorine e giochi per tenere in forma chi ti ama.", "immagine": { "src": null, "alt": "Giochi per animali", "label": "Giochi" } },
+      { "titolo": "Igiene e cura", "descrizione": "Shampoo, spazzole e lettiere per un pelo sempre bello.", "immagine": { "src": null, "alt": "Igiene per animali", "label": "Igiene" } }
+    ],
+    "ordine": 4,
+    "visibile": true,
+    "seo": {
+      "title": "Articoli e cura per animali | Home & Co.",
+      "description": "Cibo, cucce, giochi e accessori per cani, gatti e altri animali domestici: trovali da Home & Co."
+    },
+    "provvisorio": true
+  },
+  {
+    "slug": "giardinaggio",
+    "titolo": "Giardinaggio e outdoor",
+    "titoloBreve": "Giardinaggio",
+    "descrizione": "Vasi, attrezzi e idee per balconi, terrazze e giardini.",
+    "descrizioneLunga": "Che tu abbia un giardino o solo un balcone, qui trovi l'occorrente: vasi e sottovasi, terriccio, semi e bulbi di stagione, attrezzi da giardino, tubi per irrigare e arredi per goderti l'aria aperta.",
+    "immagine": { "src": null, "alt": "Balcone fiorito con vasi", "label": "Giardinaggio" },
+    "icona": "giardino",
+    "colore": "#0B6CB0",
+    "inEvidenza": [
+      { "titolo": "Vasi e fioriere", "descrizione": "Terracotta, resina e plastica in tutte le misure e i colori.", "immagine": { "src": null, "alt": "Vasi", "label": "Vasi" }, "badge": "Più scelti" },
+      { "titolo": "Attrezzi da giardino", "descrizione": "Palette, forbici e rastrelli robusti per ogni lavoro.", "immagine": { "src": null, "alt": "Attrezzi da giardino", "label": "Attrezzi" } },
+      { "titolo": "Irrigazione", "descrizione": "Tubi, irrigatori e annaffiatoi per piante sempre in forma.", "immagine": { "src": null, "alt": "Irrigazione", "label": "Irrigazione" } },
+      { "titolo": "Semi e bulbi", "descrizione": "Per orto e aiuole di stagione: basta una manciata di terra.", "immagine": { "src": null, "alt": "Semi e bulbi", "label": "Semi" }, "badge": "Di stagione" }
+    ],
+    "ordine": 5,
+    "visibile": true,
+    "seo": {
+      "title": "Giardinaggio e outdoor | Home & Co.",
+      "description": "Vasi, attrezzi, terricci e semi per balconi e giardini: trova tutto per il tuo spazio verde da Home & Co."
+    },
+    "provvisorio": true
+  },
+  {
+    "slug": "hobby-cartoleria-auto",
+    "titolo": "Hobby, cartoleria, elettronica e cura dell'auto",
+    "titoloBreve": "Hobby, cartoleria e auto",
+    "descrizione": "Cancelleria, fai da te, piccola elettronica e prodotti per la tua auto.",
+    "descrizioneLunga": "Per la scuola, l'ufficio e il tempo libero: quaderni, zaini e cancelleria, colori e materiale creativo, ferramenta e fai da te, cavi e accessori elettronici, e tutto per la cura e la pulizia dell'auto.",
+    "immagine": { "src": null, "alt": "Cancelleria colorata e attrezzi", "label": "Hobby, cartoleria e auto" },
+    "icona": "hobby",
+    "colore": "#D81B6A",
+    "inEvidenza": [
+      { "titolo": "Cancelleria e scuola", "descrizione": "Quaderni, zaini, penne e astucci per iniziare bene l'anno.", "immagine": { "src": null, "alt": "Cancelleria", "label": "Cancelleria" }, "badge": "Più scelti" },
+      { "titolo": "Fai da te e ferramenta", "descrizione": "Viti, utensili e adesivi per le riparazioni di casa.", "immagine": { "src": null, "alt": "Ferramenta", "label": "Ferramenta" } },
+      { "titolo": "Elettronica pratica", "descrizione": "Caricabatterie, cavi, pile e lampadine sempre a portata di mano.", "immagine": { "src": null, "alt": "Accessori elettronici", "label": "Elettronica" } },
+      { "titolo": "Cura dell'auto", "descrizione": "Detergenti, spugne e profumatori per un abitacolo come nuovo.", "immagine": { "src": null, "alt": "Cura dell'auto", "label": "Auto" } }
+    ],
+    "ordine": 6,
+    "visibile": true,
+    "seo": {
+      "title": "Hobby, cartoleria, elettronica e cura dell'auto | Home & Co.",
+      "description": "Cancelleria, ferramenta, hobby creativi, elettronica e prodotti per l'auto: scopri l'assortimento Home & Co."
+    },
+    "provvisorio": true
+  }
+]

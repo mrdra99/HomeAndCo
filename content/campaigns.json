@@ -1,0 +1,47 @@
+[
+  {
+    "id": "default",
+    "titolo": "Il negozio su misura per la tua casa!",
+    "sottotitolo": "Biancheria, cucina, pulizia, animali e mille idee per ogni stanza: scoprile nei nostri tre negozi in Toscana.",
+    "inizio": null,
+    "fine": null,
+    "immagineHero": { "src": null, "alt": "Scaffali colorati di un negozio Home & Co.", "label": "Hero Home & Co." },
+    "accento": "#D81B6A",
+    "tema": "default",
+    "cta": { "label": "Vedi le offerte", "href": "/offerte/" },
+    "ctaSecondaria": { "label": "Trova il negozio", "href": "/#dove-siamo" },
+    "corridoiInEvidenza": ["casa-e-cucina", "biancheria-e-arredo", "pulizia-e-cura-persona"],
+    "priorita": 0,
+    "provvisorio": true
+  },
+  {
+    "id": "halloween-2026",
+    "titolo": "Halloween da brividi, a prezzi da sorriso",
+    "sottotitolo": "Decorazioni, maschere, dolcetti e tutto per la festa più paurosa dell'anno. Dolcetto o scherzetto?",
+    "inizio": "2026-10-01",
+    "fine": "2026-11-01",
+    "immagineHero": { "src": null, "alt": "Zucche e decorazioni di Halloween", "label": "Hero Halloween" },
+    "accento": "#6B2A8C",
+    "tema": "halloween",
+    "cta": { "label": "Speciale Halloween", "href": "/offerte/" },
+    "ctaSecondaria": { "label": "Trova il negozio", "href": "/#dove-siamo" },
+    "corridoiInEvidenza": ["casa-e-cucina", "hobby-cartoleria-auto", "biancheria-e-arredo"],
+    "priorita": 10,
+    "provvisorio": true
+  },
+  {
+    "id": "natale-2026",
+    "titolo": "Un Natale che sa di casa",
+    "sottotitolo": "Alberi, luci, tavole in festa e idee regalo per tutti: da noi trovi tutto per le feste, senza stress.",
+    "inizio": "2026-11-27",
+    "fine": "2027-01-06",
+    "immagineHero": { "src": null, "alt": "Tavola natalizia apparecchiata", "label": "Hero Natale" },
+    "accento": "#A3123F",
+    "tema": "natale",
+    "cta": { "label": "Idee regalo e offerte", "href": "/offerte/" },
+    "ctaSecondaria": { "label": "Trova il negozio", "href": "/#dove-siamo" },
+    "corridoiInEvidenza": ["casa-e-cucina", "biancheria-e-arredo", "hobby-cartoleria-auto"],
+    "priorita": 10,
+    "provvisorio": true
+  }
+]
