@@ -1,0 +1,16 @@
+{
+  "nome": "Carta Fedeltà Home & Co.",
+  "intro": "Più vieni a trovarci, più risparmi. La carta fedeltà Home & Co. è il nostro modo di dirti grazie.",
+  "vantaggi": [
+    { "titolo": "Sconti dedicati", "testo": "Prezzi riservati ai possessori della carta su prodotti selezionati.", "icona": "sconto" },
+    { "titolo": "Punti che valgono", "testo": "A ogni acquisto accumuli punti da trasformare in buoni spesa.", "icona": "punti" },
+    { "titolo": "Anteprime e novità", "testo": "Scopri per primo offerte e iniziative stagionali.", "icona": "novita" }
+  ],
+  "comeRichiederla": "Chiedila in cassa in uno dei nostri tre negozi: è gratuita e si attiva subito. Basta un documento e pochi minuti.",
+  "faq": [
+    { "d": "La carta è gratuita?", "r": "Sì, la richiesta è gratuita." },
+    { "d": "Posso usarla in tutti i negozi?", "r": "Sì, vale a Prato, Lucca e Sesto Fiorentino." },
+    { "d": "Come controllo i miei punti?", "r": "Chiedi in cassa il saldo punti." }
+  ],
+  "provvisorio": true
+}

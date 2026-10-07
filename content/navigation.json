@@ -1,0 +1,12 @@
+[
+  { "label": "Home", "href": "/" },
+  { "label": "Offerte", "href": "/offerte/" },
+  { "label": "Casa e cucina", "href": "/corridoi/casa-e-cucina/" },
+  { "label": "Biancheria e arredo", "href": "/corridoi/biancheria-e-arredo/" },
+  { "label": "Pulizia e cura persona", "href": "/corridoi/pulizia-e-cura-persona/" },
+  { "label": "Animali", "href": "/corridoi/animali/" },
+  { "label": "Giardinaggio", "href": "/corridoi/giardinaggio/" },
+  { "label": "Hobby, cartoleria e auto", "href": "/corridoi/hobby-cartoleria-auto/" },
+  { "label": "Carta fedeltà", "href": "/carta-fedelta/" },
+  { "label": "Dove siamo", "href": "/#dove-siamo", "evidenza": true }
+]

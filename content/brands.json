@@ -1,0 +1,114 @@
+[
+  {
+    "id": "brand-01",
+    "nome": "Brand Cucina",
+    "logo": {
+      "src": null
+    },
+    "provvisorio": true
+  },
+  {
+    "id": "brand-02",
+    "nome": "Brand Tessile",
+    "logo": {
+      "src": null
+    },
+    "provvisorio": true
+  },
+  {
+    "id": "brand-03",
+    "nome": "Brand Pulizia",
+    "logo": {
+      "src": null
+    },
+    "provvisorio": true
+  },
+  {
+    "id": "brand-04",
+    "nome": "Brand Bagno",
+    "logo": {
+      "src": null
+    },
+    "provvisorio": true
+  },
+  {
+    "id": "brand-05",
+    "nome": "Brand Animali",
+    "logo": {
+      "src": null
+    },
+    "provvisorio": true
+  },
+  {
+    "id": "brand-06",
+    "nome": "Brand Giardino",
+    "logo": {
+      "src": null
+    },
+    "provvisorio": true
+  },
+  {
+    "id": "brand-07",
+    "nome": "Brand Cartoleria",
+    "logo": {
+      "src": null
+    },
+    "provvisorio": true
+  },
+  {
+    "id": "brand-08",
+    "nome": "Brand Elettronica",
+    "logo": {
+      "src": null
+    },
+    "provvisorio": true
+  },
+  {
+    "id": "brand-09",
+    "nome": "Brand Ferramenta",
+    "logo": {
+      "src": null
+    },
+    "provvisorio": true
+  },
+  {
+    "id": "brand-10",
+    "nome": "Brand Auto",
+    "logo": {
+      "src": null
+    },
+    "provvisorio": true
+  },
+  {
+    "id": "brand-11",
+    "nome": "Brand Arredo",
+    "logo": {
+      "src": null
+    },
+    "provvisorio": true
+  },
+  {
+    "id": "brand-12",
+    "nome": "Brand Tavola",
+    "logo": {
+      "src": null
+    },
+    "provvisorio": true
+  },
+  {
+    "id": "brand-13",
+    "nome": "Brand Bucato",
+    "logo": {
+      "src": null
+    },
+    "provvisorio": true
+  },
+  {
+    "id": "brand-14",
+    "nome": "Brand Hobby",
+    "logo": {
+      "src": null
+    },
+    "provvisorio": true
+  }
+]
