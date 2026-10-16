@@ -13,10 +13,10 @@ export function AisleStoresCta({ corridoio, citta }: { corridoio: string; citta:
   return (
     <Section tone="blue" rounded className="mx-3 sm:mx-6">
       <Reveal className="mx-auto max-w-3xl text-center">
-        <h2 className="text-white">Trovi tutto questo nei nostri negozi</h2>
+        <h2 className="text-white">Vieni a scegliere in negozio.</h2>
         <p className="mt-4 text-lg text-white/85">
           Il reparto {corridoio.toLowerCase()} ti aspetta{citta.length > 0 ? ` a ${joinIt(citta)}` : ""}.
-          Passa a toccare con mano, scegli con calma e porta a casa l&apos;idea giusta.
+          {" "}Se cerchi un articolo preciso, il personale ti aiuta a trovarlo.
         </p>
         <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
           <Button href="/dove-siamo/" size="lg" className="bg-white text-brand-blue-900 hover:bg-white/90" iconLeft={<Icon name="map-pin" size={20} />}>

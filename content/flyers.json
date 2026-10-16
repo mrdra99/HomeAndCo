@@ -1,59 +1,148 @@
 [
   {
-    "id": "halloween-2026",
-    "titolo": "Speciale Halloween",
-    "validoDal": "2026-10-01",
-    "validoAl": "2026-10-31",
+    "id": "settembre-2026",
+    "titolo": "Volantino settembre 2026",
+    "validoDal": "2026-09-07",
+    "validoAl": "2026-09-14",
     "negozi": "tutti",
     "pagine": [
       {
-        "src": "/uploads/flyers/halloween-2026-p1.svg",
-        "alt": "Speciale Halloween, pagina 1",
-        "label": "Pagina 1"
+        "src": "/uploads/flyers/home-co-settembre-2026-1.webp",
+        "alt": "Volantino settembre 2026, pagina 1"
       },
       {
-        "src": "/uploads/flyers/halloween-2026-p2.svg",
-        "alt": "Speciale Halloween, pagina 2",
-        "label": "Pagina 2"
+        "src": "/uploads/flyers/home-co-settembre-2026-2.webp",
+        "alt": "Volantino settembre 2026, pagina 2"
       },
       {
-        "src": "/uploads/flyers/halloween-2026-p3.svg",
-        "alt": "Speciale Halloween, pagina 3",
-        "label": "Pagina 3"
+        "src": "/uploads/flyers/home-co-settembre-2026-3.webp",
+        "alt": "Volantino settembre 2026, pagina 3"
+      },
+      {
+        "src": "/uploads/flyers/home-co-settembre-2026-4.webp",
+        "alt": "Volantino settembre 2026, pagina 4"
+      },
+      {
+        "src": "/uploads/flyers/home-co-settembre-2026-5.webp",
+        "alt": "Volantino settembre 2026, pagina 5"
+      },
+      {
+        "src": "/uploads/flyers/home-co-settembre-2026-6.webp",
+        "alt": "Volantino settembre 2026, pagina 6"
+      },
+      {
+        "src": "/uploads/flyers/home-co-settembre-2026-7.webp",
+        "alt": "Volantino settembre 2026, pagina 7"
+      },
+      {
+        "src": "/uploads/flyers/home-co-settembre-2026-8.webp",
+        "alt": "Volantino settembre 2026, pagina 8"
       }
     ],
-    "pdf": "/uploads/flyers/halloween-2026.pdf",
+    "pdf": "/uploads/flyers/home-co-settembre-2026.pdf",
     "copertina": {
-      "src": "/uploads/flyers/halloween-2026-copertina.svg",
-      "alt": "Copertina del volantino Speciale Halloween",
-      "label": "Copertina"
+      "src": "/uploads/flyers/home-co-settembre-2026-1.webp",
+      "alt": "Volantino settembre 2026, pagina 1"
     },
-    "provvisorio": true
+    "provvisorio": false
   },
   {
-    "id": "settembre-2026",
-    "titolo": "Torna la scuola",
-    "validoDal": "2026-09-01",
-    "validoAl": "2026-09-30",
-    "negozi": "tutti",
+    "id": "apertura-sesto-2026",
+    "titolo": "Apertura Sesto Fiorentino",
+    "validoDal": "2026-06-27",
+    "validoAl": "2026-07-12",
+    "negozi": [
+      "sesto-fiorentino"
+    ],
     "pagine": [
       {
-        "src": "/uploads/flyers/settembre-2026-p1.svg",
-        "alt": "Torna la scuola, pagina 1",
-        "label": "Pagina 1"
+        "src": "/uploads/flyers/home-co-apertura-sesto-2026-1.webp",
+        "alt": "Apertura Sesto Fiorentino, pagina 1"
       },
       {
-        "src": "/uploads/flyers/settembre-2026-p2.svg",
-        "alt": "Torna la scuola, pagina 2",
-        "label": "Pagina 2"
+        "src": "/uploads/flyers/home-co-apertura-sesto-2026-2.webp",
+        "alt": "Apertura Sesto Fiorentino, pagina 2"
+      },
+      {
+        "src": "/uploads/flyers/home-co-apertura-sesto-2026-3.webp",
+        "alt": "Apertura Sesto Fiorentino, pagina 3"
+      },
+      {
+        "src": "/uploads/flyers/home-co-apertura-sesto-2026-4.webp",
+        "alt": "Apertura Sesto Fiorentino, pagina 4"
+      },
+      {
+        "src": "/uploads/flyers/home-co-apertura-sesto-2026-5.webp",
+        "alt": "Apertura Sesto Fiorentino, pagina 5"
+      },
+      {
+        "src": "/uploads/flyers/home-co-apertura-sesto-2026-6.webp",
+        "alt": "Apertura Sesto Fiorentino, pagina 6"
+      },
+      {
+        "src": "/uploads/flyers/home-co-apertura-sesto-2026-7.webp",
+        "alt": "Apertura Sesto Fiorentino, pagina 7"
+      },
+      {
+        "src": "/uploads/flyers/home-co-apertura-sesto-2026-8.webp",
+        "alt": "Apertura Sesto Fiorentino, pagina 8"
       }
     ],
-    "pdf": "/uploads/flyers/settembre-2026.pdf",
+    "pdf": "/uploads/flyers/home-co-apertura-sesto-2026.pdf",
     "copertina": {
-      "src": "/uploads/flyers/settembre-2026-copertina.svg",
-      "alt": "Copertina del volantino Torna la scuola",
-      "label": "Copertina"
+      "src": "/uploads/flyers/home-co-apertura-sesto-2026-1.webp",
+      "alt": "Apertura Sesto Fiorentino, pagina 1"
     },
-    "provvisorio": true
+    "provvisorio": false
+  },
+  {
+    "id": "primavera-2026",
+    "titolo": "Volantino primavera 2026",
+    "validoDal": "2026-04-11",
+    "validoAl": "2026-04-19",
+    "negozi": [
+      "prato",
+      "lucca"
+    ],
+    "pagine": [
+      {
+        "src": "/uploads/flyers/home-co-primavera-2026-1.webp",
+        "alt": "Volantino primavera 2026, pagina 1"
+      },
+      {
+        "src": "/uploads/flyers/home-co-primavera-2026-2.webp",
+        "alt": "Volantino primavera 2026, pagina 2"
+      },
+      {
+        "src": "/uploads/flyers/home-co-primavera-2026-3.webp",
+        "alt": "Volantino primavera 2026, pagina 3"
+      },
+      {
+        "src": "/uploads/flyers/home-co-primavera-2026-4.webp",
+        "alt": "Volantino primavera 2026, pagina 4"
+      },
+      {
+        "src": "/uploads/flyers/home-co-primavera-2026-5.webp",
+        "alt": "Volantino primavera 2026, pagina 5"
+      },
+      {
+        "src": "/uploads/flyers/home-co-primavera-2026-6.webp",
+        "alt": "Volantino primavera 2026, pagina 6"
+      },
+      {
+        "src": "/uploads/flyers/home-co-primavera-2026-7.webp",
+        "alt": "Volantino primavera 2026, pagina 7"
+      },
+      {
+        "src": "/uploads/flyers/home-co-primavera-2026-8.webp",
+        "alt": "Volantino primavera 2026, pagina 8"
+      }
+    ],
+    "pdf": "/uploads/flyers/home-co-primavera-2026.pdf",
+    "copertina": {
+      "src": "/uploads/flyers/home-co-primavera-2026-1.webp",
+      "alt": "Volantino primavera 2026, pagina 1"
+    },
+    "provvisorio": false
   }
 ]

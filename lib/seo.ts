@@ -19,10 +19,13 @@ export function absoluteUrl(path: string): string {
 
 /** Metadata completi: canonical, Open Graph, Twitter, locale it_IT. */
 export function buildMetadata({ title, description, path, image, noindex }: BuildMetadataInput): Metadata {
+  // Alcuni contenuti includono già il brand: il template del layout lo aggiunge una volta sola.
+  const pageTitle = title.endsWith(` | ${SITE_NAME}`) ? title.slice(0, -(` | ${SITE_NAME}`.length)) : title;
   const url = absoluteUrl(path);
-  const images = image ? [{ url: absoluteUrl(image) }] : undefined;
+  const socialImage = image ?? "/brand/social.png";
+  const images = [{ url: absoluteUrl(socialImage) }];
   return {
-    title,
+    title: pageTitle,
     description,
     alternates: { canonical: url },
     openGraph: {
@@ -35,10 +38,10 @@ export function buildMetadata({ title, description, path, image, noindex }: Buil
       images,
     },
     twitter: {
-      card: images ? "summary_large_image" : "summary",
+      card: "summary_large_image",
       title,
       description,
-      images: image ? [absoluteUrl(image)] : undefined,
+      images: [absoluteUrl(socialImage)],
     },
     robots: noindex ? { index: false, follow: false } : undefined,
   };
@@ -70,6 +73,7 @@ export function jsonLdLocalBusiness(stores: Store[], settings: Settings) {
     name: settings.nomeSito,
     legalName: settings.societa.ragioneSociale,
     url: SITE_URL,
+    logo: { "@type": "ImageObject", url: absoluteUrl("/brand/logo.png"), width: 1200, height: 334 },
     email: settings.societa.email,
     vatID: `IT${settings.societa.piva}`,
     slogan: settings.claim,
@@ -81,6 +85,7 @@ export function jsonLdLocalBusiness(stores: Store[], settings: Settings) {
     "@id": `${SITE_URL}/dove-siamo/#${s.id}`,
     name: s.nome,
     url: absoluteUrl("/dove-siamo/"),
+    image: absoluteUrl(s.immagine.src ?? "/brand/social.png"),
     parentOrganization: { "@id": orgId },
     address: {
       "@type": "PostalAddress",

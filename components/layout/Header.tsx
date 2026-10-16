@@ -72,18 +72,18 @@ export function Header({ items }: { items: NavItem[] }) {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 bg-cream transition-shadow duration-300",
+        "sticky top-0 z-40 border-b border-brand-blue-100/60 bg-white transition-shadow duration-300",
         scrolled && "shadow-[0_6px_20px_-10px_rgb(11_42_71/0.35)]",
       )}
     >
       <div
         className={cn(
           "mx-auto flex w-full max-w-7xl items-center justify-between px-5 transition-[height] duration-300 sm:px-8",
-          scrolled ? "h-14" : "h-[4.5rem]",
+          scrolled ? "h-16 sm:h-[4.5rem]" : "h-18 sm:h-24",
         )}
       >
         <Link href="/" aria-label="Home & Co., vai alla home" className="rounded-lg">
-          <Logo className={cn("transition-[font-size] duration-300", scrolled ? "text-xl" : "text-2xl")} />
+          <Logo priority className={cn("transition-[width] duration-300", scrolled ? "w-36 sm:w-44" : "w-40 sm:w-56")} />
         </Link>
 
         <nav aria-label="Principale" className="hidden lg:block">
@@ -100,7 +100,7 @@ export function Header({ items }: { items: NavItem[] }) {
                       onClick={() => setAislesOpen((o) => !o)}
                       className={cn(linkClass(aislesActive), "inline-flex items-center gap-1")}
                     >
-                      Corridoi
+                      Reparti
                       <Icon
                         name="arrow-right"
                         size={16}

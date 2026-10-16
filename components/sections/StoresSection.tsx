@@ -3,10 +3,10 @@ import { Stagger, StaggerItem } from "@/components/motion/Stagger";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container } from "@/components/ui/Container";
 import { StoreCard } from "@/components/stores/StoreCard";
-import type { Store } from "@/lib/content/schemas";
+import type { HomeCopy, Store } from "@/lib/content/schemas";
 
 /** "Dove siamo" (#dove-siamo): sfondo sand con bordo superiore curvo che sfuma dal cream. */
-export function StoresSection({ stores }: { stores: Store[] }) {
+export function StoresSection({ stores, copy }: { stores: Store[]; copy: HomeCopy["negozi"] }) {
   return (
     <section id="dove-siamo" aria-labelledby="dove-siamo-title" className="relative mt-16 bg-sand pb-20 pt-6 sm:pb-28">
       <svg
@@ -24,10 +24,10 @@ export function StoresSection({ stores }: { stores: Store[] }) {
             eyebrow="Dove siamo"
             title={
               <span id="dove-siamo-title">
-                Vieni a <span className="underline-hand">trovarci</span>
+                {copy.titolo}
               </span>
             }
-            subtitle="Tre negozi in Toscana, sempre pieni di idee per la tua casa."
+            subtitle={copy.descrizione}
           />
         </Reveal>
         <Stagger className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">

@@ -21,7 +21,7 @@ export function LoyaltyCardMockup({ nome, className }: LoyaltyCardMockupProps) {
   const rotateX = useSpring(useTransform(py, [-0.5, 0.5], [8, -8]), spring);
 
   const onMove = (e: PointerEvent<HTMLDivElement>) => {
-    if (reduce) return;
+    if (reduce || e.pointerType !== "mouse") return;
     const r = e.currentTarget.getBoundingClientRect();
     px.set((e.clientX - r.left) / r.width - 0.5);
     py.set((e.clientY - r.top) / r.height - 0.5);
@@ -42,13 +42,13 @@ export function LoyaltyCardMockup({ nome, className }: LoyaltyCardMockupProps) {
       <m.div
         role="img"
         aria-label={`Tessera ${nome}`}
-        className="relative aspect-[1.586/1] w-full -rotate-3 overflow-hidden rounded-[var(--radius-lg)] bg-gradient-to-br from-brand-blue-600 via-brand-blue-700 to-brand-magenta-600 p-6 text-white shadow-pop"
-        style={reduce ? undefined : { rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className="relative aspect-[1.586/1] w-full overflow-hidden rounded-[var(--radius-lg)] bg-gradient-to-br from-brand-blue-600 via-brand-blue-700 to-brand-magenta-600 p-4 text-white shadow-pop sm:-rotate-3 sm:p-6"
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       >
         <div aria-hidden className="absolute -right-10 -top-10 size-44 rounded-full bg-white/10" />
         <div aria-hidden className="absolute -bottom-16 -left-8 size-48 rounded-full bg-brand-magenta-600/40" />
         <div className="relative flex h-full flex-col justify-between">
-          <Logo variant="white" className="text-3xl" />
+          <Logo variant="white" className="w-32 rounded-lg p-2 sm:w-40" />
           <div>
             <p className="font-display text-xl leading-tight">{nome}</p>
             <p aria-hidden className="mt-2 font-mono text-sm tracking-[0.3em] text-white/80">

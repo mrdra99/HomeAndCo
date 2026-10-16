@@ -12,7 +12,7 @@ const VARIANTS: Record<Variant, string> = {
   outline: "border-2 border-current bg-transparent text-brand-blue-700 hover:bg-brand-blue-50",
 };
 const SIZES: Record<Size, string> = {
-  sm: "min-h-10 px-4 text-sm",
+  sm: "min-h-11 px-4 text-sm",
   md: "min-h-12 px-6 text-base",
   lg: "min-h-14 px-8 text-lg",
 };
@@ -33,7 +33,7 @@ export type ButtonProps = AsLink | AsButton;
 export function Button(props: ButtonProps) {
   const { variant = "primary", size = "md", iconLeft, iconRight, className, children, ...rest } = props;
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 rounded-full font-semibold leading-none",
+    "inline-flex items-center justify-center gap-2 rounded-full py-3 text-center font-semibold leading-snug",
     "transition-[background-color,transform,box-shadow] duration-200 active:scale-[0.97]",
     "disabled:pointer-events-none disabled:opacity-50",
     VARIANTS[variant],

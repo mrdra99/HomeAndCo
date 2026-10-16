@@ -1,0 +1,19 @@
+{
+  "reparti": {
+    "titolo": "Di cosa hai bisogno?",
+    "descrizione": "Dal detersivo ai bicchieri nuovi. Scegli il reparto, poi vieni a dare un’occhiata in negozio.",
+    "cta": "Guarda il reparto"
+  },
+  "negozi": {
+    "titolo": "Ci trovi qui.",
+    "descrizione": "Prato, Lucca e Sesto Fiorentino. Scegli il negozio più comodo e calcola il percorso."
+  },
+  "volantini": {
+    "titolo": "I volantini Home & Co.",
+    "introAttivo": "Sfoglia le offerte e controlla le date prima di passare in negozio.",
+    "introArchivio": "Qui trovi le ultime edizioni pubblicate. Le offerte concluse restano nell’archivio, con le loro date.",
+    "ctaAttivo": "Sfoglia il volantino",
+    "ctaArchivio": "Vedi i volantini",
+    "statoArchivio": "Edizione conclusa"
+  }
+}

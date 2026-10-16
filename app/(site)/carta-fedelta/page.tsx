@@ -112,7 +112,7 @@ export default async function CartaFedeltaPage() {
             inverted
             align="center"
             title="Chiedila oggi nel tuo negozio"
-            subtitle="Ti basta passare in cassa: in pochi minuti la carta è tua."
+            subtitle="Il personale ti spiega come richiederla e quali iniziative sono attive."
           />
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button href="/dove-siamo/" size="lg" iconRight={<Icon name="arrow-right" size={20} />}>

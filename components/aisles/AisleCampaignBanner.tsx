@@ -27,10 +27,10 @@ export function AisleCampaignBanner({ campaigns, buildCampaignId, slug }: Props)
     <Reveal>
       <div
         style={{ ["--accent" as string]: campaign.accento }}
-        className="on-dark relative flex flex-col gap-5 overflow-hidden rounded-xl bg-accent p-6 text-white shadow-lift sm:flex-row sm:items-center sm:justify-between sm:p-10"
+        className="campaign-banner on-dark relative flex flex-col gap-5 overflow-hidden rounded-xl bg-accent p-6 text-white shadow-lift sm:flex-row sm:items-center sm:justify-between sm:p-10"
       >
         <div className="max-w-2xl">
-          <Sticker tone="white" rotate={-3}>Speciale</Sticker>
+          <Sticker tone="white" rotate={-3}>{campaign.etichetta ?? "Speciale"}</Sticker>
           <h2 className="mt-4 text-white">{campaign.titolo}</h2>
           <p className="mt-3 text-lg text-white/90">{campaign.sottotitolo}</p>
         </div>

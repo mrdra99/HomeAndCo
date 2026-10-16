@@ -9,7 +9,7 @@ type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
 
 const TONES = {
   magenta: "bg-brand-magenta-600 text-white",
-  accent: "bg-accent text-white",
+  accent: "bg-accent text-[var(--accent-contrast)]",
   blue: "bg-brand-blue-600 text-white",
   sand: "bg-sand text-brand-blue-900",
   white: "bg-white text-brand-blue-900",

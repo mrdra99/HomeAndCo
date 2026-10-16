@@ -1,47 +1,130 @@
 [
   {
     "id": "default",
-    "titolo": "Il negozio su misura per la tua casa!",
-    "sottotitolo": "Biancheria, cucina, pulizia, animali e mille idee per ogni stanza: scoprile nei nostri tre negozi in Toscana.",
+    "titolo": "C’è sempre qualcosa che serve per casa.",
+    "sottotitolo": "Il detersivo è finito? Servono piatti nuovi o un cambio di lenzuola? Passa da Home & Co.: casalinghi, biancheria e prodotti per la casa, in tre negozi in Toscana.",
     "inizio": null,
     "fine": null,
-    "immagineHero": { "src": null, "alt": "Scaffali colorati di un negozio Home & Co.", "label": "Hero Home & Co." },
-    "accento": "#D81B6A",
+    "immagineHero": {
+      "src": "/uploads/photos/home-co-corsia-casalinghi.webp",
+      "alt": "Una corsia del negozio Home & Co. con articoli per la casa"
+    },
+    "accento": "#D11559",
     "tema": "default",
-    "cta": { "label": "Vedi le offerte", "href": "/offerte/" },
-    "ctaSecondaria": { "label": "Trova il negozio", "href": "/#dove-siamo" },
-    "corridoiInEvidenza": ["casa-e-cucina", "biancheria-e-arredo", "pulizia-e-cura-persona"],
+    "cta": {
+      "label": "Vedi le offerte",
+      "href": "/offerte/"
+    },
+    "ctaSecondaria": {
+      "label": "Trova il negozio",
+      "href": "/#dove-siamo"
+    },
+    "corridoiInEvidenza": [
+      "casa-e-cucina",
+      "biancheria-e-arredo",
+      "pulizia-e-cura-persona"
+    ],
     "priorita": 0,
-    "provvisorio": true
+    "provvisorio": true,
+    "etichetta": "Home & Co. • Prato, Lucca e Sesto Fiorentino"
   },
   {
     "id": "halloween-2026",
-    "titolo": "Halloween da brividi, a prezzi da sorriso",
-    "sottotitolo": "Decorazioni, maschere, dolcetti e tutto per la festa più paurosa dell'anno. Dolcetto o scherzetto?",
+    "titolo": "Ti manca qualcosa per Halloween?",
+    "sottotitolo": "Per la tavola, gli addobbi e gli ultimi preparativi del 31 ottobre. Guarda i reparti e fai un salto nel negozio più vicino.",
     "inizio": "2026-10-01",
     "fine": "2026-11-01",
-    "immagineHero": { "src": null, "alt": "Zucche e decorazioni di Halloween", "label": "Hero Halloween" },
-    "accento": "#6B2A8C",
+    "immagineHero": {
+      "src": "/uploads/photos/halloween.webp",
+      "alt": "Zucche decorative e ragnatele su fondo arancione e nero",
+      "position": "70% 20%"
+    },
+    "accento": "#FF8A24",
     "tema": "halloween",
-    "cta": { "label": "Speciale Halloween", "href": "/offerte/" },
-    "ctaSecondaria": { "label": "Trova il negozio", "href": "/#dove-siamo" },
-    "corridoiInEvidenza": ["casa-e-cucina", "hobby-cartoleria-auto", "biancheria-e-arredo"],
+    "cta": {
+      "label": "Guarda i reparti",
+      "href": "/#idee-di-stagione"
+    },
+    "ctaSecondaria": {
+      "label": "Trova il negozio",
+      "href": "/#dove-siamo"
+    },
+    "corridoiInEvidenza": [
+      "casa-e-cucina",
+      "hobby-cartoleria-auto",
+      "biancheria-e-arredo"
+    ],
     "priorita": 10,
-    "provvisorio": true
+    "provvisorio": true,
+    "etichetta": "Speciale Halloween",
+    "collezione": {
+      "titolo": "La festa comincia dai preparativi.",
+      "descrizione": "Inviti a cena, lavoretti con i bambini o un film sul divano? Ecco da dove partire.",
+      "idee": [
+        {
+          "titolo": "Metti tutti a tavola",
+          "testo": "Piatti, bicchieri e accessori. Prima di pensare al menu, fai un giro nel reparto casa.",
+          "corridoio": "casa-e-cucina",
+          "icona": "cucina",
+          "immagine": {
+            "src": "/uploads/photos/tavola-halloween.webp",
+            "alt": "Tavola apparecchiata con candele nere e zucche"
+          }
+        },
+        {
+          "titolo": "Gli addobbi li fai tu",
+          "testo": "Carta, cartoncini e colori: per i lavoretti dei bambini e le decorazioni dell’ultimo minuto.",
+          "corridoio": "hobby-cartoleria-auto",
+          "icona": "hobby",
+          "immagine": {
+            "src": "/uploads/photos/carta-e-colori.webp",
+            "alt": "Matite colorate e materiali per i lavori creativi"
+          }
+        },
+        {
+          "titolo": "Resti a casa?",
+          "testo": "Cuscini e plaid per stare comodi. Anche quando il programma è un film horror.",
+          "corridoio": "biancheria-e-arredo",
+          "icona": "tessile",
+          "immagine": {
+            "src": "/uploads/photos/plaid-divano.webp",
+            "alt": "Plaid a disegno geometrico su un divano"
+          }
+        }
+      ]
+    },
+    "ricorrenza": "annuale",
+    "contrastoAccento": "#0B2A47",
+    "accentoTesto": "#A63B00"
   },
   {
     "id": "natale-2026",
-    "titolo": "Un Natale che sa di casa",
-    "sottotitolo": "Alberi, luci, tavole in festa e idee regalo per tutti: da noi trovi tutto per le feste, senza stress.",
+    "titolo": "È il momento di preparare il Natale.",
+    "sottotitolo": "Addobbi, decorazioni e articoli per la tavola. Vieni a vedere il reparto natalizio e scegli con calma cosa portare a casa.",
     "inizio": "2026-11-27",
     "fine": "2027-01-06",
-    "immagineHero": { "src": null, "alt": "Tavola natalizia apparecchiata", "label": "Hero Natale" },
+    "immagineHero": {
+      "src": "/uploads/photos/home-co-reparto-natale.webp",
+      "alt": "Albero e decorazioni nel reparto natalizio Home & Co."
+    },
     "accento": "#A3123F",
     "tema": "natale",
-    "cta": { "label": "Idee regalo e offerte", "href": "/offerte/" },
-    "ctaSecondaria": { "label": "Trova il negozio", "href": "/#dove-siamo" },
-    "corridoiInEvidenza": ["casa-e-cucina", "biancheria-e-arredo", "hobby-cartoleria-auto"],
+    "cta": {
+      "label": "Idee regalo e offerte",
+      "href": "/offerte/"
+    },
+    "ctaSecondaria": {
+      "label": "Trova il negozio",
+      "href": "/#dove-siamo"
+    },
+    "corridoiInEvidenza": [
+      "casa-e-cucina",
+      "biancheria-e-arredo",
+      "hobby-cartoleria-auto"
+    ],
     "priorita": 10,
-    "provvisorio": true
+    "provvisorio": true,
+    "etichetta": "Speciale Natale",
+    "ricorrenza": "annuale"
   }
 ]

@@ -108,7 +108,7 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
           onDragEnd={onDragEnd}
           initial={{ opacity: 0, x: dir * 40 }}
           animate={{ opacity: 1, x: 0 }}
-          className="relative cursor-grab overflow-hidden rounded-lg bg-white shadow-lift active:cursor-grabbing"
+          className="relative cursor-grab overflow-hidden rounded-lg bg-white shadow-lift [touch-action:pan-y_pinch-zoom] active:cursor-grabbing"
         >
           {page.src ? (
             <div className="relative aspect-[3/4] w-full">
@@ -119,7 +119,7 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
                 sizes="(min-width: 640px) 576px, 100vw"
                 draggable={false}
                 className="select-none object-contain"
-                priority={index === 0}
+                preload={index === 0}
               />
             </div>
           ) : (
@@ -162,7 +162,7 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
         Pagina {index + 1} di {pages.length}
       </p>
       {pages.length > 1 && (
-        <ul className="mt-2 flex justify-center" aria-label="Vai alla pagina">
+        <ul className="mt-2 flex flex-wrap justify-center" aria-label="Vai alla pagina">
           {pages.map((p, i) => (
             <li key={i}>
               <button
@@ -173,7 +173,7 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
                 }}
                 aria-label={`Pagina ${i + 1}`}
                 aria-current={i === index ? "true" : undefined}
-                className="group inline-flex size-9 items-center justify-center"
+                className="group inline-flex size-11 items-center justify-center"
               >
                 <span
                   className={cn(
@@ -189,6 +189,7 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
 
       <dialog
         ref={dialogRef}
+        data-lenis-prevent
         aria-label={`${title}, ${pageLabel}`}
         onClose={() => setZoomOpen(false)}
         onClick={(e) => {
@@ -199,11 +200,11 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
       >
         {zoomOpen && (
           <div className="on-dark flex h-full flex-col">
-            <div className="flex items-center justify-between gap-3 p-3 sm:p-4">
-              <p className="px-2 font-semibold">
+            <div className="flex flex-wrap items-center justify-between gap-3 px-3 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))] sm:p-4">
+              <p className="min-w-0 flex-1 basis-full px-2 text-sm font-semibold sm:basis-auto sm:text-base">
                 {title} · {index + 1}/{pages.length}
               </p>
-              <div className="flex items-center gap-2">
+              <div className="ml-auto flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => setZoomed((z) => !z)}
@@ -223,7 +224,7 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
                 </button>
               </div>
             </div>
-            <div className="relative min-h-0 flex-1 overflow-auto px-3 pb-20 [touch-action:pan-x_pan-y_pinch-zoom]">
+            <div className="relative min-h-0 flex-1 overflow-auto overscroll-contain px-3 pb-20 [touch-action:pan-x_pan-y_pinch-zoom]">
               {page.src ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -238,7 +239,7 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
               )}
             </div>
             {pages.length > 1 && (
-              <div className="pointer-events-none absolute inset-x-0 bottom-4 flex justify-center gap-3">
+              <div className="pointer-events-none absolute inset-x-0 bottom-[max(1rem,env(safe-area-inset-bottom))] flex justify-center gap-3">
                 <Arrow dir="prev" onClick={() => go(-1)} disabled={index === 0} className="pointer-events-auto" />
                 <Arrow dir="next" onClick={() => go(1)} disabled={index === last} className="pointer-events-auto" />
               </div>

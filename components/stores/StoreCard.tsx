@@ -18,8 +18,7 @@ import {
 type StoreCardProps = { store: Store };
 
 /**
- * Scheda sede riusabile (home e /dove-siamo/). Mappa OpenStreetMap lazy; su mobile prima
- * un'anteprima statica che carica l'iframe solo al tocco.
+ * Scheda sede riusabile. La mappa OpenStreetMap si carica solo su richiesta.
  */
 export function StoreCard({ store }: StoreCardProps) {
   const status = useOpenStatus(store);
@@ -31,7 +30,7 @@ export function StoreCard({ store }: StoreCardProps) {
       <StoreMap store={store} />
 
       <div className="flex flex-1 flex-col p-6">
-        <div className="flex items-start justify-between gap-3">
+        <div className="flex flex-wrap items-start justify-between gap-3">
           <h3 id={`store-${store.id}`} className="text-brand-blue-900">
             {store.citta}
           </h3>

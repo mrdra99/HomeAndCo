@@ -5,7 +5,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 /** Struttura comune delle pagine legali, con banner "testo provvisorio". */
 export function LegalPage({ title, updated, children }: { title: string; updated: string; children: ReactNode }) {
   return (
-    <main id="contenuto">
+    <>
       <Section tone="cream" containerSize="narrow">
         <div
           role="note"
@@ -18,6 +18,6 @@ export function LegalPage({ title, updated, children }: { title: string; updated
           {children}
         </div>
       </Section>
-    </main>
+    </>
   );
 }

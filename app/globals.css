@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
 /* ------------------------------------------------------------------
    Design system Home & Co. — token in @theme (Tailwind v4, nessun config JS)
@@ -7,24 +8,24 @@
   /* Brand */
   --color-brand-blue-50: #eaf3fa;
   --color-brand-blue-100: #cfe4f3;
-  --color-brand-blue-600: #0b6cb0;
+  --color-brand-blue-600: #0f6bb4;
   --color-brand-blue-700: #08578f;
   --color-brand-blue-800: #0a3f68;
   --color-brand-blue-900: #0b2a47;
-  --color-brand-blue: #0b6cb0;
+  --color-brand-blue: #0f6bb4;
 
   --color-brand-magenta-50: #fdecf3;
   --color-brand-magenta-100: #fad0e1;
-  --color-brand-magenta-600: #d81b6a;
+  --color-brand-magenta-600: #d11559;
   --color-brand-magenta-700: #b01556;
   --color-brand-magenta-800: #85103f;
-  --color-brand-magenta: #d81b6a;
+  --color-brand-magenta: #d11559;
 
   /* Neutri (muted su cream ~5.6:1, ink su cream ~14:1) */
   --color-ink: #14233b;
   --color-muted: #5b6577;
-  --color-cream: #fbf6ee;
-  --color-sand: #f2e8d9;
+  --color-cream: #f7f9fc;
+  --color-sand: #eaf1f8;
 
   /* Raggi: card 28, bottoni pill */
   --radius-sm: 12px;
@@ -47,15 +48,37 @@
 
 /* Token che puntano a variabili runtime (font di next/font, accento di campagna) */
 @theme inline {
-  --font-display: var(--font-fredoka), ui-rounded, "Nunito", system-ui, sans-serif;
+  --font-display: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
   --color-accent: var(--accent);
 }
 
 :root {
-  /* Accento della campagna attiva: default magenta. Halloween #6b2a8c, Natale #a3123f. */
+  /* Accento della campagna attiva: Halloween arancione, Natale rosso. */
   --accent: #d81b6a;
 }
+
+.campaign-hero { background: #edf5fb; }
+html.lenis.lenis-smooth { scroll-behavior: auto !important; }
+[data-theme="halloween"] .campaign-hero { background: #fff0db; }
+[data-theme="halloween"] .campaign-hero h1 { color: var(--color-brand-blue-900); }
+[data-theme="halloween"] .hero-locations { border-color: rgb(11 42 71 / 0.14); }
+[data-theme="halloween"] .hero-locations p,
+[data-theme="halloween"] .hero-locations a { color: var(--color-brand-blue-800); }
+[data-theme="halloween"] .hero-eyebrow { background: #ffd6a3; color: var(--color-brand-blue-900); }
+[data-theme="halloween"] .hero-eyebrow > span { background: var(--color-brand-magenta-600); }
+[data-theme="halloween"] .hero-secondary { border-color: var(--color-brand-magenta-600); color: var(--color-brand-magenta-700); background: transparent; }
+[data-theme="halloween"] .hero-secondary:hover { background: var(--color-brand-magenta-50); }
+[data-theme="halloween"] .campaign-collection { background: #fff8ee; }
+[data-theme="halloween"] .campaign-collection a { background: #fff0db; }
+[data-theme="halloween"] .campaign-collection a:hover { background: #ffe5c0; }
+[data-theme="halloween"] .campaign-collection h2,
+[data-theme="halloween"] .campaign-collection h3 { color: var(--color-brand-blue-900); }
+[data-theme="halloween"] .campaign-banner { background: var(--color-brand-blue-900); border: 2px solid #ff8a24; }
+[data-theme="halloween"] .campaign-banner > div > span { background: #ff8a24; color: var(--color-brand-blue-900); }
+[data-theme="halloween"] .campaign-banner > a { background: #ff8a24; color: var(--color-brand-blue-900); }
+[data-theme="halloween"] .campaign-featured { background: #fff0db; }
+[data-theme="natale"] .campaign-hero { background: #faf0f3; }
 
 /* ------------------------------------------------------------------
    Base
@@ -63,8 +86,9 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 6rem;
     -webkit-text-size-adjust: 100%;
+    scrollbar-gutter: stable;
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -79,6 +103,8 @@
     -webkit-font-smoothing: antialiased;
     text-wrap: pretty;
   }
+
+  input, select, textarea { font: inherit; }
 
   h1, h2, h3, h4 {
     font-family: var(--font-display);
@@ -157,8 +183,10 @@
 .marquee-track { animation: var(--animate-marquee); width: max-content; will-change: transform; }
 .marquee:hover .marquee-track,
 .marquee:focus-within .marquee-track { animation-play-state: paused; }
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none; }
+@media (prefers-reduced-motion: reduce), (hover: none) and (pointer: coarse) {
+  .marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+  .marquee-track { animation: none; will-change: auto; padding-inline: 1.25rem; }
+  .marquee-track > ul[aria-hidden="true"] { display: none; }
 }
 
 /* Utility per scroll snap orizzontale (bento su mobile) */

@@ -47,7 +47,7 @@ Impostazioni del progetto:
 | Variabile `NODE_VERSION` | `22` |
 
 - `public/_redirects` (301 dai vecchi URL WordPress) e `public/_headers` (cache lunga su `/_next/static/*`, header di sicurezza) vengono copiati in `out/` e letti da Cloudflare. `/offerte/`, `/contatti/`, `/privacy-policy/`, `/cookie-policy/` restano identici al vecchio sito grazie a `trailingSlash`.
-- **Deploy Hook giornaliero.** La campagna attiva e i volantini validi vengono scelti **in build**, così l'HTML è già corretto e senza flash. Il browser poi ricontrolla la data (script nel `<head>`, stessa logica di `pickCampaign`), quindi il sito non resta mai "sbagliato" per i visitatori. Ma lo HTML statico (SEO, anteprime social, elenco volantini) cambia solo con una nuova build: crea in Cloudflare Pages un **Deploy Hook** e chiamalo ogni notte poco dopo mezzanotte (cron-job.org, GitHub Actions `schedule`, ecc.). Così il cambio campagna o l'archiviazione di un volantino scaduto avvengono da soli.
+- **Deploy Hook giornaliero.** La campagna attiva e i volantini validi vengono scelti **in build**, così l'HTML è già corretto e senza flash. Il browser ricontrolla la data prima del primo paint e ogni 30 secondi, oltre che al ritorno sulla scheda: tema, hero, collezione stagionale, reparti e volantini restano sincronizzati, anche oltre la mezzanotte italiana. Ma lo HTML statico (SEO, anteprime social, elenco volantini) cambia solo con una nuova build: crea in Cloudflare Pages un **Deploy Hook** e salva il suo URL nel secret GitHub **`CLOUDFLARE_DEPLOY_HOOK_URL`**. Il workflow incluso `.github/workflows/seasonal-refresh.yml` lo richiama ogni notte alle 01:15 UTC (02:15/03:15 in Italia); si può anche avviare a mano. Senza il secret salta il rinnovo con un avviso: il cambio nei browser continua a funzionare, ma l’HTML per i motori di ricerca si aggiorna solo al prossimo deploy. Il richiamo conferma la richiesta di build, non l’esito del deploy: quest’ultimo va controllato su Cloudflare.
 
 ## 4. Struttura delle cartelle
 
@@ -106,7 +106,21 @@ In `content/campaigns.json` aggiungi un oggetto (la campagna senza date è il de
 }
 ```
 
-Regole: date `YYYY-MM-DD`, **entrambe inclusive**, fuso Europe/Rome. Se più campagne si sovrappongono vince la `priorita` più alta, a parità l'`inizio` più recente. Fuori da ogni campagna vale il default. `accento` è solo un colore d'accento (variabile `--accent`): scegli un tono con buon contrasto (testo bianco leggibile, AA) e coerente con la palette blu/magenta. Senza immagine (`src: null`) compare la grafica di ripiego.
+Regole: date `YYYY-MM-DD`, **entrambe inclusive**, fuso Europe/Rome. Se più campagne si sovrappongono vince la `priorita` più alta, a parità l'`inizio` più recente. Fuori da ogni campagna vale il default. `accento` controlla il colore di pulsanti e badge. `contrastoAccento` sceglie il testo sui fondi colorati (default bianco) e `accentoTesto` il colore dei link su fondo chiaro: Halloween usa arancione `#FF8A24`, testo blu `#0B2A47` e link arancio scuro `#A63B00`. Il banner iniziale ha fondo arancio chiaro, titoli blu e dettagli magenta, in continuità con il marchio. Senza immagine (`src: null`) compare la grafica di ripiego.
+
+### Halloween e anteprima per data
+
+Halloween 2026 è già configurato dal **1 ottobre al 1 novembre inclusi**, nel fuso **Europe/Rome**. I volantini hanno intervalli indipendenti: la home li rimuove dalla vetrina alla scadenza senza spegnere la campagna. Non è presente un volantino Halloween in corso; le edizioni ufficiali precedenti sono in archivio. Dal 2 novembre torna il tema base; dal 27 novembre si attiva Natale.
+
+In `content/campaigns.json` puoi modificare date, titolo, testo, etichetta, sticker, colore, CTA e reparti. Il blocco facoltativo `collezione` contiene titolo, descrizione e `idee` (`titolo`, `testo`, `corridoio`, `icona`, `immagine` opzionale): compare solo durante quella campagna. Le date inesistenti, come il 30 febbraio, bloccano la build con un errore leggibile.
+
+Per verificare senza modificare la data del computer, apri **`/design-system/#calendario-campagne`** e scegli una data. L’anteprima è isolata e non cambia la home. Questa pagina è esclusa dall’indicizzazione. Halloween e Natale hanno `"ricorrenza": "annuale"`: gli stessi contenuti, reparti, badge e blocchi stagionali tornano ogni anno usando giorno e mese delle date configurate. Le date mostrate vengono risolte nell’anno visualizzato, anche per Natale che attraversa il cambio anno. Gli ID esistenti rimangono identificativi stabili, anche se contengono il primo anno. Per una campagna una tantum ometti `ricorrenza`. Volantini e promozioni con prezzi hanno invece date di validità proprie: non vengono ripubblicati automaticamente l’anno successivo.
+
+### Idee e prodotti in evidenza legati agli eventi
+
+Le card della home sono **reparti**: `corridoiInEvidenza` ne imposta l’ordine e il badge della campagna attiva. Non sono prodotti di un catalogo e non confermano disponibilità.
+
+Per ogni voce `inEvidenza` in `content/aisles.json`, il campo facoltativo `campagne` associa invece una vera selezione all’evento, per esempio `"campagne": ["halloween-2026"]`. Le idee associate compaiono per prime, soltanto quando quella campagna è attiva, con il suo badge automatico. Le idee senza associazione restano visibili tutto l’anno con il loro badge abituale. Non assegnare il badge Halloween automaticamente a un prodotto generico: i contenuti attuali non includono una selezione di prodotti stagionali confermata.
 
 ### Aggiungere un volantino
 1. Metti le pagine e il PDF in `public/uploads/flyers/` (formati in [ASSETS_TODO.md](ASSETS_TODO.md)).
@@ -134,15 +148,21 @@ Regole: date `YYYY-MM-DD`, **entrambe inclusive**, fuso Europe/Rome. Se più cam
 In `content/aisles.json`: `slug` (compare nell'URL `/corridoi/<slug>/`), `titolo`, `titoloBreve`, `descrizione`, `descrizioneLunga`, `immagine`, `icona`, `inEvidenza` (idee: titolo, descrizione, immagine, badge), `ordine`, `visibile`, `seo`, `categoryId` (futuro shop). Poi aggiungi la voce in `navigation.json` se vuoi il link nel menu. La pagina nasce da sola (generateStaticParams).
 
 ### Sedi, brand, promozioni, impostazioni
-`content/stores.json` (orari: array `{ giorno 0-6, aperture:[{da,a}] }`, `null` = non noti), `brands.json`, `promotions.json`, `settings.json` (WhatsApp, social, dati societari, analytics), `loyalty.json`.
+`content/stores.json` (orari: array `{ giorno 0-6, aperture:[{da,a}] }`, `null` = non noti), `brands.json`, `promotions.json`, `settings.json` (WhatsApp, social, dati societari, analytics), `loyalty.json`. Le mappe si caricano su richiesta su ogni schermo. Anche le promozioni ricontrollano inizio e fine nel browser, senza restare visibili dopo la scadenza o comparire in anticipo.
 
 ### Foto e loghi
-Vedi [ASSETS_TODO.md](ASSETS_TODO.md) (tabella di tutti i segnaposto, formati e dimensioni). Il logo del sito si cambia solo in `components/ui/Logo.tsx`.
+
+Le foto delle corsie arrivano dal sito Home & Co. esistente. Le fotografie di ambientazione Pexels sono accompagnate da autore e licenza in `public/uploads/PHOTO_CREDITS.md`; la provenienza di ogni file è anche in `content/photo-sources.json`. Tutto è servito localmente, senza hotlink. `ImageRef.fit: "contain"` mantiene interi i prodotti e i volantini; `position` controlla il punto del ritaglio per le foto. Nessuna fotografia stock viene attribuita a un negozio Home & Co.
+
+Il copy della home è in `content/home.json`, letto e validato da `ContentSource`; le campagne, i reparti e la carta restano nei rispettivi JSON. Il tono è diretto e concreto: evitare superlativi, promesse di risparmio o disponibilità non confermate e badge come “più scelti” senza dati reali.
+Vedi [ASSETS_TODO.md](ASSETS_TODO.md) (tabella di tutti i segnaposto, formati e dimensioni). Il logo ufficiale è in `public/brand/logo.svg`, estratto in vettoriale dal PDF dell’insegna. Il componente condiviso `components/ui/Logo.tsx` lo usa in header, menu, footer e tessera. Sui fondi scuri mantiene i colori originali su una base bianca. Favicon, icona Apple, immagine social e logo PNG per i dati strutturati sono già inclusi (dettagli in `public/brand/README.md`).
 
 ## 6. Design system
 
-- Token (colori brand blu/magenta, ink, cream, sand, raggi, ombre, `--accent` di campagna) in `app/globals.css`, sezione `@theme`. Font: Fredoka (titoli) e Figtree (testo).
+- Token (blu `#0F6BB4` e magenta `#D11559` del marchio, neutri azzurrati, raggi, ombre, `--accent` di campagna) in `app/globals.css`, sezione `@theme`. Font: Figtree per titoli e testo, coerente con una vetrina fotografica.
 - Componenti base in `components/ui/` (Button, Card, Section, Container, SectionHeading, Badge, Icon, Logo, Placeholder, SmartImage, Accordion) e animazioni in `components/motion/` (Reveal, Stagger, HoverLift; `MotionProvider` rispetta `prefers-reduced-motion`).
+- **Scorrimento**: `SmoothScroll` carica Lenis solo con puntatore fine e senza preferenza di movimento ridotto. Inerzia della rotellina con `lerp: 0.11`; il tocco resta nativo (`syncTouch: false`). Menu e finestre modali fermano anche l'inerzia già in corso; i link interni usano gli spazi CSS sotto l'header. La preferenza di movimento ridotto viene recepita anche durante la visita.
+- **Smartphone**: schede dei reparti e delle collezioni con foto laterale sotto i 640 px, archivio compatto sotto i 420 px, menu a schermo intero con chiusura sempre raggiungibile e collegamenti grandi. Pulsanti alti almeno 44 px, campi del modulo da 16 px e spazi per le aree sicure nelle finestre modali. La striscia dei marchi, quando presente, si scorre manualmente al tocco.
 - La pagina **`/design-system/`** mostra tutto dal vivo. È esclusa da sitemap e robots.
 
 ## 7. Cookie, analytics e form contatti
@@ -236,11 +256,11 @@ Pro: un solo sistema per catalogo, contenuti e ordini, controllo totale, nessun 
 
 Dettaglio completo in [ASSETS_TODO.md](ASSETS_TODO.md). In sintesi:
 
-- Foto (hero, corridoi, idee, negozi, promozioni), loghi dei brand, logo vettoriale.
+- Foto aggiornate e identificate di ciascun punto vendita, nuovi volantini e loghi dei brand. Corsie e categorie hanno foto reali; le fonti sono in `content/photo-sources.json`. I marchi ancora provvisori non vengono mostrati.
 - Telefoni, orari, particolarità di ogni sede; conferma del CAP di Sesto Fiorentino e delle coordinate.
 - Numero WhatsApp Business.
 - Testi e regolamento della carta fedeltà.
-- Volantini reali (e rimozione di quelli di prova).
+- Un nuovo volantino con offerte valide: le tre edizioni ufficiali recuperate (aprile, giugno/luglio e settembre 2026) sono già nell’archivio con copertine e PDF autentici.
 - ID Google Analytics 4 / Meta Pixel (se desiderati).
 - Revisione legale di privacy e cookie policy.
 - Scelta del dominio canonico (apex o `www`) e collegamento del form contatti.

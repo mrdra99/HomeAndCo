@@ -15,6 +15,7 @@ export type IdeaItem = {
   descrizione?: string;
   immagine: ImageRef;
   badge?: string;
+  badgeTone?: "accent";
   href?: string;
 };
 
@@ -27,13 +28,16 @@ export function IdeaCard({ item }: { item: IdeaItem }) {
           <SmartImage
             src={item.immagine.src}
             alt={item.immagine.alt}
+            fit={item.immagine.fit}
+            position={item.immagine.position}
+            imgClassName={item.immagine.fit === "contain" ? "bg-white p-7" : undefined}
             label={item.immagine.label ?? item.titolo}
             ratio="4/3"
             rounded="rounded-none"
-            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           />
           {item.badge && (
-            <Badge tone="magenta" rotate={-4} className="absolute left-3 top-3">
+            <Badge tone={item.badgeTone ?? "magenta"} rotate={-4} className="absolute left-3 top-3">
               {item.badge}
             </Badge>
           )}

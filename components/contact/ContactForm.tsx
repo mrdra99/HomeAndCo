@@ -161,7 +161,7 @@ export function ContactForm() {
               )}
             </AnimatePresence>
 
-            <Button type="submit" size="lg" disabled={status === "sending"} aria-busy={status === "sending"}>
+            <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={status === "sending"} aria-busy={status === "sending"}>
               {status === "sending" ? "Invio in corso..." : "Invia messaggio"}
             </Button>
           </m.form>

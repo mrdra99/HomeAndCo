@@ -1,0 +1,29 @@
+name: Aggiorna campagne stagionali
+
+on:
+  schedule:
+    # 02:15 in inverno, 03:15 in estate (Europe/Rome).
+    - cron: "15 1 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: seasonal-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      DEPLOY_HOOK_URL: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK_URL }}
+    steps:
+      - name: Richiedi la nuova build statica
+        shell: bash
+        run: |
+          if [ -z "$DEPLOY_HOOK_URL" ]; then
+            echo "::notice::Configura CLOUDFLARE_DEPLOY_HOOK_URL per aggiornare automaticamente anche l'HTML indicizzato."
+            exit 0
+          fi
+          curl --fail --silent --show-error --max-time 30 --request POST "$DEPLOY_HOOK_URL" --output /dev/null

@@ -9,13 +9,13 @@ type FeaturedIdeasProps = {
   subtitle?: string;
 };
 
-/** Griglia responsive (1/2/4 colonne) di IdeaCard con reveal a stagger. Pensata anche per i prodotti dello shop. */
+/** Griglia responsive (1/2/3 colonne) di IdeaCard. Pensata anche per i prodotti dello shop. */
 export function FeaturedIdeas({ items, eyebrow, title, subtitle }: FeaturedIdeasProps) {
   if (items.length === 0) return null;
   return (
     <div>
       <SectionHeading eyebrow={eyebrow} title={title} subtitle={subtitle} />
-      <Stagger className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <Stagger className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((item) => (
           <StaggerItem key={item.titolo} className="h-full">
             <IdeaCard item={item} />

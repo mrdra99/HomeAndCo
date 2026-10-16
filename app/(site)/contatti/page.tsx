@@ -25,7 +25,7 @@ export default async function ContattiPage() {
     : null;
 
   return (
-    <main id="contenuto">
+    <>
       <Section tone="cream">
         <SectionHeading
           as="h1"
@@ -95,6 +95,6 @@ export default async function ContattiPage() {
           <Link href="/privacy-policy/" className="underline underline-offset-4">informativa privacy</Link>.
         </p>
       </Section>
-    </main>
+    </>
   );
 }

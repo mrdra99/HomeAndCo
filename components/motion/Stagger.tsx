@@ -16,7 +16,7 @@ export function Stagger({ children, className, gap = 0.06 }: StaggerProps) {
     <m.div
       className={className}
       variants={{ hidden: {}, show: { transition: { staggerChildren: gap } } }}
-      initial="hidden"
+      initial={false}
       whileInView="show"
       viewport={{ once: true, margin: "0px 0px -60px 0px" }}
     >

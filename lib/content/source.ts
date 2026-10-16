@@ -3,6 +3,7 @@ import type {
   Brand,
   Campaign,
   Flyer,
+  HomeCopy,
   LoyaltyProgram,
   Navigation,
   Promotion,
@@ -17,6 +18,7 @@ import type {
  */
 export interface ContentSource {
   getSettings(): Promise<Settings>;
+  getHomeCopy(): Promise<HomeCopy>;
   getNavigation(): Promise<Navigation>;
   getCampaigns(): Promise<Campaign[]>;
   getAisles(): Promise<Aisle[]>;

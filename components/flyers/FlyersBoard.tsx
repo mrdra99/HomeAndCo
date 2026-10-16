@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { Sticker, Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
@@ -10,7 +10,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { Reveal } from "@/components/motion/Reveal";
 import { Stagger, StaggerItem } from "@/components/motion/Stagger";
-import { toIsoDate } from "@/lib/campaigns";
+import { useToday } from "@/lib/date-store";
 import { archivedFlyers, currentFlyers, formatDateRangeIt } from "@/lib/flyers";
 import { cn } from "@/lib/utils";
 import type { Flyer } from "@/lib/content/schemas";
@@ -27,18 +27,6 @@ type FlyersBoardProps = {
   /** Link wa.me completo, o null se il numero non e' ancora configurato. */
   whatsappHref: string | null;
 };
-
-const subscribe = (cb: () => void) => {
-  // ricontrolla ogni minuto (un volantino puo' scadere a pagina aperta)
-  const t = setInterval(cb, 60_000);
-  return () => clearInterval(t);
-};
-
-/** Data odierna reale solo dopo l'idratazione; in build/SSR usa buildDate (niente mismatch). */
-function useToday(buildDate: string): Date {
-  const iso = useSyncExternalStore(subscribe, () => toIsoDate(new Date()), () => buildDate);
-  return new Date(`${iso}T12:00:00Z`);
-}
 
 function storesLabel(f: Flyer, names: Record<string, string>): string {
   if (f.negozi === "tutti") return "Vale in tutti i negozi";
@@ -138,6 +126,7 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
                   alt={selected.copertina.alt || `Copertina del volantino ${selected.titolo}`}
                   label={selected.copertina.label ?? `Copertina volantino ${selected.titolo}`}
                   ratio="4/5"
+                  fit="contain"
                   priority
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   rounded="rounded-t-[999px] rounded-b-[var(--radius-xl)]"
@@ -165,10 +154,10 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
         <Section tone="cream" className="pt-4 sm:pt-8">
           <Reveal>
             <Card tone="magenta-soft" className="mx-auto max-w-3xl text-center">
-              <Badge tone="blue" rotate={3} className="mb-5">Presto in arrivo</Badge>
-              <h2 className="text-brand-blue-900">Il nuovo volantino sta arrivando</h2>
+              <h2 className="text-brand-blue-900">Al momento non ci sono volantini in corso.</h2>
               <p className="mx-auto mt-4 max-w-xl text-lg text-muted">
-                Stiamo preparando le prossime offerte. Seguici sui social o scrivici su WhatsApp: sarai tra i primi a scoprirle.
+                Per le promozioni del negozio, chiedi in cassa o seguici sui social.
+                {archived.length > 0 && " Qui sotto trovi le edizioni precedenti, con le date e i negozi a cui si riferiscono."}
               </p>
               <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row">
                 {whatsappHref && (
@@ -189,29 +178,31 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
       )}
 
       {archived.length > 0 && (
-        <Section tone="cream" className="pt-4 sm:pt-8">
+        <Section tone="cream" id="archivio" className="pt-4 sm:pt-8">
           <SectionHeading eyebrow="Archivio" title="Volantini precedenti" as="h2" />
-          <Stagger className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          <Stagger className="mt-8 grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
             {archived.map((f) => (
               <StaggerItem key={f.id}>
-                <article className="relative h-full overflow-hidden rounded-lg bg-white shadow-soft">
+                <article className="relative grid h-full grid-cols-[96px_minmax(0,1fr)] overflow-hidden rounded-lg bg-white shadow-soft min-[420px]:flex min-[420px]:flex-col">
                   <div className="relative">
                     <SmartImage
                       src={f.copertina.src}
                       alt={f.copertina.alt || `Copertina del volantino ${f.titolo}`}
                       label={f.copertina.label ?? `Copertina ${f.titolo}`}
-                      ratio="4/5"
+                      ratio="210/297"
+                      fit="contain"
                       rounded="rounded-none"
-                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-                      imgClassName="grayscale-[0.6]"
+                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, (min-width: 420px) 50vw, 96px"
                     />
-                    <Badge tone="sand" rotate={-3} className="absolute left-2 top-2 !text-sm">
-                      Scaduto
+                    <Badge tone="sand" rotate={-3} className="absolute left-2 top-2 hidden !text-xs min-[420px]:inline-flex sm:!text-sm">
+                      Offerte concluse
                     </Badge>
                   </div>
-                  <div className="p-4">
+                  <div className="min-w-0 p-4">
+                    <p className="mb-2 text-xs font-semibold text-muted min-[420px]:hidden">Offerte concluse</p>
                     <h3 className="text-base leading-tight text-brand-blue-900 sm:text-lg">{f.titolo}</h3>
                     <p className="mt-1 text-sm text-muted">{formatDateRangeIt(f.validoDal, f.validoAl)}</p>
+                    <p className="mt-1 text-sm text-muted">{storesLabel(f, storeNames).replace(/^Vale/, "Valido")}</p>
                     {f.pdf && (
                       <a href={f.pdf} download className="mt-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-brand-blue-700 underline-offset-4 hover:underline">
                         <Icon name="download" size={16} /> Scarica PDF

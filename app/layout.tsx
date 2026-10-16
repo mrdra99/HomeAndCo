@@ -1,19 +1,14 @@
 import type { CSSProperties } from "react";
 import type { Metadata, Viewport } from "next";
-import { Fredoka, Figtree } from "next/font/google";
+import { Figtree } from "next/font/google";
 import { CampaignThemeScript } from "@/components/campaign/CampaignThemeScript";
+import { CampaignRuntime } from "@/components/campaign/CampaignRuntime";
 import { MotionProvider } from "@/components/motion/MotionProvider";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { campaignCssVars } from "@/lib/campaigns";
 import { getActiveCampaign, content } from "@/lib/content";
 import { SITE_CLAIM, SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
-
-const fredoka = Fredoka({
-  variable: "--font-fredoka",
-  subsets: ["latin", "latin-ext"],
-  weight: ["500", "600", "700"],
-  display: "swap",
-});
 
 const figtree = Figtree({
   variable: "--font-figtree",
@@ -26,10 +21,15 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: `${SITE_NAME} — ${SITE_CLAIM}`, template: `%s | ${SITE_NAME}` },
   description: SITE_CLAIM,
+  openGraph: {
+    type: "website", locale: "it_IT", siteName: SITE_NAME,
+    images: [{ url: "/brand/social.png", width: 1200, height: 630, alt: `${SITE_NAME} — ${SITE_CLAIM}` }],
+  },
+  twitter: { card: "summary_large_image", images: ["/brand/social.png"] },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FBF6EE",
+  themeColor: "#0f6bb4",
 };
 
 /**
@@ -45,8 +45,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html
       lang="it"
-      className={`${fredoka.variable} ${figtree.variable}`}
+      className={figtree.variable}
       data-campaign={active.id}
+      data-theme={active.tema}
       data-scroll-behavior="smooth"
       style={campaignCssVars(active) as CSSProperties}
       suppressHydrationWarning
@@ -55,6 +56,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <CampaignThemeScript campaigns={campaigns} />
       </head>
       <body>
+        <SmoothScroll />
+        <CampaignRuntime campaigns={campaigns} buildCampaignId={active.id} />
         <MotionProvider>{children}</MotionProvider>
       </body>
     </html>

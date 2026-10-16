@@ -43,7 +43,7 @@ export function WhatsAppButton({
       className={cn(
         "inline-flex items-center justify-center gap-2 bg-[#0f7a43] font-semibold text-white shadow-soft transition-[transform,background-color] hover:bg-[#0c6637] active:scale-[0.97]",
         floating
-          ? "fixed bottom-4 right-4 z-30 size-14 rounded-full md:hidden"
+          ? "fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-30 size-14 rounded-full md:hidden"
           : "min-h-12 rounded-full px-6",
         className,
       )}

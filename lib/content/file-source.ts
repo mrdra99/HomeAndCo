@@ -8,11 +8,13 @@ import brandsJson from "../../content/brands.json";
 import flyersJson from "../../content/flyers.json";
 import promotionsJson from "../../content/promotions.json";
 import loyaltyJson from "../../content/loyalty.json";
+import homeJson from "../../content/home.json";
 import {
   AisleSchema,
   BrandSchema,
   CampaignSchema,
   FlyerSchema,
+  HomeCopySchema,
   LoyaltyProgramSchema,
   NavigationSchema,
   PromotionSchema,
@@ -42,6 +44,9 @@ export class FileContentSource implements ContentSource {
 
   async getSettings() {
     return this.load("settings.json", SettingsSchema, settingsJson);
+  }
+  async getHomeCopy() {
+    return this.load("home.json", HomeCopySchema, homeJson);
   }
   async getNavigation() {
     return this.load("navigation.json", NavigationSchema, navigationJson);

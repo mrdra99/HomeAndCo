@@ -25,6 +25,7 @@ function BrandItem({ brand }: { brand: Brand }) {
  * la copia duplicata che chiude il loop e' aria-hidden e non focalizzabile (inert).
  */
 export function BrandMarquee({ brands }: { brands: Brand[] }) {
+  brands = brands.filter((brand) => !brand.provvisorio);
   if (brands.length === 0) return null;
   return (
     <section aria-label="Brand" className="bg-cream py-14 sm:py-20">

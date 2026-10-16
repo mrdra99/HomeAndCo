@@ -10,7 +10,11 @@ import { z } from "zod";
 
 export const isoDate = z
   .string()
-  .regex(/^\d{4}-\d{2}-\d{2}$/, "Data attesa nel formato YYYY-MM-DD");
+  .regex(/^\d{4}-\d{2}-\d{2}$/, "Data attesa nel formato YYYY-MM-DD")
+  .refine((value) => {
+    const date = new Date(`${value}T12:00:00Z`);
+    return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
+  }, "La data deve esistere nel calendario");
 export const hexColor = z
   .string()
   .regex(/^#[0-9a-fA-F]{6}$/, "Colore atteso nel formato #RRGGBB");
@@ -23,6 +27,8 @@ export const ImageSchema = z.object({
   alt: z.string().default(""),
   /** Etichetta mostrata dal Placeholder quando manca la foto. */
   label: z.string().optional(),
+  fit: z.enum(["cover", "contain"]).optional(),
+  position: z.string().optional(),
 });
 export type ImageRef = z.infer<typeof ImageSchema>;
 
@@ -37,9 +43,25 @@ export const CampaignSchema = z
     /** null = campagna di default (sempre valida, priorità minima) */
     inizio: isoDate.nullable().default(null),
     fine: isoDate.nullable().default(null),
+    ricorrenza: z.literal("annuale").optional(),
     immagineHero: ImageSchema.default({ src: null, alt: "" }),
     accento: hexColor,
+    contrastoAccento: hexColor.optional(),
+    accentoTesto: hexColor.optional(),
     tema: z.string().default("default"),
+    etichetta: z.string().optional(),
+    sticker: z.string().optional(),
+    collezione: z.object({
+      titolo: z.string().min(1),
+      descrizione: z.string(),
+      idee: z.array(z.object({
+        titolo: z.string().min(1),
+        testo: z.string(),
+        corridoio: slug,
+        icona: z.string(),
+        immagine: ImageSchema.optional(),
+      })).min(1).max(4),
+    }).optional(),
     cta: Cta,
     ctaSecondaria: Cta.optional(),
     corridoiInEvidenza: z.array(slug).default([]),
@@ -49,8 +71,24 @@ export const CampaignSchema = z
   .refine((c) => !c.inizio || !c.fine || c.inizio <= c.fine, {
     message: "inizio deve essere <= fine",
     path: ["fine"],
+  })
+  .refine((c) => !c.ricorrenza || Boolean(c.inizio && c.fine), {
+    message: "Una ricorrenza annuale richiede entrambe le date",
+    path: ["ricorrenza"],
   });
 export type Campaign = z.infer<typeof CampaignSchema>;
+
+// ---------- Home copy ----------
+const SectionCopySchema = z.object({ titolo: z.string().min(1), descrizione: z.string().min(1) });
+export const HomeCopySchema = z.object({
+  reparti: SectionCopySchema.extend({ cta: z.string().min(1) }),
+  negozi: SectionCopySchema,
+  volantini: z.object({
+    titolo: z.string().min(1), introAttivo: z.string(), introArchivio: z.string(),
+    ctaAttivo: z.string(), ctaArchivio: z.string(), statoArchivio: z.string(),
+  }),
+});
+export type HomeCopy = z.infer<typeof HomeCopySchema>;
 
 // ---------- Aisle ----------
 export const AisleHighlightSchema = z.object({
@@ -58,6 +96,8 @@ export const AisleHighlightSchema = z.object({
   descrizione: z.string().default(""),
   immagine: ImageSchema.default({ src: null, alt: "" }),
   badge: z.string().optional(),
+  /** Se presente, l'idea compare solo durante una delle campagne indicate. */
+  campagne: z.array(z.string().min(1)).min(1).optional(),
 });
 export type AisleHighlight = z.infer<typeof AisleHighlightSchema>;
 

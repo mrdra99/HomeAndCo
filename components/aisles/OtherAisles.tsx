@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Icon, isIconName } from "@/components/ui/Icon";
+import { DepartmentIcon } from "@/components/ui/DepartmentIcon";
 import { Container } from "@/components/ui/Container";
 
 export type OtherAisle = { slug: string; titolo: string; icona?: string };
@@ -11,7 +11,7 @@ export function OtherAisles({ aisles }: { aisles: OtherAisle[] }) {
     <nav aria-labelledby="altri-corridoi" className="py-12 sm:py-16">
       <Container>
         <h2 id="altri-corridoi" className="text-2xl text-brand-blue-900 sm:text-3xl">
-          Altri corridoi
+          Gli altri reparti
         </h2>
         <ul className="hide-scrollbar -mx-5 mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 py-2 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
           {aisles.map((a) => (
@@ -20,7 +20,7 @@ export function OtherAisles({ aisles }: { aisles: OtherAisle[] }) {
                 href={`/corridoi/${a.slug}/`}
                 className="inline-flex min-h-12 items-center gap-2.5 rounded-full bg-white px-5 font-semibold text-brand-blue-900 shadow-soft transition-[transform,box-shadow] duration-200 hover:shadow-lift active:scale-[0.97]"
               >
-                {a.icona && isIconName(a.icona) && <Icon name={a.icona} size={20} className="text-brand-magenta-700" />}
+                {a.icona && <DepartmentIcon name={a.icona} size={32} />}
                 {a.titolo}
               </Link>
             </li>

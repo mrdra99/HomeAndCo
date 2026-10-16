@@ -68,6 +68,8 @@ export function CookieBanner() {
   useEffect(() => {
     if (!open) return;
     const previous = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     const node = dialogRef.current;
     node?.focus();
     const onKey = (e: KeyboardEvent) => {
@@ -91,6 +93,7 @@ export function CookieBanner() {
     document.addEventListener("keydown", onKey);
     return () => {
       document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = previousOverflow;
       previous?.focus?.();
     };
   }, [open, decided, closePreferences]);
@@ -100,6 +103,7 @@ export function CookieBanner() {
       {open && (
         <m.div
           key="consent"
+          data-lenis-prevent
           className="fixed inset-0 z-[100] flex items-end justify-center bg-brand-blue-900/50 p-0 sm:items-center sm:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -112,7 +116,7 @@ export function CookieBanner() {
             aria-labelledby={titleId}
             aria-describedby={descId}
             tabIndex={-1}
-            className="max-h-[92dvh] w-full max-w-xl overflow-y-auto rounded-t-[var(--radius-lg)] bg-white p-6 text-ink shadow-pop outline-none sm:rounded-[var(--radius-lg)] sm:p-8"
+            className="max-h-[92dvh] w-full max-w-xl overflow-y-auto overscroll-contain rounded-t-[var(--radius-lg)] bg-white px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-6 text-ink shadow-pop outline-none sm:rounded-[var(--radius-lg)] sm:p-8"
             initial={{ y: 48, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 48, opacity: 0 }}

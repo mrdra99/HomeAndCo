@@ -28,21 +28,21 @@ export function StoreDetail({ store, whatsapp }: StoreDetailProps) {
     <article
       id={store.id}
       aria-labelledby={titleId}
-      className="grid scroll-mt-28 gap-0 overflow-hidden rounded-lg bg-white shadow-soft lg:grid-cols-2"
+      className="grid grid-cols-1 scroll-mt-28 gap-0 overflow-hidden rounded-lg bg-white shadow-soft lg:grid-cols-2"
     >
       <div className="flex flex-col">
-        <SmartImage
+        {store.immagine.src && <SmartImage
           src={store.immagine.src}
           alt={store.immagine.alt}
           label={`Foto negozio ${store.citta}`}
           ratio="16/10"
           sizes="(min-width: 1024px) 50vw, 100vw"
           rounded="rounded-none"
-        />
+        />}
         <StoreMap store={store} className="min-h-64 flex-1" />
       </div>
 
-      <div className="flex flex-col p-6 sm:p-8">
+      <div className="flex min-w-0 flex-col p-5 sm:p-8">
         <div className="flex flex-wrap items-center gap-3">
           <h2 id={titleId} className="text-brand-blue-900">
             {store.citta}

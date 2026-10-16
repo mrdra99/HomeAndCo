@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { CampaignHero } from "@/components/campaign/CampaignHero";
+import { CampaignCollection } from "@/components/campaign/CampaignCollection";
 import { AisleGrid } from "@/components/sections/AisleGrid";
 import { BrandMarquee } from "@/components/sections/BrandMarquee";
 import { FlyerTeaser } from "@/components/sections/FlyerTeaser";
 import { LoyaltyBlock } from "@/components/sections/LoyaltyBlock";
 import { StoresSection } from "@/components/sections/StoresSection";
-import { content, getActiveCampaign, getCurrentFlyers } from "@/lib/content";
-import { isDefaultCampaign } from "@/lib/campaigns";
+import { content, getActiveCampaign } from "@/lib/content";
+import { isDefaultCampaign, toIsoDate } from "@/lib/campaigns";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [settings, campaigns] = await Promise.all([content.getSettings(), content.getCampaigns()]);
@@ -24,32 +25,34 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: settings.nomeSito,
       locale: "it_IT",
       type: "website",
+      images: [{ url: "/brand/social.png", width: 1200, height: 630, alt: settings.nomeSito }],
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: { card: "summary_large_image", title, description, images: ["/brand/social.png"] },
   };
 }
 
 export default async function HomePage() {
-  const [campaigns, active, aisles, loyalty, flyers, brands, stores, settings] = await Promise.all([
+  const [campaigns, active, aisles, loyalty, flyers, brands, stores, copy] = await Promise.all([
     content.getCampaigns(),
     getActiveCampaign(),
     content.getAisles(),
     content.getLoyalty(),
-    getCurrentFlyers(),
+    content.getFlyers(),
     content.getBrands(),
     content.getStores(),
-    content.getSettings(),
+    content.getHomeCopy(),
   ]);
   const visibleAisles = aisles.filter((a) => a.visibile).sort((a, b) => a.ordine - b.ordine);
 
   return (
     <>
-      <CampaignHero campaigns={campaigns} buildCampaignId={active.id} />
-      <AisleGrid aisles={visibleAisles} campaigns={campaigns} buildCampaignId={active.id} />
+      <CampaignHero campaigns={campaigns} buildCampaignId={active.id} buildDate={toIsoDate()} stores={stores} />
+      <CampaignCollection campaigns={campaigns} buildCampaignId={active.id} />
+      <AisleGrid aisles={visibleAisles} campaigns={campaigns} buildCampaignId={active.id} copy={copy.reparti} />
       <LoyaltyBlock loyalty={loyalty} />
-      <FlyerTeaser flyer={flyers[0]} social={settings.social} />
+      <FlyerTeaser flyers={flyers} buildDate={toIsoDate()} copy={copy.volantini} />
       <BrandMarquee brands={brands} />
-      <StoresSection stores={stores} />
+      <StoresSection stores={stores} copy={copy.negozi} />
     </>
   );
 }

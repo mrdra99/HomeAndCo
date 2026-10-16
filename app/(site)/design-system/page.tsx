@@ -11,6 +11,9 @@ import { Placeholder } from "@/components/ui/Placeholder";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SmartImage } from "@/components/ui/SmartImage";
+import { CampaignCalendar } from "@/components/campaign/CampaignCalendar";
+import { content } from "@/lib/content";
+import { toIsoDate } from "@/lib/campaigns";
 
 const ICONS: IconName[] = ["whatsapp", "instagram", "facebook", "map-pin", "clock", "phone", "mail", "arrow-right", "menu", "close", "calendar", "download", "external"];
 
@@ -20,11 +23,16 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function DesignSystemPreview() {
+export default async function DesignSystemPreview() {
+  const campaigns = await content.getCampaigns();
   return (
     <>
+      <Section tone="sand" id="calendario-campagne">
+        <SectionHeading title="Anteprima delle campagne" subtitle="Scegli una data per controllare Halloween, Natale e il ritorno alla vetrina abituale. Le date di fine sono incluse." />
+        <CampaignCalendar campaigns={campaigns} buildDate={toIsoDate()} />
+      </Section>
       <Section tone="cream">
-        <Logo className="text-4xl" />
+        <Logo className="w-72" />
         <h1 className="mt-6">
           Il negozio su misura per la <span className="underline-hand">tua casa</span>!
         </h1>

@@ -35,7 +35,7 @@ export function LoyaltyBlock({ loyalty }: { loyalty: LoyaltyProgram }) {
               </StaggerItem>
             ))}
           </Stagger>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap">
             <Button href="/carta-fedelta/" size="lg" iconRight={<Icon name="arrow-right" size={20} />}>
               Scopri la carta
             </Button>

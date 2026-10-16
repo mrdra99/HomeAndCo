@@ -11,7 +11,7 @@ type FooterProps = {
   aisles: Pick<Aisle, "slug" | "titoloBreve">[];
 };
 
-const linkCls = "rounded text-white/85 underline-offset-4 hover:text-white hover:underline";
+const linkCls = "inline-flex min-h-11 items-center rounded text-white/85 underline-offset-4 hover:text-white hover:underline";
 const headCls = "mb-4 font-display text-lg text-white";
 
 export function Footer({ settings, aisles }: FooterProps) {
@@ -21,7 +21,7 @@ export function Footer({ settings, aisles }: FooterProps) {
       <Container size="wide">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           <div>
-            <Logo variant="white" className="text-3xl" />
+            <Logo variant="white" className="w-60" />
             <p className="mt-4 max-w-xs font-display text-xl leading-snug text-white/95">{settings.claim}</p>
             <div className="mt-6 flex gap-3">
               <a
@@ -48,9 +48,9 @@ export function Footer({ settings, aisles }: FooterProps) {
             </div>
           </div>
 
-          <nav aria-label="Corridoi">
-            <h2 className={headCls}>Corridoi</h2>
-            <ul className="space-y-2.5">
+          <nav aria-label="Reparti">
+            <h2 className={headCls}>Reparti</h2>
+            <ul>
               {aisles.map((a) => (
                 <li key={a.slug}>
                   <Link href={`/corridoi/${a.slug}/`} className={linkCls}>
@@ -63,7 +63,7 @@ export function Footer({ settings, aisles }: FooterProps) {
 
           <nav aria-label="Informazioni">
             <h2 className={headCls}>Info</h2>
-            <ul className="space-y-2.5">
+            <ul>
               <li><Link href="/offerte/" className={linkCls}>Offerte e volantini</Link></li>
               <li><Link href="/carta-fedelta/" className={linkCls}>Carta fedeltà</Link></li>
               <li><Link href="/#dove-siamo" className={linkCls}>Dove siamo</Link></li>
@@ -79,16 +79,16 @@ export function Footer({ settings, aisles }: FooterProps) {
                 <Icon name="map-pin" className="mt-0.5 shrink-0" size={20} />
                 <span>{societa.indirizzo}</span>
               </p>
-              <p className="flex gap-3">
+              <p className="flex min-w-0 gap-3">
                 <Icon name="mail" className="mt-0.5 shrink-0" size={20} />
-                <a href={`mailto:${societa.email}`} className={linkCls}>{societa.email}</a>
+                <a href={`mailto:${societa.email}`} className={`${linkCls} min-w-0 break-all`}>{societa.email}</a>
               </p>
             </address>
           </div>
         </div>
 
         <div className="mt-14 flex flex-col gap-4 border-t border-white/15 pt-6 text-sm text-white/75 md:flex-row md:items-center md:justify-between">
-          <p>
+          <p className="min-w-0 break-words">
             © {new Date().getFullYear()} {societa.ragioneSociale} · P.IVA {societa.piva} · {societa.indirizzo} ·{" "}
             {societa.email}
           </p>

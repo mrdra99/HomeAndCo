@@ -1,16 +1,33 @@
 {
   "nome": "Carta Fedeltà Home & Co.",
-  "intro": "Più vieni a trovarci, più risparmi. La carta fedeltà Home & Co. è il nostro modo di dirti grazie.",
+  "intro": "Fai spesso la spesa da noi? Chiedi in cassa la carta fedeltà e informazioni sulle promozioni riservate ai clienti.",
   "vantaggi": [
-    { "titolo": "Sconti dedicati", "testo": "Prezzi riservati ai possessori della carta su prodotti selezionati.", "icona": "sconto" },
-    { "titolo": "Punti che valgono", "testo": "A ogni acquisto accumuli punti da trasformare in buoni spesa.", "icona": "punti" },
-    { "titolo": "Anteprime e novità", "testo": "Scopri per primo offerte e iniziative stagionali.", "icona": "novita" }
+    {
+      "titolo": "La richiedi in negozio",
+      "testo": "Chiedi in cassa come attivarla e usarla.",
+      "icona": "novita"
+    },
+    {
+      "titolo": "Ti informi sulle iniziative",
+      "testo": "Il personale ti spiega le promozioni attive e le condizioni.",
+      "icona": "sconto"
+    },
+    {
+      "titolo": "La porti con te",
+      "testo": "Tienila nel portafoglio e mostrala quando fai acquisti.",
+      "icona": "check"
+    }
   ],
-  "comeRichiederla": "Chiedila in cassa in uno dei nostri tre negozi: è gratuita e si attiva subito. Basta un documento e pochi minuti.",
+  "comeRichiederla": "Chiedi la carta fedeltà in cassa. Il personale ti spiega come richiederla e quali iniziative sono attive.",
   "faq": [
-    { "d": "La carta è gratuita?", "r": "Sì, la richiesta è gratuita." },
-    { "d": "Posso usarla in tutti i negozi?", "r": "Sì, vale a Prato, Lucca e Sesto Fiorentino." },
-    { "d": "Come controllo i miei punti?", "r": "Chiedi in cassa il saldo punti." }
+    {
+      "d": "A chi posso chiedere informazioni?",
+      "r": "Al personale del negozio, direttamente in cassa."
+    },
+    {
+      "d": "Dove trovo le condizioni delle iniziative?",
+      "r": "Chiedile in negozio prima di aderire: promozioni e condizioni possono cambiare."
+    }
   ],
   "provvisorio": true
 }

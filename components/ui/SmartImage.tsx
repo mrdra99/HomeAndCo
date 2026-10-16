@@ -16,6 +16,8 @@ type SmartImageProps = {
   className?: string;
   rounded?: string;
   imgClassName?: string;
+  fit?: "cover" | "contain";
+  position?: string;
 };
 
 /**
@@ -32,6 +34,8 @@ export function SmartImage({
   className,
   rounded = "rounded-md",
   imgClassName,
+  fit = "cover",
+  position,
 }: SmartImageProps) {
   if (!src) return <Placeholder ratio={ratio} label={label} className={className} rounded={rounded} />;
   return (
@@ -41,8 +45,9 @@ export function SmartImage({
         alt={alt}
         fill
         sizes={sizes}
-        priority={priority}
-        className={cn("object-cover transition-transform duration-500 group-hover:scale-[1.04]", imgClassName)}
+        preload={priority}
+        className={cn(fit === "contain" ? "object-contain" : "object-cover", "transition-transform duration-500 group-hover:scale-[1.04]", imgClassName)}
+        style={position ? { objectPosition: position } : undefined}
       />
     </div>
   );

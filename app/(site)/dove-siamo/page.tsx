@@ -28,10 +28,10 @@ export default async function DoveSiamoPage() {
               eyebrow="Dove siamo"
               title={
                 <>
-                  Tre negozi, <span className="underline-hand">una sola casa</span>
+                  I negozi Home &amp; Co.
                 </>
               }
-              subtitle="Passa a trovarci a Prato, Lucca o Sesto Fiorentino: ti aspettano gli stessi scaffali pieni di idee e la stessa accoglienza."
+              subtitle="Prato, Lucca e Sesto Fiorentino. Scegli il punto vendita e trovi l’indirizzo e le indicazioni per raggiungerlo."
             />
           </Reveal>
           <div className="mt-8">

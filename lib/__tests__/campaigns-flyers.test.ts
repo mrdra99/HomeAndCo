@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { pickCampaign } from "../campaigns";
+import { campaignPeriod, pickCampaign, toIsoDate } from "../campaigns";
+import { CampaignSchema, isoDate } from "../content/schemas";
 import { formatDateRangeIt, sortFlyersRecentFirst, currentFlyers, archivedFlyers } from "../flyers";
 import { isOpenNow } from "../stores";
 import type { Campaign, Flyer } from "../content/schemas";
@@ -37,6 +38,47 @@ describe("pickCampaign", () => {
     const l = [...list, camp("flash", "2026-10-10", "2026-10-12", 50), camp("tardi", "2026-10-05", "2026-10-20", 10)];
     expect(pickCampaign(l, d("2026-10-11")).id).toBe("flash");
     expect(pickCampaign(l, d("2026-10-06")).id).toBe("tardi");
+  });
+});
+
+describe("date delle campagne", () => {
+  const annualHalloween: Campaign = { ...camp("halloween-annuale", "2026-10-01", "2026-11-01", 10), ricorrenza: "annuale" };
+  const annualChristmas: Campaign = { ...camp("natale-annuale", "2026-11-27", "2027-01-06", 10), ricorrenza: "annuale" };
+  const fallback = camp("default", null, null);
+  const recurring = [fallback, annualHalloween, annualChristmas];
+
+  it("ripete Halloween negli anni successivi, con estremi inclusi", () => {
+    for (const year of [2026, 2027, 2028, 2030]) {
+      expect(pickCampaign(recurring, d(`${year}-09-30`)).id).toBe("default");
+      expect(pickCampaign(recurring, d(`${year}-10-01`)).id).toBe("halloween-annuale");
+      expect(pickCampaign(recurring, d(`${year}-11-01`)).id).toBe("halloween-annuale");
+      expect(pickCampaign(recurring, d(`${year}-11-02`)).id).toBe("default");
+      expect(campaignPeriod(annualHalloween, `${year}-10-16`)).toEqual({ inizio: `${year}-10-01`, fine: `${year}-11-01` });
+    }
+  });
+  it("risolve Natale attraverso il cambio anno e non ripete eventi senza ricorrenza", () => {
+    expect(pickCampaign(recurring, d("2028-01-06")).id).toBe("natale-annuale");
+    expect(pickCampaign(recurring, d("2028-01-07")).id).toBe("default");
+    expect(campaignPeriod(annualChristmas, "2028-01-06")).toEqual({ inizio: "2027-11-27", fine: "2028-01-06" });
+    const oneOff = camp("una-volta", "2026-10-10", "2026-10-20", 50);
+    expect(pickCampaign([...recurring, oneOff], d("2026-10-16")).id).toBe("una-volta");
+    expect(pickCampaign([...recurring, oneOff], d("2027-10-16")).id).toBe("halloween-annuale");
+  });
+  it("richiede entrambe le date per la ricorrenza e confronta gli inizi risolti", () => {
+    expect(CampaignSchema.safeParse({ ...annualHalloween, fine: null }).success).toBe(false);
+    const flash = camp("flash-2028", "2028-10-10", "2028-10-20", 10);
+    expect(pickCampaign([...recurring, flash], d("2028-10-16")).id).toBe("flash-2028");
+  });
+  it("valida il calendario, inclusi gli anni bisestili", () => {
+    expect(isoDate.safeParse("2026-02-30").success).toBe(false);
+    expect(isoDate.safeParse("2026-02-29").success).toBe(false);
+    expect(isoDate.safeParse("2028-02-29").success).toBe(true);
+    expect(isoDate.safeParse("2026-13-01").success).toBe(false);
+  });
+  it("usa il giorno italiano, anche quando UTC è ancora al giorno prima", () => {
+    expect(toIsoDate(new Date("2026-09-30T22:00:00Z"))).toBe("2026-10-01");
+    expect(toIsoDate(new Date("2026-11-01T22:59:59Z"))).toBe("2026-11-01");
+    expect(toIsoDate(new Date("2026-11-01T23:00:00Z"))).toBe("2026-11-02");
   });
 });
 

@@ -12,11 +12,10 @@ import { notFound } from "next/navigation";
 import { AisleHero } from "@/components/aisles/AisleHero";
 import { AisleCampaignBanner } from "@/components/aisles/AisleCampaignBanner";
 import { AisleStoresCta } from "@/components/aisles/AisleStoresCta";
-import { FeaturedIdeas } from "@/components/aisles/FeaturedIdeas";
+import { CampaignFeaturedIdeas } from "@/components/aisles/CampaignFeaturedIdeas";
 import { OtherAisles } from "@/components/aisles/OtherAisles";
 import { PromotionsGrid } from "@/components/flyers/PromotionsGrid";
 import { Container } from "@/components/ui/Container";
-import { Section } from "@/components/ui/Section";
 import { content, getActiveCampaign, getAisle, getAisleSlugs } from "@/lib/content";
 import { toIsoDate } from "@/lib/campaigns";
 import { buildMetadata } from "@/lib/seo";
@@ -56,7 +55,7 @@ export default async function AislePage({ params }: { params: Promise<Params> })
 
   const today = toIsoDate();
   const linkedPromos = promotions.filter(
-    (p) => p.corridoio === aisle.slug && (!p.validoAl || p.validoAl >= today),
+    (p) => p.corridoio === aisle.slug,
   );
   const others = allAisles
     .filter((a) => a.visibile && a.slug !== aisle.slug)
@@ -64,7 +63,7 @@ export default async function AislePage({ params }: { params: Promise<Params> })
     .map((a) => ({ slug: a.slug, titolo: a.titoloBreve, icona: a.icona }));
 
   return (
-    <main id="contenuto">
+    <>
       <AisleHero
         titolo={aisle.titolo}
         descrizione={aisle.descrizione}
@@ -73,7 +72,7 @@ export default async function AislePage({ params }: { params: Promise<Params> })
         colore={aisle.colore}
         breadcrumb={[
           { label: "Home", href: "/" },
-          { label: "Corridoi", href: "/#corridoi" },
+          { label: "Reparti", href: "/#corridoi" },
           { label: aisle.titolo, href: `/corridoi/${aisle.slug}/` },
         ]}
       />
@@ -84,34 +83,19 @@ export default async function AislePage({ params }: { params: Promise<Params> })
         <p className="max-w-3xl text-lg text-ink sm:text-xl">{aisle.descrizioneLunga}</p>
       </Container>
 
-      {aisle.inEvidenza.length > 0 && (
-        <Section tone="sand" rounded className="mx-3 sm:mx-6">
-          <FeaturedIdeas
-            eyebrow="In evidenza"
-            title="Le idee da non perdere"
-            subtitle="Una selezione di ciò che trovi in questo corridoio: vieni a scoprire il resto in negozio."
-            items={aisle.inEvidenza.map((h) => ({
-              titolo: h.titolo,
-              descrizione: h.descrizione,
-              immagine: h.immagine,
-              badge: h.badge,
-            }))}
-          />
-        </Section>
-      )}
+      <CampaignFeaturedIdeas items={aisle.inEvidenza} campaigns={campaigns} buildCampaignId={activeCampaign.id} />
 
       {linkedPromos.length > 0 && (
-        <Section tone="cream">
-          <PromotionsGrid
-            eyebrow="Promozioni"
-            title={`Promozioni per ${aisle.titoloBreve.toLowerCase()}`}
-            promotions={linkedPromos}
-          />
-        </Section>
+        <PromotionsGrid
+          buildDate={today}
+          eyebrow="Promozioni"
+          title={`Promozioni per ${aisle.titoloBreve.toLowerCase()}`}
+          promotions={linkedPromos}
+        />
       )}
 
       <AisleStoresCta corridoio={aisle.titoloBreve} citta={stores.map((s) => s.citta)} />
       <OtherAisles aisles={others} />
-    </main>
+    </>
   );
 }

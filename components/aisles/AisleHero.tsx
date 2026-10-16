@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { Icon, isIconName } from "@/components/ui/Icon";
+import { DepartmentIcon } from "@/components/ui/DepartmentIcon";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { Reveal } from "@/components/motion/Reveal";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { absoluteUrl } from "@/lib/seo";
 import type { ImageRef } from "@/lib/content/schemas";
+import { AisleArt } from "./AisleArt";
 
 export type BreadcrumbItem = { label: string; href: string };
 
@@ -60,18 +61,19 @@ export function AisleHero({ titolo, descrizione, immagine, icona, colore, breadc
         </nav>
         <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
           <Reveal>
-            {icona && isIconName(icona) && (
+            {icona && (
               <span
                 className="mb-6 inline-flex size-16 items-center justify-center rounded-full text-brand-blue-900"
                 style={{ background: `color-mix(in srgb, ${colore ?? "#0B6CB0"} 16%, white)` }}
               >
-                <Icon name={icona} size={32} />
+                <DepartmentIcon name={icona} size={52} />
               </span>
             )}
             <h1 className="text-brand-blue-900">{titolo}</h1>
             <p className="mt-6 max-w-xl text-lg text-muted sm:text-xl">{descrizione}</p>
           </Reveal>
           <Reveal delay={0.08}>
+            {immagine.src ? (
             <SmartImage
               src={immagine.src}
               alt={immagine.alt}
@@ -79,9 +81,12 @@ export function AisleHero({ titolo, descrizione, immagine, icona, colore, breadc
               ratio="4/5"
               priority
               sizes="(min-width: 1024px) 45vw, 100vw"
-              rounded="rounded-t-[999px] rounded-b-[var(--radius-xl)]"
+              rounded="rounded-[var(--radius-xl)]"
               className="mx-auto max-w-md shadow-lift lg:max-w-none"
             />
+            ) : (
+              <AisleArt icon={icona ?? "cucina"} className="w-full rounded-[var(--radius-xl)]" />
+            )}
           </Reveal>
         </div>
       </Container>

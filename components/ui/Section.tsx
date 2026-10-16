@@ -35,7 +35,7 @@ export function Section({
   return (
     <section
       className={cn(
-        "py-16 sm:py-24",
+        "py-12 sm:py-24",
         TONES[tone],
         rounded && "rounded-[var(--radius-xl)]",
         (grain || tone === "blue") && "grain",
