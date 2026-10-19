@@ -12,7 +12,7 @@ import "./globals.css";
 
 const figtree = Figtree({
   variable: "--font-figtree",
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });

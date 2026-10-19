@@ -18,7 +18,7 @@ Sito di Home & Co. (HCO SRL), catena di casalinghi con tre negozi in Toscana (Pr
 ## 1. Panoramica
 
 - Next.js (App Router) + TypeScript strict, Tailwind CSS v4 (token in `@theme` dentro `app/globals.css`), `motion` per le animazioni, Zod per validare i contenuti.
-- **Export statico** (`output: "export"`, `trailingSlash: true`, `images.unoptimized`): `npm run build` produce HTML in `out/`.
+- **Export statico** (`output: "export"`, `trailingSlash: true`): `npm run build` produce HTML in `out/`. Le immagini responsive vengono generate prima della build, senza un server immagini.
 - Tutti i testi e le immagini stanno in `content/` e `public/uploads/`, mai nei componenti. I componenti ricevono i dati da `lib/content`.
 - Dove manca una foto compare un segnaposto (`<Placeholder />`): l'elenco è in [ASSETS_TODO.md](ASSETS_TODO.md).
 
@@ -36,6 +36,8 @@ npm run lint         # eslint
 npm run typecheck    # tsc --noEmit
 ```
 
+`dev` e `build` preparano automaticamente le varianti WebP delle immagini con Sharp. Gli originali in `public/uploads/` restano intatti. Se aggiungi foto durante una sessione di sviluppo, esegui `npm run images:prepare` o riavvia `npm run dev`. `lib/image-manifest.json` è versionato; `public/_images/` è generato e ignorato da Git.
+
 ## 3. Deploy su Cloudflare Pages
 
 Il sito può essere pubblicato su un dominio nuovo senza accessi a WordPress o al vecchio hosting. Prima della build finale impostare `NEXT_PUBLIC_SITE_URL` con l’URL canonico scelto; il cambio richiede una nuova build. Le email aziendali e le fonti delle foto mantengono i loro indirizzi originali.
@@ -49,7 +51,7 @@ Impostazioni del progetto:
 | Variabile `NODE_VERSION` | `22` |
 
 - `public/_redirects` (301 dai vecchi URL WordPress) e `public/_headers` (cache lunga su `/_next/static/*`, header di sicurezza) vengono copiati in `out/` e letti da Cloudflare. `/offerte/`, `/contatti/`, `/privacy-policy/`, `/cookie-policy/` restano identici al vecchio sito grazie a `trailingSlash`.
-- **Cache dei visitatori.** HTML, dati `.txt` delle navigazioni Next, foto, loghi e PDF hanno `max-age=0, must-revalidate`: ai nuovi accessi il browser verifica se il file è cambiato, riutilizzando la copia se invariata. Solo JS/CSS con hash nel nome conservano la cache lunga `immutable`. Le regole sono pronte per Cloudflare Pages; il server locale Python non applica `_headers`. Al lancio verificare le intestazioni sul dominio reale, senza regole CDN aggiuntive che forzino cache lunghe sulle pagine. Un file già memorizzato con una vecchia scadenza non si può invalidare retroattivamente nel browser: per sostituzioni di materiali già pubblicati usare nomi di file nuovi.
+- **Cache dei visitatori.** HTML, dati `.txt` delle navigazioni Next, foto originali, loghi e PDF hanno `max-age=0, must-revalidate`: ai nuovi accessi il browser verifica se il file è cambiato, riutilizzando la copia se invariata. JS/CSS e varianti responsive in `/_images/` hanno hash nel nome e cache lunga `immutable`: sostituire una foto produce automaticamente URL nuovi. Le regole sono pronte per Cloudflare Pages; il server locale Python non applica `_headers`. Al lancio verificare le intestazioni sul dominio reale, senza regole CDN aggiuntive che forzino cache lunghe sulle pagine. Un file già memorizzato con una vecchia scadenza non si può invalidare retroattivamente nel browser: per sostituzioni di materiali originali già pubblicati usare nomi di file nuovi.
 - **Deploy Hook giornaliero.** La campagna attiva e i volantini validi vengono scelti **in build**, così l'HTML è già corretto e senza flash. Il browser ricontrolla la data prima del primo paint e ogni 30 secondi, oltre che al ritorno sulla scheda: tema, hero, collezione stagionale, reparti e volantini restano sincronizzati, anche oltre la mezzanotte italiana. Ma lo HTML statico (SEO, anteprime social, elenco volantini) cambia solo con una nuova build: crea in Cloudflare Pages un **Deploy Hook** e salva il suo URL nel secret GitHub **`CLOUDFLARE_DEPLOY_HOOK_URL`**. Il workflow incluso `.github/workflows/seasonal-refresh.yml` lo richiama ogni notte alle 01:15 UTC (02:15/03:15 in Italia); si può anche avviare a mano. Senza il secret salta il rinnovo con un avviso: il cambio nei browser continua a funzionare, ma l’HTML per i motori di ricerca si aggiorna solo al prossimo deploy. Il richiamo conferma la richiesta di build, non l’esito del deploy: quest’ultimo va controllato su Cloudflare.
 
 ## 4. Struttura delle cartelle
@@ -157,6 +159,8 @@ In `content/aisles.json`: `slug` (compare nell'URL `/corridoi/<slug>/`), `titolo
 
 Le foto delle corsie arrivano dal sito Home & Co. esistente. Le fotografie di ambientazione Pexels sono accompagnate da autore e licenza in `public/uploads/PHOTO_CREDITS.md`; la provenienza di ogni file è anche in `content/photo-sources.json`. Tutto è servito localmente, senza hotlink. `ImageRef.fit: "contain"` mantiene interi i prodotti e i volantini; `position` controlla il punto del ritaglio per le foto. Nessuna fotografia stock viene attribuita a un negozio Home & Co.
 
+`scripts/prepare-images.mjs` crea varianti da 96 a 1600 px (senza ingrandire gli originali), con qualità più alta per i testi dei volantini. Il loader di Next genera `srcset` e `sizes`: il browser sceglie la risoluzione adatta allo schermo e alla sua densità. L'immagine principale ha priorità alta; le altre si caricano avvicinandosi alla vista. Nel lettore, le pagine adiacenti vengono anticipate solo quando il volantino è vicino allo schermo; lo zoom usa l'originale e il PDF viene scaricato solo su richiesta.
+
 Il copy della home è in `content/home.json`, letto e validato da `ContentSource`; le campagne, i reparti e la carta restano nei rispettivi JSON. Il tono è diretto e concreto: evitare superlativi, promesse di risparmio o disponibilità non confermate e badge come “più scelti” senza dati reali.
 Vedi [ASSETS_TODO.md](ASSETS_TODO.md) (tabella di tutti i segnaposto, formati e dimensioni). Il logo ufficiale è in `public/brand/logo.svg`, estratto in vettoriale dal PDF dell’insegna. Il componente condiviso `components/ui/Logo.tsx` lo usa in header, menu, footer e tessera. Sui fondi scuri mantiene i colori originali su una base bianca. Favicon, icona Apple, immagine social e logo PNG per i dati strutturati sono già inclusi (dettagli in `public/brand/README.md`).
 
@@ -167,6 +171,7 @@ Vedi [ASSETS_TODO.md](ASSETS_TODO.md) (tabella di tutti i segnaposto, formati e 
 - **Scorrimento**: `SmoothScroll` carica Lenis solo con puntatore fine e senza preferenza di movimento ridotto. Inerzia della rotellina con `lerp: 0.11`; il tocco resta nativo (`syncTouch: false`). Menu e finestre modali fermano anche l'inerzia già in corso; i link interni usano gli spazi CSS sotto l'header. La preferenza di movimento ridotto viene recepita anche durante la visita.
 - **Comparsa allo scroll**: `Reveal` e `StaggerItem` usano un osservatore per elemento, con dissolvenza e salita di 28 px in 780 ms (16 px e 620 ms su smartphone). Le colonne della stessa riga si sfalsano di 80 ms; le righe successive aspettano di entrare nello schermo. L'effetto parte una sola volta. L'HTML iniziale è visibile: si preparano solo gli elementi sotto la vista dopo l'idratazione. Con JavaScript disattivato, movimento ridotto, focus da tastiera o stampa, il contenuto resta subito leggibile.
 - **Smartphone**: schede dei reparti e delle collezioni con foto laterale sotto i 640 px, archivio compatto sotto i 420 px, menu a schermo intero con chiusura sempre raggiungibile e collegamenti grandi. Pulsanti alti almeno 44 px, campi del modulo da 16 px e spazi per le aree sicure nelle finestre modali. La striscia dei marchi, quando presente, si scorre manualmente al tocco.
+- **Lettore volantini**: lo swipe orizzontale usa Pointer Events, senza dipendere dalle feature di trascinamento di Motion. Il gesto verticale mantiene lo scorrimento nativo e il pinch resta disponibile; frecce, tastiera e zoom sono sempre accessibili. Sui dispositivi touch le frecce sono sotto l'immagine per lasciare liberi prezzi e dettagli. I PDF usano link nativi, senza richieste di prefetch alle route Next.
 - La pagina **`/design-system/`** mostra tutto dal vivo. È esclusa da sitemap e robots.
 
 ## 7. Cookie, analytics e form contatti
@@ -179,7 +184,7 @@ Vedi [ASSETS_TODO.md](ASSETS_TODO.md) (tabella di tutti i segnaposto, formati e 
 
 1. **Contenuti**: l'accesso ai dati passa dall'interfaccia `ContentSource` (`lib/content/source.ts`). Oggi `FileContentSource` legge i JSON. Scrivi `ApiContentSource` (stub commentato in `lib/content/index.ts`) che chiama l'API, valida le risposte con gli stessi schemi Zod, e scegli la sorgente con `NEXT_PUBLIC_CONTENT_SOURCE=api` (aggiungendo il `case` in `createSource()`). Le pagine non cambiano.
 2. **Tipi shop**: `lib/api/types.ts` definisce `Category`, `Product`, `Price` (importi in centesimi) con la mappatura sulle DTO .NET.
-3. **Da statico a server**: oggi l'export statico vieta route handler, middleware, server actions e ISR. Per il catalogo dinamico: togli `output: "export"` in `next.config.ts` (istruzioni nel commento del file), togli `images.unoptimized`, sposta i redirect in `redirects()` e abilita ISR/`revalidate`. Il codice del sito vetrina è già compatibile.
+3. **Da statico a server**: oggi l'export statico vieta route handler, middleware, server actions e ISR. Per il catalogo dinamico: togli `output: "export"` in `next.config.ts` (istruzioni nel commento del file), valuta il loader immagini del CMS/API al posto delle varianti statiche, sposta i redirect in `redirects()` e abilita ISR/`revalidate`. Il codice del sito vetrina è già compatibile.
 4. **/shop**: nascerà in `app/(shop)/` (route group riservato). I corridoi sono già il ponte: `Aisle.categoryId` ↔ `Category.id`; la pagina `corridoi/[slug]` può rimandare a `/shop/<categoria>/` quando `categoryId` è valorizzato, riusando gli stessi componenti (AisleHero, FeaturedIdeas) con i prodotti reali al posto delle idee.
 
 ## 9. Aggiungere un pannello admin

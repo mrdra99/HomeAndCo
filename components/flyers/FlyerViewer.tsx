@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { m, type PanInfo } from "motion/react";
+import { useCallback, useEffect, useRef, useState, type PointerEvent } from "react";
+import { m } from "motion/react";
 import { Icon } from "@/components/ui/Icon";
 import { Placeholder } from "@/components/ui/Placeholder";
 import { cn } from "@/lib/utils";
@@ -16,6 +16,7 @@ type FlyerViewerProps = {
 };
 
 const SWIPE_PX = 60;
+const PAGE_SIZES = "(min-width: 768px) 576px, calc(100vw - 64px)";
 
 function Arrow({ dir, onClick, disabled, className }: { dir: "prev" | "next"; onClick: () => void; disabled: boolean; className?: string }) {
   return (
@@ -46,7 +47,23 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
   const [zoomOpen, setZoomOpen] = useState(false);
   const [zoomed, setZoomed] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const viewerRef = useRef<HTMLDivElement>(null);
+  const swipe = useRef<{ id: number; x: number; y: number } | null>(null);
+  const [nearby, setNearby] = useState(false);
   const last = pages.length - 1;
+
+  // Adjacents load only as the reader approaches the viewer, at low priority.
+  useEffect(() => {
+    const node = viewerRef.current;
+    if (!node || !("IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      setNearby(true);
+      observer.disconnect();
+    }, { rootMargin: "200px" });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   const go = useCallback(
     (delta: number) => {
@@ -80,9 +97,18 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
     }
   };
 
-  const onDragEnd = (_: unknown, info: PanInfo) => {
-    if (info.offset.x < -SWIPE_PX) go(1);
-    else if (info.offset.x > SWIPE_PX) go(-1);
+  const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    if (!event.isPrimary || event.button !== 0) return;
+    swipe.current = { id: event.pointerId, x: event.clientX, y: event.clientY };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+  const onPointerUp = (event: PointerEvent<HTMLDivElement>) => {
+    const start = swipe.current;
+    swipe.current = null;
+    if (!start || start.id !== event.pointerId) return;
+    const dx = event.clientX - start.x;
+    const dy = event.clientY - start.y;
+    if (Math.abs(dx) >= SWIPE_PX && Math.abs(dx) > Math.abs(dy) * 1.2) go(dx < 0 ? 1 : -1);
   };
 
   if (pages.length === 0) return null;
@@ -92,6 +118,7 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
 
   return (
     <div
+      ref={viewerRef}
       className={cn("mx-auto w-full max-w-xl rounded-lg", className)}
       role="group"
       aria-roledescription="carosello"
@@ -100,32 +127,30 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
       onKeyDown={onKey}
     >
       <div className="relative">
-        <m.div
-          key={index}
-          drag={pages.length > 1 ? "x" : false}
-          dragSnapToOrigin
-          dragElastic={0.25}
-          onDragEnd={onDragEnd}
-          initial={{ opacity: 0, x: dir * 40 }}
-          animate={{ opacity: 1, x: 0 }}
+        <div
+          onPointerDown={onPointerDown}
+          onPointerUp={onPointerUp}
+          onPointerCancel={() => { swipe.current = null; }}
+          onLostPointerCapture={() => { swipe.current = null; }}
           className="relative cursor-grab overflow-hidden rounded-lg bg-white shadow-lift [touch-action:pan-y_pinch-zoom] active:cursor-grabbing"
         >
-          {page.src ? (
-            <div className="relative aspect-[3/4] w-full">
-              <Image
-                src={page.src}
-                alt={page.alt || `${title}, ${pageLabel}`}
-                fill
-                sizes="(min-width: 640px) 576px, 100vw"
-                draggable={false}
-                className="select-none object-contain"
-                preload={index === 0}
-              />
-            </div>
-          ) : (
-            <Placeholder ratio="3/4" label={`${title} - ${pageLabel}`} rounded="rounded-none" />
-          )}
-        </m.div>
+          <m.div key={index} initial={{ opacity: 0, x: dir * 40 }} animate={{ opacity: 1, x: 0 }}>
+            {page.src ? (
+              <div className="relative aspect-[3/4] w-full">
+                <Image
+                  src={page.src}
+                  alt={page.alt || `${title}, ${pageLabel}`}
+                  fill
+                  sizes={PAGE_SIZES}
+                  draggable={false}
+                  className="select-none object-contain"
+                />
+              </div>
+            ) : (
+              <Placeholder ratio="3/4" label={`${title} - ${pageLabel}`} rounded="rounded-none" />
+            )}
+          </m.div>
+        </div>
 
         <button
           type="button"
@@ -144,23 +169,26 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
 
         {pages.length > 1 && (
           <>
-            <Arrow dir="prev" onClick={() => go(-1)} disabled={index === 0} className="absolute left-2 top-1/2 -translate-y-1/2" />
-            <Arrow dir="next" onClick={() => go(1)} disabled={index === last} className="absolute right-2 top-1/2 -translate-y-1/2" />
+            <Arrow dir="prev" onClick={() => go(-1)} disabled={index === 0} className="absolute left-2 top-1/2 hidden -translate-y-1/2 pointer-fine:inline-flex" />
+            <Arrow dir="next" onClick={() => go(1)} disabled={index === last} className="absolute right-2 top-1/2 hidden -translate-y-1/2 pointer-fine:inline-flex" />
           </>
         )}
       </div>
 
       {/* Precarica le pagine adiacenti senza mostrarle */}
-      <div hidden>
+      {nearby && <div hidden>
         {near.map((i) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img key={i} src={pages[i].src ?? ""} alt="" loading="eager" />
+          <Image key={i} src={pages[i].src!} alt="" width={576} height={768} sizes={PAGE_SIZES} loading="eager" fetchPriority="low" />
         ))}
-      </div>
+      </div>}
 
-      <p className="mt-4 text-center text-sm font-semibold text-muted" aria-live="polite">
-        Pagina {index + 1} di {pages.length}
-      </p>
+      <div className="mt-4 flex items-center justify-center gap-5">
+        {pages.length > 1 && <Arrow dir="prev" onClick={() => go(-1)} disabled={index === 0} className="pointer-fine:hidden" />}
+        <p className="text-center text-sm font-semibold text-muted" aria-live="polite">
+          Pagina {index + 1} di {pages.length}
+        </p>
+        {pages.length > 1 && <Arrow dir="next" onClick={() => go(1)} disabled={index === last} className="pointer-fine:hidden" />}
+      </div>
       {pages.length > 1 && (
         <ul className="mt-2 flex flex-wrap justify-center" aria-label="Vai alla pagina">
           {pages.map((p, i) => (

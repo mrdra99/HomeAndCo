@@ -11,6 +11,7 @@ node_modules/
 # build Next.js / export statico
 .next/
 out/
+public/_images/
 build/
 *.tsbuildinfo
 next-env.d.ts

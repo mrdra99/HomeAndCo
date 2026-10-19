@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
@@ -22,10 +23,10 @@ export function FlyerTeaser({ flyers, buildDate, copy }: FlyerTeaserProps) {
   return (
     <Section tone="cream" className="py-12 sm:py-16">
       <Reveal className="grid items-center gap-8 overflow-hidden rounded-lg bg-white p-6 ring-1 ring-brand-blue-100 sm:grid-cols-[13rem_1fr] sm:gap-12 sm:p-10">
-        <div className="mx-auto w-full max-w-52">
+        <Link href={current || preview ? "/offerte/" : "/offerte/#archivio"} aria-label={`Guarda ${flyer.titolo}`} className="group mx-auto block w-full max-w-52">
           <SmartImage src={flyer.copertina.src} alt={flyer.copertina.alt} label={flyer.titolo}
             ratio="210/297" sizes="208px" fit="contain" rounded="rounded-none" className="shadow-soft" />
-        </div>
+        </Link>
         <div>
           <Badge tone={current ? "accent" : "sand"} className="mb-4">
             {current ? formatDateRangeIt(flyer.validoDal, flyer.validoAl) : preview ? copy.statoAnteprima : copy.statoArchivio}

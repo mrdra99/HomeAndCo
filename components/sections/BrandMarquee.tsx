@@ -6,7 +6,7 @@ import type { Brand } from "@/lib/content/schemas";
 
 function BrandItem({ brand }: { brand: Brand }) {
   const inner = brand.logo.src ? (
-    <Image src={brand.logo.src} alt={brand.nome} width={140} height={56} className="h-12 w-auto object-contain" />
+    <Image src={brand.logo.src} alt={brand.nome} width={140} height={56} unoptimized={brand.logo.src.endsWith(".svg")} className="h-12 w-auto object-contain" />
   ) : (
     <span className="whitespace-nowrap font-display text-lg text-brand-blue-800">{brand.nome}</span>
   );

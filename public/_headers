@@ -9,6 +9,9 @@
 /_next/static/*
   Cache-Control: public, max-age=31536000, immutable
 
+/_images/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # HTML e dati delle navigazioni Next: verificare la versione a ogni nuova richiesta.
 # Regole separate per non applicare due Cache-Control agli asset con hash.
 /

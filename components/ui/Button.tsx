@@ -29,7 +29,7 @@ type AsLink = Common & { href: string } & Omit<AnchorHTMLAttributes<HTMLAnchorEl
 type AsButton = Common & { href?: undefined } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, keyof Common>;
 export type ButtonProps = AsLink | AsButton;
 
-/** Pulsante pill. Con `href` interno e' un Link Next; con http/mailto/tel un <a>; senza href un <button>. */
+/** Next handles page routes; files, downloads and anchors use native browser navigation. */
 export function Button(props: ButtonProps) {
   const { variant = "primary", size = "md", iconLeft, iconRight, className, children, ...rest } = props;
   const classes = cn(
@@ -50,8 +50,10 @@ export function Button(props: ButtonProps) {
 
   if (typeof rest.href === "string") {
     const { href, ...anchor } = rest as Omit<AsLink, keyof Common>;
-    if (/^(https?:|mailto:|tel:)/.test(href)) {
-      const isHttp = href.startsWith("http");
+    const external = /^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(href);
+    const file = anchor.download !== undefined || /^\/(?:uploads|brand|_images)\//.test(href) || /\.pdf(?:[?#]|$)/i.test(href);
+    if (external || file || href.startsWith("#")) {
+      const isHttp = /^(?:https?:|\/\/)/i.test(href);
       return (
         <a
           href={href}

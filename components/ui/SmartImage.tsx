@@ -45,7 +45,9 @@ export function SmartImage({
         alt={alt}
         fill
         sizes={sizes}
-        preload={priority}
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : undefined}
+        unoptimized={src.endsWith(".svg")}
         className={cn(fit === "contain" ? "object-contain" : "object-cover", "transition-transform duration-500 group-hover:scale-[1.04]", imgClassName)}
         style={position ? { objectPosition: position } : undefined}
       />

@@ -131,17 +131,22 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
                     Anteprima: offerte dal {formatDateIt(selected.validoDal)}. {storesLabel(selected, storeNames).replace(/^Vale/, "Valido")}.
                   </p>
                 )}
-                <SmartImage
-                  src={selected.copertina.src}
-                  alt={selected.copertina.alt || `Copertina del volantino ${selected.titolo}`}
-                  label={selected.copertina.label ?? `Copertina volantino ${selected.titolo}`}
-                  ratio="62352/87024"
-                  fit="contain"
-                  priority
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  rounded="rounded-2xl"
-                  className="mx-auto max-w-md shadow-lift"
-                />
+                <a href="#sfoglia" aria-label={`Sfoglia ${selected.titolo}`} className="group relative mx-auto block max-w-md rounded-2xl">
+                  <SmartImage
+                    src={selected.copertina.src}
+                    alt={selected.copertina.alt || `Copertina del volantino ${selected.titolo}`}
+                    label={selected.copertina.label ?? `Copertina volantino ${selected.titolo}`}
+                    ratio="62352/87024"
+                    fit="contain"
+                    priority
+                    sizes="(min-width: 512px) 448px, calc(100vw - 40px)"
+                    rounded="rounded-2xl"
+                    className="mx-auto max-w-md shadow-lift"
+                  />
+                  <span aria-hidden="true" className="absolute bottom-3 right-3 inline-flex min-h-11 items-center gap-2 rounded-full bg-white/95 px-4 text-sm font-bold text-brand-blue-800 shadow-soft">
+                    Sfoglia <Icon name="arrow-right" size={18} className="rotate-90" />
+                  </span>
+                </a>
               </Reveal>
             </div>
           </Section>
