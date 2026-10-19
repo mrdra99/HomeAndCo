@@ -31,12 +31,12 @@ export default async function ContattiPage() {
           as="h1"
           eyebrow="Contatti"
           title="Scrivici, ti rispondiamo volentieri"
-          subtitle="Una domanda su un prodotto, sul volantino o sulla carta fedeltà? Compila il modulo o passa a trovarci in negozio."
+          subtitle="Una domanda su un prodotto, sul volantino o sulla carta fedeltà? Scrivici o passa a trovarci in negozio."
         />
         <div className="mt-12 grid gap-10 lg:grid-cols-[1.2fr_1fr]">
           <Reveal>
             <Card>
-              <ContactForm />
+              <ContactForm email={settings.societa.email} />
             </Card>
           </Reveal>
           <div className="space-y-6">

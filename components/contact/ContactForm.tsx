@@ -9,7 +9,7 @@ import { CONTACT_SUBJECTS, ContactSchema, getContactAdapter } from "@/lib/contac
 
 type Field = "nome" | "email" | "oggetto" | "messaggio" | "privacy";
 type Errors = Partial<Record<Field, string>>;
-type Status = "idle" | "sending" | "success" | "error";
+type Status = "idle" | "sending" | "success" | "demo" | "error";
 
 const inputCls =
   "mt-2 block w-full rounded-md border-2 border-brand-blue-100 bg-white px-4 py-3 text-ink placeholder:text-muted/70 aria-[invalid=true]:border-brand-magenta-700";
@@ -33,14 +33,16 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   );
 }
 
-export function ContactForm() {
+export function ContactForm({ email }: { email: string }) {
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [serverError, setServerError] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
+  const adapter = getContactAdapter();
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (status === "sending") return;
     const fd = new FormData(e.currentTarget);
     const parsed = ContactSchema.safeParse({
       nome: fd.get("nome"),
@@ -64,9 +66,9 @@ export function ContactForm() {
     setErrors({});
     setStatus("sending");
     try {
-      const res = await getContactAdapter().send(parsed.data);
+      const res = await adapter.send(parsed.data);
       if (res.ok) {
-        setStatus("success");
+        setStatus(res.simulated ? "demo" : "success");
         formRef.current?.reset();
       } else {
         setServerError(res.error);
@@ -83,10 +85,19 @@ export function ContactForm() {
     "aria-describedby": errors[f] ? `err-${f}` : undefined,
   });
 
+  if (!adapter.available) return (
+    <div>
+      <h2 className="text-2xl text-brand-blue-900">Scrivici via email</h2>
+      <p className="mt-3 text-muted">Hai una domanda? Raccontaci di cosa hai bisogno e indica il negozio a cui ti riferisci.</p>
+      <Button href={`mailto:${email}`} className="mt-6 max-w-full [&>span]:break-all">{email}</Button>
+    </div>
+  );
+
   return (
     <div>
+      {adapter.simulated && <p className="mb-5 rounded-xl bg-brand-blue-50 p-4 text-sm text-brand-blue-900">Stai provando il modulo: i messaggi non vengono spediti.</p>}
       <AnimatePresence mode="wait" initial={false}>
-        {status === "success" ? (
+        {status === "success" || status === "demo" ? (
           <m.div
             key="ok"
             role="status"
@@ -94,8 +105,8 @@ export function ContactForm() {
             animate={{ opacity: 1, scale: 1 }}
             className="rounded-lg bg-brand-blue-50 p-8 text-center"
           >
-            <h2 className="text-2xl text-brand-blue-900">Messaggio inviato, grazie!</h2>
-            <p className="mt-3 text-muted">Ti risponderemo il prima possibile.</p>
+            <h2 className="text-2xl text-brand-blue-900">{status === "demo" ? "Prova completata" : "Messaggio inviato, grazie!"}</h2>
+            <p className="mt-3 text-muted">{status === "demo" ? "Nessuna email è stata inviata." : "Ti risponderemo il prima possibile."}</p>
             <Button variant="outline" className="mt-6" onClick={() => setStatus("idle")}>
               Scrivi un altro messaggio
             </Button>
@@ -160,6 +171,8 @@ export function ContactForm() {
                 </m.p>
               )}
             </AnimatePresence>
+
+            {status === "error" && <a href={`mailto:${email}`} className="inline-flex min-h-11 items-center font-semibold text-brand-blue-700 underline underline-offset-4">Scrivici via email</a>}
 
             <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={status === "sending"} aria-busy={status === "sending"}>
               {status === "sending" ? "Invio in corso..." : "Invia messaggio"}

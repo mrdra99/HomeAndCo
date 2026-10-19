@@ -46,6 +46,8 @@ Impostazioni del progetto:
 
 | Voce | Valore |
 |---|---|
+| Framework preset | `Next.js (Static HTML Export)` |
+| Production branch | `main` |
 | Build command | `npm run build` |
 | Build output directory | `out` |
 | Variabile `NODE_VERSION` | `22` |
@@ -53,6 +55,15 @@ Impostazioni del progetto:
 - `public/_redirects` (301 dai vecchi URL WordPress) e `public/_headers` (cache lunga su `/_next/static/*`, header di sicurezza) vengono copiati in `out/` e letti da Cloudflare. `/offerte/`, `/contatti/`, `/privacy-policy/`, `/cookie-policy/` restano identici al vecchio sito grazie a `trailingSlash`.
 - **Cache dei visitatori.** HTML, dati `.txt` delle navigazioni Next, foto originali, loghi e PDF hanno `max-age=0, must-revalidate`: ai nuovi accessi il browser verifica se il file è cambiato, riutilizzando la copia se invariata. JS/CSS e varianti responsive in `/_images/` hanno hash nel nome e cache lunga `immutable`: sostituire una foto produce automaticamente URL nuovi. Le regole sono pronte per Cloudflare Pages; il server locale Python non applica `_headers`. Al lancio verificare le intestazioni sul dominio reale, senza regole CDN aggiuntive che forzino cache lunghe sulle pagine. Un file già memorizzato con una vecchia scadenza non si può invalidare retroattivamente nel browser: per sostituzioni di materiali originali già pubblicati usare nomi di file nuovi.
 - **Deploy Hook giornaliero.** La campagna attiva e i volantini validi vengono scelti **in build**, così l'HTML è già corretto e senza flash. Il browser ricontrolla la data prima del primo paint e ogni 30 secondi, oltre che al ritorno sulla scheda: tema, hero, collezione stagionale, reparti e volantini restano sincronizzati, anche oltre la mezzanotte italiana. Ma lo HTML statico (SEO, anteprime social, elenco volantini) cambia solo con una nuova build: crea in Cloudflare Pages un **Deploy Hook** e salva il suo URL nel secret GitHub **`CLOUDFLARE_DEPLOY_HOOK_URL`**. Il workflow incluso `.github/workflows/seasonal-refresh.yml` lo richiama ogni notte alle 01:15 UTC (02:15/03:15 in Italia); si può anche avviare a mano. Senza il secret salta il rinnovo con un avviso: il cambio nei browser continua a funzionare, ma l’HTML per i motori di ricerca si aggiorna solo al prossimo deploy. Il richiamo conferma la richiesta di build, non l’esito del deploy: quest’ultimo va controllato su Cloudflare.
+
+Per attivare il richiamo su un progetto Pages collegato a GitHub:
+
+1. Cloudflare → Workers & Pages → progetto → Settings → Builds → Add deploy hook. Nome suggerito: `campagne-giornaliere`; branch: quello di produzione.
+2. Copiare l'URL nel repository GitHub → Settings → Secrets and variables → Actions → New repository secret, nome `CLOUDFLARE_DEPLOY_HOOK_URL`. L'URL è riservato: non va nei file del sito o nelle variabili `NEXT_PUBLIC_*`.
+3. Il workflow deve essere presente sul branch predefinito del repository e GitHub Actions deve essere abilitato. Avviare Actions → Aggiorna campagne stagionali → Run workflow e controllare che il nuovo deploy Cloudflare termini correttamente.
+4. Verificare sul dominio pubblico cache, tema e HTML della nuova build. I job pianificati GitHub possono subire ritardi; nei repository pubblici inattivi per 60 giorni possono essere disabilitati. Il cambio nel browser non dipende dal job; verificare periodicamente che l'aggiornamento dell'HTML resti attivo.
+
+Il solo caricamento manuale di `out/` non collega un repository che Cloudflare possa ricostruire con il Deploy Hook. Un progetto creato con Direct Upload non può essere convertito a Git integration: occorre un nuovo progetto collegato a Git oppure una pipeline di build e upload propria. [Guida ai Deploy Hook](https://developers.cloudflare.com/pages/configuration/deploy-hooks/) · [Direct Upload](https://developers.cloudflare.com/pages/get-started/direct-upload/).
 
 ## 4. Struttura delle cartelle
 
@@ -178,7 +189,9 @@ Vedi [ASSETS_TODO.md](ASSETS_TODO.md) (tabella di tutti i segnaposto, formati e 
 
 - **Consenso**: `components/consent/` (ConsentProvider, CookieBanner, `CookiePreferencesLink` nel footer). Scelta salvata in localStorage con versione (`CONSENT_VERSION`): aumentala se cambiano finalità o categorie.
 - **Analytics**: scrivi l'ID in `content/settings.json` → `analytics.gaId` (es. `G-XXXXXXXXXX`) e/o `analytics.metaPixelId`. Gli script (`lib/analytics.ts`) si caricano solo dopo il consenso (statistiche per GA4, marketing per Meta Pixel). Con `null` non succede nulla. Poi aggiorna la tabella cookie in `cookie-policy/page.tsx` e valuta un CSP in `public/_headers`.
-- **Form contatti**: `lib/contact/adapter.ts`. Oggi usa `MockAdapter` (non invia nulla). Scegli l'adapter con `NEXT_PUBLIC_CONTACT_ADAPTER`; decommenta e completa `FormspreeAdapter` (serve `NEXT_PUBLIC_FORMSPREE_URL`) oppure `ApiDotnetAdapter` (`POST /api/contact`, serve `NEXT_PUBLIC_API_URL`). **TODO: collegarne uno prima del lancio.** Vedi `.env.example`.
+- **Form contatti**: `lib/contact/adapter.ts` implementa l'invio Formspree compatibile con l'export statico. Creare un modulo nell'account Formspree, impostare e verificare l'indirizzo destinatario e abilitare la notifica email. In Cloudflare impostare `NEXT_PUBLIC_CONTACT_ADAPTER=formspree` e `NEXT_PUBLIC_FORMSPREE_URL=https://formspree.io/f/ID_REALE`, quindi avviare un nuovo deploy. L'indirizzo destinatario si configura sul servizio, non nel browser. Il campo `email` del visitatore permette di rispondere al mittente.
+- **Disponibilità e prove**: senza provider configurato, in produzione compare un collegamento all'email aziendale. Endpoint mancanti o non validi non attivano il modulo. `mock` è una prova esplicita con avviso e conferma «Nessuna email è stata inviata»; non registra dati personali. Gli errori del servizio, di rete o di timeout non mostrano una conferma di invio e conservano i campi; è disponibile il collegamento email. In sviluppo senza configurazione si usa la prova dichiarata.
+- **Attivazione reale**: dopo il deploy, concordare un messaggio di prova e confermarne la ricezione nella casella corretta. Il codice può verificare l'accettazione del servizio; la consegna della notifica va verificata nella casella. Adeguare l'informativa al fornitore effettivamente scelto. [Configurazione ufficiale Formspree su Pages](https://developers.cloudflare.com/pages/tutorials/add-a-react-form-with-formspree/). Vedi `.env.example`.
 
 ## 8. Collegare le API .NET in futuro
 
