@@ -1,34 +1,26 @@
 "use client";
 
-import { m, type Variants } from "motion/react";
 import type { ReactNode } from "react";
+import { Reveal } from "./Reveal";
 
-const item: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
-};
-
-type StaggerProps = { children: ReactNode; className?: string; gap?: number };
+type StaggerProps = { children: ReactNode; className?: string; gap?: number; as?: "div" | "ul" };
 
 /** Contenitore che anima in sequenza i figli <StaggerItem>. */
-export function Stagger({ children, className, gap = 0.06 }: StaggerProps) {
+export function Stagger({ children, className, gap = 0.08, as: Tag = "div" }: StaggerProps) {
   return (
-    <m.div
+    <Tag
       className={className}
-      variants={{ hidden: {}, show: { transition: { staggerChildren: gap } } }}
-      initial={false}
-      whileInView="show"
-      viewport={{ once: true, margin: "0px 0px -60px 0px" }}
+      data-reveal-gap={gap}
     >
       {children}
-    </m.div>
+    </Tag>
   );
 }
 
-export function StaggerItem({ children, className }: { children: ReactNode; className?: string }) {
+export function StaggerItem({ children, className, as = "div" }: { children: ReactNode; className?: string; as?: "div" | "li" }) {
   return (
-    <m.div className={className} variants={item}>
+    <Reveal as={as} className={className} stagger>
       {children}
-    </m.div>
+    </Reveal>
   );
 }

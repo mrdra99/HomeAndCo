@@ -11,7 +11,7 @@ import { SmartImage } from "@/components/ui/SmartImage";
 import { Reveal } from "@/components/motion/Reveal";
 import { Stagger, StaggerItem } from "@/components/motion/Stagger";
 import { useToday } from "@/lib/date-store";
-import { archivedFlyers, currentFlyers, formatDateRangeIt } from "@/lib/flyers";
+import { archivedFlyers, currentFlyers, upcomingFlyers, isFlyerUpcoming, formatDateIt, formatDateRangeIt } from "@/lib/flyers";
 import { cn } from "@/lib/utils";
 import type { Flyer } from "@/lib/content/schemas";
 import { FlyerViewer } from "./FlyerViewer";
@@ -41,18 +41,21 @@ function storesLabel(f: Flyer, names: Record<string, string>): string {
 export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHref }: FlyersBoardProps) {
   const today = useToday(buildDate);
   const current = currentFlyers(flyers, today);
+  const upcoming = upcomingFlyers(flyers, today);
+  const available = [...current, ...upcoming];
   const archived = archivedFlyers(flyers, today);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const selected = current.find((f) => f.id === selectedId) ?? current[0];
+  const selected = available.find((f) => f.id === selectedId) ?? available[0];
+  const preview = Boolean(selected && isFlyerUpcoming(selected, today));
 
   return (
     <>
       {selected ? (
         <>
           <Section tone="cream" className="pt-4 sm:pt-8">
-            {current.length > 1 && (
-              <div role="tablist" aria-label="Volantini in corso" className="hide-scrollbar -mx-5 mb-10 flex gap-2 overflow-x-auto px-5 py-2 sm:mx-0 sm:px-0">
-                {current.map((f) => {
+            {available.length > 1 && (
+              <div role="tablist" aria-label="Volantini in corso e in anteprima" className="hide-scrollbar -mx-5 mb-10 flex gap-2 overflow-x-auto px-5 py-2 sm:mx-0 sm:px-0">
+                {available.map((f) => {
                   const on = f.id === selected.id;
                   return (
                     <button
@@ -65,11 +68,11 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
                       tabIndex={on ? 0 : -1}
                       onClick={() => setSelectedId(f.id)}
                       onKeyDown={(e) => {
-                        const i = current.findIndex((x) => x.id === f.id);
+                        const i = available.findIndex((x) => x.id === f.id);
                         const n = e.key === "ArrowRight" ? i + 1 : e.key === "ArrowLeft" ? i - 1 : null;
                         if (n === null) return;
                         e.preventDefault();
-                        const next = current[(n + current.length) % current.length];
+                        const next = available[(n + available.length) % available.length];
                         setSelectedId(next.id);
                         document.getElementById(`tab-${next.id}`)?.focus();
                       }}
@@ -78,7 +81,7 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
                         on ? "bg-brand-blue-600 text-white shadow-soft" : "bg-white text-brand-blue-800 hover:bg-brand-blue-50",
                       )}
                     >
-                      {f.titolo}
+                      {f.titolo}{isFlyerUpcoming(f, today) ? " · Anteprima" : ""}
                     </button>
                   );
                 })}
@@ -87,13 +90,13 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
 
             <div
               id="volantino-attivo"
-              role={current.length > 1 ? "tabpanel" : undefined}
-              aria-labelledby={current.length > 1 ? `tab-${selected.id}` : undefined}
+              role={available.length > 1 ? "tabpanel" : undefined}
+              aria-labelledby={available.length > 1 ? `tab-${selected.id}` : undefined}
               key={selected.id}
               className="grid items-center gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16"
             >
               <Reveal className="order-2 lg:order-1">
-                <p className="text-sm font-bold uppercase tracking-[0.14em] text-brand-magenta-700">Il volantino in corso</p>
+                <p className="text-sm font-bold text-brand-magenta-700">{preview ? "Il prossimo volantino, in anteprima" : "Il volantino in corso"}</p>
                 <h2 className="mt-3 text-brand-blue-900">{selected.titolo}</h2>
                 <div className="mt-5 flex flex-wrap items-center gap-3">
                   <Sticker tone="accent" rotate={-3}>
@@ -101,11 +104,13 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
                   </Sticker>
                   <span className="inline-flex items-center gap-2 font-semibold text-brand-blue-800">
                     <Icon name="map-pin" size={20} className="text-brand-magenta-700" />
-                    {storesLabel(selected, storeNames)}
+                    {preview ? storesLabel(selected, storeNames).replace(/^Vale/, "Valido") : storesLabel(selected, storeNames)}
                   </span>
                 </div>
                 <p className="mt-5 max-w-lg text-lg text-muted">
-                  Prezzi speciali e tante idee per la casa: sfoglialo qui con calma oppure scaricalo e portalo con te in negozio.
+                  {preview
+                    ? `Le offerte iniziano il ${formatDateIt(selected.validoDal)}. Intanto puoi sfogliare il catalogo e preparare la tua lista.`
+                    : "Sfoglia il catalogo e controlla le offerte del negozio indicato. Puoi anche scaricare il PDF e portarlo con te."}
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   {selected.pagine.length > 0 && (
@@ -115,21 +120,26 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
                   )}
                   {selected.pdf && (
                     <Button href={selected.pdf} download variant="outline" size="lg" iconLeft={<Icon name="download" size={20} />}>
-                      Scarica PDF
+                      Scarica PDF{selected.pdfDimensione ? ` (${selected.pdfDimensione})` : ""}
                     </Button>
                   )}
                 </div>
               </Reveal>
               <Reveal delay={0.08} className="order-1 lg:order-2">
+                {preview && (
+                  <p className="mb-3 rounded-xl bg-brand-blue-50 px-4 py-3 text-sm font-semibold text-brand-blue-900 lg:hidden">
+                    Anteprima: offerte dal {formatDateIt(selected.validoDal)}. {storesLabel(selected, storeNames).replace(/^Vale/, "Valido")}.
+                  </p>
+                )}
                 <SmartImage
                   src={selected.copertina.src}
                   alt={selected.copertina.alt || `Copertina del volantino ${selected.titolo}`}
                   label={selected.copertina.label ?? `Copertina volantino ${selected.titolo}`}
-                  ratio="4/5"
+                  ratio="62352/87024"
                   fit="contain"
                   priority
                   sizes="(min-width: 1024px) 50vw, 100vw"
-                  rounded="rounded-t-[999px] rounded-b-[var(--radius-xl)]"
+                  rounded="rounded-2xl"
                   className="mx-auto max-w-md shadow-lift"
                 />
               </Reveal>

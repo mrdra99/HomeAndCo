@@ -15,7 +15,7 @@ export default async function PrivacyPolicyPage() {
     <LegalPage title="Privacy policy" updated="ottobre 2026 (bozza)">
       <p>
         Questa informativa descrive come vengono trattati i dati personali degli utenti che visitano il sito
-        home-co.it, ai sensi degli artt. 13 e 14 del Regolamento (UE) 2016/679 (GDPR).
+        di Home &amp; Co., ai sensi degli artt. 13 e 14 del Regolamento (UE) 2016/679 (GDPR).
       </p>
 
       <h2>Titolare del trattamento</h2>

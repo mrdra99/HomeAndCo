@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { DepartmentIcon } from "@/components/ui/DepartmentIcon";
 import { SmartImage } from "@/components/ui/SmartImage";
+import { Reveal } from "@/components/motion/Reveal";
+import { Stagger, StaggerItem } from "@/components/motion/Stagger";
 import type { Campaign } from "@/lib/content/schemas";
 import { useActiveCampaign } from "./useActiveCampaign";
 
@@ -14,13 +16,13 @@ export function CampaignCollection({ campaigns, buildCampaignId }: { campaigns: 
   return (
     <section id="idee-di-stagione" aria-labelledby="collection-title" className="campaign-collection bg-white py-12 sm:py-16">
       <Container size="wide">
-        <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+        <Reveal className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
           <h2 id="collection-title" className="max-w-xl !text-3xl text-brand-blue-900 sm:!text-4xl">{collection.titolo}</h2>
           <p className="max-w-sm text-muted">{collection.descrizione}</p>
-        </div>
-        <ul className="mt-8 grid gap-5 md:grid-cols-3">
+        </Reveal>
+        <Stagger as="ul" className="mt-8 grid gap-5 md:grid-cols-3">
           {collection.idee.map((idea) => (
-            <li key={idea.corridoio}>
+            <StaggerItem as="li" key={idea.corridoio}>
               <Link href={`/corridoi/${idea.corridoio}/`} className={`group h-full overflow-hidden rounded-2xl bg-cream transition-colors hover:bg-brand-blue-50 ${idea.immagine?.src ? "grid grid-cols-[80px_minmax(0,1fr)] min-[380px]:grid-cols-[104px_minmax(0,1fr)] sm:flex sm:flex-col" : "flex flex-col"}`}>
                 {idea.immagine?.src && (
                   <SmartImage src={idea.immagine.src} alt={idea.immagine.alt} label={idea.titolo} ratio="16/10"
@@ -35,9 +37,9 @@ export function CampaignCollection({ campaigns, buildCampaignId }: { campaigns: 
                   </span>
                 </div>
               </Link>
-            </li>
+            </StaggerItem>
           ))}
-        </ul>
+        </Stagger>
       </Container>
     </section>
   );

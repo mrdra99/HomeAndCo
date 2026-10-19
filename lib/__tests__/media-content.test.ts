@@ -29,7 +29,7 @@ describe("materiali fotografici e volantini autentici", () => {
       expect(sources.images.some((entry) => entry.file === src), src).toBe(true);
     }
   });
-  it("mantiene i PDF originali e tutte le pagine, senza offerte fittizie in corso", () => {
+  it("verifica i PDF ufficiali e tutte le pagine, senza offerte fittizie in corso", () => {
     const flyers = FlyerSchema.array().parse(flyersJson);
     expect(currentFlyers(flyers, new Date("2026-10-16T12:00:00Z"))).toEqual([]);
     for (const flyer of flyers) {
@@ -37,6 +37,7 @@ describe("materiali fotografici e volantini autentici", () => {
       const source = sources.flyers.find((entry) => entry.file === flyer.pdf)!;
       const bytes = localFile(flyer.pdf!);
       expect(bytes.toString("ascii", 0, 4)).toBe("%PDF");
+      expect(bytes.length, "Limite per singolo file di Cloudflare Pages").toBeLessThanOrEqual(25 * 1024 * 1024);
       expect(createHash("sha256").update(bytes).digest("hex")).toBe(source.sha256);
       expect(flyer.pagine).toHaveLength(source.pages);
       for (const page of flyer.pagine) expect(localFile(page.src!).length).toBeGreaterThan(1000);

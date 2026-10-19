@@ -1,6 +1,6 @@
 # Home & Co. — sito vetrina
 
-Sito di Home & Co. (HCO SRL), catena di casalinghi con tre negozi in Toscana (Prato, Lucca, Sesto Fiorentino). Sostituisce il WordPress del 2021 ed è pensato per diventare, in futuro, anche un e-commerce (`/shop`) appoggiato a API .NET.
+Sito di Home & Co. (HCO SRL), catena di casalinghi con tre negozi in Toscana (Prato, Lucca, Sesto Fiorentino). È uno sviluppo indipendente dal WordPress precedente: il cliente non richiede di riutilizzarne dominio e hosting. È pensato per diventare, in futuro, anche un e-commerce (`/shop`) appoggiato a API .NET.
 
 ## Indice
 
@@ -38,6 +38,8 @@ npm run typecheck    # tsc --noEmit
 
 ## 3. Deploy su Cloudflare Pages
 
+Il sito può essere pubblicato su un dominio nuovo senza accessi a WordPress o al vecchio hosting. Prima della build finale impostare `NEXT_PUBLIC_SITE_URL` con l’URL canonico scelto; il cambio richiede una nuova build. Le email aziendali e le fonti delle foto mantengono i loro indirizzi originali.
+
 Impostazioni del progetto:
 
 | Voce | Valore |
@@ -47,6 +49,7 @@ Impostazioni del progetto:
 | Variabile `NODE_VERSION` | `22` |
 
 - `public/_redirects` (301 dai vecchi URL WordPress) e `public/_headers` (cache lunga su `/_next/static/*`, header di sicurezza) vengono copiati in `out/` e letti da Cloudflare. `/offerte/`, `/contatti/`, `/privacy-policy/`, `/cookie-policy/` restano identici al vecchio sito grazie a `trailingSlash`.
+- **Cache dei visitatori.** HTML, dati `.txt` delle navigazioni Next, foto, loghi e PDF hanno `max-age=0, must-revalidate`: ai nuovi accessi il browser verifica se il file è cambiato, riutilizzando la copia se invariata. Solo JS/CSS con hash nel nome conservano la cache lunga `immutable`. Le regole sono pronte per Cloudflare Pages; il server locale Python non applica `_headers`. Al lancio verificare le intestazioni sul dominio reale, senza regole CDN aggiuntive che forzino cache lunghe sulle pagine. Un file già memorizzato con una vecchia scadenza non si può invalidare retroattivamente nel browser: per sostituzioni di materiali già pubblicati usare nomi di file nuovi.
 - **Deploy Hook giornaliero.** La campagna attiva e i volantini validi vengono scelti **in build**, così l'HTML è già corretto e senza flash. Il browser ricontrolla la data prima del primo paint e ogni 30 secondi, oltre che al ritorno sulla scheda: tema, hero, collezione stagionale, reparti e volantini restano sincronizzati, anche oltre la mezzanotte italiana. Ma lo HTML statico (SEO, anteprime social, elenco volantini) cambia solo con una nuova build: crea in Cloudflare Pages un **Deploy Hook** e salva il suo URL nel secret GitHub **`CLOUDFLARE_DEPLOY_HOOK_URL`**. Il workflow incluso `.github/workflows/seasonal-refresh.yml` lo richiama ogni notte alle 01:15 UTC (02:15/03:15 in Italia); si può anche avviare a mano. Senza il secret salta il rinnovo con un avviso: il cambio nei browser continua a funzionare, ma l’HTML per i motori di ricerca si aggiorna solo al prossimo deploy. Il richiamo conferma la richiesta di build, non l’esito del deploy: quest’ultimo va controllato su Cloudflare.
 
 ## 4. Struttura delle cartelle
@@ -110,11 +113,11 @@ Regole: date `YYYY-MM-DD`, **entrambe inclusive**, fuso Europe/Rome. Se più cam
 
 ### Halloween e anteprima per data
 
-Halloween 2026 è già configurato dal **1 ottobre al 1 novembre inclusi**, nel fuso **Europe/Rome**. I volantini hanno intervalli indipendenti: la home li rimuove dalla vetrina alla scadenza senza spegnere la campagna. Non è presente un volantino Halloween in corso; le edizioni ufficiali precedenti sono in archivio. Dal 2 novembre torna il tema base; dal 27 novembre si attiva Natale.
+Halloween 2026 è già configurato dal **1 al 31 ottobre inclusi**, nel fuso **Europe/Rome**. I volantini hanno intervalli indipendenti: la home li rimuove dalla vetrina alla scadenza senza spegnere la campagna. La copia PDF scaricabile è ricompressa alla stessa risoluzione per rientrare nel limite di 25 MiB di Cloudflare Pages; l’originale ricevuto resta intatto. Il catalogo fornito dal cliente per Sesto Fiorentino ha validità **23 ottobre–1 novembre 2026**, indipendente dal tema: prima è un’anteprima, durante la validità mostra le offerte attive, dal 2 novembre passa in archivio. Dal **1 novembre al 31 dicembre** il tema è Natale, secondo il calendario confermato da Alessandro.
 
 In `content/campaigns.json` puoi modificare date, titolo, testo, etichetta, sticker, colore, CTA e reparti. Il blocco facoltativo `collezione` contiene titolo, descrizione e `idee` (`titolo`, `testo`, `corridoio`, `icona`, `immagine` opzionale): compare solo durante quella campagna. Le date inesistenti, come il 30 febbraio, bloccano la build con un errore leggibile.
 
-Per verificare senza modificare la data del computer, apri **`/design-system/#calendario-campagne`** e scegli una data. L’anteprima è isolata e non cambia la home. Questa pagina è esclusa dall’indicizzazione. Halloween e Natale hanno `"ricorrenza": "annuale"`: gli stessi contenuti, reparti, badge e blocchi stagionali tornano ogni anno usando giorno e mese delle date configurate. Le date mostrate vengono risolte nell’anno visualizzato, anche per Natale che attraversa il cambio anno. Gli ID esistenti rimangono identificativi stabili, anche se contengono il primo anno. Per una campagna una tantum ometti `ricorrenza`. Volantini e promozioni con prezzi hanno invece date di validità proprie: non vengono ripubblicati automaticamente l’anno successivo.
+Per verificare senza modificare la data del computer, apri **`/design-system/#calendario-campagne`** e scegli una data. L’anteprima è isolata e non cambia la home. Questa pagina è esclusa dall’indicizzazione. Halloween e Natale hanno `"ricorrenza": "annuale"`: gli stessi contenuti, reparti, badge e blocchi stagionali tornano ogni anno usando giorno e mese delle date configurate. Le date mostrate vengono risolte nell’anno visualizzato, anche per campagne che attraversano il cambio anno. Gli ID esistenti rimangono identificativi stabili, anche se contengono il primo anno. Per una campagna una tantum ometti `ricorrenza`. Volantini e promozioni con prezzi hanno invece date di validità proprie: non vengono ripubblicati automaticamente l’anno successivo.
 
 ### Idee e prodotti in evidenza legati agli eventi
 
@@ -142,7 +145,7 @@ Per ogni voce `inEvidenza` in `content/aisles.json`, il campo facoltativo `campa
 }
 ```
 
-`negozi` è `"tutti"` oppure un elenco di id sede (`["prato", "lucca"]`). Ordinamento: i volantini validi oggi compaiono dal più recente (`validoDal` decrescente); quelli scaduti passano da soli nell'archivio; quelli futuri restano nascosti fino all'inizio (a ogni build/deploy hook).
+`negozi` è `"tutti"` oppure un elenco di id sede (`["prato", "lucca"]`). Ordinamento: i volantini validi oggi compaiono dal più recente (`validoDal` decrescente); quelli scaduti passano da soli nell'archivio; quelli futuri sono consultabili come **anteprima**, con data di inizio esplicita e senza essere indicati come offerte già attive.
 
 ### Aggiungere o modificare un corridoio
 In `content/aisles.json`: `slug` (compare nell'URL `/corridoi/<slug>/`), `titolo`, `titoloBreve`, `descrizione`, `descrizioneLunga`, `immagine`, `icona`, `inEvidenza` (idee: titolo, descrizione, immagine, badge), `ordine`, `visibile`, `seo`, `categoryId` (futuro shop). Poi aggiungi la voce in `navigation.json` se vuoi il link nel menu. La pagina nasce da sola (generateStaticParams).
@@ -162,6 +165,7 @@ Vedi [ASSETS_TODO.md](ASSETS_TODO.md) (tabella di tutti i segnaposto, formati e 
 - Token (blu `#0F6BB4` e magenta `#D11559` del marchio, neutri azzurrati, raggi, ombre, `--accent` di campagna) in `app/globals.css`, sezione `@theme`. Font: Figtree per titoli e testo, coerente con una vetrina fotografica.
 - Componenti base in `components/ui/` (Button, Card, Section, Container, SectionHeading, Badge, Icon, Logo, Placeholder, SmartImage, Accordion) e animazioni in `components/motion/` (Reveal, Stagger, HoverLift; `MotionProvider` rispetta `prefers-reduced-motion`).
 - **Scorrimento**: `SmoothScroll` carica Lenis solo con puntatore fine e senza preferenza di movimento ridotto. Inerzia della rotellina con `lerp: 0.11`; il tocco resta nativo (`syncTouch: false`). Menu e finestre modali fermano anche l'inerzia già in corso; i link interni usano gli spazi CSS sotto l'header. La preferenza di movimento ridotto viene recepita anche durante la visita.
+- **Comparsa allo scroll**: `Reveal` e `StaggerItem` usano un osservatore per elemento, con dissolvenza e salita di 28 px in 780 ms (16 px e 620 ms su smartphone). Le colonne della stessa riga si sfalsano di 80 ms; le righe successive aspettano di entrare nello schermo. L'effetto parte una sola volta. L'HTML iniziale è visibile: si preparano solo gli elementi sotto la vista dopo l'idratazione. Con JavaScript disattivato, movimento ridotto, focus da tastiera o stampa, il contenuto resta subito leggibile.
 - **Smartphone**: schede dei reparti e delle collezioni con foto laterale sotto i 640 px, archivio compatto sotto i 420 px, menu a schermo intero con chiusura sempre raggiungibile e collegamenti grandi. Pulsanti alti almeno 44 px, campi del modulo da 16 px e spazi per le aree sicure nelle finestre modali. La striscia dei marchi, quando presente, si scorre manualmente al tocco.
 - La pagina **`/design-system/`** mostra tutto dal vivo. È esclusa da sitemap e robots.
 
@@ -257,10 +261,10 @@ Pro: un solo sistema per catalogo, contenuti e ordini, controllo totale, nessun 
 Dettaglio completo in [ASSETS_TODO.md](ASSETS_TODO.md). In sintesi:
 
 - Foto aggiornate e identificate di ciascun punto vendita, nuovi volantini e loghi dei brand. Corsie e categorie hanno foto reali; le fonti sono in `content/photo-sources.json`. I marchi ancora provvisori non vengono mostrati.
-- Telefoni, orari, particolarità di ogni sede; conferma del CAP di Sesto Fiorentino e delle coordinate.
+- Telefoni, particolarità di ogni sede; conferma del CAP di Sesto Fiorentino e delle coordinate. Orari già confermati tutti i giorni: Prato/Lucca 09:00–20:00, Sesto 08:30–19:30, domeniche e festivi inclusi.
 - Numero WhatsApp Business.
 - Testi e regolamento della carta fedeltà.
-- Un nuovo volantino con offerte valide: le tre edizioni ufficiali recuperate (aprile, giugno/luglio e settembre 2026) sono già nell’archivio con copertine e PDF autentici.
+- I prossimi volantini: il nuovo catalogo Sesto ottobre 2026 è integrato (23 ottobre–1 novembre, 8 pagine). Le tre edizioni precedenti rimangono in archivio.
 - ID Google Analytics 4 / Meta Pixel (se desiderati).
 - Revisione legale di privacy e cookie policy.
-- Scelta del dominio canonico (apex o `www`) e collegamento del form contatti.
+- Scelta del nuovo dominio canonico e collegamento del form contatti. Impostare `NEXT_PUBLIC_SITE_URL` prima della build di pubblicazione: aggiorna canonical, sitemap, anteprime social, dati strutturati e impostazioni. In assenza resta il riferimento storico di `content/settings.json`, che non implica il riutilizzo del dominio.

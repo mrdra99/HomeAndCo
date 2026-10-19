@@ -4,6 +4,8 @@ import Link from "next/link";
 import { AisleArt } from "@/components/aisles/AisleArt";
 import { Badge } from "@/components/ui/Badge";
 import { DepartmentIcon } from "@/components/ui/DepartmentIcon";
+import { Reveal } from "@/components/motion/Reveal";
+import { Stagger, StaggerItem } from "@/components/motion/Stagger";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SmartImage } from "@/components/ui/SmartImage";
@@ -20,10 +22,10 @@ export function AisleGrid({ aisles, campaigns, buildCampaignId, copy }: AisleGri
 
   return (
     <Section tone="cream" id="corridoi" containerSize="wide">
-      <SectionHeading title={copy.titolo} subtitle={copy.descrizione} />
-      <ul className="mt-7 grid gap-4 sm:mt-9 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+      <Reveal><SectionHeading title={copy.titolo} subtitle={copy.descrizione} /></Reveal>
+      <Stagger as="ul" className="mt-7 grid gap-4 sm:mt-9 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {ordered.map((aisle) => (
-          <li key={aisle.slug}>
+          <StaggerItem as="li" key={aisle.slug}>
             <Link href={`/corridoi/${aisle.slug}/`} className="group grid h-full grid-cols-[88px_minmax(0,1fr)] overflow-hidden rounded-[1.25rem] bg-white ring-1 ring-brand-blue-900/5 transition-shadow hover:shadow-lift min-[380px]:grid-cols-[112px_minmax(0,1fr)] sm:flex sm:flex-col">
               <div className="relative min-h-40 overflow-hidden sm:min-h-0">
                 {aisle.immagine.src ? (
@@ -50,9 +52,9 @@ export function AisleGrid({ aisles, campaigns, buildCampaignId, copy }: AisleGri
                 </span>
               </div>
             </Link>
-          </li>
+          </StaggerItem>
         ))}
-      </ul>
+      </Stagger>
     </Section>
   );
 }

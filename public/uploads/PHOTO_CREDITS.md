@@ -46,12 +46,13 @@ Fonte e condizioni: [Pexels License](https://www.pexels.com/license/). Uso previ
 
 ## Volantini originali
 
-I PDF sono invariati rispetto al download originale. Registro SHA-256: `content/photo-sources.json`. Copertine e pagine WebP sono renderizzazioni degli stessi PDF.
+I tre PDF recuperati dal sito precedente sono invariati. Il catalogo ottobre fornito dal cliente ha una copia PDF ottimizzata per il web, con gli stessi contenuti e la stessa risoluzione: l’originale di 32 MB resta intatto nel materiale ricevuto. Registro SHA-256 della copia pubblicata e, per ottobre, anche dell’originale: `content/photo-sources.json`. Copertine e pagine WebP sono renderizzazioni degli stessi PDF.
 
 | Edizione | Fonte PDF | Validità | Negozi |
 |---|---|---|---|
+| Catalogo ottobre 2026 - Sesto Fiorentino | PDF fornito direttamente dal cliente il 19 ottobre 2026 | 2026-10-23 – 2026-11-01 | sesto-fiorentino |
 | Volantino settembre 2026 | [Originale](https://home-co.it/wp-content/uploads/2026/08/HOMECO_Settembre-2026_ok_compressed.pdf) | 2026-09-07 – 2026-09-14 | Tutti |
 | Apertura Sesto Fiorentino | [Originale](https://home-co.it/wp-content/uploads/2026/06/Catalogo-Home-Co-Fiorentino-4.pdf) | 2026-06-27 – 2026-07-12 | sesto-fiorentino |
 | Volantino primavera 2026 | [Originale](https://home-co.it/wp-content/uploads/2026/04/Catalogo-Home-CO-5_compressed.pdf) | 2026-04-11 – 2026-04-19 | prato, lucca |
 
-Non è stato trovato un volantino Halloween 2026 ufficiale. I vecchi esempi grafici non vengono usati nella vetrina né nell’archivio.
+Il catalogo ottobre 2026 è fornito direttamente dal cliente. La copia scaricabile ricomprime le immagini senza cambiare pagine, dimensioni, prezzi, testi o risoluzione (2598 × 3626 px per pagina); evita file superiori al limite di 25 MiB di Cloudflare Pages. Le pagine WebP sono renderizzazioni ottimizzate per la consultazione sul sito. I vecchi esempi grafici non vengono usati nella vetrina né nell’archivio.

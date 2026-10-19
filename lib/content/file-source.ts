@@ -9,6 +9,7 @@ import flyersJson from "../../content/flyers.json";
 import promotionsJson from "../../content/promotions.json";
 import loyaltyJson from "../../content/loyalty.json";
 import homeJson from "../../content/home.json";
+import { SITE_URL } from "../site";
 import {
   AisleSchema,
   BrandSchema,
@@ -43,7 +44,7 @@ export class FileContentSource implements ContentSource {
   }
 
   async getSettings() {
-    return this.load("settings.json", SettingsSchema, settingsJson);
+    return this.load("settings.json", SettingsSchema, { ...settingsJson, siteUrl: SITE_URL });
   }
   async getHomeCopy() {
     return this.load("home.json", HomeCopySchema, homeJson);

@@ -47,14 +47,18 @@ describe("script anti-flash vs pickCampaign", () => {
     ["2026-09-30T22:00:00Z", "halloween-2026"],
     ["2026-10-25T00:30:00Z", "halloween-2026"],
     ["2026-10-25T01:30:00Z", "halloween-2026"],
-    ["2026-11-01T22:59:59Z", "halloween-2026"],
-    ["2026-11-01T23:00:00Z", "default"],
+    ["2026-10-31T22:59:59Z", "halloween-2026"],
+    ["2026-10-31T23:00:00Z", "natale-2026"],
+    ["2026-11-01T22:59:59Z", "natale-2026"],
+    ["2026-11-01T23:00:00Z", "natale-2026"],
     ["2026-11-26T23:00:00Z", "natale-2026"],
+    ["2026-12-31T23:00:00Z", "default"],
     ["2027-01-06T23:00:00Z", "default"],
     ["2027-09-30T22:00:00Z", "halloween-2026"],
-    ["2027-11-01T23:00:00Z", "default"],
+    ["2027-11-01T23:00:00Z", "natale-2026"],
     ["2027-11-26T23:00:00Z", "natale-2026"],
-    ["2028-01-06T22:59:59Z", "natale-2026"],
+    ["2027-12-31T22:59:59Z", "natale-2026"],
+    ["2028-01-06T22:59:59Z", "default"],
   ])("sincronizza tema e colori alla data %s", (timestamp, id) => {
     const date = new Date(timestamp);
     const campaign = pickCampaign(campaigns, date);

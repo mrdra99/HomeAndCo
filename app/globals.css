@@ -60,6 +60,29 @@
 
 .campaign-hero { background: #edf5fb; }
 html.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+/* Armed after hydration, only below the viewport. No hidden server content. */
+@keyframes scroll-reveal-in {
+  from { opacity: 0; transform: translateY(var(--reveal-distance)); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.scroll-reveal {
+  --reveal-distance: 28px;
+  --reveal-duration: 780ms;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-reveal[data-reveal="pending"] { opacity: 0; transform: translateY(var(--reveal-distance)); }
+  .scroll-reveal[data-reveal="entering"] {
+    animation: scroll-reveal-in var(--reveal-duration) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s) both;
+  }
+  .scroll-reveal[data-reveal="pending"]:focus-within { opacity: 1; transform: none; }
+}
+@media (max-width: 639px), (hover: none) and (pointer: coarse) {
+  .scroll-reveal { --reveal-distance: 16px; --reveal-duration: 620ms; }
+}
+@media print {
+  .scroll-reveal[data-reveal] { opacity: 1 !important; transform: none !important; animation: none !important; }
+}
 [data-theme="halloween"] .campaign-hero { background: #fff0db; }
 [data-theme="halloween"] .campaign-hero h1 { color: var(--color-brand-blue-900); }
 [data-theme="halloween"] .hero-locations { border-color: rgb(11 42 71 / 0.14); }

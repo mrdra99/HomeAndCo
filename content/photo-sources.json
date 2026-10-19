@@ -225,6 +225,14 @@
   ],
   "flyers": [
     {
+      "file": "/uploads/flyers/home-co-sesto-ottobre-2026.pdf",
+      "source": "PDF fornito dal cliente il 19 ottobre 2026: Home e Co.Sesto-F.no Ottobre 2026.pdf",
+      "kind": "Copia PDF ottimizzata per il web: stessi contenuti e risoluzione originale, immagini RGB ricompresse",
+      "sha256": "e82c6ba0e28fdb3fb0c040cd636f32d06a58e656af2f2de928c090db1145ce26",
+      "pages": 8,
+      "sourceSha256": "723d8f640486372a615f9961801d8d88eaf2d6f4e8fcb21c01b52712c6f45deb"
+    },
+    {
       "file": "/uploads/flyers/home-co-settembre-2026.pdf",
       "source": "https://home-co.it/wp-content/uploads/2026/08/HOMECO_Settembre-2026_ok_compressed.pdf",
       "kind": "PDF originale, invariato",

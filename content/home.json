@@ -14,6 +14,9 @@
     "introArchivio": "Qui trovi le ultime edizioni pubblicate. Le offerte concluse restano nell’archivio, con le loro date.",
     "ctaAttivo": "Sfoglia il volantino",
     "ctaArchivio": "Vedi i volantini",
-    "statoArchivio": "Edizione conclusa"
+    "statoArchivio": "Edizione conclusa",
+    "introAnteprima": "Il nuovo catalogo è già qui. Sfoglialo in anteprima: le offerte valgono soltanto nelle date e nei negozi indicati.",
+    "ctaAnteprima": "Sfoglia in anteprima",
+    "statoAnteprima": "In anteprima · offerte in arrivo"
   }
 }

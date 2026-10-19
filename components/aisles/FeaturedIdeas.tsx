@@ -1,5 +1,6 @@
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Stagger, StaggerItem } from "@/components/motion/Stagger";
+import { Reveal } from "@/components/motion/Reveal";
 import { IdeaCard, type IdeaItem } from "./IdeaCard";
 
 type FeaturedIdeasProps = {
@@ -14,7 +15,7 @@ export function FeaturedIdeas({ items, eyebrow, title, subtitle }: FeaturedIdeas
   if (items.length === 0) return null;
   return (
     <div>
-      <SectionHeading eyebrow={eyebrow} title={title} subtitle={subtitle} />
+      <Reveal><SectionHeading eyebrow={eyebrow} title={title} subtitle={subtitle} /></Reveal>
       <Stagger className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((item) => (
           <StaggerItem key={item.titolo} className="h-full">

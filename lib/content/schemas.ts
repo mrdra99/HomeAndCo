@@ -86,6 +86,7 @@ export const HomeCopySchema = z.object({
   volantini: z.object({
     titolo: z.string().min(1), introAttivo: z.string(), introArchivio: z.string(),
     ctaAttivo: z.string(), ctaArchivio: z.string(), statoArchivio: z.string(),
+    introAnteprima: z.string(), ctaAnteprima: z.string(), statoAnteprima: z.string(),
   }),
 });
 export type HomeCopy = z.infer<typeof HomeCopySchema>;
@@ -179,6 +180,7 @@ export const FlyerSchema = z
     negozi: z.union([z.literal("tutti"), z.array(z.string())]),
     pagine: z.array(ImageSchema).default([]),
     pdf: z.string().nullable().default(null),
+    pdfDimensione: z.string().optional(),
     copertina: ImageSchema,
     provvisorio,
   })

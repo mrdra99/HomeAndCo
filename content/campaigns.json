@@ -33,7 +33,7 @@
     "titolo": "Ti manca qualcosa per Halloween?",
     "sottotitolo": "Per la tavola, gli addobbi e gli ultimi preparativi del 31 ottobre. Guarda i reparti e fai un salto nel negozio più vicino.",
     "inizio": "2026-10-01",
-    "fine": "2026-11-01",
+    "fine": "2026-10-31",
     "immagineHero": {
       "src": "/uploads/photos/halloween.webp",
       "alt": "Zucche decorative e ragnatele su fondo arancione e nero",
@@ -101,8 +101,8 @@
     "id": "natale-2026",
     "titolo": "È il momento di preparare il Natale.",
     "sottotitolo": "Addobbi, decorazioni e articoli per la tavola. Vieni a vedere il reparto natalizio e scegli con calma cosa portare a casa.",
-    "inizio": "2026-11-27",
-    "fine": "2027-01-06",
+    "inizio": "2026-11-01",
+    "fine": "2026-12-31",
     "immagineHero": {
       "src": "/uploads/photos/home-co-reparto-natale.webp",
       "alt": "Albero e decorazioni nel reparto natalizio Home & Co."

@@ -3,16 +3,97 @@
     "id": "prato",
     "nome": "Home & Co. Prato",
     "citta": "Prato",
-    "indirizzo": { "via": "Viale G. Marconi 38", "cap": "59100", "citta": "Prato", "provincia": "PO" },
-    "coordinate": { "lat": 43.8795, "lng": 11.0735 },
+    "indirizzo": {
+      "via": "Viale G. Marconi 38",
+      "cap": "59100",
+      "citta": "Prato",
+      "provincia": "PO"
+    },
+    "coordinate": {
+      "lat": 43.8795,
+      "lng": 11.0735
+    },
     "telefono": null,
     "email": null,
     "whatsapp": null,
-    "orari": null,
-    "noteOrari": "Orari in arrivo: TODO da confermare con il cliente.",
-    "particolarita": ["Parcheggio nelle vicinanze", "Reparto casa e cucina ampio"],
-    "servizi": ["Carta fedeltà"],
-    "immagine": { "src": null, "alt": "Il negozio Home & Co. di Prato", "label": "Negozio di Prato" },
+    "orari": [
+      {
+        "giorno": 1,
+        "aperture": [
+          {
+            "da": "09:00",
+            "a": "20:00"
+          }
+        ]
+      },
+      {
+        "giorno": 2,
+        "aperture": [
+          {
+            "da": "09:00",
+            "a": "20:00"
+          }
+        ]
+      },
+      {
+        "giorno": 3,
+        "aperture": [
+          {
+            "da": "09:00",
+            "a": "20:00"
+          }
+        ]
+      },
+      {
+        "giorno": 4,
+        "aperture": [
+          {
+            "da": "09:00",
+            "a": "20:00"
+          }
+        ]
+      },
+      {
+        "giorno": 5,
+        "aperture": [
+          {
+            "da": "09:00",
+            "a": "20:00"
+          }
+        ]
+      },
+      {
+        "giorno": 6,
+        "aperture": [
+          {
+            "da": "09:00",
+            "a": "20:00"
+          }
+        ]
+      },
+      {
+        "giorno": 0,
+        "aperture": [
+          {
+            "da": "09:00",
+            "a": "20:00"
+          }
+        ]
+      }
+    ],
+    "noteOrari": "Orario continuato, tutti i giorni. Domeniche e festivi inclusi.",
+    "particolarita": [
+      "Parcheggio nelle vicinanze",
+      "Reparto casa e cucina ampio"
+    ],
+    "servizi": [
+      "Carta fedeltà"
+    ],
+    "immagine": {
+      "src": null,
+      "alt": "Il negozio Home & Co. di Prato",
+      "label": "Negozio di Prato"
+    },
     "mappaUrl": "https://www.google.com/maps/search/?api=1&query=Viale+G.+Marconi+38+Prato",
     "provvisorio": true
   },
@@ -20,16 +101,97 @@
     "id": "lucca",
     "nome": "Home & Co. Lucca",
     "citta": "Lucca",
-    "indirizzo": { "via": "Via Romana 3137", "cap": "55100", "citta": "Lucca", "provincia": "LU" },
-    "coordinate": { "lat": 43.8335, "lng": 10.5175 },
+    "indirizzo": {
+      "via": "Via Romana 3137",
+      "cap": "55100",
+      "citta": "Lucca",
+      "provincia": "LU"
+    },
+    "coordinate": {
+      "lat": 43.8335,
+      "lng": 10.5175
+    },
     "telefono": null,
     "email": null,
     "whatsapp": null,
-    "orari": null,
-    "noteOrari": "Orari in arrivo: TODO da confermare con il cliente.",
-    "particolarita": ["Comodo da raggiungere in auto", "Ampia scelta per animali"],
-    "servizi": ["Carta fedeltà"],
-    "immagine": { "src": null, "alt": "Il negozio Home & Co. di Lucca", "label": "Negozio di Lucca" },
+    "orari": [
+      {
+        "giorno": 1,
+        "aperture": [
+          {
+            "da": "09:00",
+            "a": "20:00"
+          }
+        ]
+      },
+      {
+        "giorno": 2,
+        "aperture": [
+          {
+            "da": "09:00",
+            "a": "20:00"
+          }
+        ]
+      },
+      {
+        "giorno": 3,
+        "aperture": [
+          {
+            "da": "09:00",
+            "a": "20:00"
+          }
+        ]
+      },
+      {
+        "giorno": 4,
+        "aperture": [
+          {
+            "da": "09:00",
+            "a": "20:00"
+          }
+        ]
+      },
+      {
+        "giorno": 5,
+        "aperture": [
+          {
+            "da": "09:00",
+            "a": "20:00"
+          }
+        ]
+      },
+      {
+        "giorno": 6,
+        "aperture": [
+          {
+            "da": "09:00",
+            "a": "20:00"
+          }
+        ]
+      },
+      {
+        "giorno": 0,
+        "aperture": [
+          {
+            "da": "09:00",
+            "a": "20:00"
+          }
+        ]
+      }
+    ],
+    "noteOrari": "Orario continuato, tutti i giorni. Domeniche e festivi inclusi.",
+    "particolarita": [
+      "Comodo da raggiungere in auto",
+      "Ampia scelta per animali"
+    ],
+    "servizi": [
+      "Carta fedeltà"
+    ],
+    "immagine": {
+      "src": null,
+      "alt": "Il negozio Home & Co. di Lucca",
+      "label": "Negozio di Lucca"
+    },
     "mappaUrl": "https://www.google.com/maps/search/?api=1&query=Via+Romana+3137+Lucca",
     "provvisorio": true
   },
@@ -37,16 +199,99 @@
     "id": "sesto-fiorentino",
     "nome": "Home & Co. Sesto Fiorentino",
     "citta": "Sesto Fiorentino",
-    "indirizzo": { "via": "Via Leopardi 66 (ex Coop Il Neto)", "cap": "50019", "citta": "Sesto Fiorentino", "provincia": "FI" },
-    "coordinate": { "lat": 43.8340, "lng": 11.1930 },
+    "indirizzo": {
+      "via": "Via Giacomo Leopardi 66 (ex Coop Il Neto)",
+      "cap": "50019",
+      "citta": "Sesto Fiorentino",
+      "provincia": "FI"
+    },
+    "coordinate": {
+      "lat": 43.834,
+      "lng": 11.193
+    },
     "telefono": null,
     "email": null,
     "whatsapp": null,
-    "orari": null,
-    "noteOrari": "Orari in arrivo: TODO da confermare con il cliente. CAP 50019 da confermare.",
-    "particolarita": ["Nell'ex Coop Il Neto, facile da trovare", "Ampio parcheggio"],
-    "servizi": ["Carta fedeltà"],
-    "immagine": { "src": null, "alt": "Il negozio Home & Co. di Sesto Fiorentino", "label": "Negozio di Sesto Fiorentino" },
+    "orari": [
+      {
+        "giorno": 1,
+        "aperture": [
+          {
+            "da": "08:30",
+            "a": "19:30"
+          }
+        ]
+      },
+      {
+        "giorno": 2,
+        "aperture": [
+          {
+            "da": "08:30",
+            "a": "19:30"
+          }
+        ]
+      },
+      {
+        "giorno": 3,
+        "aperture": [
+          {
+            "da": "08:30",
+            "a": "19:30"
+          }
+        ]
+      },
+      {
+        "giorno": 4,
+        "aperture": [
+          {
+            "da": "08:30",
+            "a": "19:30"
+          }
+        ]
+      },
+      {
+        "giorno": 5,
+        "aperture": [
+          {
+            "da": "08:30",
+            "a": "19:30"
+          }
+        ]
+      },
+      {
+        "giorno": 6,
+        "aperture": [
+          {
+            "da": "08:30",
+            "a": "19:30"
+          }
+        ]
+      },
+      {
+        "giorno": 0,
+        "aperture": [
+          {
+            "da": "08:30",
+            "a": "19:30"
+          }
+        ]
+      }
+    ],
+    "noteOrari": "Orario continuato, tutti i giorni. Domeniche e festivi inclusi.",
+    "particolarita": [
+      "Nell’ex Coop Il Neto, accanto alla palestra Redline Gym",
+      "Parcheggio gratuito"
+    ],
+    "servizi": [
+      "Carta fedeltà",
+      "Ascensore",
+      "Carte e bancomat"
+    ],
+    "immagine": {
+      "src": null,
+      "alt": "Il negozio Home & Co. di Sesto Fiorentino",
+      "label": "Negozio di Sesto Fiorentino"
+    },
     "mappaUrl": "https://www.google.com/maps/search/?api=1&query=Via+Leopardi+66+Sesto+Fiorentino",
     "provvisorio": true
   }

@@ -57,6 +57,11 @@ export function currentFlyers(flyers: Flyer[], date: Date = new Date()): Flyer[]
   return sortFlyersRecentFirst(flyers.filter((f) => isFlyerCurrent(f, date)));
 }
 
+/** Anteprime, dalla data di inizio più vicina. Le offerte non sono ancora attive. */
+export function upcomingFlyers(flyers: Flyer[], date: Date = new Date()): Flyer[] {
+  return flyers.filter((f) => isFlyerUpcoming(f, date)).sort((a, b) => a.validoDal.localeCompare(b.validoDal));
+}
+
 /** Volantini scaduti (archivio), dal più recente. I futuri non compaiono. */
 export function archivedFlyers(flyers: Flyer[], date: Date = new Date()): Flyer[] {
   return sortFlyersRecentFirst(flyers.filter((f) => isFlyerExpired(f, date)));
