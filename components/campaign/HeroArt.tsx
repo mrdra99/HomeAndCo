@@ -9,8 +9,11 @@ const BLUE = "var(--color-brand-blue-600)";
 const BLUE_L = "var(--color-brand-blue-100)";
 const MAG = "var(--color-brand-magenta-600)";
 const MAG_L = "var(--color-brand-magenta-100)";
+const MAG_D = "var(--color-brand-magenta-800)";
 const CREAM = "var(--color-cream)";
 const SAND = "var(--color-sand)";
+const BLUE_D = "var(--color-brand-blue-900)";
+const INK = "var(--color-ink)";
 
 function DefaultArt() {
   return (
@@ -41,31 +44,77 @@ function DefaultArt() {
   );
 }
 
+/** Ala sinistra di pipistrello centrata sul corpo; la destra è la stessa specchiata. */
+const BAT_WING = "M-4 4 C-14-8-34-14-58-8 C-50-2-48 6-52 14 C-44 10-36 12-32 20 C-26 12-18 12-12 18 C-10 12-6 8-4 4Z";
+
+function Bat({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`} fill={INK}>
+      <path d={BAT_WING} />
+      <path d={BAT_WING} transform="scale(-1 1)" />
+      <ellipse cx="0" cy="8" rx="7" ry="11" />
+      <path d="M-6 0 L-5-9 L-1-2Z M6 0 L5-9 L1-2Z" />
+    </g>
+  );
+}
+
+/** Stile del volantino Halloween: fondo bianco, onde magenta, macchia blu, niente arancione. */
 function HalloweenArt() {
+  const legs = [
+    "M-8-4 q-12-8-18-2",
+    "M-8 0 q-14-2-20 4",
+    "M-8 4 q-12 4-16 12",
+    "M-7 8 q-6 8-8 16",
+  ];
   return (
     <>
-      <rect width="400" height="500" fill="var(--accent)" />
-      <circle cx="300" cy="110" r="64" fill={CREAM} opacity=".92" />
-      <circle cx="322" cy="96" r="58" fill="var(--accent)" />
-      {/* foglie */}
-      <path d="M40 80 C70 40 120 50 130 90 C100 110 60 110 40 80Z" fill={BLUE_L} opacity=".5" />
-      <path d="M310 380 C350 330 400 350 400 400 C370 430 330 420 310 380Z" fill={BLUE_L} opacity=".4" />
-      {/* zucca */}
-      <ellipse cx="130" cy="330" rx="88" ry="78" fill={CREAM} />
-      <ellipse cx="85" cy="330" rx="46" ry="76" fill={SAND} />
-      <ellipse cx="175" cy="330" rx="46" ry="76" fill={SAND} />
-      <ellipse cx="130" cy="330" rx="34" ry="78" fill={CREAM} />
-      <rect x="122" y="240" width="16" height="30" rx="6" fill={BLUE} />
-      <path d="M138 250 q26-24 44-6" fill="none" stroke={BLUE} strokeWidth="6" strokeLinecap="round" />
-      <path d="M92 312 l22 14 -26 6Z M168 312 l-22 14 26 6Z" fill="var(--accent)" />
-      <path d="M96 362 q34 32 68 0 q-14 10-34 8 q-20 2-34-8Z" fill="var(--accent)" />
-      {/* piccolo fantasma */}
-      <path d="M260 450 V330 a45 45 0 0 1 90 0 V450 l-15-14 -15 14 -15-14 -15 14 -15-14Z" fill={CREAM} />
-      <circle cx="288" cy="338" r="7" fill="var(--accent)" />
-      <circle cx="322" cy="338" r="7" fill="var(--accent)" />
-      <ellipse cx="305" cy="364" rx="7" ry="9" fill="var(--accent)" />
-      {/* pipistrello */}
-      <path d="M150 140 q20-30 50-8 q30-22 50 8 q-18-6-30 6 q-8-10-20 0 q-12-10-20 0 q-12-12-30-6Z" fill={MAG_L} opacity=".85" />
+      <rect width="400" height="500" fill="#ffffff" />
+      {/* onde magenta agli angoli */}
+      <path d="M232 0 H400 V256 C386 274 362 266 354 240 C342 200 354 160 320 128 C290 100 246 72 232 0Z" fill={MAG} />
+      <path d="M0 296 C34 326 72 360 82 410 C90 452 124 480 172 500 H0Z" fill={MAG} />
+      {/* macchia blu */}
+      <path d="M78 220 C92 182 132 170 190 172 C250 174 294 168 320 214 C344 256 332 302 302 332 C270 364 200 368 140 360 C92 354 70 332 66 298 C62 266 66 246 78 220Z" fill={BLUE} />
+      {/* zucca magenta con il volto illuminato */}
+      <g className="hero-art-float-slow">
+        <path d="M166 222 C164 208 170 198 182 194" fill="none" stroke={BLUE_D} strokeWidth="9" strokeLinecap="round" />
+        <path d="M178 214 q18-18 36-6 q-14 14-36 6Z" fill={BLUE_L} />
+        <ellipse cx="126" cy="276" rx="44" ry="52" fill={MAG_D} />
+        <ellipse cx="216" cy="276" rx="44" ry="52" fill={MAG_D} />
+        <ellipse cx="148" cy="274" rx="40" ry="56" fill={MAG} />
+        <ellipse cx="194" cy="274" rx="40" ry="56" fill={MAG} />
+        <ellipse cx="171" cy="272" rx="30" ry="57" fill={MAG_D} opacity=".35" />
+        <path d="M130 258 l28 2 -15 20Z M212 258 l-28 2 15 20Z" fill="#fdecf3" />
+        <path d="M124 294 q47 40 94 0 l-10 4 -6-8 -11 11 -8-9 -12 11 -12-11 -8 9 -11-11 -6 8Z" fill="#fdecf3" />
+      </g>
+      {/* fantasma che sbuca dalla macchia */}
+      <g className="hero-art-sway">
+        <path
+          d="M292 372 C296 330 288 290 292 258 C296 222 318 200 340 202 C366 204 380 230 378 262 C376 296 384 330 398 362 C388 368 378 360 372 352 C364 366 352 370 342 360 C334 372 318 376 308 364 C302 372 296 374 292 372Z"
+          fill="#ffffff" stroke={BLUE} strokeWidth="3" strokeLinejoin="round"
+        />
+        <path d="M293 298 C282 292 270 294 270 304 C276 314 288 312 294 310" fill="#ffffff" stroke={BLUE} strokeWidth="3" strokeLinecap="round" />
+        <ellipse cx="324" cy="260" rx="6" ry="8" fill={INK} />
+        <ellipse cx="350" cy="264" rx="6" ry="8" fill={INK} />
+        <path d="M328 284 q9 9 18 1" fill="none" stroke={INK} strokeWidth="4" strokeLinecap="round" />
+      </g>
+      {/* pipistrelli */}
+      <g className="hero-art-float"><Bat x={296} y={164} s={1.1} /></g>
+      <Bat x={108} y={432} s={0.7} />
+      {/* ragnetto appeso al filo */}
+      <g className="hero-art-bob">
+        <line x1="56" y1="-20" x2="56" y2="168" stroke={INK} strokeWidth="1.5" />
+        <g transform="translate(56 178)" fill="none" stroke={INK} strokeWidth="2.4" strokeLinecap="round">
+          {legs.map((d) => <path key={d} d={d} />)}
+          {legs.map((d) => <path key={`r${d}`} d={d} transform="scale(-1 1)" />)}
+          <circle cx="0" cy="2" r="9" fill={INK} stroke="none" />
+          <circle cx="0" cy="-9" r="5" fill={INK} stroke="none" />
+        </g>
+      </g>
+      {/* scintille */}
+      <circle cx="236" cy="148" r="4" fill={BLUE} />
+      <circle cx="40" cy="250" r="5" fill={MAG_L} />
+      <circle cx="372" cy="420" r="6" fill={BLUE_L} />
+      <circle cx="232" cy="400" r="4" fill={MAG} />
     </>
   );
 }

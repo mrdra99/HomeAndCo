@@ -122,11 +122,11 @@ In `content/campaigns.json` aggiungi un oggetto (la campagna senza date è il de
 }
 ```
 
-Regole: date `YYYY-MM-DD`, **entrambe inclusive**, fuso Europe/Rome. Se più campagne si sovrappongono vince la `priorita` più alta, a parità l'`inizio` più recente. Fuori da ogni campagna vale il default. `accento` controlla il colore di pulsanti e badge. `contrastoAccento` sceglie il testo sui fondi colorati (default bianco) e `accentoTesto` il colore dei link su fondo chiaro: Halloween usa arancione `#FF8A24`, testo blu `#0B2A47` e link arancio scuro `#A63B00`. Il banner iniziale ha fondo arancio chiaro, titoli blu e dettagli magenta, in continuità con il marchio. Senza immagine (`src: null`) compare la grafica di ripiego.
+Regole: date `YYYY-MM-DD`, **entrambe inclusive**, fuso Europe/Rome. Se più campagne si sovrappongono vince la `priorita` più alta, a parità l'`inizio` più recente. Fuori da ogni campagna vale il default. `accento` controlla il colore di pulsanti e badge. `contrastoAccento` sceglie il testo sui fondi colorati (default bianco) e `accentoTesto` il colore dei link su fondo chiaro: Halloween usa il magenta del marchio `#D11559`, testo bianco e link magenta scuro `#B01556`, niente arancione, come il volantino Halloween. Il banner iniziale ha fondo bianco, titoli blu e l’illustrazione di ripiego (`HeroArt`) con onde magenta, macchia blu, zucca, fantasma, pipistrello e ragnetto. Senza immagine (`src: null`) compare la grafica di ripiego.
 
 ### Halloween e anteprima per data
 
-Halloween 2026 è già configurato dal **1 al 31 ottobre inclusi**, nel fuso **Europe/Rome**. I volantini hanno intervalli indipendenti: la home li rimuove dalla vetrina alla scadenza senza spegnere la campagna. La copia PDF scaricabile è ricompressa alla stessa risoluzione per rientrare nel limite di 25 MiB di Cloudflare Pages; l’originale ricevuto resta intatto. Il catalogo fornito dal cliente per Sesto Fiorentino ha validità **23 ottobre–1 novembre 2026**, indipendente dal tema: prima è un’anteprima, durante la validità mostra le offerte attive, dal 2 novembre passa in archivio. Dal **1 novembre al 31 dicembre** il tema è Natale, secondo il calendario confermato da Alessandro.
+Halloween 2026 è già configurato dal **1 al 31 ottobre inclusi**, nel fuso **Europe/Rome**. I volantini hanno intervalli indipendenti: la home li rimuove dalla vetrina alla scadenza senza spegnere la campagna. La copia PDF scaricabile è ricompressa alla stessa risoluzione per rientrare nel limite di 25 MiB di Cloudflare Pages; l’originale ricevuto resta intatto. Il volantino «Halloween da brividi» (7 pagine, tutti i negozi) vale **dal 1 al 31 ottobre 2026** e dal 1 novembre passa in archivio. Ha sostituito il catalogo Sesto Fiorentino di ottobre, rimosso dal sito su richiesta. Dal **1 novembre al 31 dicembre** il tema è Natale, secondo il calendario confermato da Alessandro.
 
 In `content/campaigns.json` puoi modificare date, titolo, testo, etichetta, sticker, colore, CTA e reparti. Il blocco facoltativo `collezione` contiene titolo, descrizione e `idee` (`titolo`, `testo`, `corridoio`, `icona`, `immagine` opzionale): compare solo durante quella campagna. Le date inesistenti, come il 30 febbraio, bloccano la build con un errore leggibile.
 
@@ -282,7 +282,7 @@ Dettaglio completo in [ASSETS_TODO.md](ASSETS_TODO.md). In sintesi:
 - Telefoni, particolarità di ogni sede; conferma del CAP di Sesto Fiorentino e delle coordinate. Orari già confermati tutti i giorni: Prato/Lucca 09:00–20:00, Sesto 08:30–19:30, domeniche e festivi inclusi.
 - Numero WhatsApp Business.
 - Testi e regolamento della carta fedeltà.
-- I prossimi volantini: il nuovo catalogo Sesto ottobre 2026 è integrato (23 ottobre–1 novembre, 8 pagine). Le tre edizioni precedenti rimangono in archivio.
+- I prossimi volantini: il volantino Halloween 2026 è integrato (1–31 ottobre, 7 pagine, tutti i negozi) al posto del catalogo Sesto ottobre 2026. Le tre edizioni precedenti rimangono in archivio.
 - ID Google Analytics 4 / Meta Pixel (se desiderati).
 - Revisione legale di privacy e cookie policy.
 - Scelta del nuovo dominio canonico e collegamento del form contatti. Impostare `NEXT_PUBLIC_SITE_URL` prima della build di pubblicazione: aggiorna canonical, sitemap, anteprime social, dati strutturati e impostazioni. In assenza resta il riferimento storico di `content/settings.json`, che non implica il riutilizzo del dominio.

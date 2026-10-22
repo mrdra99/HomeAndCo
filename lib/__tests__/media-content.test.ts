@@ -17,7 +17,11 @@ describe("materiali fotografici e volantini autentici", () => {
     const campaigns = CampaignSchema.array().parse(campaignsJson);
     const images = [
       ...aisles.flatMap((aisle) => [aisle.immagine, ...aisle.inEvidenza.map((item) => item.immagine)]),
-      ...campaigns.flatMap((campaign) => [campaign.immagineHero, ...(campaign.collezione?.idee.map((idea) => idea.immagine) ?? [])]),
+      // Un hero senza foto usa l'illustrazione disegnata del tema (HeroArt), non un segnaposto.
+      ...campaigns.flatMap((campaign) => [
+        ...(campaign.immagineHero.src === null && campaign.tema !== "default" ? [] : [campaign.immagineHero]),
+        ...(campaign.collezione?.idee.map((idea) => idea.immagine) ?? []),
+      ]),
     ];
     for (const image of images) {
       expect(image?.src).toBeTruthy();
@@ -31,7 +35,7 @@ describe("materiali fotografici e volantini autentici", () => {
   });
   it("verifica i PDF ufficiali e tutte le pagine, senza offerte fittizie in corso", () => {
     const flyers = FlyerSchema.array().parse(flyersJson);
-    expect(currentFlyers(flyers, new Date("2026-10-16T12:00:00Z"))).toEqual([]);
+    expect(currentFlyers(flyers, new Date("2026-09-20T12:00:00Z"))).toEqual([]);
     for (const flyer of flyers) {
       expect(flyer.provvisorio).toBe(false);
       const source = sources.flyers.find((entry) => entry.file === flyer.pdf)!;

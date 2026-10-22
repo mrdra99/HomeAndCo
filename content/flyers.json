@@ -1,51 +1,45 @@
 [
   {
-    "id": "sesto-ottobre-2026",
-    "titolo": "Catalogo ottobre 2026 - Sesto Fiorentino",
-    "validoDal": "2026-10-23",
-    "validoAl": "2026-11-01",
-    "negozi": [
-      "sesto-fiorentino"
-    ],
+    "id": "halloween-2026",
+    "titolo": "Halloween da brividi 2026",
+    "validoDal": "2026-10-01",
+    "validoAl": "2026-10-31",
+    "negozi": "tutti",
     "pagine": [
       {
-        "src": "/uploads/flyers/home-co-sesto-ottobre-2026-1.webp",
-        "alt": "Catalogo ottobre 2026, Sesto Fiorentino, pagina 1"
+        "src": "/uploads/flyers/home-co-halloween-2026-1.webp",
+        "alt": "Volantino Halloween 2026, pagina 1. Copertina: Halloween da brividi, -30% su tutti i prodotti di Halloween"
       },
       {
-        "src": "/uploads/flyers/home-co-sesto-ottobre-2026-2.webp",
-        "alt": "Catalogo ottobre 2026, Sesto Fiorentino, pagina 2"
+        "src": "/uploads/flyers/home-co-halloween-2026-2.webp",
+        "alt": "Volantino Halloween 2026, pagina 2. Decorazioni: piccoli dettagli, atmosfera da brividi"
       },
       {
-        "src": "/uploads/flyers/home-co-sesto-ottobre-2026-3.webp",
-        "alt": "Catalogo ottobre 2026, Sesto Fiorentino, pagina 3"
+        "src": "/uploads/flyers/home-co-halloween-2026-3.webp",
+        "alt": "Volantino Halloween 2026, pagina 3. Costumi: tanti travestimenti per grandi e piccini"
       },
       {
-        "src": "/uploads/flyers/home-co-sesto-ottobre-2026-4.webp",
-        "alt": "Catalogo ottobre 2026, Sesto Fiorentino, pagina 4"
+        "src": "/uploads/flyers/home-co-halloween-2026-4.webp",
+        "alt": "Volantino Halloween 2026, pagina 4. Maschere e make-up: tutto il necessario per un Halloween da brividi"
       },
       {
-        "src": "/uploads/flyers/home-co-sesto-ottobre-2026-5.webp",
-        "alt": "Catalogo ottobre 2026, Sesto Fiorentino, pagina 5"
+        "src": "/uploads/flyers/home-co-halloween-2026-5.webp",
+        "alt": "Volantino Halloween 2026, pagina 5. Party: piatti, bicchieri, tovaglioli e accessori per feste"
       },
       {
-        "src": "/uploads/flyers/home-co-sesto-ottobre-2026-6.webp",
-        "alt": "Catalogo ottobre 2026, Sesto Fiorentino, pagina 6"
+        "src": "/uploads/flyers/home-co-halloween-2026-6.webp",
+        "alt": "Volantino Halloween 2026, pagina 6. Boo basket: cestini per raccogliere le caramelle"
       },
       {
-        "src": "/uploads/flyers/home-co-sesto-ottobre-2026-7.webp",
-        "alt": "Catalogo ottobre 2026, Sesto Fiorentino, pagina 7"
-      },
-      {
-        "src": "/uploads/flyers/home-co-sesto-ottobre-2026-8.webp",
-        "alt": "Catalogo ottobre 2026, Sesto Fiorentino, pagina 8"
+        "src": "/uploads/flyers/home-co-halloween-2026-7.webp",
+        "alt": "Volantino Halloween 2026, pagina 7. Ti aspettiamo in negozio a Lucca, Prato e Sesto Fiorentino"
       }
     ],
-    "pdf": "/uploads/flyers/home-co-sesto-ottobre-2026.pdf",
-    "pdfDimensione": "19 MB",
+    "pdf": "/uploads/flyers/home-co-halloween-2026.pdf",
+    "pdfDimensione": "1,4 MB",
     "copertina": {
-      "src": "/uploads/flyers/home-co-sesto-ottobre-2026-1.webp",
-      "alt": "Copertina del catalogo Home & Co. Sesto Fiorentino: offerte dal 23 ottobre al 1 novembre 2026"
+      "src": "/uploads/flyers/home-co-halloween-2026-1.webp",
+      "alt": "Copertina del volantino Home & Co. Halloween da brividi: -30% su tutti i prodotti di Halloween"
     },
     "provvisorio": false
   },

@@ -35,11 +35,10 @@
     "inizio": "2026-10-01",
     "fine": "2026-10-31",
     "immagineHero": {
-      "src": "/uploads/photos/halloween.webp",
-      "alt": "Zucche decorative e ragnatele su fondo arancione e nero",
-      "position": "70% 20%"
+      "src": null,
+      "alt": "Illustrazione di Halloween nei colori Home & Co.: fantasma, pipistrello, ragnetto e zucca su forme magenta e blu"
     },
-    "accento": "#FF8A24",
+    "accento": "#D11559",
     "tema": "halloween",
     "cta": {
       "label": "Guarda i reparti",
@@ -94,8 +93,7 @@
       ]
     },
     "ricorrenza": "annuale",
-    "contrastoAccento": "#0B2A47",
-    "accentoTesto": "#A63B00"
+    "accentoTesto": "#B01556"
   },
   {
     "id": "natale-2026",

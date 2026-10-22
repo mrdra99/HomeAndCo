@@ -54,7 +54,7 @@
 }
 
 :root {
-  /* Accento della campagna attiva: Halloween arancione, Natale rosso. */
+  /* Accento della campagna attiva: Halloween magenta, Natale rosso. */
   --accent: #d81b6a;
 }
 
@@ -83,24 +83,35 @@ html.lenis.lenis-smooth { scroll-behavior: auto !important; }
 @media print {
   .scroll-reveal[data-reveal] { opacity: 1 !important; transform: none !important; animation: none !important; }
 }
-[data-theme="halloween"] .campaign-hero { background: #fff0db; }
+/* Halloween come il volantino: bianco, magenta e blu del marchio, niente arancione. */
+[data-theme="halloween"] .campaign-hero { background: #ffffff; }
 [data-theme="halloween"] .campaign-hero h1 { color: var(--color-brand-blue-900); }
-[data-theme="halloween"] .hero-locations { border-color: rgb(11 42 71 / 0.14); }
+[data-theme="halloween"] .hero-locations { border-color: rgb(209 21 89 / 0.18); }
 [data-theme="halloween"] .hero-locations p,
 [data-theme="halloween"] .hero-locations a { color: var(--color-brand-blue-800); }
-[data-theme="halloween"] .hero-eyebrow { background: #ffd6a3; color: var(--color-brand-blue-900); }
-[data-theme="halloween"] .hero-eyebrow > span { background: var(--color-brand-magenta-600); }
-[data-theme="halloween"] .hero-secondary { border-color: var(--color-brand-magenta-600); color: var(--color-brand-magenta-700); background: transparent; }
-[data-theme="halloween"] .hero-secondary:hover { background: var(--color-brand-magenta-50); }
-[data-theme="halloween"] .campaign-collection { background: #fff8ee; }
-[data-theme="halloween"] .campaign-collection a { background: #fff0db; }
-[data-theme="halloween"] .campaign-collection a:hover { background: #ffe5c0; }
+[data-theme="halloween"] .hero-eyebrow { background: var(--color-brand-magenta-50); color: var(--color-brand-magenta-700); }
+[data-theme="halloween"] .hero-eyebrow > span { background: var(--color-brand-blue-600); }
+[data-theme="halloween"] .hero-secondary { border-color: var(--color-brand-blue-600); color: var(--color-brand-blue-700); background: transparent; }
+[data-theme="halloween"] .hero-secondary:hover { background: var(--color-brand-blue-50); }
+[data-theme="halloween"] .campaign-collection { background: var(--color-brand-magenta-50); }
+[data-theme="halloween"] .campaign-collection a { background: #ffffff; }
+[data-theme="halloween"] .campaign-collection a:hover { background: var(--color-brand-magenta-100); }
 [data-theme="halloween"] .campaign-collection h2,
 [data-theme="halloween"] .campaign-collection h3 { color: var(--color-brand-blue-900); }
-[data-theme="halloween"] .campaign-banner { background: var(--color-brand-blue-900); border: 2px solid #ff8a24; }
-[data-theme="halloween"] .campaign-banner > div > span { background: #ff8a24; color: var(--color-brand-blue-900); }
-[data-theme="halloween"] .campaign-banner > a { background: #ff8a24; color: var(--color-brand-blue-900); }
-[data-theme="halloween"] .campaign-featured { background: #fff0db; }
+[data-theme="halloween"] .campaign-banner { background: var(--color-brand-blue-900); border: 2px solid var(--color-brand-magenta-600); }
+[data-theme="halloween"] .campaign-banner > div > span { background: var(--color-brand-magenta-600); color: #ffffff; }
+[data-theme="halloween"] .campaign-banner > a { background: var(--color-brand-magenta-600); color: #ffffff; }
+[data-theme="halloween"] .campaign-featured { background: var(--color-brand-magenta-50); }
+/* Piccoli movimenti dell'illustrazione Halloween, solo se l'utente non li ha disattivati. */
+@keyframes hero-art-float { 50% { transform: translateY(-8px); } }
+@keyframes hero-art-bob { 50% { transform: translateY(10px); } }
+@keyframes hero-art-sway { 50% { transform: rotate(-3deg); } }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-art-float { animation: hero-art-float 4s ease-in-out infinite; }
+  .hero-art-float-slow { animation: hero-art-float 6s ease-in-out infinite; }
+  .hero-art-bob { animation: hero-art-bob 5s ease-in-out infinite; }
+  .hero-art-sway { animation: hero-art-sway 5s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+}
 [data-theme="natale"] .campaign-hero { background: #faf0f3; }
 
 /* ------------------------------------------------------------------

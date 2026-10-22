@@ -10,28 +10,26 @@ import { isOpenNow } from "../stores";
 const campaigns = CampaignSchema.array().parse(campaignsJson);
 const flyers = FlyerSchema.array().parse(flyersJson);
 const stores = StoreSchema.array().parse(storesJson);
-const id = "sesto-ottobre-2026";
+const id = "halloween-2026";
 
-describe("catalogo ottobre fornito dal cliente", () => {
-  it("resta un'anteprima fino alla mezzanotte italiana del 23 ottobre", () => {
-    const before = new Date("2026-10-22T21:59:59Z");
+describe("volantino Halloween fornito dal cliente", () => {
+  it("resta un'anteprima fino alla mezzanotte italiana del 1 ottobre", () => {
+    const before = new Date("2026-09-30T21:59:59Z");
     expect(upcomingFlyers(flyers, before)[0].id).toBe(id);
     expect(currentFlyers(flyers, before).some((f) => f.id === id)).toBe(false);
-    expect(currentFlyers(flyers, new Date("2026-10-22T22:00:00Z"))[0].id).toBe(id);
+    expect(currentFlyers(flyers, new Date("2026-09-30T22:00:00Z"))[0].id).toBe(id);
   });
-  it("scade il 1 novembre incluso e non diventa una promozione ricorrente", () => {
-    expect(currentFlyers(flyers, new Date("2026-11-01T22:59:59Z"))[0].id).toBe(id);
-    const after = new Date("2026-11-01T23:00:00Z");
+  it("scade il 31 ottobre incluso e non diventa una promozione ricorrente", () => {
+    expect(currentFlyers(flyers, new Date("2026-10-31T22:59:59Z"))[0].id).toBe(id);
+    const after = new Date("2026-10-31T23:00:00Z");
     expect(currentFlyers(flyers, after)).toEqual([]);
     expect(archivedFlyers(flyers, after)[0].id).toBe(id);
-    expect(currentFlyers(flyers, new Date("2027-10-23T12:00:00Z"))).toEqual([]);
+    expect(currentFlyers(flyers, new Date("2027-10-16T12:00:00Z"))).toEqual([]);
   });
-  it("attribuisce il catalogo a Sesto, senza estendere i prezzi agli altri negozi", () => {
+  it("vale in tutti e tre i negozi", () => {
     const flyer = flyers.find((f) => f.id === id)!;
-    expect(flyer.pagine).toHaveLength(8);
-    expect(flyerAppliesToStore(flyer, "sesto-fiorentino")).toBe(true);
-    expect(flyerAppliesToStore(flyer, "prato")).toBe(false);
-    expect(flyerAppliesToStore(flyer, "lucca")).toBe(false);
+    expect(flyer.pagine).toHaveLength(7);
+    for (const store of stores) expect(flyerAppliesToStore(flyer, store.id)).toBe(true);
   });
 });
 
