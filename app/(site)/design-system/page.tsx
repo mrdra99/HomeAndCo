@@ -11,6 +11,8 @@ import { Placeholder } from "@/components/ui/Placeholder";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SmartImage } from "@/components/ui/SmartImage";
+import { BrandMarquee } from "@/components/sections/BrandMarquee";
+import type { Brand } from "@/lib/content/schemas";
 import { CampaignCalendar } from "@/components/campaign/CampaignCalendar";
 import { content } from "@/lib/content";
 import { toIsoDate } from "@/lib/campaigns";
@@ -22,6 +24,11 @@ export const metadata: Metadata = {
   title: "Design system",
   robots: { index: false, follow: false },
 };
+
+// Demo della striscia marchi: 8 marchi finti, tutti provvisori (nomi solo testuali).
+const demoBrands: Brand[] = ["Casa Viva", "Nordic Home", "Cucina Chiara", "Tessuti Rossi", "Pulito+", "Bagno Blu", "Verde Orto", "Luce & Co"].map(
+  (nome, i) => ({ id: `demo-${i}`, nome, logo: { src: null }, provvisorio: true }),
+);
 
 export default async function DesignSystemPreview() {
   const campaigns = await content.getCampaigns();
@@ -84,19 +91,7 @@ export default async function DesignSystemPreview() {
         </div>
       </Section>
 
-      <Section tone="white">
-        <div className="marquee marquee-mask overflow-hidden">
-          <div className="marquee-track flex gap-12 font-display text-3xl text-brand-blue-700">
-            {[0, 1].map((c) => (
-              <div key={c} className="flex shrink-0 gap-12" aria-hidden={c === 1}>
-                {["Brand uno", "Brand due", "Brand tre", "Brand quattro", "Brand cinque"].map((b) => (
-                  <span key={b}>{b}</span>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-      </Section>
+      <BrandMarquee brands={demoBrands} includeDraft />
     </>
   );
 }

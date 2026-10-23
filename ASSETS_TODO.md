@@ -25,7 +25,8 @@ Le tre edizioni recuperate dal vecchio sito restano nell’archivio. Il catalogo
 | Numeri telefonici di ogni negozio | `stores.json` | Gli orari sono confermati e gli stati aperto/chiuso sono attivi. I numeri restano da fornire. |
 | Coordinate, CAP e servizi / particolarità delle sedi | `stores.json` | Verificare i dati ancora marcati `provvisorio`. |
 | Catalogo / disponibilità dei singoli prodotti | `aisles.json` → `inEvidenza` | Le foto illustrano l’assortimento. Nessuna giacenza o disponibilità attuale è confermata. |
-| Nuovi volantini e nuove promozioni | `flyers.json`, `promotions.json` | Usare solo materiali ufficiali, con date e negozi corretti. Non riciclare le date con la ricorrenza del tema. |
+| Foto degli scaffali di ogni categoria (in arrivo dal cliente) | `aisles.json` → `scaffali` | Salvarle in `public/uploads/aisles/<slug>/` (WebP, ~1600 px lato lungo, alt obbligatorio). Finché `scaffali` è vuoto la sezione non compare. Procedura nel README. |
+| Loghi e marchi realmente distribuiti | `brands.json`, `public/uploads/brands/` | SVG o PNG trasparente (altezza 96 px); poi `provvisorio: false`. I provvisori sono nascosti. |
 | Loghi e marchi realmente distribuiti | `brands.json` | I nomi provvisori sono nascosti. |
 | Carta fedeltà: regolamento e condizioni | `loyalty.json` | Testi da confermare. Rimossi punti, buoni e tempi di attivazione non verificati. |
 | Numero WhatsApp Business | `settings.json` | Aggiungere il numero reale. |

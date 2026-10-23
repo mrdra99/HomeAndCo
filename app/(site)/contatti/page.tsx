@@ -43,26 +43,26 @@ export default async function ContattiPage() {
             <Reveal delay={0.06}>
               <Card tone="sand">
                 <h2 className="text-xl text-brand-blue-900">Contatti diretti</h2>
-                <ul className="mt-4 space-y-3">
+                <ul className="mt-3 space-y-1">
                   <li>
-                    <a href={`mailto:${settings.societa.email}`} className="inline-flex items-center gap-3 font-semibold text-brand-blue-700 underline-offset-4 hover:underline">
+                    <a href={`mailto:${settings.societa.email}`} className="inline-flex min-h-11 items-center gap-3 font-semibold text-brand-blue-700 underline-offset-4 hover:underline">
                       <Icon name="mail" /> {settings.societa.email}
                     </a>
                   </li>
                   {wa && (
                     <li>
-                      <a href={wa} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 font-semibold text-brand-blue-700 underline-offset-4 hover:underline">
+                      <a href={wa} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-3 font-semibold text-brand-blue-700 underline-offset-4 hover:underline">
                         <Icon name="whatsapp" /> Scrivici su WhatsApp
                       </a>
                     </li>
                   )}
                   <li>
-                    <a href={settings.social.instagram} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 font-semibold text-brand-blue-700 underline-offset-4 hover:underline">
+                    <a href={settings.social.instagram} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-3 font-semibold text-brand-blue-700 underline-offset-4 hover:underline">
                       <Icon name="instagram" /> Instagram
                     </a>
                   </li>
                   <li>
-                    <a href={settings.social.facebook} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 font-semibold text-brand-blue-700 underline-offset-4 hover:underline">
+                    <a href={settings.social.facebook} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-3 font-semibold text-brand-blue-700 underline-offset-4 hover:underline">
                       <Icon name="facebook" /> Facebook
                     </a>
                   </li>

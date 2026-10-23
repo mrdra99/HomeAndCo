@@ -9,6 +9,9 @@ export function useScrollReveal(ref: RefObject<HTMLElement | null>, delay: numbe
     if (!node || !("IntersectionObserver" in window)) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (reduced.matches || node.getBoundingClientRect().top < window.innerHeight) return;
+    // Caroselli orizzontali: le card fuori schermo a destra non devono restare invisibili
+    // ne' comparire con un salto durante lo swipe (l'observer le vede solo quando entrano).
+    if (node.parentElement && /auto|scroll/.test(getComputedStyle(node.parentElement).overflowX)) return;
 
     let finished = false;
     const complete = () => {
@@ -25,9 +28,9 @@ export function useScrollReveal(ref: RefObject<HTMLElement | null>, delay: numbe
         const layout = getComputedStyle(parent);
         const columns = layout.display === "grid" ? layout.gridTemplateColumns.split(" ").length : 1;
         const index = Array.from(parent.children).indexOf(node);
-        wait += (index % columns) * Number(parent.dataset.revealGap ?? 0.08);
+        wait += (index % columns) * Number(parent.dataset.revealGap ?? 0.11);
       }
-      node.style.setProperty("--reveal-delay", `${Math.min(Math.max(wait, 0), 0.24)}s`);
+      node.style.setProperty("--reveal-delay", `${Math.min(Math.max(wait, 0), 0.45)}s`);
       node.dataset.reveal = "entering";
       observer.disconnect();
     };

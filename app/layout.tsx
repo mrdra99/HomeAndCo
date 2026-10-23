@@ -30,6 +30,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#0f6bb4",
+  /** Attiva env(safe-area-inset-*) su iPhone con notch: senza, i margini di sicurezza valgono sempre 0. */
+  viewportFit: "cover",
 };
 
 /**

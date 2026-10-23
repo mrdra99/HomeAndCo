@@ -102,6 +102,14 @@ export const AisleHighlightSchema = z.object({
 });
 export type AisleHighlight = z.infer<typeof AisleHighlightSchema>;
 
+/** Foto di uno scaffale in negozio: l'alt e' obbligatorio. */
+export const AisleShelfSchema = z.object({
+  immagine: ImageSchema.extend({ src: z.string().min(1), alt: z.string().min(1) }),
+  titolo: z.string().min(1).optional(),
+  descrizione: z.string().min(1).optional(),
+});
+export type AisleShelf = z.infer<typeof AisleShelfSchema>;
+
 export const AisleSchema = z.object({
   slug,
   titolo: z.string().min(1),
@@ -113,6 +121,10 @@ export const AisleSchema = z.object({
   icona: z.string(),
   colore: hexColor.optional(),
   inEvidenza: z.array(AisleHighlightSchema).default([]),
+  /** Foto degli scaffali in negozio; vuoto = la sezione non compare. */
+  scaffali: z.array(AisleShelfSchema).default([]),
+  scaffaliTitolo: z.string().default("Gli scaffali in negozio"),
+  scaffaliIntro: z.string().optional(),
   ordine: z.number().int().default(0),
   visibile: z.boolean().default(true),
   seo: z.object({ title: z.string(), description: z.string() }),

@@ -80,10 +80,10 @@ export default async function CartaFedeltaPage() {
       </Section>
 
       <Section tone="cream" id="come-richiederla" containerSize="narrow">
-        <SectionHeading eyebrow="Facile e gratuita" title="Come richiederla" />
-        <ol className="mt-8 space-y-4">
+        <Reveal><SectionHeading eyebrow="Facile e gratuita" title="Come richiederla" /></Reveal>
+        <Stagger as="ol" className="mt-8 space-y-4">
           {steps.map((s, i) => (
-            <li key={s} className="flex items-start gap-4 rounded-lg bg-white p-5 shadow-soft">
+            <StaggerItem as="li" key={s} className="flex items-start gap-4 rounded-lg bg-white p-5 shadow-soft">
               <span
                 aria-hidden
                 className="flex size-10 shrink-0 items-center justify-center rounded-full bg-brand-blue-700 font-display text-lg text-white"
@@ -91,23 +91,23 @@ export default async function CartaFedeltaPage() {
                 {i + 1}
               </span>
               <p className="pt-1.5 text-lg">{s}</p>
-            </li>
+            </StaggerItem>
           ))}
-        </ol>
+        </Stagger>
       </Section>
 
       {loyalty.faq.length > 0 && (
         <Section tone="white" containerSize="narrow">
-          <SectionHeading eyebrow="Domande frequenti" title="Hai un dubbio?" />
-          <Accordion
+          <Reveal><SectionHeading eyebrow="Domande frequenti" title="Hai un dubbio?" /></Reveal>
+          <Reveal delay={0.1}><Accordion
             className="mt-8 !shadow-none ring-1 ring-brand-blue-100"
             items={loyalty.faq.map((f) => ({ domanda: f.d, risposta: f.r }))}
-          />
+          /></Reveal>
         </Section>
       )}
 
       <Section tone="blue" rounded className="mx-3 mb-8 sm:mx-6" containerSize="narrow">
-        <div className="text-center">
+        <Reveal className="text-center">
           <SectionHeading
             inverted
             align="center"
@@ -124,7 +124,7 @@ export default async function CartaFedeltaPage() {
               label="Scrivici su WhatsApp"
             />
           </div>
-        </div>
+        </Reveal>
       </Section>
     </>
   );

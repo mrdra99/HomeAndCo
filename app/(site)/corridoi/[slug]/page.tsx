@@ -11,6 +11,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AisleHero } from "@/components/aisles/AisleHero";
 import { AisleCampaignBanner } from "@/components/aisles/AisleCampaignBanner";
+import { AisleShelves } from "@/components/aisles/AisleShelves";
 import { AisleStoresCta } from "@/components/aisles/AisleStoresCta";
 import { CampaignFeaturedIdeas } from "@/components/aisles/CampaignFeaturedIdeas";
 import { OtherAisles } from "@/components/aisles/OtherAisles";
@@ -82,6 +83,8 @@ export default async function AislePage({ params }: { params: Promise<Params> })
 
         <p className="max-w-3xl text-lg text-ink sm:text-xl">{aisle.descrizioneLunga}</p>
       </Container>
+
+      <AisleShelves scaffali={aisle.scaffali} titolo={aisle.scaffaliTitolo} intro={aisle.scaffaliIntro} />
 
       <CampaignFeaturedIdeas items={aisle.inEvidenza} campaigns={campaigns} buildCampaignId={activeCampaign.id} />
 

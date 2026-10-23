@@ -39,7 +39,7 @@ export function AisleHero({ titolo, descrizione, immagine, icona, colore, breadc
       <JsonLd data={jsonLd} />
       <Container>
         <nav aria-label="Percorso di navigazione" className="mb-8">
-          <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
+          <ol className="flex flex-wrap items-center gap-x-2 gap-y-0 text-sm text-muted">
             {breadcrumb.map((b, i) => {
               const last = i === breadcrumb.length - 1;
               return (
@@ -49,7 +49,7 @@ export function AisleHero({ titolo, descrizione, immagine, icona, colore, breadc
                       {b.label}
                     </span>
                   ) : (
-                    <Link href={b.href} className="underline-offset-4 hover:text-brand-blue-700 hover:underline">
+                    <Link href={b.href} className="-my-2 inline-flex min-h-11 items-center underline-offset-4 hover:text-brand-blue-700 hover:underline">
                       {b.label}
                     </Link>
                   )}

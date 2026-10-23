@@ -163,8 +163,30 @@ Per ogni voce `inEvidenza` in `content/aisles.json`, il campo facoltativo `campa
 ### Aggiungere o modificare un corridoio
 In `content/aisles.json`: `slug` (compare nell'URL `/corridoi/<slug>/`), `titolo`, `titoloBreve`, `descrizione`, `descrizioneLunga`, `immagine`, `icona`, `inEvidenza` (idee: titolo, descrizione, immagine, badge), `ordine`, `visibile`, `seo`, `categoryId` (futuro shop). Poi aggiungi la voce in `navigation.json` se vuoi il link nel menu. La pagina nasce da sola (generateStaticParams).
 
+### Foto degli scaffali di una categoria
+Ogni pagina `/corridoi/<slug>/` mostra la sezione "Gli scaffali in negozio" se la voce in `content/aisles.json` ha almeno una foto in `scaffali` (vuoto = la sezione non compare). Per aggiungerle:
+
+1. Salva le foto in `public/uploads/aisles/<slug>/` (stesso `slug` del corridoio), nome in minuscolo con trattini, es. `scaffale-pentole-1.webp`.
+2. Formato WebP, circa 1600 px sul lato lungo (meglio orizzontali 4:3), peso contenuto. `scripts/prepare-images.mjs` genera da solo varianti responsive e manifest al prebuild.
+3. Aggiungi le voci in `scaffali`; `alt` è obbligatorio, `titolo` e `descrizione` sono facoltativi. Facoltativi anche `scaffaliTitolo` (default "Gli scaffali in negozio") e `scaffaliIntro` (testo sotto il titolo).
+
+```json
+"scaffali": [
+  {
+    "immagine": { "src": "/uploads/aisles/casa-e-cucina/scaffale-pentole-1.webp", "alt": "Scaffale di pentole e padelle nel negozio di Prato" },
+    "titolo": "Pentole e padelle",
+    "descrizione": "Il lato sinistro del reparto cucina."
+  }
+]
+```
+
+Su smartphone le foto scorrono in orizzontale; da tablet in su sono in griglia. Un tocco apre la foto a schermo intero (Esc chiude, frecce e swipe cambiano foto).
+
 ### Sedi, brand, promozioni, impostazioni
 `content/stores.json` (orari: array `{ giorno 0-6, aperture:[{da,a}] }`, `null` = non noti), `brands.json`, `promotions.json`, `settings.json` (WhatsApp, social, dati societari, analytics), `loyalty.json`. Le mappe si caricano su richiesta su ogni schermo. Anche le promozioni ricontrollano inizio e fine nel browser, senza restare visibili dopo la scadenza o comparire in anticipo.
+
+### Striscia dei marchi (home)
+`components/sections/BrandMarquee.tsx` mostra i loghi in un banner che ruota di continuo (solo CSS, circa 36 px/s, pausa al passaggio del mouse e al focus, scorrimento da destra verso sinistra). Con `prefers-reduced-motion` diventa una riga scorrevole a mano. La sezione compare solo se c'è almeno un marchio con `provvisorio: false` in `content/brands.json`. Per aggiungere un logo: file in `public/uploads/brands/` (SVG oppure PNG trasparente, altezza consigliata 96 px per il PNG, orizzontale, senza margini vuoti attorno), poi nel marchio `logo.src` = `/uploads/brands/nome.svg`, `url` facoltativo e `provvisorio: false`. Senza logo il marchio compare come testo. Anteprima con 8 marchi finti in `/design-system/`.
 
 ### Foto e loghi
 
@@ -179,8 +201,8 @@ Vedi [ASSETS_TODO.md](ASSETS_TODO.md) (tabella di tutti i segnaposto, formati e 
 
 - Token (blu `#0F6BB4` e magenta `#D11559` del marchio, neutri azzurrati, raggi, ombre, `--accent` di campagna) in `app/globals.css`, sezione `@theme`. Font: Figtree per titoli e testo, coerente con una vetrina fotografica.
 - Componenti base in `components/ui/` (Button, Card, Section, Container, SectionHeading, Badge, Icon, Logo, Placeholder, SmartImage, Accordion) e animazioni in `components/motion/` (Reveal, Stagger, HoverLift; `MotionProvider` rispetta `prefers-reduced-motion`).
-- **Scorrimento**: `SmoothScroll` carica Lenis solo con puntatore fine e senza preferenza di movimento ridotto. Inerzia della rotellina con `lerp: 0.11`; il tocco resta nativo (`syncTouch: false`). Menu e finestre modali fermano anche l'inerzia già in corso; i link interni usano gli spazi CSS sotto l'header. La preferenza di movimento ridotto viene recepita anche durante la visita.
-- **Comparsa allo scroll**: `Reveal` e `StaggerItem` usano un osservatore per elemento, con dissolvenza e salita di 28 px in 780 ms (16 px e 620 ms su smartphone). Le colonne della stessa riga si sfalsano di 80 ms; le righe successive aspettano di entrare nello schermo. L'effetto parte una sola volta. L'HTML iniziale è visibile: si preparano solo gli elementi sotto la vista dopo l'idratazione. Con JavaScript disattivato, movimento ridotto, focus da tastiera o stampa, il contenuto resta subito leggibile.
+- **Scorrimento**: `SmoothScroll` carica Lenis solo con puntatore fine e senza preferenza di movimento ridotto. Inerzia morbida della rotellina con `lerp: 0.085`; il tocco resta nativo (`syncTouch: false`). Menu e finestre modali fermano anche l'inerzia già in corso; i link interni usano gli spazi CSS sotto l'header. La preferenza di movimento ridotto viene recepita anche durante la visita.
+- **Comparsa allo scroll**: `Reveal` e `StaggerItem` usano un osservatore per elemento, con dissolvenza lenta con easing `cubic-bezier(0.16, 1, 0.3, 1)`: 1050 ms, salita di 28 px e blur di 5 px che si scioglie su desktop; 950 ms, 20 px e nessun blur su smartphone. Le colonne della stessa riga si sfalsano di 110 ms (tetto 450 ms); le righe successive aspettano di entrare nello schermo. L'effetto parte una sola volta. L'HTML iniziale è visibile: si preparano solo gli elementi sotto la vista dopo l'idratazione. Con JavaScript disattivato, movimento ridotto, focus da tastiera o stampa, il contenuto resta subito leggibile.
 - **Smartphone**: schede dei reparti e delle collezioni con foto laterale sotto i 640 px, archivio compatto sotto i 420 px, menu a schermo intero con chiusura sempre raggiungibile e collegamenti grandi. Pulsanti alti almeno 44 px, campi del modulo da 16 px e spazi per le aree sicure nelle finestre modali. La striscia dei marchi, quando presente, si scorre manualmente al tocco.
 - **Lettore volantini**: lo swipe orizzontale usa Pointer Events, senza dipendere dalle feature di trascinamento di Motion. Il gesto verticale mantiene lo scorrimento nativo e il pinch resta disponibile; frecce, tastiera e zoom sono sempre accessibili. Sui dispositivi touch le frecce sono sotto l'immagine per lasciare liberi prezzi e dettagli. I PDF usano link nativi, senza richieste di prefetch alle route Next.
 - La pagina **`/design-system/`** mostra tutto dal vivo. È esclusa da sitemap e robots.

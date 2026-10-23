@@ -2,6 +2,7 @@
 
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Section, type SectionTone } from "@/components/ui/Section";
+import { Reveal } from "@/components/motion/Reveal";
 import { Stagger, StaggerItem } from "@/components/motion/Stagger";
 import { PromotionCard } from "./PromotionCard";
 import type { Promotion } from "@/lib/content/schemas";
@@ -17,7 +18,7 @@ export function PromotionsGrid({ promotions, buildDate, tone = "cream", eyebrow,
   if (current.length === 0) return null;
   return (
     <Section tone={tone} rounded={tone === "blue"} className={tone === "blue" ? "mx-3 sm:mx-6" : undefined}>
-      <SectionHeading eyebrow={eyebrow} title={title} subtitle={subtitle} inverted={inverted} />
+      <Reveal><SectionHeading eyebrow={eyebrow} title={title} subtitle={subtitle} inverted={inverted} /></Reveal>
       <Stagger className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {current.map((p) => (
           <StaggerItem key={p.id} className="h-full">

@@ -144,7 +144,7 @@ export function ContactForm({ email }: { email: string }) {
                   id="privacy"
                   name="privacy"
                   type="checkbox"
-                  className={cn("mt-1 h-5 w-5 shrink-0 accent-[var(--color-brand-blue-700)]")}
+                  className={cn("mt-0.5 h-6 w-6 shrink-0 accent-[var(--color-brand-blue-700)]")}
                   {...a11y("privacy")}
                 />
                 <label htmlFor="privacy" className="text-sm">

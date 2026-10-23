@@ -22,7 +22,8 @@ export function SmoothScroll() {
       if (current !== generation) return;
       instance = new Lenis({
         autoRaf: true,
-        lerp: 0.11,
+        lerp: 0.085,
+        wheelMultiplier: 0.9,
         smoothWheel: true,
         syncTouch: false,
         // Lenis reads the shared CSS scroll-padding and each target's scroll-margin.

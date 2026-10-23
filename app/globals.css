@@ -38,12 +38,6 @@
   --shadow-lift: 0 2px 4px rgb(11 42 71 / 0.06), 0 18px 40px -12px rgb(11 108 176 / 0.30);
   --shadow-pop: 0 4px 0 rgb(11 42 71 / 0.12), 0 14px 30px -10px rgb(11 42 71 / 0.35);
 
-  /* Animazioni */
-  --animate-marquee: marquee 40s linear infinite;
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
 }
 
 /* Token che puntano a variabili runtime (font di next/font, accento di campagna) */
@@ -63,25 +57,29 @@ html.lenis.lenis-smooth { scroll-behavior: auto !important; }
 
 /* Armed after hydration, only below the viewport. No hidden server content. */
 @keyframes scroll-reveal-in {
-  from { opacity: 0; transform: translateY(var(--reveal-distance)); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translate3d(0, var(--reveal-distance), 0); filter: blur(var(--reveal-blur)); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
 }
 .scroll-reveal {
   --reveal-distance: 28px;
-  --reveal-duration: 780ms;
+  --reveal-duration: 1050ms;
+  --reveal-blur: 5px;
+  --reveal-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 @media (prefers-reduced-motion: no-preference) {
-  .scroll-reveal[data-reveal="pending"] { opacity: 0; transform: translateY(var(--reveal-distance)); }
+  .scroll-reveal[data-reveal="pending"] { opacity: 0; transform: translate3d(0, var(--reveal-distance), 0); filter: blur(var(--reveal-blur)); }
   .scroll-reveal[data-reveal="entering"] {
-    animation: scroll-reveal-in var(--reveal-duration) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s) both;
+    will-change: opacity, transform, filter;
+    animation: scroll-reveal-in var(--reveal-duration) var(--reveal-ease) var(--reveal-delay, 0s) both;
   }
-  .scroll-reveal[data-reveal="pending"]:focus-within { opacity: 1; transform: none; }
+  .scroll-reveal[data-reveal="pending"]:focus-within { opacity: 1; transform: none; filter: none; }
 }
+/* Smartphone: stessa lentezza (anche piu' lunga), niente blur per non pesare sulla GPU. */
 @media (max-width: 639px), (hover: none) and (pointer: coarse) {
-  .scroll-reveal { --reveal-distance: 16px; --reveal-duration: 620ms; }
+  .scroll-reveal { --reveal-distance: 20px; --reveal-duration: 950ms; --reveal-blur: 0px; }
 }
 @media print {
-  .scroll-reveal[data-reveal] { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .scroll-reveal[data-reveal] { opacity: 1 !important; transform: none !important; filter: none !important; animation: none !important; }
 }
 /* Halloween come il volantino: bianco, magenta e blu del marchio, niente arancione. */
 [data-theme="halloween"] .campaign-hero { background: #ffffff; }
@@ -136,6 +134,8 @@ html.lenis.lenis-smooth { scroll-behavior: auto !important; }
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     text-wrap: pretty;
+    /* iPhone in orizzontale: il contenuto non finisce sotto il notch (viewport-fit=cover). */
+    padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
   }
 
   input, select, textarea { font: inherit; }
@@ -209,18 +209,30 @@ html.lenis.lenis-smooth { scroll-behavior: auto !important; }
 @utility text-balance { text-wrap: balance; }
 @utility text-pretty { text-wrap: pretty; }
 
-/* Marquee: contenuto duplicato (2 copie), pausa su hover/focus, fermo con reduced motion */
+/* Marquee: due meta' identiche (ognuna con la lista ripetuta quanto serve), loop a -50% senza salti.
+   Durata = --marquee-duration (calcolata dal componente per una velocita' costante in px/s).
+   Direzione "oraria" come un rullo visto dall'alto: la faccia davanti scorre da destra verso sinistra.
+   Pausa su hover/focus; con reduced motion niente animazione, riga scorrevole a mano con snap. */
 @utility marquee-mask {
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
 }
-.marquee-track { animation: var(--animate-marquee); width: max-content; will-change: transform; }
+@keyframes brand-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+.marquee-track {
+  width: max-content;
+  will-change: transform;
+  animation: brand-marquee var(--marquee-duration, 60s) linear infinite;
+}
 .marquee:hover .marquee-track,
 .marquee:focus-within .marquee-track { animation-play-state: paused; }
-@media (prefers-reduced-motion: reduce), (hover: none) and (pointer: coarse) {
-  .marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
-  .marquee-track { animation: none; will-change: auto; padding-inline: 1.25rem; }
-  .marquee-track > ul[aria-hidden="true"] { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee { overflow-x: auto; scroll-snap-type: x proximity; -webkit-mask-image: none; mask-image: none; }
+  .marquee-track { animation: none; will-change: auto; padding-inline: 1rem; }
+  .marquee-list[aria-hidden="true"], .marquee-half[aria-hidden="true"] { display: none; }
+  .marquee-list > li { scroll-snap-align: center; }
 }
 
 /* Utility per scroll snap orizzontale (bento su mobile) */
