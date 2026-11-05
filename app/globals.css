@@ -242,7 +242,7 @@ html.lenis.lenis-smooth { scroll-behavior: auto !important; }
 }
 
 /* Brand entrance: the white centre recedes, revealing the page from its corners. */
-.brand-intro { display: none; }
+.brand-intro { display: none; --brand-intro-duration: 2600ms; }
 html[data-brand-intro="active"] { overflow: hidden; }
 html[data-brand-intro="active"] .brand-intro {
   position: fixed;
@@ -263,14 +263,14 @@ html[data-brand-intro="active"] .brand-intro {
   mask-position: center;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  animation: brand-intro-wipe 2600ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation: brand-intro-wipe var(--brand-intro-duration) cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 .brand-intro__logo {
   position: relative;
   width: clamp(220px, 32vw, 420px);
   max-width: calc(100vw - 64px);
   line-height: 0;
-  animation: brand-intro-logo 2600ms ease both;
+  animation: brand-intro-logo var(--brand-intro-duration) ease both;
 }
 @keyframes brand-intro-wipe {
   0%, 20% { -webkit-mask-size: 400% 400%; mask-size: 400% 400%; opacity: 1; }
@@ -281,6 +281,15 @@ html[data-brand-intro="active"] .brand-intro {
   0% { opacity: 0; }
   14%, 35% { opacity: 1; filter: blur(0); }
   82%, 100% { opacity: 0; filter: blur(3px); }
+}
+@media (max-width: 639px) {
+  .brand-intro { --brand-intro-duration: 3600ms; }
+  .brand-intro__logo { animation-name: brand-intro-logo-mobile; }
+}
+@keyframes brand-intro-logo-mobile {
+  0% { opacity: 0; }
+  12%, 50% { opacity: 1; filter: blur(0); }
+  90%, 100% { opacity: 0; filter: blur(3px); }
 }
 @media (prefers-reduced-motion: reduce), print {
   html[data-brand-intro="active"] .brand-intro { display: none; }

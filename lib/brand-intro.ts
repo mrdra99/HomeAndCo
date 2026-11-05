@@ -11,6 +11,10 @@ export function brandIntroScriptSource(): string {
       window.sessionStorage.setItem('${BRAND_INTRO_SESSION_KEY}', '1');
     } catch(e) { /* Storage can be unavailable; the animation still has a finite lifetime. */ }
     document.documentElement.setAttribute('${BRAND_INTRO_ATTRIBUTE}', 'active');
-    window.setTimeout(function(){ document.documentElement.removeAttribute('${BRAND_INTRO_ATTRIBUTE}'); }, 3200);
+    // Start the safety timer after parsing, so a slow initial response does not consume the intro.
+    document.addEventListener('DOMContentLoaded', function(){
+      var timeout = window.matchMedia('(max-width: 639px)').matches ? 4200 : 3200;
+      window.setTimeout(function(){ document.documentElement.removeAttribute('${BRAND_INTRO_ATTRIBUTE}'); }, timeout);
+    }, { once: true });
   })();`;
 }
