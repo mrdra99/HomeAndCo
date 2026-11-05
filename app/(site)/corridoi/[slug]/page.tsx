@@ -66,6 +66,7 @@ export default async function AislePage({ params }: { params: Promise<Params> })
   return (
     <>
       <AisleHero
+        slug={aisle.slug}
         titolo={aisle.titolo}
         descrizione={aisle.descrizione}
         immagine={aisle.immagine}

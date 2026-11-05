@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/Button";
 export type BreadcrumbItem = { label: string; href: string };
 
 type AisleHeroProps = {
+  slug: string;
   titolo: string;
   descrizione: string;
   immagine: ImageRef;
@@ -25,7 +26,7 @@ type AisleHeroProps = {
 };
 
 /** Hero del corridoio: breadcrumb + JSON-LD, titolo display, descrizione e foto ad arco. */
-export function AisleHero({ titolo, descrizione, immagine, dettaglio, icona, colore, breadcrumb }: AisleHeroProps) {
+export function AisleHero({ slug, titolo, descrizione, immagine, dettaglio, icona, colore, breadcrumb }: AisleHeroProps) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -68,7 +69,7 @@ export function AisleHero({ titolo, descrizione, immagine, dettaglio, icona, col
                 className="mb-6 inline-flex size-16 items-center justify-center rounded-full text-brand-blue-900"
                 style={{ background: `color-mix(in srgb, ${colore ?? "#0B6CB0"} 16%, white)` }}
               >
-                <DepartmentIcon name={icona} size={52} />
+                <DepartmentIcon name={slug} size={52} />
               </span>
             )}
             <h1 className="text-brand-blue-900">{titolo}</h1>

@@ -27,6 +27,7 @@ Fonte e condizioni: [Pexels License](https://www.pexels.com/license/). Uso previ
 
 | File | Autore | Fonte | Licenza |
 |---|---|---|
+| `/uploads/photos/natale-negozio-ambientazione.webp` | Abhishek Navlakha | [Pagina originale](https://www.pexels.com/photo/cozy-store-interior-decorated-for-the-holidays-35549513/) | Pexels License |
 | `/uploads/photos/halloween.webp` | Kaboompics / Karola G | [Pagina originale](https://www.pexels.com/photo/halloween-flat-lay-5208210/) | Pexels License |
 | `/uploads/photos/tavola-halloween.webp` | Yaroslav Shuraev | [Pagina originale](https://www.pexels.com/photo/burning-black-candles-on-wooden-table-5614381/) | Pexels License |
 | `/uploads/photos/carta-e-colori.webp` | Pixabay | [Pagina originale](https://www.pexels.com/photo/colored-pencils-on-a-gray-desk-with-paper-clips-and-folders-159627/) | CC0 / Pexels |

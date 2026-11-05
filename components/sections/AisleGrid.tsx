@@ -47,7 +47,7 @@ export function AisleGrid({ aisles, campaigns, buildCampaignId, copy }: AisleGri
                 <h3 className="!text-lg text-brand-blue-900 sm:!text-2xl">{aisle.titoloBreve}</h3>
                 <p className="mt-2 text-sm text-muted">{aisle.descrizione}</p>
                 <span className="mt-auto inline-flex min-h-11 items-center gap-2 pt-3 text-sm font-bold text-brand-blue-700 sm:pt-5">
-                  <DepartmentIcon name={aisle.icona} size={36} className="size-7 sm:size-9" />
+                  <DepartmentIcon name={aisle.slug} size={36} className="size-7 sm:size-9" />
                   <span className="decoration-brand-magenta-600 decoration-2 underline-offset-4 group-hover:underline">{copy.cta}</span>
                 </span>
               </div>

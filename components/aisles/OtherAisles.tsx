@@ -20,7 +20,7 @@ export function OtherAisles({ aisles }: { aisles: OtherAisle[] }) {
                 href={`/corridoi/${a.slug}/`}
                 className="inline-flex min-h-12 items-center gap-2.5 rounded-full bg-white px-5 font-semibold text-brand-blue-900 shadow-soft transition-[transform,box-shadow] duration-200 hover:shadow-lift active:scale-[0.97]"
               >
-                {a.icona && <DepartmentIcon name={a.icona} size={32} />}
+                {a.icona && <DepartmentIcon name={a.slug} size={32} />}
                 {a.titolo}
               </Link>
             </li>

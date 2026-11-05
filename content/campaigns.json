@@ -102,8 +102,9 @@
     "inizio": "2026-11-01",
     "fine": "2026-12-31",
     "immagineHero": {
-      "src": "/uploads/photos/home-co-reparto-natale.webp",
-      "alt": "Albero e decorazioni nel reparto natalizio Home & Co."
+      "src": "/uploads/photos/natale-negozio-ambientazione.webp",
+      "alt": "Albero illuminato, cuscini rossi e decorazioni natalizie in un negozio di articoli per la casa",
+      "position": "50% 65%"
     },
     "accento": "#A3123F",
     "tema": "natale",

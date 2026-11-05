@@ -7,18 +7,18 @@ const DEPARTMENTS = {
   "animali": "animali",
   "giardinaggio": "giardino",
   "hobby-cartoleria-auto": "hobby",
-  "cura-persona-e-beauty": "pulizia",
-  "feste-e-regalo": "hobby",
-  "ferramenta-e-fai-da-te": "hobby",
-  "illuminazione-e-accessori": "cucina",
-  "ordine-e-bagno": "tessile",
-  "cura-auto": "hobby",
-  "giochi-e-giocattoli": "hobby",
+  "cura-persona-e-beauty": "beauty",
+  "feste-e-regalo": "regalo",
+  "ferramenta-e-fai-da-te": "fai-da-te",
+  "illuminazione-e-accessori": "luce",
+  "ordine-e-bagno": "bagno",
+  "cura-auto": "auto",
+  "giochi-e-giocattoli": "giochi",
 } as const;
 
-const DRAWINGS = new Set(["cucina", "tessile", "pulizia", "animali", "giardino", "hobby"]);
+const DRAWINGS = new Set<string>(Object.values(DEPARTMENTS));
 
-/** Decorative, locally served drawings; the adjoining text names the department. */
+/** Decorative, locally served vector symbols; the adjoining text names the department. */
 export function DepartmentIcon({ name, size = 36, className = "" }: { name: string; size?: number; className?: string }) {
   const drawing = DEPARTMENTS[name as keyof typeof DEPARTMENTS] ?? name;
   if (!DRAWINGS.has(drawing)) return null;
