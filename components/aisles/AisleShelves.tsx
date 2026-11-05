@@ -123,7 +123,6 @@ export function AisleShelves({ scaffali, titolo, intro }: AisleShelvesProps) {
 
       <dialog
         ref={dialogRef}
-        data-lenis-prevent
         aria-label={`${titolo}${current ? `: ${open! + 1} di ${scaffali.length}` : ""}`}
         onClose={() => setOpen(null)}
         onClick={(e) => {

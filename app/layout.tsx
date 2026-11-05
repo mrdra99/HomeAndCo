@@ -4,7 +4,6 @@ import { Figtree } from "next/font/google";
 import { CampaignThemeScript } from "@/components/campaign/CampaignThemeScript";
 import { CampaignRuntime } from "@/components/campaign/CampaignRuntime";
 import { MotionProvider } from "@/components/motion/MotionProvider";
-import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { campaignCssVars } from "@/lib/campaigns";
 import { getActiveCampaign, content } from "@/lib/content";
 import { SITE_CLAIM, SITE_NAME, SITE_URL } from "@/lib/site";
@@ -60,7 +59,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <CampaignThemeScript campaigns={campaigns} />
       </head>
       <body>
-        <SmoothScroll />
         <CampaignRuntime campaigns={campaigns} buildCampaignId={active.id} />
         <MotionProvider>{children}</MotionProvider>
       </body>

@@ -80,7 +80,6 @@ export function MobileNav({ items }: { items: NavItem[] }) {
             role="dialog"
             aria-modal="true"
             aria-label="Menu principale"
-            data-lenis-prevent
             className="on-dark fixed inset-0 z-50 flex h-dvh flex-col overflow-y-auto overscroll-contain bg-brand-blue-900 text-white"
             initial={{ opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: 0 }}

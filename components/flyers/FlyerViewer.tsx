@@ -217,7 +217,6 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
 
       <dialog
         ref={dialogRef}
-        data-lenis-prevent
         aria-label={`${title}, ${pageLabel}`}
         onClose={() => setZoomOpen(false)}
         onClick={(e) => {

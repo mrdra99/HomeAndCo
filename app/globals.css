@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "lenis/dist/lenis.css";
 
 /* ------------------------------------------------------------------
    Design system Home & Co. — token in @theme (Tailwind v4, nessun config JS)
@@ -53,7 +52,6 @@
 }
 
 .campaign-hero { background: #edf5fb; }
-html.lenis { scroll-behavior: auto !important; }
 
 /* Armed after hydration, only below the viewport. No hidden server content. */
 @keyframes scroll-reveal-in {
@@ -116,6 +114,7 @@ html.lenis { scroll-behavior: auto !important; }
    ------------------------------------------------------------------ */
 @layer base {
   html {
+    /* Native wheel/trackpad scrolling; smooth behavior applies to anchors and navigation. */
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
     -webkit-text-size-adjust: 100%;
