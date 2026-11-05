@@ -8,6 +8,7 @@ import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { campaignCssVars } from "@/lib/campaigns";
 import { getActiveCampaign, content } from "@/lib/content";
 import { SITE_CLAIM, SITE_NAME, SITE_URL } from "@/lib/site";
+import { BrandIntroScript } from "@/components/intro/BrandIntroScript";
 import "./globals.css";
 
 const figtree = Figtree({
@@ -55,6 +56,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       suppressHydrationWarning
     >
       <head>
+        <BrandIntroScript />
         <CampaignThemeScript campaigns={campaigns} />
       </head>
       <body>

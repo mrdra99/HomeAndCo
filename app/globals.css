@@ -240,3 +240,49 @@ html.lenis.lenis-smooth { scroll-behavior: auto !important; }
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }
 }
+
+/* Brand entrance: the white centre recedes, revealing the page from its corners. */
+.brand-intro { display: none; }
+html[data-brand-intro="active"] { overflow: hidden; }
+html[data-brand-intro="active"] .brand-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  isolation: isolate;
+}
+.brand-intro__veil {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 35%, rgb(0 0 0 / 0.94) 43%, transparent 68%);
+  mask-image: radial-gradient(ellipse at center, #000 35%, rgb(0 0 0 / 0.94) 43%, transparent 68%);
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  animation: brand-intro-wipe 2600ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+.brand-intro__logo {
+  position: relative;
+  width: clamp(220px, 32vw, 420px);
+  max-width: calc(100vw - 64px);
+  line-height: 0;
+  animation: brand-intro-logo 2600ms ease both;
+}
+@keyframes brand-intro-wipe {
+  0%, 20% { -webkit-mask-size: 400% 400%; mask-size: 400% 400%; opacity: 1; }
+  70% { opacity: 1; }
+  100% { -webkit-mask-size: 0% 0%; mask-size: 0% 0%; opacity: 0; }
+}
+@keyframes brand-intro-logo {
+  0% { opacity: 0; }
+  14%, 35% { opacity: 1; filter: blur(0); }
+  82%, 100% { opacity: 0; filter: blur(3px); }
+}
+@media (prefers-reduced-motion: reduce), print {
+  html[data-brand-intro="active"] .brand-intro { display: none; }
+  html[data-brand-intro="active"] { overflow: visible; }
+}

@@ -316,3 +316,11 @@ Dettaglio completo in [ASSETS_TODO.md](ASSETS_TODO.md). In sintesi:
 ### Catalogo dimostrativo e archivio senza date
 
 `content/flyers.json` → `esempioAttivo: true` mantiene il catalogo Sesto ottobre nel lettore come esempio. Non modifica la validità reale né i PDF: `currentFlyers` continua a usare le date originali. Rimuovere il flag per togliere l’esempio dalla vetrina. `archiviato: true` inserisce esplicitamente un documento in archivio; un PDF privo di date, come il foglio caramelle, usa date `null` e un’etichetta `periodo`, senza inventare scadenze.
+
+### Splash di ingresso
+
+Il primo ingresso della sessione mostra il logo originale su bianco per 2,6 secondi. Una maschera radiale sfumata ritira il bianco verso il centro, facendo emergere la pagina dagli angoli. Il logo si dissolve in parallelo. Nessun contenuto del sito viene rimosso dal rendering iniziale.
+
+Lo script in `<head>` evita il flash dello splash nelle visite successive (`sessionStorage`, chiave `homeco:intro-seen:v1`). La pagina resta subito accessibile senza JavaScript o con `prefers-reduced-motion: reduce`; Tab, Esc, un clic o lo scroll interrompono l’introduzione. Il consenso cookie compare dopo la fine dell’ingresso. Un timeout indipendente rimuove comunque l’introduzione entro 3,2 secondi se l’idratazione non termina. La pagina `/design-system/` è esclusa.
+
+Implementazione: `components/intro/`, `lib/brand-intro.ts` e regole `.brand-intro` in `app/globals.css`.

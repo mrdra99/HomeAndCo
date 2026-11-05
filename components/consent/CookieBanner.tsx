@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useBrandIntroActive } from "@/components/intro/BrandIntro";
 import { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, m } from "motion/react";
 import { Button } from "@/components/ui/Button";
@@ -43,7 +44,8 @@ function Toggle({ id, label, description, checked, disabled, onChange }: {
  */
 export function CookieBanner() {
   const { ready, decided, choices, preferencesOpen, acceptAll, rejectAll, save, closePreferences } = useConsent();
-  const open = ready && (!decided || preferencesOpen);
+  const introActive = useBrandIntroActive();
+  const open = ready && !introActive && (!decided || preferencesOpen);
   const [customizing, setCustomizing] = useState(false);
   const [stat, setStat] = useState(false);
   const [mkt, setMkt] = useState(false);
