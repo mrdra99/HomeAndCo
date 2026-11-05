@@ -6,7 +6,7 @@ import type Lenis from "lenis";
 /** Wheel inertia on mouse/trackpad devices; phones keep their native touch scroll. */
 export function SmoothScroll() {
   useEffect(() => {
-    const enabled = window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)");
+    const enabled = window.matchMedia("(any-hover: hover) and (any-pointer: fine) and (prefers-reduced-motion: no-preference)");
     let instance: Lenis | null = null;
     let locks: MutationObserver | null = null;
     let generation = 0;
@@ -22,8 +22,9 @@ export function SmoothScroll() {
       if (current !== generation) return;
       instance = new Lenis({
         autoRaf: true,
-        lerp: 0.085,
-        wheelMultiplier: 0.9,
+        // Short damping tail: wheel input should feel responsive, not delayed.
+        lerp: 0.16,
+        wheelMultiplier: 1,
         smoothWheel: true,
         syncTouch: false,
         // Lenis reads the shared CSS scroll-padding and each target's scroll-margin.

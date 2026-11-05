@@ -13,7 +13,7 @@ import { MobileNav } from "./MobileNav";
 const CORRIDOI_PREFIX = "/corridoi/";
 
 /**
- * Header sticky: si compatta e prende ombra allo scroll. Su desktop le voci dei corridoi
+ * Header fisso: si compatta senza modificare l’altezza del documento. Su desktop le voci dei corridoi
  * sono raccolte nel menu "Corridoi" (cosi' le 10 voci del menu stanno in una riga).
  * Il mobile mostra tutte le voci nel drawer.
  */
@@ -24,7 +24,13 @@ export function Header({ items }: { items: NavItem[] }) {
   const dropdownRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    let compact = false;
+    const onScroll = () => {
+      const next = window.scrollY > 12;
+      if (next === compact) return;
+      compact = next;
+      setScrolled(next);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -71,72 +77,76 @@ export function Header({ items }: { items: NavItem[] }) {
   );
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-40 border-b border-brand-blue-100/60 bg-white transition-shadow duration-300",
-        scrolled && "shadow-[0_6px_20px_-10px_rgb(11_42_71/0.35)]",
-      )}
-    >
-      <div
+    <>
+      {/* Reserve the full header height so compacting never shifts the scrolling page. */}
+      <div aria-hidden="true" className="h-18 sm:h-24" />
+      <header
         className={cn(
-          "mx-auto flex w-full max-w-7xl items-center justify-between px-5 transition-[height] duration-300 sm:px-8",
-          scrolled ? "h-16 sm:h-[4.5rem]" : "h-18 sm:h-24",
+          "fixed inset-x-0 top-0 z-40 border-b border-brand-blue-100/60 bg-white transition-shadow duration-300",
+          scrolled && "shadow-[0_6px_20px_-10px_rgb(11_42_71/0.35)]",
         )}
       >
-        <Link href="/" aria-label="Home & Co., vai alla home" className="rounded-lg">
-          <Logo priority className={cn("transition-[width] duration-300", scrolled ? "w-36 sm:w-44" : "w-40 sm:w-56")} />
-        </Link>
+        <div
+          className={cn(
+            "mx-auto flex w-full max-w-7xl items-center justify-between px-5 transition-[height] duration-300 sm:px-8",
+            scrolled ? "h-16 sm:h-[4.5rem]" : "h-18 sm:h-24",
+          )}
+        >
+          <Link href="/" aria-label="Home & Co., vai alla home" className="rounded-lg">
+            <Logo priority className={cn("transition-[width] duration-300", scrolled ? "w-36 sm:w-44" : "w-40 sm:w-56")} />
+          </Link>
 
-        <nav aria-label="Principale" className="hidden lg:block">
-          <ul className="flex items-center gap-1">
-            {items.map((item, i) => {
-              if (!item.href.startsWith(CORRIDOI_PREFIX)) return renderTop(item);
-              if (i !== firstAisleIndex) return null;
-              return (
-                <li key="corridoi" ref={dropdownRef} className="relative">
-                    <button
-                      type="button"
-                      aria-expanded={aislesOpen}
-                      aria-controls="menu-corridoi"
-                      onClick={() => setAislesOpen((o) => !o)}
-                      className={cn(linkClass(aislesActive), "inline-flex items-center gap-1")}
-                    >
-                      Reparti
-                      <Icon
-                        name="arrow-right"
-                        size={16}
-                        className={cn("transition-transform", aislesOpen ? "-rotate-90" : "rotate-90")}
-                      />
-                    </button>
-                    {aislesOpen && (
-                      <ul
-                        id="menu-corridoi"
-                        style={{ top: scrolled ? "4.5rem" : "6rem" }}
-                        className="fixed left-1/2 z-50 mt-2 grid max-h-[75dvh] w-[min(760px,85vw)] -translate-x-1/2 grid-cols-3 gap-1 overflow-y-auto rounded-[var(--radius-md)] border border-brand-blue-100 bg-white p-4 shadow-lift"
+          <nav aria-label="Principale" className="hidden lg:block">
+            <ul className="flex items-center gap-1">
+              {items.map((item, i) => {
+                if (!item.href.startsWith(CORRIDOI_PREFIX)) return renderTop(item);
+                if (i !== firstAisleIndex) return null;
+                return (
+                  <li key="corridoi" ref={dropdownRef} className="relative">
+                      <button
+                        type="button"
+                        aria-expanded={aislesOpen}
+                        aria-controls="menu-corridoi"
+                        onClick={() => setAislesOpen((o) => !o)}
+                        className={cn(linkClass(aislesActive), "inline-flex items-center gap-1")}
                       >
-                        {aisles.map((a) => (
-                          <li key={a.href}>
-                            <Link
-                              href={a.href}
-                              onClick={() => setAislesOpen(false)}
-                              aria-current={a.href === pathname ? "page" : undefined}
-                              className="flex h-full min-h-20 items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold hover:bg-brand-blue-50"
-                            >
-                              <DepartmentIcon name={a.href.split("/")[2]} size={32} />
-                              {a.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </li>
-              );
-            })}
-          </ul>
-        </nav>
+                        Reparti
+                        <Icon
+                          name="arrow-right"
+                          size={16}
+                          className={cn("transition-transform", aislesOpen ? "-rotate-90" : "rotate-90")}
+                        />
+                      </button>
+                      {aislesOpen && (
+                        <ul
+                          id="menu-corridoi"
+                          style={{ top: scrolled ? "4.5rem" : "6rem" }}
+                          className="fixed left-1/2 z-50 mt-2 grid max-h-[75dvh] w-[min(760px,85vw)] -translate-x-1/2 grid-cols-3 gap-1 overflow-y-auto rounded-[var(--radius-md)] border border-brand-blue-100 bg-white p-4 shadow-lift"
+                        >
+                          {aisles.map((a) => (
+                            <li key={a.href}>
+                              <Link
+                                href={a.href}
+                                onClick={() => setAislesOpen(false)}
+                                aria-current={a.href === pathname ? "page" : undefined}
+                                className="flex h-full min-h-20 items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold hover:bg-brand-blue-50"
+                              >
+                                <DepartmentIcon name={a.href.split("/")[2]} size={32} />
+                                {a.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                );
+              })}
+            </ul>
+          </nav>
 
-        <MobileNav items={items} />
-      </div>
-    </header>
+          <MobileNav items={items} />
+        </div>
+      </header>
+    </>
   );
 }

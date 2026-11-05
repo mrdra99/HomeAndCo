@@ -53,30 +53,29 @@
 }
 
 .campaign-hero { background: #edf5fb; }
-html.lenis.lenis-smooth { scroll-behavior: auto !important; }
+html.lenis { scroll-behavior: auto !important; }
 
 /* Armed after hydration, only below the viewport. No hidden server content. */
 @keyframes scroll-reveal-in {
-  from { opacity: 0; transform: translate3d(0, var(--reveal-distance), 0); filter: blur(var(--reveal-blur)); }
-  to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+  from { opacity: 0; transform: translate3d(0, var(--reveal-distance), 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 .scroll-reveal {
   --reveal-distance: 28px;
-  --reveal-duration: 1050ms;
-  --reveal-blur: 5px;
+  --reveal-duration: 700ms;
   --reveal-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 @media (prefers-reduced-motion: no-preference) {
-  .scroll-reveal[data-reveal="pending"] { opacity: 0; transform: translate3d(0, var(--reveal-distance), 0); filter: blur(var(--reveal-blur)); }
+  .scroll-reveal[data-reveal="pending"] { opacity: 0; transform: translate3d(0, var(--reveal-distance), 0); }
   .scroll-reveal[data-reveal="entering"] {
-    will-change: opacity, transform, filter;
+    will-change: opacity, transform;
     animation: scroll-reveal-in var(--reveal-duration) var(--reveal-ease) var(--reveal-delay, 0s) both;
   }
   .scroll-reveal[data-reveal="pending"]:focus-within { opacity: 1; transform: none; filter: none; }
 }
-/* Smartphone: stessa lentezza (anche piu' lunga), niente blur per non pesare sulla GPU. */
+/* Touch devices retain the softer entrance timing, using only opacity and transforms. */
 @media (max-width: 639px), (hover: none) and (pointer: coarse) {
-  .scroll-reveal { --reveal-distance: 20px; --reveal-duration: 950ms; --reveal-blur: 0px; }
+  .scroll-reveal { --reveal-distance: 20px; --reveal-duration: 950ms; }
 }
 @media print {
   .scroll-reveal[data-reveal] { opacity: 1 !important; transform: none !important; filter: none !important; animation: none !important; }
