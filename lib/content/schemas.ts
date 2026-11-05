@@ -81,6 +81,12 @@ export type Campaign = z.infer<typeof CampaignSchema>;
 // ---------- Home copy ----------
 const SectionCopySchema = z.object({ titolo: z.string().min(1), descrizione: z.string().min(1) });
 export const HomeCopySchema = z.object({
+  social: z.object({
+    titolo: z.string().min(1),
+    descrizione: z.string(),
+    video: z.object({ src: z.string(), poster: ImageSchema, titolo: z.string(), descrizione: z.string() }),
+    reels: z.array(z.object({ href: z.string().url(), titolo: z.string(), immagine: ImageSchema })).length(2),
+  }),
   reparti: SectionCopySchema.extend({ cta: z.string().min(1) }),
   negozi: SectionCopySchema,
   volantini: z.object({
@@ -187,8 +193,11 @@ export const FlyerSchema = z
   .object({
     id: z.string().min(1),
     titolo: z.string().min(1),
-    validoDal: isoDate,
-    validoAl: isoDate,
+    validoDal: isoDate.nullable(),
+    validoAl: isoDate.nullable(),
+    periodo: z.string().optional(),
+    archiviato: z.boolean().optional(),
+    esempioAttivo: z.boolean().optional(),
     negozi: z.union([z.literal("tutti"), z.array(z.string())]),
     pagine: z.array(ImageSchema).default([]),
     pdf: z.string().nullable().default(null),
@@ -196,7 +205,7 @@ export const FlyerSchema = z
     copertina: ImageSchema,
     provvisorio,
   })
-  .refine((f) => f.validoDal <= f.validoAl, {
+  .refine((f) => f.validoDal && f.validoAl ? f.validoDal <= f.validoAl : f.archiviato === true && !f.validoDal && !f.validoAl, {
     message: "validoDal deve essere <= validoAl",
     path: ["validoAl"],
   });

@@ -557,6 +557,27 @@
       "author": "Home & Co. / fotografie fornite dal cliente",
       "license": "Materiale del marchio per il medesimo sito",
       "kind": "fotografia originale ritoccata con image_gen: rimozione scatoloni di stoccaggio e miglioramento luce"
+    },
+    {
+      "file": "/uploads/social/reel-DfFjURSmFmC.webp",
+      "source": "https://www.instagram.com/homeandco.casa/reel/DfFjURSmFmC/",
+      "author": "Home & Co. / profilo Instagram ufficiale",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "copertina originale del reel, recuperata dai metadati Open Graph il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/social/reel-DfVDk6fARQB.webp",
+      "source": "https://www.instagram.com/homeandco.casa/reel/DfVDk6fARQB/",
+      "author": "Home & Co. / profilo Instagram ufficiale",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "copertina originale del reel, recuperata dai metadati Open Graph il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/videos/home-co-negozio-poster.webp",
+      "source": "Video fornito dal cliente: home&co.mp4",
+      "author": "Home & Co.",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotogramma originale del video, senza ritocchi"
     }
   ],
   "flyers": [
@@ -587,6 +608,22 @@
       "kind": "PDF originale, invariato",
       "sha256": "da1640c2670827d7e3a2b65c513ff3515c2c8a783049f6249b058fd8c15cbbfc",
       "pages": 8
+    },
+    {
+      "file": "/uploads/flyers/home-co-sesto-ottobre-2026.pdf",
+      "source": "PDF fornito dal cliente il 5 novembre 2026: Home e Co.Sesto-F.no Ottobre 2026.pdf",
+      "kind": "PDF ottimizzato per il web; originale conservato nei Download, contenuti e dimensioni delle pagine invariati",
+      "sha256": "cf5918ff9e136194e432213461d948e4457fb98ffb9e7352d5c88580f83e75bc",
+      "pages": 8,
+      "originalSha256": "723d8f640486372a615f9961801d8d88eaf2d6f4e8fcb21c01b52712c6f45deb"
+    },
+    {
+      "file": "/uploads/flyers/home-co-caramelle.pdf",
+      "source": "PDF fornito dal cliente il 5 novembre 2026: Post Home&Co. caramelle.pdf",
+      "kind": "PDF originale, invariato",
+      "sha256": "c3d419032928a7aab242de13a1d1ddf1b1e873b2e9ee0444cceb1c6a491987a9",
+      "pages": 1,
+      "note": "Il documento non riporta date né una sede esclusiva; archiviato esplicitamente senza inventare un periodo di validità."
     }
   ]
 }

@@ -223,6 +223,10 @@
     "prefix": "/_images/home-co-apertura-sesto-2026-8-7633f41137da",
     "width": 1400
   },
+  "/uploads/flyers/home-co-caramelle-1.webp": {
+    "prefix": "/_images/home-co-caramelle-1-ebea12d96d4f",
+    "width": 1280
+  },
   "/uploads/flyers/home-co-halloween-2026-1.webp": {
     "prefix": "/_images/home-co-halloween-2026-1-2504fe9ad328",
     "width": 1400
@@ -282,6 +286,38 @@
   "/uploads/flyers/home-co-primavera-2026-8.webp": {
     "prefix": "/_images/home-co-primavera-2026-8-552d0d20b0d2",
     "width": 1400
+  },
+  "/uploads/flyers/home-co-sesto-ottobre-2026-1.webp": {
+    "prefix": "/_images/home-co-sesto-ottobre-2026-1-33a446c51162",
+    "width": 1433
+  },
+  "/uploads/flyers/home-co-sesto-ottobre-2026-2.webp": {
+    "prefix": "/_images/home-co-sesto-ottobre-2026-2-be2e797df65f",
+    "width": 1433
+  },
+  "/uploads/flyers/home-co-sesto-ottobre-2026-3.webp": {
+    "prefix": "/_images/home-co-sesto-ottobre-2026-3-dcf299fbb281",
+    "width": 1433
+  },
+  "/uploads/flyers/home-co-sesto-ottobre-2026-4.webp": {
+    "prefix": "/_images/home-co-sesto-ottobre-2026-4-ace77ca5da72",
+    "width": 1433
+  },
+  "/uploads/flyers/home-co-sesto-ottobre-2026-5.webp": {
+    "prefix": "/_images/home-co-sesto-ottobre-2026-5-3b510aec7d8a",
+    "width": 1433
+  },
+  "/uploads/flyers/home-co-sesto-ottobre-2026-6.webp": {
+    "prefix": "/_images/home-co-sesto-ottobre-2026-6-1f191c4b4e50",
+    "width": 1433
+  },
+  "/uploads/flyers/home-co-sesto-ottobre-2026-7.webp": {
+    "prefix": "/_images/home-co-sesto-ottobre-2026-7-db5d60314a0e",
+    "width": 1433
+  },
+  "/uploads/flyers/home-co-sesto-ottobre-2026-8.webp": {
+    "prefix": "/_images/home-co-sesto-ottobre-2026-8-84613d7e162a",
+    "width": 1433
   },
   "/uploads/flyers/home-co-settembre-2026-1.webp": {
     "prefix": "/_images/home-co-settembre-2026-1-0304a7f741e5",
@@ -426,5 +462,17 @@
   "/uploads/products/carta-casa.webp": {
     "prefix": "/_images/carta-casa-2bbc2c11fd13",
     "width": 850
+  },
+  "/uploads/social/reel-DfFjURSmFmC.webp": {
+    "prefix": "/_images/reel-DfFjURSmFmC-4b1626c8a0b6",
+    "width": 360
+  },
+  "/uploads/social/reel-DfVDk6fARQB.webp": {
+    "prefix": "/_images/reel-DfVDk6fARQB-315171132f28",
+    "width": 360
+  },
+  "/uploads/videos/home-co-negozio-poster.webp": {
+    "prefix": "/_images/home-co-negozio-poster-1b6da82c2a3e",
+    "width": 720
   }
 }

@@ -42,11 +42,13 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
   const today = useToday(buildDate);
   const current = currentFlyers(flyers, today);
   const upcoming = upcomingFlyers(flyers, today);
-  const available = [...current, ...upcoming];
+  const examples = flyers.filter((f) => f.esempioAttivo && !current.includes(f) && !upcoming.includes(f));
+  const available = [...current, ...upcoming, ...examples];
   const archived = archivedFlyers(flyers, today);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const selected = available.find((f) => f.id === selectedId) ?? available[0];
   const preview = Boolean(selected && isFlyerUpcoming(selected, today));
+  const example = Boolean(selected && examples.includes(selected));
 
   return (
     <>
@@ -54,7 +56,7 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
         <>
           <Section tone="cream" className="pt-4 sm:pt-8">
             {available.length > 1 && (
-              <div role="tablist" aria-label="Volantini in corso e in anteprima" className="hide-scrollbar -mx-5 mb-10 flex gap-2 overflow-x-auto px-5 py-2 sm:mx-0 sm:px-0">
+              <div role="tablist" aria-label="Volantini in corso, anteprime ed esempi" className="hide-scrollbar -mx-5 mb-10 flex gap-2 overflow-x-auto px-5 py-2 sm:mx-0 sm:px-0">
                 {available.map((f) => {
                   const on = f.id === selected.id;
                   return (
@@ -81,7 +83,7 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
                         on ? "bg-brand-blue-600 text-white shadow-soft" : "bg-white text-brand-blue-800 hover:bg-brand-blue-50",
                       )}
                     >
-                      {f.titolo}{isFlyerUpcoming(f, today) ? " · Anteprima" : ""}
+                      {f.titolo}{examples.includes(f) ? " · Esempio" : isFlyerUpcoming(f, today) ? " · Anteprima" : ""}
                     </button>
                   );
                 })}
@@ -96,7 +98,7 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
               className="grid items-center gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16"
             >
               <Reveal className="order-2 lg:order-1">
-                <p className="text-sm font-bold text-brand-magenta-700">{preview ? "Il prossimo volantino, in anteprima" : "Il volantino in corso"}</p>
+                <p className="text-sm font-bold text-brand-magenta-700">{example ? "Esempio di offerte attive" : preview ? "Il prossimo volantino, in anteprima" : "Il volantino in corso"}</p>
                 <h2 className="mt-3 text-brand-blue-900">{selected.titolo}</h2>
                 <div className="mt-5 flex flex-wrap items-center gap-3">
                   <Sticker tone="accent" rotate={-3}>
@@ -108,7 +110,9 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
                   </span>
                 </div>
                 <p className="mt-5 max-w-lg text-lg text-muted">
-                  {preview
+                  {example
+                    ? "Catalogo di ottobre mostrato come esempio. Le date originali sono concluse: prezzi e promozioni non sono attualmente validi."
+                    : preview
                     ? `Le offerte iniziano il ${formatDateIt(selected.validoDal)}. Intanto puoi sfogliare il catalogo e preparare la tua lista.`
                     : "Sfoglia il catalogo e controlla le offerte del negozio indicato. Puoi anche scaricare il PDF e portarlo con te."}
                 </p>
@@ -126,6 +130,7 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
                 </div>
               </Reveal>
               <Reveal delay={0.08} className="order-1 lg:order-2">
+                {example && <p className="mb-3 border-l-2 border-brand-magenta-600 bg-white px-4 py-3 text-sm font-semibold text-brand-blue-900">Esempio dimostrativo · offerte di ottobre concluse</p>}
                 {preview && (
                   <p className="mb-3 rounded-xl bg-brand-blue-50 px-4 py-3 text-sm font-semibold text-brand-blue-900 lg:hidden">
                     Anteprima: offerte dal {formatDateIt(selected.validoDal)}. {storesLabel(selected, storeNames).replace(/^Vale/, "Valido")}.
@@ -216,7 +221,7 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
                   <div className="min-w-0 p-4">
                     <p className="mb-2 text-xs font-semibold text-muted min-[420px]:hidden">Offerte concluse</p>
                     <h3 className="text-base leading-tight text-brand-blue-900 sm:text-lg">{f.titolo}</h3>
-                    <p className="mt-1 text-sm text-muted">{formatDateRangeIt(f.validoDal, f.validoAl)}</p>
+                    <p className="mt-1 text-sm text-muted">{f.periodo ?? formatDateRangeIt(f.validoDal, f.validoAl)}</p>
                     <p className="mt-1 text-sm text-muted">{storesLabel(f, storeNames).replace(/^Vale/, "Valido")}</p>
                     {f.pdf && (
                       <a href={f.pdf} download className="mt-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-brand-blue-700 underline-offset-4 hover:underline">

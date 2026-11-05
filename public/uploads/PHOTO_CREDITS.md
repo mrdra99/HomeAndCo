@@ -62,3 +62,10 @@ Il catalogo ottobre 2026 è fornito direttamente dal cliente. La copia scaricabi
 Selezione di reparti e dettagli dalla cartella «Home&Co foto per sito». Gli originali restano invariati. File WebP in `/uploads/aisles/`; fonte originale registrata per ogni file in `content/photo-sources.json`. La foto esterna identifica Lucca, come da insegna. Le altre sedi mantengono la mappa.
 
 Ritocchi con lo strumento integrato image_gen: `pulizia-corsia-ritoccata.webp` `fiori-corsia-ritoccata.webp` e `cucina-corsia-ritoccata.webp`. Prompt: rimuovere gli scatoloni di stoccaggio sopra gli scaffali (e quello nella corsia fiori), ricostruire parete e soffitto, migliorare leggermente luce e bilanciamento del bianco; conservare scaffali, prodotti, prezzi, cartelli e prospettiva. Per i fiori, secondo passaggio per ripristinare il cartello italiano «5A FIORI ARTIFICIALI».
+
+## Video, reel e cataloghi aggiunti il 5 novembre 2026
+
+- Copertine originali dei reel `DfFjURSmFmC` e `DfVDk6fARQB`: metadati Open Graph del profilo Instagram ufficiale, copie locali in `/uploads/social/`. Le anteprime aprono i reel originali su Instagram.
+- `/uploads/videos/home-co-negozio.mp4`: video fornito dal cliente (`home&co.mp4`), convertito in H.264/AAC, 720 × 1280, 30 fps, con avvio manuale. Fotogramma di copertina estratto dal medesimo video.
+- PDF Sesto ottobre: copia ottimizzata sotto il limite per file dell’hosting; otto pagine con contenuti, proporzioni e date originali. Sorgente invariata nei Download. Hash di sorgente e copia web nel registro JSON.
+- PDF caramelle: originale invariato. Non riporta date: archiviato senza attribuire date inventate.

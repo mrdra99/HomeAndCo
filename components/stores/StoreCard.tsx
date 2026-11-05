@@ -1,7 +1,6 @@
 "use client";
 
 import { StoreMap } from "./StoreMap";
-import { SmartImage } from "@/components/ui/SmartImage";
 import { useOpenStatus } from "./useOpenStatus";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -19,7 +18,7 @@ import {
 type StoreCardProps = { store: Store };
 
 /**
- * Scheda sede riusabile. La mappa OpenStreetMap si carica solo su richiesta.
+ * Scheda sede riusabile. La mappa OpenStreetMap è già caricata.
  */
 export function StoreCard({ store }: StoreCardProps) {
   const status = useOpenStatus(store);
@@ -28,7 +27,7 @@ export function StoreCard({ store }: StoreCardProps) {
 
   return (
     <Card flush className="flex h-full flex-col" as="article" aria-labelledby={`store-${store.id}`}>
-      {store.immagine.src ? <SmartImage src={store.immagine.src} alt={store.immagine.alt} label={store.nome} ratio="16/9" sizes="(min-width: 1024px) 33vw, 100vw" rounded="rounded-none" /> : <StoreMap store={store} />}
+      <StoreMap store={store} />
 
       <div className="flex flex-1 flex-col p-6">
         <div className="flex flex-wrap items-start justify-between gap-3">

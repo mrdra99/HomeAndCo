@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { StoreVideos } from "@/components/sections/StoreVideos";
 import { CampaignHero } from "@/components/campaign/CampaignHero";
 import { CampaignCollection } from "@/components/campaign/CampaignCollection";
 import { AisleGrid } from "@/components/sections/AisleGrid";
@@ -49,6 +50,7 @@ export default async function HomePage() {
       <CampaignHero campaigns={campaigns} buildCampaignId={active.id} buildDate={toIsoDate()} stores={stores} />
       <CampaignCollection campaigns={campaigns} buildCampaignId={active.id} />
       <AisleGrid aisles={visibleAisles} campaigns={campaigns} buildCampaignId={active.id} copy={copy.reparti} />
+      <StoreVideos copy={copy.social} />
       <LoyaltyBlock loyalty={loyalty} />
       <FlyerTeaser flyers={flyers} buildDate={toIsoDate()} copy={copy.volantini} />
       <BrandMarquee brands={brands} />

@@ -1,5 +1,79 @@
 [
   {
+    "id": "caramelle-halloween",
+    "titolo": "Halloween con i bambini",
+    "validoDal": null,
+    "validoAl": null,
+    "negozi": "tutti",
+    "pagine": [
+      {
+        "src": "/uploads/flyers/home-co-caramelle-1.webp",
+        "alt": "Halloween con i bambini, pagina 1"
+      }
+    ],
+    "pdf": "/uploads/flyers/home-co-caramelle.pdf",
+    "pdfDimensione": "0,1 MB",
+    "copertina": {
+      "src": "/uploads/flyers/home-co-caramelle-1.webp",
+      "alt": "Halloween con i bambini, pagina 1"
+    },
+    "archiviato": true,
+    "periodo": "Halloween · iniziativa conclusa, senza date stampate",
+    "provvisorio": false
+  },
+  {
+    "id": "sesto-ottobre-2026",
+    "titolo": "Sesto Fiorentino · ottobre 2026",
+    "validoDal": "2026-10-23",
+    "validoAl": "2026-11-01",
+    "negozi": [
+      "sesto-fiorentino"
+    ],
+    "pagine": [
+      {
+        "src": "/uploads/flyers/home-co-sesto-ottobre-2026-1.webp",
+        "alt": "Sesto Fiorentino · ottobre 2026, pagina 1"
+      },
+      {
+        "src": "/uploads/flyers/home-co-sesto-ottobre-2026-2.webp",
+        "alt": "Sesto Fiorentino · ottobre 2026, pagina 2"
+      },
+      {
+        "src": "/uploads/flyers/home-co-sesto-ottobre-2026-3.webp",
+        "alt": "Sesto Fiorentino · ottobre 2026, pagina 3"
+      },
+      {
+        "src": "/uploads/flyers/home-co-sesto-ottobre-2026-4.webp",
+        "alt": "Sesto Fiorentino · ottobre 2026, pagina 4"
+      },
+      {
+        "src": "/uploads/flyers/home-co-sesto-ottobre-2026-5.webp",
+        "alt": "Sesto Fiorentino · ottobre 2026, pagina 5"
+      },
+      {
+        "src": "/uploads/flyers/home-co-sesto-ottobre-2026-6.webp",
+        "alt": "Sesto Fiorentino · ottobre 2026, pagina 6"
+      },
+      {
+        "src": "/uploads/flyers/home-co-sesto-ottobre-2026-7.webp",
+        "alt": "Sesto Fiorentino · ottobre 2026, pagina 7"
+      },
+      {
+        "src": "/uploads/flyers/home-co-sesto-ottobre-2026-8.webp",
+        "alt": "Sesto Fiorentino · ottobre 2026, pagina 8"
+      }
+    ],
+    "pdf": "/uploads/flyers/home-co-sesto-ottobre-2026.pdf",
+    "pdfDimensione": "7,0 MB",
+    "copertina": {
+      "src": "/uploads/flyers/home-co-sesto-ottobre-2026-1.webp",
+      "alt": "Sesto Fiorentino · ottobre 2026, pagina 1"
+    },
+    "archiviato": true,
+    "esempioAttivo": true,
+    "provvisorio": false
+  },
+  {
     "id": "halloween-2026",
     "titolo": "Halloween da brividi 2026",
     "validoDal": "2026-10-01",

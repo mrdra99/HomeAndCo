@@ -23,7 +23,7 @@ describe("volantino Halloween fornito dal cliente", () => {
     expect(currentFlyers(flyers, new Date("2026-10-31T22:59:59Z"))[0].id).toBe(id);
     const after = new Date("2026-10-31T23:00:00Z");
     expect(currentFlyers(flyers, after)).toEqual([]);
-    expect(archivedFlyers(flyers, after)[0].id).toBe(id);
+    expect(archivedFlyers(flyers, after).some((f) => f.id === id)).toBe(true);
     expect(currentFlyers(flyers, new Date("2027-10-16T12:00:00Z"))).toEqual([]);
   });
   it("vale in tutti e tre i negozi", () => {

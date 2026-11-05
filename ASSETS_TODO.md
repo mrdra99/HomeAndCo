@@ -2,6 +2,13 @@
 
 Aggiornato al 5 novembre 2026.
 
+## Aggiornamento video, offerte e mappe (5 novembre 2026)
+
+- Due reel con copertine originali locali e link diretti a Instagram, senza incorporare il player esterno.
+- Video MP4 fornito dal cliente, ottimizzato H.264 per il sito, avvio manuale e copertina locale.
+- Catalogo Sesto ottobre e iniziativa caramelle aggiunti all’archivio. Il catalogo ottobre resta anche nel lettore come esempio dimostrativo, con date originali e avviso di offerte concluse.
+- Mappe OSM caricate automaticamente; footer ridotto a una barra essenziale.
+
 ## Già inseriti
 
 - Logo ufficiale vettoriale dal PDF dell’insegna, favicon, icona Apple e anteprima social.

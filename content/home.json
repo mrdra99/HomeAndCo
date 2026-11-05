@@ -18,5 +18,36 @@
     "introAnteprima": "Il nuovo catalogo è già qui. Sfoglialo in anteprima: le offerte valgono soltanto nelle date e nei negozi indicati.",
     "ctaAnteprima": "Sfoglia in anteprima",
     "statoAnteprima": "In anteprima · offerte in arrivo"
+  },
+  "social": {
+    "titolo": "Un giro da Home & Co.",
+    "descrizione": "Entra tra gli scaffali e lasciati ispirare. Per gli altri video, ti aspettiamo su Instagram.",
+    "video": {
+      "src": "/uploads/videos/home-co-negozio.mp4",
+      "poster": {
+        "src": "/uploads/videos/home-co-negozio-poster.webp",
+        "alt": "Un momento del video girato tra gli scaffali Home & Co."
+      },
+      "titolo": "Tra gli scaffali, insieme a noi",
+      "descrizione": "Un assaggio dei reparti e delle idee che trovi in negozio."
+    },
+    "reels": [
+      {
+        "href": "https://www.instagram.com/homeandco.casa/reel/DfFjURSmFmC/",
+        "titolo": "Quattro cose che trovi da Home & Co.",
+        "immagine": {
+          "src": "/uploads/social/reel-DfFjURSmFmC.webp",
+          "alt": "Anteprima originale del reel Home & Co.: Quattro cose che trovi da Home & Co."
+        }
+      },
+      {
+        "href": "https://www.instagram.com/homeandco.casa/reel/DfVDk6fARQB/",
+        "titolo": "Mille idee per il tuo bagno",
+        "immagine": {
+          "src": "/uploads/social/reel-DfVDk6fARQB.webp",
+          "alt": "Anteprima originale del reel Home & Co.: Mille idee per il tuo bagno"
+        }
+      }
+    ]
   }
 }

@@ -126,7 +126,7 @@ Regole: date `YYYY-MM-DD`, **entrambe inclusive**, fuso Europe/Rome. Se più cam
 
 ### Halloween e anteprima per data
 
-Halloween 2026 è già configurato dal **1 al 31 ottobre inclusi**, nel fuso **Europe/Rome**. I volantini hanno intervalli indipendenti: la home li rimuove dalla vetrina alla scadenza senza spegnere la campagna. La copia PDF scaricabile è ricompressa alla stessa risoluzione per rientrare nel limite di 25 MiB di Cloudflare Pages; l’originale ricevuto resta intatto. Il volantino «Halloween da brividi» (7 pagine, tutti i negozi) vale **dal 1 al 31 ottobre 2026** e dal 1 novembre passa in archivio. Ha sostituito il catalogo Sesto Fiorentino di ottobre, rimosso dal sito su richiesta. Dal **1 novembre al 31 dicembre** il tema è Natale, secondo il calendario confermato da Alessandro.
+Halloween 2026 è già configurato dal **1 al 31 ottobre inclusi**, nel fuso **Europe/Rome**. I volantini hanno intervalli indipendenti: la home li rimuove dalla vetrina alla scadenza senza spegnere la campagna. La copia PDF scaricabile è ricompressa alla stessa risoluzione per rientrare nel limite di 25 MiB di Cloudflare Pages; l’originale ricevuto resta intatto. Il volantino «Halloween da brividi» (7 pagine, tutti i negozi) vale **dal 1 al 31 ottobre 2026** e dal 1 novembre passa in archivio. Il catalogo Sesto Fiorentino di ottobre è stato reinserito il 5 novembre nell’archivio e nel lettore come esempio dimostrativo, con le date originali e un avviso esplicito. Dal **1 novembre al 31 dicembre** il tema è Natale, secondo il calendario confermato da Alessandro.
 
 In `content/campaigns.json` puoi modificare date, titolo, testo, etichetta, sticker, colore, CTA e reparti. Il blocco facoltativo `collezione` contiene titolo, descrizione e `idee` (`titolo`, `testo`, `corridoio`, `icona`, `immagine` opzionale): compare solo durante quella campagna. Le date inesistenti, come il 30 febbraio, bloccano la build con un errore leggibile.
 
@@ -183,7 +183,7 @@ Ogni pagina `/corridoi/<slug>/` mostra la sezione "Gli scaffali in negozio" se l
 Su smartphone le foto scorrono in orizzontale; da tablet in su sono in griglia. Un tocco apre la foto a schermo intero (Esc chiude, frecce e swipe cambiano foto).
 
 ### Sedi, brand, promozioni, impostazioni
-`content/stores.json` (orari: array `{ giorno 0-6, aperture:[{da,a}] }`, `null` = non noti), `brands.json`, `promotions.json`, `settings.json` (WhatsApp, social, dati societari, analytics), `loyalty.json`. Le mappe si caricano su richiesta su ogni schermo. Anche le promozioni ricontrollano inizio e fine nel browser, senza restare visibili dopo la scadenza o comparire in anticipo.
+`content/stores.json` (orari: array `{ giorno 0-6, aperture:[{da,a}] }`, `null` = non noti), `brands.json`, `promotions.json`, `settings.json` (WhatsApp, social, dati societari, analytics), `loyalty.json`. Le mappe OpenStreetMap sono caricate automaticamente (`loading="eager"`) su ogni schermo, senza pulsante di attivazione. Anche le promozioni ricontrollano inizio e fine nel browser, senza restare visibili dopo la scadenza o comparire in anticipo.
 
 ### Striscia dei marchi (home)
 `components/sections/BrandMarquee.tsx` mostra i loghi in un banner che ruota di continuo (solo CSS, circa 36 px/s, pausa al passaggio del mouse e al focus, scorrimento da destra verso sinistra). Con `prefers-reduced-motion` diventa una riga scorrevole a mano. La sezione compare solo se c'è almeno un marchio con `provvisorio: false` in `content/brands.json`. Per aggiungere un logo: file in `public/uploads/brands/` (SVG oppure PNG trasparente, altezza consigliata 96 px per il PNG, orizzontale, senza margini vuoti attorno), poi nel marchio `logo.src` = `/uploads/brands/nome.svg`, `url` facoltativo e `provvisorio: false`. Senza logo il marchio compare come testo. Anteprima con 8 marchi finti in `/design-system/`.
@@ -308,3 +308,11 @@ Dettaglio completo in [ASSETS_TODO.md](ASSETS_TODO.md). In sintesi:
 - ID Google Analytics 4 / Meta Pixel (se desiderati).
 - Revisione legale di privacy e cookie policy.
 - Scelta del nuovo dominio canonico e collegamento del form contatti. Impostare `NEXT_PUBLIC_SITE_URL` prima della build di pubblicazione: aggiorna canonical, sitemap, anteprime social, dati strutturati e impostazioni. In assenza resta il riferimento storico di `content/settings.json`, che non implica il riutilizzo del dominio.
+
+### Video e anteprime Instagram
+
+`content/home.json` → `social` contiene il video locale (MP4 H.264/AAC, poster, testi) e i due reel. Le copertine sono copie locali dei metadati Open Graph ufficiali: nessun player Instagram viene incorporato. I link aprono i reel originali in una nuova scheda. L’MP4 usa controlli nativi, `playsInline`, `preload="none"` e nessun autoplay.
+
+### Catalogo dimostrativo e archivio senza date
+
+`content/flyers.json` → `esempioAttivo: true` mantiene il catalogo Sesto ottobre nel lettore come esempio. Non modifica la validità reale né i PDF: `currentFlyers` continua a usare le date originali. Rimuovere il flag per togliere l’esempio dalla vetrina. `archiviato: true` inserisce esplicitamente un documento in archivio; un PDF privo di date, come il foglio caramelle, usa date `null` e un’etichetta `periodo`, senza inventare scadenze.

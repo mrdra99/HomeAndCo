@@ -14,7 +14,8 @@ function parts(iso: string): { y: number; m: number; d: number } {
 }
 
 /** "1 ottobre 2026" */
-export function formatDateIt(iso: string): string {
+export function formatDateIt(iso: string | null): string {
+  if (!iso) return "Data non indicata";
   const { y, m, d } = parts(iso);
   return `${d} ${MESI[m]} ${y}`;
 }
@@ -23,7 +24,8 @@ export function formatDateIt(iso: string): string {
  * Intervallo in italiano:
  * "dal 1 al 31 ottobre 2026" | "dal 27 novembre 2026 al 6 gennaio 2027" | "il 5 ottobre 2026"
  */
-export function formatDateRangeIt(dal: string, al: string): string {
+export function formatDateRangeIt(dal: string | null, al: string | null): string {
+  if (!dal || !al) return "Date non indicate";
   if (dal === al) return `il ${formatDateIt(dal)}`;
   const a = parts(dal);
   const b = parts(al);
@@ -34,21 +36,21 @@ export function formatDateRangeIt(dal: string, al: string): string {
 
 export function isFlyerCurrent(f: Flyer, date: Date = new Date()): boolean {
   const t = toIsoDate(date);
-  return f.validoDal <= t && t <= f.validoAl;
+  return !f.archiviato && Boolean(f.validoDal && f.validoAl && f.validoDal <= t && t <= f.validoAl);
 }
 
 export function isFlyerUpcoming(f: Flyer, date: Date = new Date()): boolean {
-  return f.validoDal > toIsoDate(date);
+  return !f.archiviato && Boolean(f.validoDal && f.validoDal > toIsoDate(date));
 }
 
 export function isFlyerExpired(f: Flyer, date: Date = new Date()): boolean {
-  return f.validoAl < toIsoDate(date);
+  return f.archiviato === true || Boolean(f.validoAl && f.validoAl < toIsoDate(date));
 }
 
 /** Ordina dal più recente (validoDal desc, poi validoAl desc). Non muta l'input. */
 export function sortFlyersRecentFirst(flyers: Flyer[]): Flyer[] {
   return [...flyers].sort(
-    (a, b) => b.validoDal.localeCompare(a.validoDal) || b.validoAl.localeCompare(a.validoAl),
+    (a, b) => (b.validoDal ?? "").localeCompare(a.validoDal ?? "") || (b.validoAl ?? "").localeCompare(a.validoAl ?? ""),
   );
 }
 
@@ -59,7 +61,7 @@ export function currentFlyers(flyers: Flyer[], date: Date = new Date()): Flyer[]
 
 /** Anteprime, dalla data di inizio più vicina. Le offerte non sono ancora attive. */
 export function upcomingFlyers(flyers: Flyer[], date: Date = new Date()): Flyer[] {
-  return flyers.filter((f) => isFlyerUpcoming(f, date)).sort((a, b) => a.validoDal.localeCompare(b.validoDal));
+  return flyers.filter((f) => isFlyerUpcoming(f, date)).sort((a, b) => (a.validoDal ?? "").localeCompare(b.validoDal ?? ""));
 }
 
 /** Volantini scaduti (archivio), dal più recente. I futuri non compaiono. */
