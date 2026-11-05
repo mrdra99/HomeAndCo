@@ -1,6 +1,6 @@
 # Fonti delle fotografie e dei volantini
 
-Verifica: 16 ottobre 2026. Nessuna immagine generata per il sito. Tutte le fotografie sono conservate localmente in WebP. Fonti e autori sono registrati anche in `content/photo-sources.json`.
+Verifica: 5 novembre 2026. Integrate le foto originali fornite dal cliente; tre scatti sono stati ritoccati con image_gen per rimuovere gli scatoloni e migliorare la luce. Tutte le fotografie sono conservate localmente in WebP. Fonti e autori sono registrati anche in `content/photo-sources.json`.
 
 ## Materiale Home & Co.
 
@@ -56,3 +56,9 @@ I tre PDF recuperati dal sito precedente sono invariati. Il catalogo ottobre for
 | Volantino primavera 2026 | [Originale](https://home-co.it/wp-content/uploads/2026/04/Catalogo-Home-CO-5_compressed.pdf) | 2026-04-11 – 2026-04-19 | prato, lucca |
 
 Il catalogo ottobre 2026 è fornito direttamente dal cliente. La copia scaricabile ricomprime le immagini senza cambiare pagine, dimensioni, prezzi, testi o risoluzione (2598 × 3626 px per pagina); evita file superiori al limite di 25 MiB di Cloudflare Pages. Le pagine WebP sono renderizzazioni ottimizzate per la consultazione sul sito. I vecchi esempi grafici non vengono usati nella vetrina né nell’archivio.
+
+## Foto fornite il 5 novembre 2026
+
+Selezione di reparti e dettagli dalla cartella «Home&Co foto per sito». Gli originali restano invariati. File WebP in `/uploads/aisles/`; fonte originale registrata per ogni file in `content/photo-sources.json`. La foto esterna identifica Lucca, come da insegna. Le altre sedi mantengono la mappa.
+
+Ritocchi con lo strumento integrato image_gen: `pulizia-corsia-ritoccata.webp` `fiori-corsia-ritoccata.webp` e `cucina-corsia-ritoccata.webp`. Prompt: rimuovere gli scatoloni di stoccaggio sopra gli scaffali (e quello nella corsia fiori), ricostruire parete e soffitto, migliorare leggermente luce e bilanciamento del bianco; conservare scaffali, prodotti, prezzi, cartelli e prospettiva. Per i fiori, secondo passaggio per ripristinare il cartello italiano «5A FIORI ARTIFICIALI».

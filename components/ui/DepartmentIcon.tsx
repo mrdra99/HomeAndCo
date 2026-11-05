@@ -7,6 +7,13 @@ const DEPARTMENTS = {
   "animali": "animali",
   "giardinaggio": "giardino",
   "hobby-cartoleria-auto": "hobby",
+  "cura-persona-e-beauty": "pulizia",
+  "feste-e-regalo": "hobby",
+  "ferramenta-e-fai-da-te": "hobby",
+  "illuminazione-e-accessori": "cucina",
+  "ordine-e-bagno": "tessile",
+  "cura-auto": "hobby",
+  "giochi-e-giocattoli": "hobby",
 } as const;
 
 const DRAWINGS = new Set(["cucina", "tessile", "pulizia", "animali", "giardino", "hobby"]);

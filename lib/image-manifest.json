@@ -1,4 +1,196 @@
 {
+  "/uploads/aisles/animali-dettaglio-1.webp": {
+    "prefix": "/_images/animali-dettaglio-1-f11e851b45b4",
+    "width": 1800
+  },
+  "/uploads/aisles/animali-dettaglio-2.webp": {
+    "prefix": "/_images/animali-dettaglio-2-9c1ad190d139",
+    "width": 1800
+  },
+  "/uploads/aisles/animali-dettaglio-3.webp": {
+    "prefix": "/_images/animali-dettaglio-3-e5eca5790b9c",
+    "width": 1800
+  },
+  "/uploads/aisles/animali-reparto.webp": {
+    "prefix": "/_images/animali-reparto-3bc2ce826295",
+    "width": 1086
+  },
+  "/uploads/aisles/biancheria-e-arredo-dettaglio-1.webp": {
+    "prefix": "/_images/biancheria-e-arredo-dettaglio-1-52b12eb054fb",
+    "width": 1800
+  },
+  "/uploads/aisles/biancheria-e-arredo-dettaglio-2.webp": {
+    "prefix": "/_images/biancheria-e-arredo-dettaglio-2-38085d4d498a",
+    "width": 1800
+  },
+  "/uploads/aisles/biancheria-e-arredo-dettaglio-3.webp": {
+    "prefix": "/_images/biancheria-e-arredo-dettaglio-3-1037a9a8df2d",
+    "width": 1800
+  },
+  "/uploads/aisles/biancheria-e-arredo-reparto.webp": {
+    "prefix": "/_images/biancheria-e-arredo-reparto-71241c736d0d",
+    "width": 1086
+  },
+  "/uploads/aisles/casa-e-cucina-dettaglio-1.webp": {
+    "prefix": "/_images/casa-e-cucina-dettaglio-1-666d77cba4e3",
+    "width": 1800
+  },
+  "/uploads/aisles/casa-e-cucina-dettaglio-2.webp": {
+    "prefix": "/_images/casa-e-cucina-dettaglio-2-00f4da46673c",
+    "width": 1800
+  },
+  "/uploads/aisles/casa-e-cucina-dettaglio-3.webp": {
+    "prefix": "/_images/casa-e-cucina-dettaglio-3-e1d375bfb90d",
+    "width": 1800
+  },
+  "/uploads/aisles/cucina-corsia-ritoccata.webp": {
+    "prefix": "/_images/cucina-corsia-ritoccata-dbff07d2f83a",
+    "width": 1419
+  },
+  "/uploads/aisles/cura-auto-dettaglio-1.webp": {
+    "prefix": "/_images/cura-auto-dettaglio-1-e5e3599c81e8",
+    "width": 1800
+  },
+  "/uploads/aisles/cura-auto-dettaglio-2.webp": {
+    "prefix": "/_images/cura-auto-dettaglio-2-03c19b470cb9",
+    "width": 1800
+  },
+  "/uploads/aisles/cura-auto-reparto.webp": {
+    "prefix": "/_images/cura-auto-reparto-8181f1efccff",
+    "width": 1086
+  },
+  "/uploads/aisles/cura-persona-e-beauty-dettaglio-1.webp": {
+    "prefix": "/_images/cura-persona-e-beauty-dettaglio-1-48df9bccaa82",
+    "width": 1800
+  },
+  "/uploads/aisles/cura-persona-e-beauty-dettaglio-2.webp": {
+    "prefix": "/_images/cura-persona-e-beauty-dettaglio-2-18e56989a674",
+    "width": 1800
+  },
+  "/uploads/aisles/cura-persona-e-beauty-dettaglio-3.webp": {
+    "prefix": "/_images/cura-persona-e-beauty-dettaglio-3-c50ec652df91",
+    "width": 1800
+  },
+  "/uploads/aisles/cura-persona-e-beauty-reparto.webp": {
+    "prefix": "/_images/cura-persona-e-beauty-reparto-7287f01b01fb",
+    "width": 1086
+  },
+  "/uploads/aisles/ferramenta-e-fai-da-te-dettaglio-1.webp": {
+    "prefix": "/_images/ferramenta-e-fai-da-te-dettaglio-1-3d263cfb7a8d",
+    "width": 1800
+  },
+  "/uploads/aisles/ferramenta-e-fai-da-te-dettaglio-2.webp": {
+    "prefix": "/_images/ferramenta-e-fai-da-te-dettaglio-2-68022f67e04b",
+    "width": 1800
+  },
+  "/uploads/aisles/ferramenta-e-fai-da-te-dettaglio-3.webp": {
+    "prefix": "/_images/ferramenta-e-fai-da-te-dettaglio-3-ba512d9322ca",
+    "width": 1800
+  },
+  "/uploads/aisles/feste-e-regalo-dettaglio-1.webp": {
+    "prefix": "/_images/feste-e-regalo-dettaglio-1-63fcddbced74",
+    "width": 1350
+  },
+  "/uploads/aisles/feste-e-regalo-dettaglio-2.webp": {
+    "prefix": "/_images/feste-e-regalo-dettaglio-2-85b3b6e9a0ac",
+    "width": 1800
+  },
+  "/uploads/aisles/feste-e-regalo-dettaglio-3.webp": {
+    "prefix": "/_images/feste-e-regalo-dettaglio-3-f18123279f7e",
+    "width": 1800
+  },
+  "/uploads/aisles/fiori-corsia-ritoccata.webp": {
+    "prefix": "/_images/fiori-corsia-ritoccata-fd32ce60140c",
+    "width": 1457
+  },
+  "/uploads/aisles/giardinaggio-dettaglio-1.webp": {
+    "prefix": "/_images/giardinaggio-dettaglio-1-faec74fd5f5f",
+    "width": 1800
+  },
+  "/uploads/aisles/giardinaggio-dettaglio-2.webp": {
+    "prefix": "/_images/giardinaggio-dettaglio-2-6dcac5077b83",
+    "width": 1800
+  },
+  "/uploads/aisles/giardinaggio-dettaglio-3.webp": {
+    "prefix": "/_images/giardinaggio-dettaglio-3-afcae6984fa8",
+    "width": 1800
+  },
+  "/uploads/aisles/giocattoli-creativita.webp": {
+    "prefix": "/_images/giocattoli-creativita-2aa35e3bbaa7",
+    "width": 1350
+  },
+  "/uploads/aisles/giocattoli-giochi.webp": {
+    "prefix": "/_images/giocattoli-giochi-66e73d2b3a10",
+    "width": 1800
+  },
+  "/uploads/aisles/giocattoli-reparto.webp": {
+    "prefix": "/_images/giocattoli-reparto-b82c80bf99bc",
+    "width": 1350
+  },
+  "/uploads/aisles/hobby-cartoleria-auto-dettaglio-1.webp": {
+    "prefix": "/_images/hobby-cartoleria-auto-dettaglio-1-ffea5e83d2bb",
+    "width": 1800
+  },
+  "/uploads/aisles/hobby-cartoleria-auto-dettaglio-2.webp": {
+    "prefix": "/_images/hobby-cartoleria-auto-dettaglio-2-1520e8150592",
+    "width": 1800
+  },
+  "/uploads/aisles/hobby-cartoleria-auto-dettaglio-3.webp": {
+    "prefix": "/_images/hobby-cartoleria-auto-dettaglio-3-008b24bdaf38",
+    "width": 1800
+  },
+  "/uploads/aisles/hobby-cartoleria-auto-reparto.webp": {
+    "prefix": "/_images/hobby-cartoleria-auto-reparto-8459ac422cb8",
+    "width": 1086
+  },
+  "/uploads/aisles/illuminazione-e-accessori-dettaglio-1.webp": {
+    "prefix": "/_images/illuminazione-e-accessori-dettaglio-1-a9fce6e6b9c1",
+    "width": 1350
+  },
+  "/uploads/aisles/illuminazione-e-accessori-dettaglio-2.webp": {
+    "prefix": "/_images/illuminazione-e-accessori-dettaglio-2-e332dc8462bd",
+    "width": 1800
+  },
+  "/uploads/aisles/illuminazione-e-accessori-dettaglio-3.webp": {
+    "prefix": "/_images/illuminazione-e-accessori-dettaglio-3-726bdefa7c2f",
+    "width": 1800
+  },
+  "/uploads/aisles/illuminazione-e-accessori-reparto.webp": {
+    "prefix": "/_images/illuminazione-e-accessori-reparto-1e1716a48487",
+    "width": 1086
+  },
+  "/uploads/aisles/negozio-lucca-esterno.webp": {
+    "prefix": "/_images/negozio-lucca-esterno-da40d62f2b07",
+    "width": 1800
+  },
+  "/uploads/aisles/ordine-e-bagno-dettaglio-1.webp": {
+    "prefix": "/_images/ordine-e-bagno-dettaglio-1-617486f5ede4",
+    "width": 1800
+  },
+  "/uploads/aisles/ordine-e-bagno-dettaglio-2.webp": {
+    "prefix": "/_images/ordine-e-bagno-dettaglio-2-2fe92de16dde",
+    "width": 1800
+  },
+  "/uploads/aisles/ordine-e-bagno-dettaglio-3.webp": {
+    "prefix": "/_images/ordine-e-bagno-dettaglio-3-15f36b9f191b",
+    "width": 1800
+  },
+  "/uploads/aisles/pulizia-corsia-ritoccata.webp": {
+    "prefix": "/_images/pulizia-corsia-ritoccata-00f4099217c3",
+    "width": 1460
+  },
+  "/uploads/aisles/pulizia-e-cura-persona-dettaglio-1.webp": {
+    "prefix": "/_images/pulizia-e-cura-persona-dettaglio-1-7fbb4de4b55b",
+    "width": 1800
+  },
+  "/uploads/aisles/pulizia-e-cura-persona-dettaglio-2.webp": {
+    "prefix": "/_images/pulizia-e-cura-persona-dettaglio-2-4f82cbdf1e91",
+    "width": 1800
+  },
+  "/uploads/aisles/pulizia-e-cura-persona-dettaglio-3.webp": {
+    "prefix": "/_images/pulizia-e-cura-persona-dettaglio-3-1dd5e07543f7",
+    "width": 1800
+  },
   "/uploads/flyers/home-co-apertura-sesto-2026-1.webp": {
     "prefix": "/_images/home-co-apertura-sesto-2026-1-4df9168f665d",
     "width": 1400

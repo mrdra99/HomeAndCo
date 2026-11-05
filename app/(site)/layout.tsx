@@ -11,13 +11,11 @@ import { jsonLdLocalBusiness } from "@/lib/seo";
 
 /** Layout del sito vetrina: skip link, header, contenuto, footer, WhatsApp flottante (mobile). */
 export default async function SiteLayout({ children }: { children: ReactNode }) {
-  const [settings, navigation, aisles, stores] = await Promise.all([
+  const [settings, navigation, stores] = await Promise.all([
     content.getSettings(),
     content.getNavigation(),
-    content.getAisles(),
     content.getStores(),
   ]);
-  const visibleAisles = aisles.filter((a) => a.visibile).sort((a, b) => a.ordine - b.ordine);
 
   return (
     <ConsentProvider>
@@ -32,7 +30,7 @@ export default async function SiteLayout({ children }: { children: ReactNode }) 
       <main id="contenuto" tabIndex={-1} className="outline-none">
         {children}
       </main>
-      <Footer settings={settings} aisles={visibleAisles} />
+      <Footer settings={settings} />
       {settings.whatsapp.numero && (
         <WhatsAppButton
           floating

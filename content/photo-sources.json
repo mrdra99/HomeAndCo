@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-16",
-  "notes": "Fotografie da fonti preesistenti. Nessuna immagine generata per il sito. Compressione WebP e ridimensionamento per il web. Foto dei reparti e di alcuni prodotti dal sito Home & Co.; ambientazioni Pexels per le altre categorie. I PDF dei volantini sono gli originali, con date di validità indipendenti dalle campagne.",
+  "checkedAt": "2026-11-05",
+  "notes": "Selezione delle fotografie originali fornite dal cliente il 5 novembre 2026. Ridimensionamento e compressione WebP per il sito. Le eventuali rimozioni di scatoloni tramite ritocco AI sono indicate sulla singola fonte. Gli originali sono conservati nella cartella del cliente. Restano in archivio le fonti precedenti e i volantini con le proprie date di validità.",
   "images": [
     {
       "file": "/uploads/photos/home-co-corsia-casalinghi.webp",
@@ -221,6 +221,342 @@
       "author": "Home & Co.",
       "license": "Materiale del marchio per il medesimo sito",
       "kind": "fotografia prodotto originale"
+    },
+    {
+      "file": "/uploads/aisles/casa-e-cucina-dettaglio-1.webp",
+      "source": "Foto dettagli reparti/IMG_8763.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/casa-e-cucina-dettaglio-2.webp",
+      "source": "Foto dettagli reparti/IMG_8644.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/casa-e-cucina-dettaglio-3.webp",
+      "source": "Foto dettagli reparti/IMG_8647.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/biancheria-e-arredo-dettaglio-1.webp",
+      "source": "Foto dettagli reparti/IMG_8775.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/biancheria-e-arredo-dettaglio-2.webp",
+      "source": "Foto dettagli reparti/IMG_8771.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/biancheria-e-arredo-dettaglio-3.webp",
+      "source": "Foto dettagli reparti/IMG_8782.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/biancheria-e-arredo-reparto.webp",
+      "source": "Foto reparti/Progetto senza titolo - 31.png",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/pulizia-e-cura-persona-dettaglio-1.webp",
+      "source": "Foto dettagli reparti/IMG_8752.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/pulizia-e-cura-persona-dettaglio-2.webp",
+      "source": "Foto dettagli reparti/IMG_8747.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/pulizia-e-cura-persona-dettaglio-3.webp",
+      "source": "Foto dettagli reparti/IMG_8745.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/cura-persona-e-beauty-dettaglio-1.webp",
+      "source": "Foto dettagli reparti/P1070326.jpeg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/cura-persona-e-beauty-dettaglio-2.webp",
+      "source": "Foto dettagli reparti/IMG_8605.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/cura-persona-e-beauty-dettaglio-3.webp",
+      "source": "Foto dettagli reparti/IMG_8610.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/cura-persona-e-beauty-reparto.webp",
+      "source": "Foto reparti/Progetto senza titolo - 18.png",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/animali-dettaglio-1.webp",
+      "source": "Foto dettagli reparti/IMG_8696.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/animali-dettaglio-2.webp",
+      "source": "Foto dettagli reparti/IMG_8700.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/animali-dettaglio-3.webp",
+      "source": "Foto dettagli reparti/IMG_8676.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/animali-reparto.webp",
+      "source": "Foto reparti/Progetto senza titolo - 20.png",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/giardinaggio-dettaglio-1.webp",
+      "source": "Foto dettagli reparti/IMG_8725.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/giardinaggio-dettaglio-2.webp",
+      "source": "Foto dettagli reparti/IMG_8729.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/giardinaggio-dettaglio-3.webp",
+      "source": "Foto dettagli reparti/IMG_8599.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/hobby-cartoleria-auto-dettaglio-1.webp",
+      "source": "Foto dettagli reparti/IMG_8656.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/hobby-cartoleria-auto-dettaglio-2.webp",
+      "source": "Foto dettagli reparti/IMG_8633.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/hobby-cartoleria-auto-dettaglio-3.webp",
+      "source": "Foto dettagli reparti/IMG_8624.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/hobby-cartoleria-auto-reparto.webp",
+      "source": "Foto reparti/Progetto senza titolo - 4.png",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/feste-e-regalo-dettaglio-1.webp",
+      "source": "Foto dettagli reparti/IMG_8639.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/feste-e-regalo-dettaglio-2.webp",
+      "source": "Foto dettagli reparti/IMG_8641.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/feste-e-regalo-dettaglio-3.webp",
+      "source": "Foto dettagli reparti/IMG_8621.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/ferramenta-e-fai-da-te-dettaglio-1.webp",
+      "source": "Foto dettagli reparti/IMG_8715.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/ferramenta-e-fai-da-te-dettaglio-2.webp",
+      "source": "Foto dettagli reparti/IMG_8713.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/ferramenta-e-fai-da-te-dettaglio-3.webp",
+      "source": "Foto dettagli reparti/IMG_8716.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/illuminazione-e-accessori-dettaglio-1.webp",
+      "source": "Foto dettagli reparti/IMG_8708.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/illuminazione-e-accessori-dettaglio-2.webp",
+      "source": "Foto dettagli reparti/IMG_8706.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/illuminazione-e-accessori-dettaglio-3.webp",
+      "source": "Foto dettagli reparti/IMG_8799.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/illuminazione-e-accessori-reparto.webp",
+      "source": "Foto reparti/Progetto senza titolo - 8.png",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/ordine-e-bagno-dettaglio-1.webp",
+      "source": "Foto dettagli reparti/IMG_8730.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/ordine-e-bagno-dettaglio-2.webp",
+      "source": "Foto dettagli reparti/IMG_8734.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/ordine-e-bagno-dettaglio-3.webp",
+      "source": "Foto dettagli reparti/IMG_8743.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/cura-auto-dettaglio-1.webp",
+      "source": "Foto dettagli reparti/IMG_8689.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/cura-auto-dettaglio-2.webp",
+      "source": "Foto dettagli reparti/IMG_8688.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/cura-auto-reparto.webp",
+      "source": "Foto reparti/Progetto senza titolo - 11.png",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/negozio-lucca-esterno.webp",
+      "source": "Foto esterno Home&Co/P1070169.jpeg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/pulizia-corsia-ritoccata.webp",
+      "source": "Foto reparti/Progetto senza titolo - 2.png",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale ritoccata con image_gen: rimozione scatoloni di stoccaggio e miglioramento luce"
+    },
+    {
+      "file": "/uploads/aisles/fiori-corsia-ritoccata.webp",
+      "source": "Foto reparti/Progetto senza titolo - 12.png",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale ritoccata con image_gen: rimozione scatoloni di stoccaggio e miglioramento luce"
+    },
+    {
+      "file": "/uploads/aisles/giocattoli-reparto.webp",
+      "source": "Foto dettagli reparti/IMG_8627.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/giocattoli-giochi.webp",
+      "source": "Foto dettagli reparti/IMG_8622.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/giocattoli-creativita.webp",
+      "source": "Foto dettagli reparti/IMG_8748.jpg",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale fornita il 5 novembre 2026"
+    },
+    {
+      "file": "/uploads/aisles/cucina-corsia-ritoccata.webp",
+      "source": "Foto reparti/Progetto senza titolo - 28.png",
+      "author": "Home & Co. / fotografie fornite dal cliente",
+      "license": "Materiale del marchio per il medesimo sito",
+      "kind": "fotografia originale ritoccata con image_gen: rimozione scatoloni di stoccaggio e miglioramento luce"
     }
   ],
   "flyers": [

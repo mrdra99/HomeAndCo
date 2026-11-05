@@ -3,286 +3,629 @@
     "slug": "casa-e-cucina",
     "titolo": "Casa e cucina",
     "titoloBreve": "Casa e cucina",
-    "descrizione": "Pentole, bicchieri, utensili e contenitori: le cose che usi tutti i giorni.",
-    "descrizioneLunga": "Un bicchiere da sostituire, un contenitore per il pranzo, un utensile che manca nel cassetto. Nel reparto casa trovi articoli per cucinare, apparecchiare e tenere in ordine la dispensa. Guarda qualche esempio e vieni a scegliere in negozio.",
+    "descrizione": "Dalla prima colazione alla cena con gli amici.",
+    "descrizioneLunga": "Piatti da abbinare, una padella per la ricetta che vuoi provare, la tazza da usare ogni mattina. Esplora gli scaffali di cucina e tavola e vieni a scegliere dal vivo forme, colori e misure.",
     "immagine": {
-      "src": "/uploads/photos/home-co-corsia-cucina.webp",
-      "alt": "Scaffali di casalinghi e accessori da cucina Home & Co."
+      "src": "/uploads/aisles/cucina-corsia-ritoccata.webp",
+      "alt": "Corsia Home & Co. con piatti, ciotole e accessori per la cucina"
     },
     "icona": "cucina",
     "colore": "#0B6CB0",
-    "inEvidenza": [
+    "inEvidenza": [],
+    "scaffali": [
       {
-        "titolo": "Bicchieri e tavola",
-        "descrizione": "Bicchieri, bottiglie e accessori per apparecchiare.",
+        "titolo": "Piatti e tavola",
+        "descrizione": "Rinnova la tavola con piatti, ciotole e piccoli coordinati.",
         "immagine": {
-          "src": "/uploads/products/bicchieri.webp",
-          "alt": "Bicchieri in vetro dal sito Home & Co.",
-          "fit": "contain"
+          "src": "/uploads/aisles/casa-e-cucina-dettaglio-1.webp",
+          "alt": "Piatti e tavola nel reparto Home & Co."
         }
       },
       {
-        "titolo": "Bottiglie in vetro",
-        "descrizione": "Per l’acqua e le bevande da portare a tavola.",
+        "titolo": "Pentole e padelle",
+        "descrizione": "Scegli il formato giusto per i tuoi piatti preferiti.",
         "immagine": {
-          "src": "/uploads/products/bottiglia-vetro.webp",
-          "alt": "Bottiglia in vetro dal sito Home & Co.",
-          "fit": "contain"
+          "src": "/uploads/aisles/casa-e-cucina-dettaglio-2.webp",
+          "alt": "Pentole e padelle nel reparto Home & Co."
         }
       },
       {
-        "titolo": "Utensili da cucina",
-        "descrizione": "Mestoli, spatole e piccoli accessori da tenere a portata di mano.",
+        "titolo": "Utensili e taglieri",
+        "descrizione": "Mestoli, taglieri e accessori per rendere più semplici i preparativi.",
         "immagine": {
-          "src": "/uploads/photos/utensili-cucina.webp",
-          "alt": "Mestoli e utensili da cucina in un barattolo"
+          "src": "/uploads/aisles/casa-e-cucina-dettaglio-3.webp",
+          "alt": "Utensili e taglieri nel reparto Home & Co."
         }
       }
     ],
-    "scaffali": [],
     "ordine": 1,
     "visibile": true,
     "seo": {
       "title": "Casa e cucina | Home & Co.",
-      "description": "Pentole, bicchieri, utensili e contenitori: le cose che usi tutti i giorni. Nei negozi Home & Co. di Prato, Lucca e Sesto Fiorentino."
+      "description": "Dalla prima colazione alla cena con gli amici. Scopri le foto del reparto e vieni da Home & Co. a Prato, Lucca e Sesto Fiorentino."
     },
-    "provvisorio": true
+    "provvisorio": false,
+    "scaffaliTitolo": "Guarda cosa trovi in reparto",
+    "scaffaliIntro": "Una selezione fotografata nei nostri scaffali. Vieni in negozio per scoprire l’assortimento e scegliere dal vivo."
   },
   {
     "slug": "biancheria-e-arredo",
-    "titolo": "Biancheria e complementi d'arredo",
+    "titolo": "Biancheria e arredo",
     "titoloBreve": "Biancheria e arredo",
-    "descrizione": "Lenzuola, asciugamani, tende e plaid. Scegli misure e colori in negozio.",
-    "descrizioneLunga": "Stai cambiando le lenzuola o cerchi un asciugamano in più? In reparto trovi biancheria per il letto e il bagno, tende e accessori per la casa. Il personale ti aiuta a controllare misure, tessuti e disponibilità.",
+    "descrizione": "Un cambio di tessuti, una casa da vivere.",
+    "descrizioneLunga": "Lenzuola, cuscini e tende cambiano il modo di abitare una stanza. Passa tra i tessili, accosta i colori e guarda da vicino trame e misure: il prossimo dettaglio per casa tua può essere già qui.",
     "immagine": {
-      "src": "/uploads/photos/scaffale-asciugamani.webp",
-      "alt": "Asciugamani piegati su scaffali di un reparto biancheria"
+      "src": "/uploads/aisles/biancheria-e-arredo-reparto.webp",
+      "alt": "Il reparto biancheria e arredo di Home & Co."
     },
     "icona": "tessile",
-    "colore": "#D81B6A",
-    "inEvidenza": [
+    "colore": "#D11559",
+    "inEvidenza": [],
+    "scaffali": [
       {
-        "titolo": "Lenzuola e copriletto",
-        "descrizione": "Per rinnovare il letto o avere un cambio in più.",
+        "titolo": "Letto e cuscini",
+        "descrizione": "Completi letto, biancheria e cuscini per rinnovare la camera.",
         "immagine": {
-          "src": "/uploads/photos/biancheria-letto.webp",
-          "alt": "Letto con lenzuola e cuscini chiari"
+          "src": "/uploads/aisles/biancheria-e-arredo-dettaglio-1.webp",
+          "alt": "Letto e cuscini nel reparto Home & Co."
         }
       },
       {
-        "titolo": "Asciugamani",
-        "descrizione": "Singoli o in coordinato: confronta colori e misure in reparto.",
+        "titolo": "Tende e tendaggi",
+        "descrizione": "Colori e tessuti da abbinare alle tue stanze.",
         "immagine": {
-          "src": "/uploads/photos/scaffale-asciugamani.webp",
-          "alt": "Asciugamani colorati su scaffali"
+          "src": "/uploads/aisles/biancheria-e-arredo-dettaglio-2.webp",
+          "alt": "Tende e tendaggi nel reparto Home & Co."
         }
       },
       {
-        "titolo": "Cuscini e plaid",
-        "descrizione": "Un cuscino nuovo, una coperta sul divano: basta poco per stare più comodi.",
+        "titolo": "Tappeti e passatoie",
+        "descrizione": "Un tocco di colore per ingresso, bagno e cucina.",
         "immagine": {
-          "src": "/uploads/photos/plaid-divano.webp",
-          "alt": "Plaid su un divano illuminato dal sole"
+          "src": "/uploads/aisles/biancheria-e-arredo-dettaglio-3.webp",
+          "alt": "Tappeti e passatoie nel reparto Home & Co."
         }
       }
     ],
-    "scaffali": [],
     "ordine": 2,
     "visibile": true,
     "seo": {
-      "title": "Biancheria e complementi d'arredo | Home & Co.",
-      "description": "Lenzuola, asciugamani, tende e plaid. Scegli misure e colori in negozio. Nei negozi Home & Co. di Prato, Lucca e Sesto Fiorentino."
+      "title": "Biancheria e arredo | Home & Co.",
+      "description": "Un cambio di tessuti, una casa da vivere. Scopri le foto del reparto e vieni da Home & Co. a Prato, Lucca e Sesto Fiorentino."
     },
-    "provvisorio": true
+    "provvisorio": false,
+    "scaffaliTitolo": "Guarda cosa trovi in reparto",
+    "scaffaliIntro": "Una selezione fotografata nei nostri scaffali. Vieni in negozio per scoprire l’assortimento e scegliere dal vivo."
   },
   {
     "slug": "pulizia-e-cura-persona",
-    "titolo": "Pulizia della casa e cura della persona",
-    "titoloBreve": "Pulizia e cura persona",
-    "descrizione": "Detersivi, carta, attrezzi per pulire e prodotti per il bagno.",
-    "descrizioneLunga": "La spesa per la casa parte spesso da qui: bucato, piatti, pavimenti, carta e igiene personale. In reparto puoi confrontare formati e prodotti, fare scorta di quello che usi e chiedere una mano quando cerchi qualcosa di preciso.",
+    "titolo": "Pulizia della casa",
+    "titoloBreve": "Pulizia della casa",
+    "descrizione": "La scorta giusta per una casa che profuma di pulito.",
+    "descrizioneLunga": "Bucato, superfici, stoviglie: ogni angolo di casa ha le sue esigenze. Qui puoi confrontare detersivi e accessori, ritrovare i prodotti che usi e preparare la tua scorta quotidiana in un solo giro.",
     "immagine": {
-      "src": "/uploads/photos/home-co-corsia-detersivi.webp",
-      "alt": "Corsia Home & Co. con detersivi e prodotti per la pulizia"
+      "src": "/uploads/aisles/pulizia-corsia-ritoccata.webp",
+      "alt": "La corsia detersivi e accessori per la pulizia di Home & Co."
     },
     "icona": "pulizia",
     "colore": "#0B6CB0",
-    "inEvidenza": [
+    "inEvidenza": [],
+    "scaffali": [
       {
-        "titolo": "Bucato e detersivi",
-        "descrizione": "Per lavare i capi e rifornire la lavanderia.",
+        "titolo": "Bucato e ammorbidenti",
+        "descrizione": "Detersivi e profumi per prenderti cura dei tuoi capi.",
         "immagine": {
-          "src": "/uploads/products/bucato.webp",
-          "alt": "Detersivi per bucato dal sito Home & Co.",
-          "fit": "contain"
+          "src": "/uploads/aisles/pulizia-e-cura-persona-dettaglio-1.webp",
+          "alt": "Bucato e ammorbidenti nel reparto Home & Co."
         }
       },
       {
-        "titolo": "Accessori per pulire",
-        "descrizione": "Guanti, spugne e panni per i lavori di tutti i giorni.",
+        "titolo": "Spugne, panni e guanti",
+        "descrizione": "Gli alleati dei piccoli lavori di ogni giorno.",
         "immagine": {
-          "src": "/uploads/photos/accessori-pulizia.webp",
-          "alt": "Guanti, spugne e prodotti per la pulizia"
+          "src": "/uploads/aisles/pulizia-e-cura-persona-dettaglio-2.webp",
+          "alt": "Spugne, panni e guanti nel reparto Home & Co."
         }
       },
       {
-        "titolo": "Carta per la casa",
-        "descrizione": "Carta igienica, asciugatutto e altri formati da tenere di scorta.",
+        "titolo": "Scope e accessori",
+        "descrizione": "Attrezzi per pulire e tenere in ordine la casa.",
         "immagine": {
-          "src": "/uploads/products/carta-casa.webp",
-          "alt": "Bobine di carta per la casa Home & Co.",
-          "fit": "contain"
+          "src": "/uploads/aisles/pulizia-e-cura-persona-dettaglio-3.webp",
+          "alt": "Scope e accessori nel reparto Home & Co."
         }
       }
     ],
-    "scaffali": [],
     "ordine": 3,
     "visibile": true,
     "seo": {
-      "title": "Pulizia casa e cura della persona | Home & Co.",
-      "description": "Detersivi, carta, attrezzi per pulire e prodotti per il bagno. Nei negozi Home & Co. di Prato, Lucca e Sesto Fiorentino."
+      "title": "Pulizia della casa | Home & Co.",
+      "description": "La scorta giusta per una casa che profuma di pulito. Scopri le foto del reparto e vieni da Home & Co. a Prato, Lucca e Sesto Fiorentino."
     },
-    "provvisorio": true
+    "provvisorio": false,
+    "scaffaliTitolo": "Guarda cosa trovi in reparto",
+    "scaffaliIntro": "Una selezione fotografata nei nostri scaffali. Vieni in negozio per scoprire l’assortimento e scegliere dal vivo."
+  },
+  {
+    "slug": "cura-persona-e-beauty",
+    "titolo": "Cura della persona e beauty",
+    "titoloBreve": "Cura della persona e beauty",
+    "icona": "pulizia",
+    "colore": "#D11559",
+    "descrizione": "Piccoli gesti di cura, ogni giorno.",
+    "descrizioneLunga": "Dalla doccia al make-up, trova spazio per te nella spesa di tutti i giorni. Prodotti per corpo e capelli, cosmetici e accessori da guardare da vicino: passa in reparto e componi la tua routine.",
+    "immagine": {
+      "src": "/uploads/aisles/cura-persona-e-beauty-reparto.webp",
+      "alt": "Il reparto cura della persona e beauty di Home & Co."
+    },
+    "scaffali": [
+      {
+        "titolo": "Make-up e cosmetici",
+        "descrizione": "Scopri gli espositori e scegli le tonalità da portare con te.",
+        "immagine": {
+          "src": "/uploads/aisles/cura-persona-e-beauty-dettaglio-1.webp",
+          "alt": "Make-up e cosmetici nel reparto Home & Co."
+        }
+      },
+      {
+        "titolo": "Igiene e cura del corpo",
+        "descrizione": "I prodotti per la tua routine, dalla doccia all’idratazione.",
+        "immagine": {
+          "src": "/uploads/aisles/cura-persona-e-beauty-dettaglio-2.webp",
+          "alt": "Igiene e cura del corpo nel reparto Home & Co."
+        }
+      },
+      {
+        "titolo": "Capelli e colore",
+        "descrizione": "Shampoo, trattamenti e colori per la cura dei capelli.",
+        "immagine": {
+          "src": "/uploads/aisles/cura-persona-e-beauty-dettaglio-3.webp",
+          "alt": "Capelli e colore nel reparto Home & Co."
+        }
+      }
+    ],
+    "scaffaliTitolo": "Guarda cosa trovi in reparto",
+    "scaffaliIntro": "Una selezione fotografata nei nostri scaffali. Vieni in negozio per scoprire l’assortimento e scegliere dal vivo.",
+    "inEvidenza": [],
+    "ordine": 4,
+    "visibile": true,
+    "provvisorio": false,
+    "seo": {
+      "title": "Cura della persona e beauty | Home & Co.",
+      "description": "Piccoli gesti di cura, ogni giorno. Scopri le foto del reparto e vieni da Home & Co. a Prato, Lucca e Sesto Fiorentino."
+    }
   },
   {
     "slug": "animali",
-    "titolo": "Articoli e cura per animali",
+    "titolo": "Animali",
     "titoloBreve": "Animali",
-    "descrizione": "Alimenti, ciotole, trasportini e prodotti per l’igiene di cani e gatti.",
-    "descrizioneLunga": "Nella lista della spesa c’è posto anche per loro. Trovi alimenti per cani e gatti, ciotole, trasportini e prodotti per l’igiene. Per marche, formati e disponibilità, chiedi al personale del negozio.",
+    "descrizione": "Qualcosa di buono. Qualcosa per giocare.",
+    "descrizioneLunga": "Una cuccia accogliente, il gioco da rincorrere, gli alimenti per la ciotola di ogni giorno. Fai un giro nel reparto animali e scegli quello che fa stare bene il tuo compagno di casa.",
     "immagine": {
-      "src": "/uploads/photos/cane-ciotola.webp",
-      "alt": "Un cane dalmata mangia dalla sua ciotola"
+      "src": "/uploads/aisles/animali-reparto.webp",
+      "alt": "Il reparto animali di Home & Co."
     },
     "icona": "animali",
-    "colore": "#D81B6A",
-    "inEvidenza": [
-      {
-        "titolo": "Alimenti per cani e gatti",
-        "descrizione": "Crocchette e umido: chiedi in reparto i formati disponibili.",
-        "immagine": {
-          "src": "/uploads/photos/crocchette-ciotola.webp",
-          "alt": "Ciotola con crocchette per animali"
-        }
-      },
-      {
-        "titolo": "Ciotole e accessori",
-        "descrizione": "Per l’acqua, i pasti e le necessità di ogni giorno.",
-        "immagine": {
-          "src": "/uploads/photos/cane-ciotola.webp",
-          "alt": "Cane che mangia da una ciotola in metallo"
-        }
-      },
-      {
-        "titolo": "Giochi e accessori",
-        "descrizione": "Per giocare insieme e tenere occupato chi resta a casa.",
-        "immagine": {
-          "src": "/uploads/photos/giochi-cane.webp",
-          "alt": "Cane che gioca con una pallina"
-        }
-      }
-    ],
-    "scaffali": [],
-    "ordine": 4,
-    "visibile": true,
-    "seo": {
-      "title": "Articoli e cura per animali | Home & Co.",
-      "description": "Alimenti, ciotole, trasportini e prodotti per l’igiene di cani e gatti. Nei negozi Home & Co. di Prato, Lucca e Sesto Fiorentino."
-    },
-    "provvisorio": true
-  },
-  {
-    "slug": "giardinaggio",
-    "titolo": "Giardinaggio e outdoor",
-    "titoloBreve": "Giardinaggio",
-    "descrizione": "Vasi, terriccio e accessori per curare balconi e giardini.",
-    "descrizioneLunga": "Un rinvaso da fare, le piante da annaffiare, il balcone da sistemare. Nel reparto giardino trovi vasi e sottovasi, terriccio e accessori per l’irrigazione. Passa a vedere le misure disponibili e quello che è arrivato per la stagione.",
-    "immagine": {
-      "src": "/uploads/photos/home-co-corsia-giardino.webp",
-      "alt": "Corsia Home & Co. con vasi e articoli da giardino"
-    },
-    "icona": "giardino",
     "colore": "#0B6CB0",
-    "inEvidenza": [
+    "inEvidenza": [],
+    "scaffali": [
       {
-        "titolo": "Vasi e fioriere",
-        "descrizione": "Controlla le misure e scegli quelli adatti al tuo spazio.",
+        "titolo": "Alimenti e snack",
+        "descrizione": "Alimenti e piccoli premi per cani e gatti.",
         "immagine": {
-          "src": "/uploads/photos/home-co-corsia-giardino.webp",
-          "alt": "Vasi e fioriere esposti da Home & Co."
+          "src": "/uploads/aisles/animali-dettaglio-1.webp",
+          "alt": "Alimenti e snack nel reparto Home & Co."
         }
       },
       {
-        "titolo": "Attrezzi da giardino",
-        "descrizione": "Palette, rastrelli e forbici per curare le piante.",
+        "titolo": "Giochi e passeggiate",
+        "descrizione": "Palline, giochi, guinzagli e accessori per stare insieme.",
         "immagine": {
-          "src": "/uploads/photos/attrezzi-giardino.webp",
-          "alt": "Attrezzi da giardinaggio su un tavolo"
+          "src": "/uploads/aisles/animali-dettaglio-2.webp",
+          "alt": "Giochi e passeggiate nel reparto Home & Co."
         }
       },
       {
-        "titolo": "Rinvasi e terriccio",
-        "descrizione": "Per cambiare vaso alle piante e preparare le nuove semine.",
+        "titolo": "Cucce e cuscini",
+        "descrizione": "Angoli morbidi e ripari per i loro momenti di riposo.",
         "immagine": {
-          "src": "/uploads/photos/rinvasi-terriccio.webp",
-          "alt": "Vasetti, terra e attrezzi per il rinvaso"
+          "src": "/uploads/aisles/animali-dettaglio-3.webp",
+          "alt": "Cucce e cuscini nel reparto Home & Co."
         }
       }
     ],
-    "scaffali": [],
     "ordine": 5,
     "visibile": true,
     "seo": {
-      "title": "Giardinaggio e outdoor | Home & Co.",
-      "description": "Vasi, terriccio e accessori per curare balconi e giardini. Nei negozi Home & Co. di Prato, Lucca e Sesto Fiorentino."
+      "title": "Animali | Home & Co.",
+      "description": "Qualcosa di buono. Qualcosa per giocare. Scopri le foto del reparto e vieni da Home & Co. a Prato, Lucca e Sesto Fiorentino."
     },
-    "provvisorio": true
+    "provvisorio": false,
+    "scaffaliTitolo": "Guarda cosa trovi in reparto",
+    "scaffaliIntro": "Una selezione fotografata nei nostri scaffali. Vieni in negozio per scoprire l’assortimento e scegliere dal vivo."
   },
   {
-    "slug": "hobby-cartoleria-auto",
-    "titolo": "Hobby, cartoleria, elettronica e cura dell'auto",
-    "titoloBreve": "Hobby, cartoleria e auto",
-    "descrizione": "Quaderni e colori, fai da te, luci e accessori per la cura dell’auto.",
-    "descrizioneLunga": "La lista per la scuola, un piccolo lavoro da finire o l’auto da sistemare: qui trovi cancelleria, materiali per il fai da te, articoli per l’illuminazione e la pulizia dell’auto. Se cerchi un articolo specifico, chiedi al personale.",
+    "slug": "giardinaggio",
+    "titolo": "Giardinaggio e fiori",
+    "titoloBreve": "Giardinaggio e fiori",
+    "descrizione": "Dal davanzale al giardino, fai spazio al verde.",
+    "descrizioneLunga": "Un nuovo vaso per la pianta preferita, i semi per il prossimo progetto o un mazzo di fiori artificiali per dare colore a una stanza. Vieni a comporre il tuo angolo verde e scegli gli accessori adatti al tuo spazio.",
     "immagine": {
-      "src": "/uploads/photos/home-co-corsia-accessori.webp",
-      "alt": "Corsia Home & Co. con accessori e articoli per la casa"
+      "src": "/uploads/aisles/fiori-corsia-ritoccata.webp",
+      "alt": "Corsia Home & Co. con fiori artificiali e accessori per la casa"
     },
-    "icona": "hobby",
-    "colore": "#D81B6A",
-    "inEvidenza": [
+    "icona": "giardino",
+    "colore": "#D11559",
+    "inEvidenza": [],
+    "scaffali": [
       {
-        "titolo": "Cancelleria e colori",
-        "descrizione": "Quaderni, matite e materiali per la scuola e i lavoretti.",
+        "titolo": "Vasi e fioriere",
+        "descrizione": "Forme e misure per balconi, terrazzi e piccoli angoli verdi.",
         "immagine": {
-          "src": "/uploads/photos/quaderno-colori.webp",
-          "alt": "Quaderno aperto, matite e cancelleria su una scrivania"
+          "src": "/uploads/aisles/giardinaggio-dettaglio-1.webp",
+          "alt": "Vasi e fioriere nel reparto Home & Co."
         }
       },
       {
-        "titolo": "Fai da te e ferramenta",
-        "descrizione": "Utensili e piccoli accessori per le riparazioni di casa.",
+        "titolo": "Semi e cura delle piante",
+        "descrizione": "Semi e prodotti per accompagnare i tuoi progetti verdi.",
         "immagine": {
-          "src": "/uploads/photos/utensili-fai-da-te.webp",
-          "alt": "Attrezzi per riparazioni e piccoli lavori"
+          "src": "/uploads/aisles/giardinaggio-dettaglio-2.webp",
+          "alt": "Semi e cura delle piante nel reparto Home & Co."
         }
       },
       {
-        "titolo": "Pulizia dell’auto",
-        "descrizione": "Spugne, detergenti e accessori per prendertene cura.",
+        "titolo": "Fiori artificiali",
+        "descrizione": "Componi un mazzo e scegli i colori che senti tuoi.",
         "immagine": {
-          "src": "/uploads/photos/lavaggio-auto.webp",
-          "alt": "Lavaggio di un’auto con spugna e secchio"
+          "src": "/uploads/aisles/giardinaggio-dettaglio-3.webp",
+          "alt": "Fiori artificiali nel reparto Home & Co."
         }
       }
     ],
-    "scaffali": [],
     "ordine": 6,
     "visibile": true,
     "seo": {
-      "title": "Hobby, cartoleria, elettronica e cura dell'auto | Home & Co.",
-      "description": "Quaderni e colori, fai da te, luci e accessori per la cura dell’auto. Nei negozi Home & Co. di Prato, Lucca e Sesto Fiorentino."
+      "title": "Giardinaggio e fiori | Home & Co.",
+      "description": "Dal davanzale al giardino, fai spazio al verde. Scopri le foto del reparto e vieni da Home & Co. a Prato, Lucca e Sesto Fiorentino."
     },
-    "provvisorio": true
+    "provvisorio": false,
+    "scaffaliTitolo": "Guarda cosa trovi in reparto",
+    "scaffaliIntro": "Una selezione fotografata nei nostri scaffali. Vieni in negozio per scoprire l’assortimento e scegliere dal vivo."
+  },
+  {
+    "slug": "hobby-cartoleria-auto",
+    "titolo": "Cartoleria e creatività",
+    "titoloBreve": "Cartoleria e creatività",
+    "descrizione": "Le idee cominciano da un foglio.",
+    "descrizioneLunga": "Il quaderno nuovo, i colori per un pomeriggio creativo, gli accessori per la scrivania. Tra cancelleria e materiali per i lavoretti trovi tante occasioni per rimettere in moto le idee. Vieni a scegliere i tuoi colori.",
+    "immagine": {
+      "src": "/uploads/aisles/hobby-cartoleria-auto-reparto.webp",
+      "alt": "Il reparto cartoleria e creatività di Home & Co."
+    },
+    "icona": "hobby",
+    "colore": "#0B6CB0",
+    "inEvidenza": [],
+    "scaffali": [
+      {
+        "titolo": "Quaderni e carta",
+        "descrizione": "Per scuola, appunti e progetti da mettere nero su bianco.",
+        "immagine": {
+          "src": "/uploads/aisles/hobby-cartoleria-auto-dettaglio-1.webp",
+          "alt": "Quaderni e carta nel reparto Home & Co."
+        }
+      },
+      {
+        "titolo": "Penne e colori",
+        "descrizione": "Scrittura, disegno e piccoli accessori per la scrivania.",
+        "immagine": {
+          "src": "/uploads/aisles/hobby-cartoleria-auto-dettaglio-2.webp",
+          "alt": "Penne e colori nel reparto Home & Co."
+        }
+      },
+      {
+        "titolo": "Creatività e decorazioni",
+        "descrizione": "Materiali e dettagli per dare forma alle tue idee.",
+        "immagine": {
+          "src": "/uploads/aisles/hobby-cartoleria-auto-dettaglio-3.webp",
+          "alt": "Creatività e decorazioni nel reparto Home & Co."
+        }
+      }
+    ],
+    "ordine": 7,
+    "visibile": true,
+    "seo": {
+      "title": "Cartoleria e creatività | Home & Co.",
+      "description": "Le idee cominciano da un foglio. Scopri le foto del reparto e vieni da Home & Co. a Prato, Lucca e Sesto Fiorentino."
+    },
+    "provvisorio": false,
+    "scaffaliTitolo": "Guarda cosa trovi in reparto",
+    "scaffaliIntro": "Una selezione fotografata nei nostri scaffali. Vieni in negozio per scoprire l’assortimento e scegliere dal vivo."
+  },
+  {
+    "slug": "feste-e-regalo",
+    "titolo": "Feste e idee regalo",
+    "titoloBreve": "Feste e idee regalo",
+    "icona": "hobby",
+    "colore": "#D11559",
+    "descrizione": "La festa comincia dai dettagli.",
+    "descrizioneLunga": "Un compleanno, una cena speciale o un pensiero da confezionare. Scegli palloncini, candeline e carte regalo, poi aggiungi un dettaglio personale: passa a cercare l’idea che rende tua ogni occasione.",
+    "immagine": {
+      "src": "/uploads/aisles/feste-e-regalo-dettaglio-1.webp",
+      "alt": "Palloncini e allestimenti nel reparto Home & Co."
+    },
+    "scaffali": [
+      {
+        "titolo": "Palloncini e allestimenti",
+        "descrizione": "Colori e piccoli addobbi per preparare la festa.",
+        "immagine": {
+          "src": "/uploads/aisles/feste-e-regalo-dettaglio-1.webp",
+          "alt": "Palloncini e allestimenti nel reparto Home & Co."
+        }
+      },
+      {
+        "titolo": "Candeline e compleanni",
+        "descrizione": "Il numero giusto e un desiderio da esprimere.",
+        "immagine": {
+          "src": "/uploads/aisles/feste-e-regalo-dettaglio-2.webp",
+          "alt": "Candeline e compleanni nel reparto Home & Co."
+        }
+      },
+      {
+        "titolo": "Confezioni regalo",
+        "descrizione": "Buste e confezioni per rendere speciale anche un piccolo pensiero.",
+        "immagine": {
+          "src": "/uploads/aisles/feste-e-regalo-dettaglio-3.webp",
+          "alt": "Confezioni regalo nel reparto Home & Co."
+        }
+      }
+    ],
+    "scaffaliTitolo": "Guarda cosa trovi in reparto",
+    "scaffaliIntro": "Una selezione fotografata nei nostri scaffali. Vieni in negozio per scoprire l’assortimento e scegliere dal vivo.",
+    "inEvidenza": [],
+    "ordine": 8,
+    "visibile": true,
+    "provvisorio": false,
+    "seo": {
+      "title": "Feste e idee regalo | Home & Co.",
+      "description": "La festa comincia dai dettagli. Scopri le foto del reparto e vieni da Home & Co. a Prato, Lucca e Sesto Fiorentino."
+    }
+  },
+  {
+    "slug": "ferramenta-e-fai-da-te",
+    "titolo": "Ferramenta e fai da te",
+    "titoloBreve": "Ferramenta e fai da te",
+    "icona": "hobby",
+    "colore": "#0B6CB0",
+    "descrizione": "Quel piccolo lavoro che aspetta solo di essere fatto.",
+    "descrizioneLunga": "Appendere, aggiustare, sistemare. Tra utensili, minuteria e accessori trovi il punto di partenza per tanti lavori domestici. Porta con te misure e idee e vieni a cercare quello che ti manca.",
+    "immagine": {
+      "src": "/uploads/aisles/ferramenta-e-fai-da-te-dettaglio-1.webp",
+      "alt": "Utensili da lavoro nel reparto Home & Co."
+    },
+    "scaffali": [
+      {
+        "titolo": "Utensili da lavoro",
+        "descrizione": "Pinze, cacciaviti e attrezzi per le riparazioni di casa.",
+        "immagine": {
+          "src": "/uploads/aisles/ferramenta-e-fai-da-te-dettaglio-1.webp",
+          "alt": "Utensili da lavoro nel reparto Home & Co."
+        }
+      },
+      {
+        "titolo": "Viti e minuteria",
+        "descrizione": "I piccoli pezzi che fanno la differenza nei tuoi progetti.",
+        "immagine": {
+          "src": "/uploads/aisles/ferramenta-e-fai-da-te-dettaglio-2.webp",
+          "alt": "Viti e minuteria nel reparto Home & Co."
+        }
+      },
+      {
+        "titolo": "Vernici e manutenzione",
+        "descrizione": "Prodotti e accessori per sistemare e rinnovare.",
+        "immagine": {
+          "src": "/uploads/aisles/ferramenta-e-fai-da-te-dettaglio-3.webp",
+          "alt": "Vernici e manutenzione nel reparto Home & Co."
+        }
+      }
+    ],
+    "scaffaliTitolo": "Guarda cosa trovi in reparto",
+    "scaffaliIntro": "Una selezione fotografata nei nostri scaffali. Vieni in negozio per scoprire l’assortimento e scegliere dal vivo.",
+    "inEvidenza": [],
+    "ordine": 9,
+    "visibile": true,
+    "provvisorio": false,
+    "seo": {
+      "title": "Ferramenta e fai da te | Home & Co.",
+      "description": "Quel piccolo lavoro che aspetta solo di essere fatto. Scopri le foto del reparto e vieni da Home & Co. a Prato, Lucca e Sesto Fiorentino."
+    }
+  },
+  {
+    "slug": "illuminazione-e-accessori",
+    "titolo": "Illuminazione e accessori tech",
+    "titoloBreve": "Illuminazione e accessori tech",
+    "icona": "cucina",
+    "colore": "#D11559",
+    "descrizione": "La luce giusta e gli accessori che ti servono.",
+    "descrizioneLunga": "Una lampada per il comodino, una lampadina da sostituire, un cavo da tenere a portata di mano. Guarda gli scaffali dedicati alla luce e alla tecnologia di tutti i giorni e trova il dettaglio utile per casa tua.",
+    "immagine": {
+      "src": "/uploads/aisles/illuminazione-e-accessori-reparto.webp",
+      "alt": "Il reparto illuminazione e accessori tech di Home & Co."
+    },
+    "scaffali": [
+      {
+        "titolo": "Lampade per la casa",
+        "descrizione": "Punti luce da abbinare a camera, studio e soggiorno.",
+        "immagine": {
+          "src": "/uploads/aisles/illuminazione-e-accessori-dettaglio-1.webp",
+          "alt": "Lampade per la casa nel reparto Home & Co."
+        }
+      },
+      {
+        "titolo": "Lampadine",
+        "descrizione": "Confronta attacchi e caratteristiche prima di scegliere.",
+        "immagine": {
+          "src": "/uploads/aisles/illuminazione-e-accessori-dettaglio-2.webp",
+          "alt": "Lampadine nel reparto Home & Co."
+        }
+      },
+      {
+        "titolo": "Accessori per smartphone",
+        "descrizione": "Cavi, custodie e piccoli accessori per i tuoi dispositivi.",
+        "immagine": {
+          "src": "/uploads/aisles/illuminazione-e-accessori-dettaglio-3.webp",
+          "alt": "Accessori per smartphone nel reparto Home & Co."
+        }
+      }
+    ],
+    "scaffaliTitolo": "Guarda cosa trovi in reparto",
+    "scaffaliIntro": "Una selezione fotografata nei nostri scaffali. Vieni in negozio per scoprire l’assortimento e scegliere dal vivo.",
+    "inEvidenza": [],
+    "ordine": 10,
+    "visibile": true,
+    "provvisorio": false,
+    "seo": {
+      "title": "Illuminazione e accessori tech | Home & Co.",
+      "description": "La luce giusta e gli accessori che ti servono. Scopri le foto del reparto e vieni da Home & Co. a Prato, Lucca e Sesto Fiorentino."
+    }
+  },
+  {
+    "slug": "ordine-e-bagno",
+    "titolo": "Ordine e accessori bagno",
+    "titoloBreve": "Ordine e accessori bagno",
+    "icona": "tessile",
+    "colore": "#0B6CB0",
+    "descrizione": "Ogni cosa trova il suo posto.",
+    "descrizioneLunga": "Una cesta per raccogliere, una scatola per separare, un accessorio per rinnovare il bagno. Scopri soluzioni semplici da combinare, guarda le misure e porta a casa un po’ di ordine in più.",
+    "immagine": {
+      "src": "/uploads/aisles/ordine-e-bagno-dettaglio-2.webp",
+      "alt": "Ceste e organizzazione nel reparto Home & Co."
+    },
+    "scaffali": [
+      {
+        "titolo": "Scatole e contenitori",
+        "descrizione": "Tieni in ordine armadi, ripostigli e piccoli oggetti.",
+        "immagine": {
+          "src": "/uploads/aisles/ordine-e-bagno-dettaglio-1.webp",
+          "alt": "Scatole e contenitori nel reparto Home & Co."
+        }
+      },
+      {
+        "titolo": "Ceste e organizzazione",
+        "descrizione": "Ceste e cestini da scegliere per ogni stanza.",
+        "immagine": {
+          "src": "/uploads/aisles/ordine-e-bagno-dettaglio-2.webp",
+          "alt": "Ceste e organizzazione nel reparto Home & Co."
+        }
+      },
+      {
+        "titolo": "Accessori bagno",
+        "descrizione": "Portasapone, bicchieri e coordinati per il tuo bagno.",
+        "immagine": {
+          "src": "/uploads/aisles/ordine-e-bagno-dettaglio-3.webp",
+          "alt": "Accessori bagno nel reparto Home & Co."
+        }
+      }
+    ],
+    "scaffaliTitolo": "Guarda cosa trovi in reparto",
+    "scaffaliIntro": "Una selezione fotografata nei nostri scaffali. Vieni in negozio per scoprire l’assortimento e scegliere dal vivo.",
+    "inEvidenza": [],
+    "ordine": 11,
+    "visibile": true,
+    "provvisorio": false,
+    "seo": {
+      "title": "Ordine e accessori bagno | Home & Co.",
+      "description": "Ogni cosa trova il suo posto. Scopri le foto del reparto e vieni da Home & Co. a Prato, Lucca e Sesto Fiorentino."
+    }
+  },
+  {
+    "slug": "cura-auto",
+    "titolo": "Cura dell’auto",
+    "titoloBreve": "Cura dell’auto",
+    "icona": "hobby",
+    "colore": "#D11559",
+    "descrizione": "Prenditi cura anche della tua auto.",
+    "descrizioneLunga": "Dai prodotti per la pulizia agli accessori per l’abitacolo, bastano pochi gesti per viaggiare più volentieri. Passa in reparto e scegli ciò che serve per la tua prossima pulizia o per un piccolo rinnovo.",
+    "immagine": {
+      "src": "/uploads/aisles/cura-auto-reparto.webp",
+      "alt": "Il reparto cura dell’auto di Home & Co."
+    },
+    "scaffali": [
+      {
+        "titolo": "Pulizia e manutenzione",
+        "descrizione": "Prodotti per prenderti cura della tua auto.",
+        "immagine": {
+          "src": "/uploads/aisles/cura-auto-dettaglio-1.webp",
+          "alt": "Pulizia e manutenzione nel reparto Home & Co."
+        }
+      },
+      {
+        "titolo": "Accessori per l’abitacolo",
+        "descrizione": "Coprivolanti e dettagli da scegliere per la tua auto.",
+        "immagine": {
+          "src": "/uploads/aisles/cura-auto-dettaglio-2.webp",
+          "alt": "Accessori per l’abitacolo nel reparto Home & Co."
+        }
+      }
+    ],
+    "scaffaliTitolo": "Guarda cosa trovi in reparto",
+    "scaffaliIntro": "Una selezione fotografata nei nostri scaffali. Vieni in negozio per scoprire l’assortimento e scegliere dal vivo.",
+    "inEvidenza": [],
+    "ordine": 12,
+    "visibile": true,
+    "provvisorio": false,
+    "seo": {
+      "title": "Cura dell’auto | Home & Co.",
+      "description": "Prenditi cura anche della tua auto. Scopri le foto del reparto e vieni da Home & Co. a Prato, Lucca e Sesto Fiorentino."
+    }
+  },
+  {
+    "slug": "giochi-e-giocattoli",
+    "titolo": "Giochi e giocattoli",
+    "titoloBreve": "Giochi e giocattoli",
+    "descrizione": "Un piccolo regalo, un pomeriggio tutto da inventare.",
+    "descrizioneLunga": "Giochi da fare insieme, piccoli personaggi e idee per i pomeriggi liberi. Vieni a curiosare tra gli scaffali dei giocattoli: puoi scegliere un pensiero per i più piccoli o un nuovo passatempo da condividere in famiglia.",
+    "immagine": {
+      "src": "/uploads/aisles/giocattoli-reparto.webp",
+      "alt": "Giochi e giocattoli sugli scaffali Home & Co."
+    },
+    "icona": "hobby",
+    "colore": "#D11559",
+    "inEvidenza": [],
+    "scaffali": [
+      {
+        "titolo": "Giochi e giocattoli",
+        "descrizione": "Un giro tra colori, personaggi e idee per il tempo libero.",
+        "immagine": {
+          "src": "/uploads/aisles/giocattoli-reparto.webp",
+          "alt": "Giochi e giocattoli sugli scaffali Home & Co."
+        }
+      },
+      {
+        "titolo": "Giochi per stare insieme",
+        "descrizione": "Carte e giochi da condividere in famiglia o con gli amici.",
+        "immagine": {
+          "src": "/uploads/aisles/giocattoli-giochi.webp",
+          "alt": "Giochi per stare insieme sugli scaffali Home & Co."
+        }
+      },
+      {
+        "titolo": "Gioco e creatività",
+        "descrizione": "Piccole idee per inventare, costruire e divertirsi.",
+        "immagine": {
+          "src": "/uploads/aisles/giocattoli-creativita.webp",
+          "alt": "Gioco e creatività sugli scaffali Home & Co."
+        }
+      }
+    ],
+    "scaffaliTitolo": "Un mondo di giochi da scoprire",
+    "scaffaliIntro": "Guarda alcune delle proposte fotografate in negozio e vieni a scegliere il tuo prossimo gioco.",
+    "ordine": 13,
+    "visibile": true,
+    "provvisorio": false,
+    "seo": {
+      "title": "Giochi e giocattoli | Home & Co.",
+      "description": "Scopri gli scaffali di giochi e giocattoli Home & Co. e vieni nei negozi di Prato, Lucca e Sesto Fiorentino."
+    }
   }
 ]

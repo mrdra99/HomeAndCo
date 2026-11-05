@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { absoluteUrl } from "@/lib/seo";
 import type { ImageRef } from "@/lib/content/schemas";
 import { AisleArt } from "./AisleArt";
+import { Button } from "@/components/ui/Button";
 
 export type BreadcrumbItem = { label: string; href: string };
 
@@ -14,6 +15,7 @@ type AisleHeroProps = {
   titolo: string;
   descrizione: string;
   immagine: ImageRef;
+  dettaglio?: ImageRef;
   /** Nome icona dal dato del corridoio (se sconosciuto non viene mostrata). */
   icona?: string;
   /** Colore del corridoio (usato solo come tinta tenue dietro l'icona). */
@@ -23,7 +25,7 @@ type AisleHeroProps = {
 };
 
 /** Hero del corridoio: breadcrumb + JSON-LD, titolo display, descrizione e foto ad arco. */
-export function AisleHero({ titolo, descrizione, immagine, icona, colore, breadcrumb }: AisleHeroProps) {
+export function AisleHero({ titolo, descrizione, immagine, dettaglio, icona, colore, breadcrumb }: AisleHeroProps) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -71,19 +73,26 @@ export function AisleHero({ titolo, descrizione, immagine, icona, colore, breadc
             )}
             <h1 className="text-brand-blue-900">{titolo}</h1>
             <p className="mt-6 max-w-xl text-lg text-muted sm:text-xl">{descrizione}</p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Button href="/dove-siamo/">Vieni a scegliere in negozio</Button>
+              <Button href="#scaffali" variant="outline">Esplora il reparto</Button>
+            </div>
           </Reveal>
           <Reveal delay={0.08}>
             {immagine.src ? (
+            <div className="relative pb-16 sm:pb-20">
             <SmartImage
               src={immagine.src}
               alt={immagine.alt}
               label={`Foto corridoio ${titolo}`}
-              ratio="4/5"
+              ratio="4/3"
               priority
               sizes="(min-width: 1024px) 45vw, 100vw"
               rounded="rounded-[var(--radius-xl)]"
-              className="mx-auto max-w-md shadow-lift lg:max-w-none"
+              className="shadow-lift"
             />
+            {dettaglio?.src && <SmartImage src={dettaglio.src} alt={dettaglio.alt} label="Un dettaglio del reparto" ratio="3/2" sizes="(min-width: 1024px) 260px, 45vw" rounded="rounded-2xl" className="absolute -bottom-1 right-4 !w-[48%] border-4 border-white shadow-lift sm:right-6" />}
+            </div>
             ) : (
               <AisleArt icon={icona ?? "cucina"} className="w-full rounded-[var(--radius-xl)]" />
             )}

@@ -69,6 +69,7 @@ export default async function AislePage({ params }: { params: Promise<Params> })
         titolo={aisle.titolo}
         descrizione={aisle.descrizione}
         immagine={aisle.immagine}
+        dettaglio={aisle.scaffali[0]?.immagine}
         icona={aisle.icona}
         colore={aisle.colore}
         breadcrumb={[

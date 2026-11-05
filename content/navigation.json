@@ -1,12 +1,71 @@
 [
-  { "label": "Home", "href": "/" },
-  { "label": "Offerte", "href": "/offerte/" },
-  { "label": "Casa e cucina", "href": "/corridoi/casa-e-cucina/" },
-  { "label": "Biancheria e arredo", "href": "/corridoi/biancheria-e-arredo/" },
-  { "label": "Pulizia e cura persona", "href": "/corridoi/pulizia-e-cura-persona/" },
-  { "label": "Animali", "href": "/corridoi/animali/" },
-  { "label": "Giardinaggio", "href": "/corridoi/giardinaggio/" },
-  { "label": "Hobby, cartoleria e auto", "href": "/corridoi/hobby-cartoleria-auto/" },
-  { "label": "Carta fedeltà", "href": "/carta-fedelta/" },
-  { "label": "Dove siamo", "href": "/#dove-siamo", "evidenza": true }
+  {
+    "label": "Home",
+    "href": "/"
+  },
+  {
+    "label": "Offerte",
+    "href": "/offerte/"
+  },
+  {
+    "label": "Casa e cucina",
+    "href": "/corridoi/casa-e-cucina/"
+  },
+  {
+    "label": "Biancheria e arredo",
+    "href": "/corridoi/biancheria-e-arredo/"
+  },
+  {
+    "label": "Pulizia della casa",
+    "href": "/corridoi/pulizia-e-cura-persona/"
+  },
+  {
+    "label": "Cura della persona e beauty",
+    "href": "/corridoi/cura-persona-e-beauty/"
+  },
+  {
+    "label": "Animali",
+    "href": "/corridoi/animali/"
+  },
+  {
+    "label": "Giardinaggio e fiori",
+    "href": "/corridoi/giardinaggio/"
+  },
+  {
+    "label": "Cartoleria e creatività",
+    "href": "/corridoi/hobby-cartoleria-auto/"
+  },
+  {
+    "label": "Feste e idee regalo",
+    "href": "/corridoi/feste-e-regalo/"
+  },
+  {
+    "label": "Ferramenta e fai da te",
+    "href": "/corridoi/ferramenta-e-fai-da-te/"
+  },
+  {
+    "label": "Illuminazione e accessori tech",
+    "href": "/corridoi/illuminazione-e-accessori/"
+  },
+  {
+    "label": "Ordine e accessori bagno",
+    "href": "/corridoi/ordine-e-bagno/"
+  },
+  {
+    "label": "Cura dell’auto",
+    "href": "/corridoi/cura-auto/"
+  },
+  {
+    "label": "Giochi e giocattoli",
+    "href": "/corridoi/giochi-e-giocattoli/"
+  },
+  {
+    "label": "Carta fedeltà",
+    "href": "/carta-fedelta/"
+  },
+  {
+    "label": "Dove siamo",
+    "href": "/#dove-siamo",
+    "evidenza": true
+  }
 ]

@@ -188,9 +188,8 @@
       "Carta fedeltà"
     ],
     "immagine": {
-      "src": null,
-      "alt": "Il negozio Home & Co. di Lucca",
-      "label": "Negozio di Lucca"
+      "src": "/uploads/aisles/negozio-lucca-esterno.webp",
+      "alt": "Ingresso del negozio Home & Co. di Lucca"
     },
     "mappaUrl": "https://www.google.com/maps/search/?api=1&query=Via+Romana+3137+Lucca",
     "provvisorio": true

@@ -1,12 +1,12 @@
 # Materiali del sito: stato e dati da confermare
 
-Aggiornato al 19 ottobre 2026.
+Aggiornato al 5 novembre 2026.
 
 ## Già inseriti
 
 - Logo ufficiale vettoriale dal PDF dell’insegna, favicon, icona Apple e anteprima social.
 - Fotografie autentiche delle corsie Home & Co. dal sito esistente: casa, cucina, detersivi, accessori e giardino.
-- Foto reali per tutte le categorie, gli hero e le schede della collezione Halloween. Foto di ambientazione Pexels per biancheria, animali e altri soggetti non disponibili nell’archivio del marchio.
+- Foto originali fornite dal cliente per i 13 reparti e i relativi dettagli. Tre corsie ritoccate per eliminare gli scatoloni; foto esterna di Lucca inserita. Le fonti precedenti restano per i contenuti stagionali in archivio.
 - Fotografie per le selezioni di assortimento, senza prezzi o badge di popolarità non verificati. Le immagini troppo piccole dei PDF compressi non sono usate come foto prodotto nella vetrina.
 - Tre volantini ufficiali completi: primavera 2026 (11–19 aprile, Prato/Lucca), apertura Sesto (27 giugno–12 luglio), settembre 2026 (7–14 settembre, tutti). Copertine, 24 pagine WebP e PDF originali.
 - Volantino ufficiale «Halloween da brividi» 2026: 7 pagine WebP e PDF originale, tutti i negozi, valido dal 1 al 31 ottobre. Ha sostituito il catalogo Sesto Fiorentino di ottobre.
@@ -15,17 +15,16 @@ Aggiornato al 19 ottobre 2026.
 - Fonti, autori, licenze e hash dei PDF in `content/photo-sources.json` e `public/uploads/PHOTO_CREDITS.md`.
 - Copy riscritto in `content/campaigns.json`, `content/aisles.json`, `content/loyalty.json` e `content/home.json`.
 
-Le tre edizioni recuperate dal vecchio sito restano nell’archivio. Il catalogo fornito direttamente dal cliente è ora in evidenza. La validità stampata sul PDF (23 ottobre–1 novembre) prevale sull’indicazione generale «fino a fine mese» per le sue offerte.
+I volantini conclusi, incluso Halloween, restano nell’archivio con le proprie date. La vetrina di novembre usa il tema Natale secondo il calendario già confermato.
 
 ## Materiali ancora da fornire o confermare
 
 | Materiale / dato | Dove | Azione |
 |---|---|---|
-| Foto attuali e identificate di Prato, Lucca e Sesto, già organizzate con Mike | `stores.json` → `immagine` | Inserire foto della sede corretta. In assenza la scheda mostra la mappa, senza foto fittizie o segnaposto pubblici. |
+| Foto esterne identificate di Prato e Sesto (Lucca inserita) | `stores.json` → `immagine` | Inserire foto della sede corretta. In assenza la scheda mostra la mappa, senza foto fittizie o segnaposto pubblici. |
 | Numeri telefonici di ogni negozio | `stores.json` | Gli orari sono confermati e gli stati aperto/chiuso sono attivi. I numeri restano da fornire. |
 | Coordinate, CAP e servizi / particolarità delle sedi | `stores.json` | Verificare i dati ancora marcati `provvisorio`. |
 | Catalogo / disponibilità dei singoli prodotti | `aisles.json` → `inEvidenza` | Le foto illustrano l’assortimento. Nessuna giacenza o disponibilità attuale è confermata. |
-| Foto degli scaffali di ogni categoria (in arrivo dal cliente) | `aisles.json` → `scaffali` | Salvarle in `public/uploads/aisles/<slug>/` (WebP, ~1600 px lato lungo, alt obbligatorio). Finché `scaffali` è vuoto la sezione non compare. Procedura nel README. |
 | Loghi e marchi realmente distribuiti | `brands.json`, `public/uploads/brands/` | SVG o PNG trasparente (altezza 96 px); poi `provvisorio: false`. I provvisori sono nascosti. |
 | Loghi e marchi realmente distribuiti | `brands.json` | I nomi provvisori sono nascosti. |
 | Carta fedeltà: regolamento e condizioni | `loyalty.json` | Testi da confermare. Rimossi punti, buoni e tempi di attivazione non verificati. |

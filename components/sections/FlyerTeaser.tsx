@@ -20,6 +20,17 @@ export function FlyerTeaser({ flyers, buildDate, copy }: FlyerTeaserProps) {
   const flyer = current ?? upcoming ?? archivedFlyers(flyers, today)[0];
   const preview = !current && Boolean(upcoming);
   if (!flyer) return null;
+  if (!current && !upcoming) return (
+    <Section tone="cream" className="py-12 sm:py-16">
+      <div className="flex flex-col items-start justify-between gap-6 rounded-lg bg-white p-6 ring-1 ring-brand-blue-100 sm:flex-row sm:items-center sm:p-10">
+        <div className="max-w-2xl">
+          <h2 className="text-brand-blue-900">{copy.titolo}</h2>
+          <p className="mt-3 text-muted">{copy.introArchivio}</p>
+        </div>
+        <Button href="/offerte/#archivio" className="shrink-0">{copy.ctaArchivio}</Button>
+      </div>
+    </Section>
+  );
   return (
     <Section tone="cream" className="py-12 sm:py-16">
       <Reveal className="grid items-center gap-8 overflow-hidden rounded-lg bg-white p-6 ring-1 ring-brand-blue-100 sm:grid-cols-[13rem_1fr] sm:gap-12 sm:p-10">

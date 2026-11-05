@@ -6,14 +6,14 @@
     "inizio": null,
     "fine": null,
     "immagineHero": {
-      "src": "/uploads/photos/home-co-corsia-casalinghi.webp",
-      "alt": "Una corsia del negozio Home & Co. con articoli per la casa"
+      "src": "/uploads/aisles/cucina-corsia-ritoccata.webp",
+      "alt": "Corsia Home & Co. con piatti, ciotole e accessori per la cucina"
     },
     "accento": "#D11559",
     "tema": "default",
     "cta": {
-      "label": "Vedi le offerte",
-      "href": "/offerte/"
+      "label": "Scopri i reparti",
+      "href": "/#corridoi"
     },
     "ctaSecondaria": {
       "label": "Trova il negozio",

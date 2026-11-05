@@ -264,5 +264,6 @@ export type NavItem = z.infer<typeof NavItemSchema>;
 
 export const NavigationSchema = z
   .array(NavItemSchema)
-  .max(10, "Il menu può avere al massimo 10 voci");
+  .refine((items) => items.filter((item) => !item.href.startsWith("/corridoi/")).length <= 10,
+    "Il menu può avere al massimo 10 voci principali, oltre ai reparti nel menu a tendina");
 export type Navigation = z.infer<typeof NavigationSchema>;
