@@ -34,12 +34,12 @@ describe("volantino Halloween fornito dal cliente", () => {
 });
 
 describe("calendario annuale confermato da Alessandro", () => {
-  it("passa da Halloween a Natale il 1 novembre e torna al tema base il 1 gennaio", () => {
+  it("passa da Halloween a Natale il 1 novembre e torna al tema base il 26 dicembre", () => {
     for (const year of [2026, 2027, 2028]) {
       expect(pickCampaign(campaigns, new Date(`${year}-10-31T12:00:00Z`)).tema).toBe("halloween");
       expect(pickCampaign(campaigns, new Date(`${year}-11-01T12:00:00Z`)).tema).toBe("natale");
-      expect(pickCampaign(campaigns, new Date(`${year}-12-31T12:00:00Z`)).tema).toBe("natale");
-      expect(pickCampaign(campaigns, new Date(`${year + 1}-01-01T12:00:00Z`)).tema).toBe("default");
+      expect(pickCampaign(campaigns, new Date(`${year}-12-25T12:00:00Z`)).tema).toBe("natale");
+      expect(pickCampaign(campaigns, new Date(`${year}-12-26T12:00:00Z`)).tema).toBe("default");
     }
   });
 });

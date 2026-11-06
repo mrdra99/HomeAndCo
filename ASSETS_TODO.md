@@ -31,7 +31,7 @@ Aggiornato al 5 novembre 2026.
 - Tre volantini ufficiali completi: primavera 2026 (11–19 aprile, Prato/Lucca), apertura Sesto (27 giugno–12 luglio), settembre 2026 (7–14 settembre, tutti). Copertine, 24 pagine WebP e PDF originali.
 - Volantino ufficiale «Halloween da brividi» 2026: 7 pagine WebP e PDF originale, tutti i negozi, valido dal 1 al 31 ottobre. Ha sostituito il catalogo Sesto Fiorentino di ottobre.
 - Orari confermati: Prato e Lucca 09:00–20:00, Sesto 08:30–19:30; tutti i giorni, domeniche e festivi inclusi.
-- Calendario confermato: Halloween fino al 31 ottobre, Natale dal 1 novembre al 31 dicembre; temi ricorrenti annuali, scadenze dei singoli volantini indipendenti.
+- Calendario confermato: Halloween fino al 31 ottobre, Natale dal 1 novembre al 25 dicembre; temi ricorrenti annuali, scadenze dei singoli volantini indipendenti.
 - Fonti, autori, licenze e hash dei PDF in `content/photo-sources.json` e `public/uploads/PHOTO_CREDITS.md`.
 - Copy riscritto in `content/campaigns.json`, `content/aisles.json`, `content/loyalty.json` e `content/home.json`.
 
