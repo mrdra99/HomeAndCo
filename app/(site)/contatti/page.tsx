@@ -1,100 +1,139 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
-import { Icon } from "@/components/ui/Icon";
-import { Section } from "@/components/ui/Section";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Reveal } from "@/components/motion/Reveal";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { PageHeader } from "@/components/layout/PageHeader";
+import { Button } from "@/components/ui/Button";
+import { Container } from "@/components/ui/Container";
+import { Icon } from "@/components/ui/Icon";
+import { getContactAdapter } from "@/lib/contact/adapter";
 import { content } from "@/lib/content";
-import { formatAddress } from "@/lib/stores";
 import { buildMetadata } from "@/lib/seo";
+import { directionsUrl, formatAddress, hoursSummary } from "@/lib/stores";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Contatti",
-  description:
-    "Scrivi a Home & Co.: informazioni, volantino e offerte, carta fedeltà. Trovi anche indirizzi dei tre negozi di Prato, Lucca e Sesto Fiorentino.",
-  path: "/contatti/",
-});
+/** Il modulo esiste solo con un adattatore realmente configurato (variabile pubblica incorporata in build). */
+const formAvailable = () => getContactAdapter().available;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const pages = await content.getPagesCopy();
+  return buildMetadata({
+    title: pages.contatti.titolo,
+    description: formAvailable() ? pages.contatti.descrizioneModulo : pages.contatti.descrizione,
+    path: "/contatti/",
+  });
+}
+
+const linkCls =
+  "inline-flex min-h-11 items-center gap-3 font-bold text-brand-blue-700 underline-offset-4 hover:underline";
 
 export default async function ContattiPage() {
-  const [settings, stores] = await Promise.all([content.getSettings(), content.getStores()]);
+  const [settings, stores, pages] = await Promise.all([content.getSettings(), content.getStores(), content.getPagesCopy()]);
+  const copy = pages.contatti;
+  const withForm = formAvailable();
+  const email = settings.societa.email;
   const wa = settings.whatsapp.numero
     ? `https://wa.me/${settings.whatsapp.numero}?text=${encodeURIComponent(settings.whatsapp.messaggioPredefinito)}`
     : null;
+  const social = [
+    { name: "Instagram", href: settings.social.instagram, icon: "instagram" as const },
+    { name: "Facebook", href: settings.social.facebook, icon: "facebook" as const },
+  ];
 
   return (
     <>
-      <Section tone="cream">
-        <SectionHeading
-          as="h1"
-          eyebrow="Contatti"
-          title="Scrivici, ti rispondiamo volentieri"
-          subtitle="Una domanda su un prodotto, sul volantino o sulla carta fedeltà? Scrivici o passa a trovarci in negozio."
-        />
-        <div className="mt-12 grid gap-10 lg:grid-cols-[1.2fr_1fr]">
-          <Reveal>
-            <Card>
-              <ContactForm email={settings.societa.email} />
-            </Card>
-          </Reveal>
-          <div className="space-y-6">
-            <Reveal delay={0.06}>
-              <Card tone="sand">
-                <h2 className="text-xl text-brand-blue-900">Contatti diretti</h2>
-                <ul className="mt-3 space-y-1">
+      <PageHeader
+        breadcrumbLabel={pages.breadcrumb.aria}
+        breadcrumb={[
+          { label: pages.breadcrumb.home, href: "/" },
+          { label: copy.titolo, href: "/contatti/" },
+        ]}
+        title={copy.titolo}
+        lead={withForm ? copy.introModulo : copy.intro.replace("{email}", email)}
+      />
+
+      <section className="bg-white py-6 sm:py-9">
+        <Container size="wide" className="space-y-6 sm:space-y-8">
+          <div className={withForm ? "grid items-start gap-5 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-8" : undefined}>
+            {withForm && (
+              <div className="rounded-[var(--radius-lg)] border-2 border-brand-blue-100 p-4 sm:p-6">
+                <ContactForm email={email} copy={copy.modulo} />
+              </div>
+            )}
+            <section aria-labelledby="contatti-diretti" className="rounded-[var(--radius-lg)] bg-sand p-4 sm:p-6">
+              <div className={withForm ? undefined : "flex flex-col gap-4 md:flex-row md:items-center md:justify-between md:gap-8"}>
+                <div>
+                  <h2 id="contatti-diretti" className="!text-xl text-brand-blue-900">{copy.diretti}</h2>
+                  {!withForm && <p className="mt-1 max-w-xl text-ink">{copy.emailTesto}</p>}
+                </div>
+                {!withForm && (
+                  <Button href={`mailto:${email}`} size="lg" iconLeft={<Icon name="mail" size={22} />} className="max-w-full self-start md:self-auto">
+                    {email}
+                  </Button>
+                )}
+              </div>
+              <ul className={withForm ? "mt-2" : "mt-3 flex flex-wrap gap-x-6 border-t border-brand-blue-100 pt-2"}>
+                {withForm && (
                   <li>
-                    <a href={`mailto:${settings.societa.email}`} className="inline-flex min-h-11 items-center gap-3 font-semibold text-brand-blue-700 underline-offset-4 hover:underline">
-                      <Icon name="mail" /> {settings.societa.email}
+                    <a href={`mailto:${email}`} className={linkCls}>
+                      <Icon name="mail" /> {email}
                     </a>
                   </li>
-                  {wa && (
-                    <li>
-                      <a href={wa} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-3 font-semibold text-brand-blue-700 underline-offset-4 hover:underline">
-                        <Icon name="whatsapp" /> Scrivici su WhatsApp
-                      </a>
-                    </li>
-                  )}
+                )}
+                {wa && (
                   <li>
-                    <a href={settings.social.instagram} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-3 font-semibold text-brand-blue-700 underline-offset-4 hover:underline">
-                      <Icon name="instagram" /> Instagram
+                    <a href={wa} target="_blank" rel="noopener noreferrer" className={linkCls}>
+                      <Icon name="whatsapp" /> WhatsApp
                     </a>
                   </li>
-                  <li>
-                    <a href={settings.social.facebook} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-3 font-semibold text-brand-blue-700 underline-offset-4 hover:underline">
-                      <Icon name="facebook" /> Facebook
+                )}
+                {social.map((s) => (
+                  <li key={s.name}>
+                    <a href={s.href} target="_blank" rel="noopener noreferrer" className={linkCls}>
+                      <Icon name={s.icon} /> {s.name}
                     </a>
                   </li>
-                </ul>
-              </Card>
-            </Reveal>
-            <Reveal delay={0.12}>
-              <Card>
-                <h2 className="text-xl text-brand-blue-900">I nostri negozi</h2>
-                <ul className="mt-4 space-y-4">
-                  {stores.map((s) => (
-                    <li key={s.id} className="flex items-start gap-3">
-                      <Icon name="map-pin" className="mt-1 shrink-0 text-brand-magenta-700" />
-                      <div>
-                        <p className="font-semibold">{s.citta}</p>
-                        <p className="text-sm text-muted">{formatAddress(s)}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                <Button href="/dove-siamo/" variant="secondary" size="sm" className="mt-5">
-                  Orari e mappe
-                </Button>
-              </Card>
-            </Reveal>
+                ))}
+              </ul>
+            </section>
           </div>
-        </div>
-        <p className="mt-10 text-sm text-muted">
-          Trattiamo i tuoi dati come descritto nell&apos;
-          <Link href="/privacy-policy/" className="underline underline-offset-4">informativa privacy</Link>.
-        </p>
-      </Section>
+
+          <section aria-labelledby="contatti-negozi">
+            <h2 id="contatti-negozi" className="mb-3 border-l-[6px] border-brand-magenta-600 pl-3 !font-black text-brand-blue-900">{copy.negozi}</h2>
+            <ul className="grid gap-3 md:grid-cols-3 md:gap-4">
+              {stores.map((s) => {
+                const { uniform } = hoursSummary(s);
+                return (
+                  <li key={s.id} className="flex flex-col rounded-[var(--radius-lg)] border-2 border-brand-blue-100 p-4 sm:p-5">
+                    <h3 className="!text-xl text-brand-blue-900">{s.citta}</h3>
+                    <p className="mt-2 flex gap-2 text-sm text-ink">
+                      <Icon name="map-pin" size={18} className="mt-0.5 shrink-0 text-brand-magenta-700" />
+                      <span>{formatAddress(s)}</span>
+                    </p>
+                    {uniform && (
+                      <p className="mt-1 flex gap-2 text-sm text-ink">
+                        <Icon name="clock" size={18} className="mt-0.5 shrink-0 text-brand-magenta-700" />
+                        <span>{settings.piede.tuttiIGiorni} {uniform.replace("-", "–")}</span>
+                      </p>
+                    )}
+                    <div className="mt-auto flex flex-wrap gap-2 pt-4">
+                      <Button href={directionsUrl(s)} variant="secondary" size="sm" iconRight={<Icon name="external" size={16} />}>
+                        {copy.indicazioni}
+                      </Button>
+                      <Button href={`/dove-siamo/#${s.id}`} variant="outline" size="sm">
+                        {copy.orariEIndicazioni}
+                      </Button>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+
+          <p className="text-sm text-muted">
+            {copy.privacyPrima}
+            <Link href="/privacy-policy/" className="inline-flex min-h-11 items-center font-semibold underline underline-offset-4">{copy.privacyLink}</Link>.
+          </p>
+        </Container>
+      </section>
     </>
   );
 }

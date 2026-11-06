@@ -15,6 +15,94 @@
     "numero": null,
     "messaggioPredefinito": "Ciao Home & Co.! Vorrei un'informazione."
   },
+  "testata": {
+    "avviso": "Aperti tutti i giorni, anche domenica e festivi",
+    "repartiLabel": "Reparti",
+    "negozio": {
+      "etichetta": "Il tuo negozio",
+      "scegli": "Scegli il negozio",
+      "titoloScelta": "Scegli il tuo negozio",
+      "apertoFinoAlle": "Aperto fino alle {ora}",
+      "chiuso": "Chiuso",
+      "riapreOggi": "Riapre alle {ora}",
+      "riapreDomani": "Riapre domani alle {ora}",
+      "orariEIndicazioni": "Orari e indicazioni"
+    },
+    "tab": [
+      {
+        "label": "Home",
+        "icona": "home",
+        "href": "/"
+      },
+      {
+        "label": "Reparti",
+        "icona": "reparti"
+      },
+      {
+        "label": "Volantino",
+        "icona": "volantino",
+        "href": "/offerte/"
+      },
+      {
+        "label": "Negozi",
+        "icona": "negozi",
+        "href": "/dove-siamo/"
+      },
+      {
+        "label": "Contatti",
+        "icona": "contatti",
+        "href": "/contatti/"
+      }
+    ],
+    "a11y": {
+      "saltaAlContenuto": "Salta al contenuto",
+      "logo": "Home & Co., vai alla home",
+      "navigazione": "Principale",
+      "reparti": "Reparti",
+      "repartiPrecedenti": "Reparti precedenti",
+      "repartiSuccessivi": "Altri reparti",
+      "tabBar": "Navigazione rapida",
+      "chiudi": "Chiudi",
+      "altriLink": "Altre pagine"
+    }
+  },
+  "piede": {
+    "reparti": "Reparti",
+    "negozi": "Negozi",
+    "linkUtili": "Link utili",
+    "social": "Seguici",
+    "legale": "Dati legali",
+    "tuttiIGiorni": "Tutti i giorni",
+    "indicazioni": "Indicazioni",
+    "partitaIva": "P.IVA",
+    "privacy": "Privacy",
+    "cookie": "Cookie",
+    "preferenzeCookie": "Preferenze cookie"
+  },
   "siteUrl": "https://home-co.it",
-  "analytics": { "gaId": null, "metaPixelId": null }
+  "analytics": {
+    "gaId": null,
+    "metaPixelId": null
+  },
+  "consenso": {
+    "titolo": "Cookie su questo sito",
+    "testoPrima": "Usiamo cookie tecnici necessari al funzionamento del sito. Con il tuo consenso possiamo usare anche cookie statistici e di marketing. Puoi cambiare scelta in ogni momento da «Preferenze cookie», in fondo alla pagina. Dettagli nella",
+    "linkCookie": "cookie policy",
+    "necessari": {
+      "etichetta": "Necessari",
+      "descrizione": "Indispensabili al funzionamento del sito. Sempre attivi."
+    },
+    "statistiche": {
+      "etichetta": "Statistiche",
+      "descrizione": "Ci aiutano a capire come viene usato il sito, in forma aggregata."
+    },
+    "marketing": {
+      "etichetta": "Marketing",
+      "descrizione": "Permettono di misurare e personalizzare le nostre comunicazioni."
+    },
+    "salva": "Salva preferenze",
+    "accettaTutti": "Accetta tutti",
+    "rifiuta": "Rifiuta",
+    "personalizza": "Personalizza"
+  }
 }

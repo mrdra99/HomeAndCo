@@ -39,10 +39,7 @@ Il confronto conferma l'intercettazione e il lavoro continuo eliminati.
   attraversando la soglia di 12 px. Le transizioni di altezza e larghezza
   richiedono layout durante la compattazione di 300 ms: possibile costo locale
   vicino all'inizio della pagina, senza un ciclo continuo lungo tutto lo scroll.
-- **Reveal e Stagger:** 24 elementi nella home, osservati tramite
-  `IntersectionObserver`. Animano una volta opacità e trasformazione, senza
-  blur. Le animazioni hanno una durata di 700 ms su desktop e 950 ms su mobile.
-  La documentazione riportava ancora i vecchi valori con blur ed è stata corretta.
+- **Reveal e Stagger:** rimossi nel redesign "sito da negozio": nessuna comparsa allo scroll, nessun `IntersectionObserver` per le animazioni. Restano solo hover e transizioni brevi (`HoverLift`), con `prefers-reduced-motion` rispettato.
 - **Immagini:** varianti WebP responsive, dimensioni riservate e caricamento
   differito per le immagini secondarie. Non è stato necessario modificarle.
 - **Video e volantini:** nessun autoplay del video del negozio, `preload="none"`;
@@ -51,9 +48,7 @@ Il confronto conferma l'intercettazione e il lavoro continuo eliminati.
 - **Mappe:** tre iframe OpenStreetMap caricati subito su `/dove-siamo/`.
   Possono pesare sul caricamento di quella pagina, ma non spiegano il difetto
   globale. Il comportamento richiesto delle mappe è stato mantenuto.
-- **Effetti decorativi:** l'introduzione è temporanea e interrompibile; il
-  marquee dei marchi provvisori non viene montato nella home pubblica attuale.
-  Non sono emerse altre animazioni JavaScript continue nella home a riposo.
+- **Effetti decorativi:** splash di introduzione e marquee dei marchi sono stati rimossi; nessuna animazione JavaScript continua a riposo. Il tema stagionale non cambia piu' i colori e non c'e' piu' lo script inline nel `<head>`.
 
 ## Verifica
 

@@ -14,8 +14,9 @@ import { AisleCampaignBanner } from "@/components/aisles/AisleCampaignBanner";
 import { AisleShelves } from "@/components/aisles/AisleShelves";
 import { AisleStoresCta } from "@/components/aisles/AisleStoresCta";
 import { CampaignFeaturedIdeas } from "@/components/aisles/CampaignFeaturedIdeas";
-import { OtherAisles } from "@/components/aisles/OtherAisles";
+import { AisleNav } from "@/components/aisles/AisleNav";
 import { PromotionsGrid } from "@/components/flyers/PromotionsGrid";
+import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { content, getActiveCampaign, getAisle, getAisleSlugs } from "@/lib/content";
 import { toIsoDate } from "@/lib/campaigns";
@@ -46,22 +47,24 @@ export default async function AislePage({ params }: { params: Promise<Params> })
   const aisle = await getAisle(slug);
   if (!aisle) notFound();
 
-  const [campaigns, activeCampaign, allAisles, promotions, stores] = await Promise.all([
+  const [campaigns, activeCampaign, allAisles, promotions, stores, navigation, pages] = await Promise.all([
     content.getCampaigns(),
     getActiveCampaign(),
     content.getAisles(),
     content.getPromotions(),
     content.getStores(),
+    content.getNavigation(),
+    content.getPagesCopy(),
   ]);
 
+  const copy = pages.corridoi;
   const today = toIsoDate();
-  const linkedPromos = promotions.filter(
-    (p) => p.corridoio === aisle.slug,
-  );
-  const others = allAisles
-    .filter((a) => a.visibile && a.slug !== aisle.slug)
+  const linkedPromos = promotions.filter((p) => p.corridoio === aisle.slug);
+  const breve = new Map(navigation.map((n) => [n.href.split("/")[2], n.breve ?? n.label]));
+  const switcher = allAisles
+    .filter((a) => a.visibile)
     .sort((a, b) => a.ordine - b.ordine)
-    .map((a) => ({ slug: a.slug, titolo: a.titoloBreve, icona: a.icona }));
+    .map((a) => ({ slug: a.slug, label: breve.get(a.slug) ?? a.titoloBreve }));
 
   return (
     <>
@@ -70,37 +73,41 @@ export default async function AislePage({ params }: { params: Promise<Params> })
         titolo={aisle.titolo}
         descrizione={aisle.descrizione}
         immagine={aisle.immagine}
-        dettaglio={aisle.scaffali[0]?.immagine}
-        icona={aisle.icona}
-        colore={aisle.colore}
+        breadcrumbLabel={pages.breadcrumb.aria}
         breadcrumb={[
-          { label: "Home", href: "/" },
-          { label: "Reparti", href: "/#corridoi" },
+          { label: pages.breadcrumb.home, href: "/" },
+          { label: pages.breadcrumb.reparti, href: "/#corridoi" },
           { label: aisle.titolo, href: `/corridoi/${aisle.slug}/` },
         ]}
+        actions={
+          <>
+            {aisle.scaffali.length > 0 && <Button href="#scaffali" variant="secondary">{copy.scaffali}</Button>}
+            <Button href="/dove-siamo/" variant="outline">{copy.negozi}</Button>
+          </>
+        }
       />
+      <AisleNav items={switcher} current={aisle.slug} label={copy.tuttiIReparti} />
 
-      <Container className="space-y-16 pb-16 sm:space-y-24 sm:pb-24">
-        <AisleCampaignBanner campaigns={campaigns} buildCampaignId={activeCampaign.id} slug={aisle.slug} />
-
-        <p className="max-w-3xl text-lg text-ink sm:text-xl">{aisle.descrizioneLunga}</p>
-      </Container>
+      <section className="bg-white py-6 sm:py-8">
+        <Container size="wide" className="space-y-5">
+          <AisleCampaignBanner campaigns={campaigns} buildCampaignId={activeCampaign.id} slug={aisle.slug} />
+          <p className="max-w-3xl text-base text-ink sm:text-lg">{aisle.descrizioneLunga}</p>
+        </Container>
+      </section>
 
       <AisleShelves scaffali={aisle.scaffali} titolo={aisle.scaffaliTitolo} intro={aisle.scaffaliIntro} />
 
-      <CampaignFeaturedIdeas items={aisle.inEvidenza} campaigns={campaigns} buildCampaignId={activeCampaign.id} />
+      <CampaignFeaturedIdeas items={aisle.inEvidenza} campaigns={campaigns} buildCampaignId={activeCampaign.id} copy={copy.idee} />
 
       {linkedPromos.length > 0 && (
         <PromotionsGrid
           buildDate={today}
-          eyebrow="Promozioni"
-          title={`Promozioni per ${aisle.titoloBreve.toLowerCase()}`}
+          title={copy.promozioni.replace("{reparto}", aisle.titoloBreve.toLowerCase())}
           promotions={linkedPromos}
         />
       )}
 
-      <AisleStoresCta corridoio={aisle.titoloBreve} citta={stores.map((s) => s.citta)} />
-      <OtherAisles aisles={others} />
+      <AisleStoresCta citta={stores.map((s) => s.citta)} reparto={aisle.titoloBreve} copy={copy.chiusura} />
     </>
   );
 }

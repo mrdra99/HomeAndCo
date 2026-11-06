@@ -1,131 +1,144 @@
 import type { Metadata } from "next";
-import { LoyaltyCardMockup } from "@/components/loyalty/LoyaltyCardMockup";
-import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
-import { Reveal } from "@/components/motion/Reveal";
-import { Stagger, StaggerItem } from "@/components/motion/Stagger";
+import { PageHeader } from "@/components/layout/PageHeader";
+import { LoyaltyCard } from "@/components/loyalty/LoyaltyCard";
+import { isLoyaltyFilled } from "@/lib/loyalty";
+import { SectionTitle } from "@/components/sections/SectionTitle";
 import { Accordion } from "@/components/ui/Accordion";
 import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { Icon, isIconName } from "@/components/ui/Icon";
-import { Section } from "@/components/ui/Section";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { content } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 
-
 export async function generateMetadata(): Promise<Metadata> {
-  const loyalty = await content.getLoyalty();
+  const [loyalty, pages] = await Promise.all([content.getLoyalty(), content.getPagesCopy()]);
   return buildMetadata({
-    title: `${loyalty.nome}: sconti e vantaggi`,
-    description: loyalty.intro,
+    title: loyalty.nome,
+    description: isLoyaltyFilled(loyalty) ? pages.cartaFedelta.meta.completa : pages.cartaFedelta.meta.vuota,
     path: "/carta-fedelta/",
   });
 }
 
+/**
+ * Carta fedelta': mostra solo cio' che il contenuto conferma. Vantaggi, passaggi e domande compaiono quando
+ * sono compilati in content/loyalty.json; finche' non ci sono la pagina dice solo che il regolamento sara' pubblicato qui.
+ */
 export default async function CartaFedeltaPage() {
-  const [loyalty, settings] = await Promise.all([content.getLoyalty(), content.getSettings()]);
-  const steps = loyalty.comeRichiederla
-    .split(/(?<=[.!?])\s+/)
-    .filter(Boolean);
-  const showDraft = loyalty.provvisorio && process.env.NODE_ENV === "development";
+  const [loyalty, pages] = await Promise.all([content.getLoyalty(), content.getPagesCopy()]);
+  const copy = pages.cartaFedelta;
+  const filled = isLoyaltyFilled(loyalty);
 
   return (
     <>
-      {showDraft && (
-        <div className="bg-amber-100 px-5 py-2 text-center text-sm font-semibold text-amber-900">
-          Contenuti provvisori: testi della carta fedeltà da confermare con il cliente (visibile solo in sviluppo).
-        </div>
-      )}
+      <PageHeader
+        breadcrumbLabel={pages.breadcrumb.aria}
+        breadcrumb={[
+          { label: pages.breadcrumb.home, href: "/" },
+          { label: loyalty.nome, href: "/carta-fedelta/" },
+        ]}
+        title={loyalty.nome}
+        lead={loyalty.intro}
+      />
 
-      <section className="relative overflow-hidden bg-cream pb-14 pt-10 sm:pb-20 sm:pt-16">
-        <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 size-96 rounded-full bg-accent opacity-[0.08]" />
+      {!filled ? (
+        <section className="bg-white py-6 sm:py-9">
+          <Container size="wide" className="space-y-4">
+            <div className="flex flex-wrap gap-3">
+              <Button href="/offerte/" variant="secondary" iconRight={<Icon name="arrow-right" size={20} />}>
+                {copy.vuota.volantino}
+              </Button>
+              <Button href="/dove-siamo/" variant="outline">{copy.vuota.negozi}</Button>
+            </div>
+          </Container>
+        </section>
+      ) : (
+      <section className="bg-white py-6 sm:py-9">
         <Container size="wide">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <Reveal>
-              <SectionHeading as="h1" eyebrow="Carta fedeltà" title={loyalty.nome} subtitle={loyalty.intro} />
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button href="#come-richiederla" size="lg" iconRight={<Icon name="arrow-right" size={20} />}>
-                  Come richiederla
-                </Button>
-                <Button href="/dove-siamo/" size="lg" variant="outline">
-                  Trova il negozio
-                </Button>
-              </div>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <LoyaltyCardMockup nome={loyalty.nome} className="max-w-md lg:max-w-lg" />
-            </Reveal>
+          <div className="grid gap-5 md:grid-cols-[18rem_minmax(0,1fr)] md:items-start md:gap-8 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-12">
+            <LoyaltyCard nome={loyalty.nome} className="max-w-72" />
+            <div className="space-y-5">
+              {(loyalty.costo || loyalty.regolamento) && (
+                <dl className="grid max-w-2xl gap-3 sm:grid-cols-2">
+                  {loyalty.costo && (
+                    <div className="rounded-[var(--radius-md)] bg-sand p-3">
+                      <dt className="font-extrabold text-brand-blue-900">{copy.costo}</dt>
+                      <dd className="mt-1">{loyalty.costo}</dd>
+                    </div>
+                  )}
+                  {loyalty.regolamento && (
+                    <div className="rounded-[var(--radius-md)] bg-sand p-3">
+                      <dt className="font-extrabold text-brand-blue-900">{copy.regolamento}</dt>
+                      <dd className="mt-1">{loyalty.regolamento}</dd>
+                    </div>
+                  )}
+                </dl>
+              )}
+
+              {loyalty.vantaggi.length > 0 && (
+                <div>
+                  <SectionTitle>{copy.vantaggi}</SectionTitle>
+                  <ul className="grid gap-3 sm:grid-cols-3">
+                    {loyalty.vantaggi.map((v) => (
+                      <li key={v.titolo} className="rounded-[var(--radius-lg)] border-2 border-brand-blue-100 p-4">
+                        <span className="flex size-11 items-center justify-center rounded-md bg-brand-magenta-50 text-brand-magenta-700">
+                          <Icon name={isIconName(v.icona) ? v.icona : "check"} size={24} />
+                        </span>
+                        <h3 className="mt-3 !text-lg text-brand-blue-900">{v.titolo}</h3>
+                        <p className="mt-1 text-sm text-ink">{v.testo}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {loyalty.passi.length > 0 && (
+                <div>
+                  <SectionTitle>{copy.passi}</SectionTitle>
+                  <ol className="space-y-2">
+                    {loyalty.passi.map((s, i) => (
+                      <li key={s} className="flex items-start gap-3 rounded-[var(--radius-md)] bg-sand p-3">
+                        <span aria-hidden="true" className="flex size-8 shrink-0 items-center justify-center rounded-md bg-brand-blue-600 font-black text-white">
+                          {i + 1}
+                        </span>
+                        <p className="pt-0.5">{s}</p>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              )}
+
+              {loyalty.faq.length > 0 && (
+                <div>
+                  <SectionTitle>{copy.faq}</SectionTitle>
+                  <Accordion className="!shadow-none ring-1 ring-brand-blue-100" items={loyalty.faq.map((f) => ({ domanda: f.d, risposta: f.r }))} />
+                </div>
+              )}
+            </div>
           </div>
         </Container>
       </section>
-
-      <Section tone="sand" containerSize="wide">
-        <Reveal>
-          <SectionHeading eyebrow="Perché averla" title="I vantaggi per te" />
-        </Reveal>
-        <Stagger className="mt-10 grid gap-5 md:grid-cols-3">
-          {loyalty.vantaggi.map((v) => (
-            <StaggerItem key={v.titolo} className="h-full">
-              <Card className="h-full">
-                <span className="flex size-14 items-center justify-center rounded-2xl bg-brand-magenta-50 text-brand-magenta-700">
-                  <Icon name={isIconName(v.icona) ? v.icona : "check"} size={28} />
-                </span>
-                <h3 className="mt-5 text-brand-blue-900">{v.titolo}</h3>
-                <p className="mt-2 text-muted">{v.testo}</p>
-              </Card>
-            </StaggerItem>
-          ))}
-        </Stagger>
-      </Section>
-
-      <Section tone="cream" id="come-richiederla" containerSize="narrow">
-        <Reveal><SectionHeading eyebrow="Facile e gratuita" title="Come richiederla" /></Reveal>
-        <Stagger as="ol" className="mt-8 space-y-4">
-          {steps.map((s, i) => (
-            <StaggerItem as="li" key={s} className="flex items-start gap-4 rounded-lg bg-white p-5 shadow-soft">
-              <span
-                aria-hidden
-                className="flex size-10 shrink-0 items-center justify-center rounded-full bg-brand-blue-700 font-display text-lg text-white"
-              >
-                {i + 1}
-              </span>
-              <p className="pt-1.5 text-lg">{s}</p>
-            </StaggerItem>
-          ))}
-        </Stagger>
-      </Section>
-
-      {loyalty.faq.length > 0 && (
-        <Section tone="white" containerSize="narrow">
-          <Reveal><SectionHeading eyebrow="Domande frequenti" title="Hai un dubbio?" /></Reveal>
-          <Reveal delay={0.1}><Accordion
-            className="mt-8 !shadow-none ring-1 ring-brand-blue-100"
-            items={loyalty.faq.map((f) => ({ domanda: f.d, risposta: f.r }))}
-          /></Reveal>
-        </Section>
       )}
 
-      <Section tone="blue" rounded className="mx-3 mb-8 sm:mx-6" containerSize="narrow">
-        <Reveal className="text-center">
-          <SectionHeading
-            inverted
-            align="center"
-            title="Chiedila oggi nel tuo negozio"
-            subtitle="Il personale ti spiega come richiederla e quali iniziative sono attive."
-          />
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Button href="/dove-siamo/" size="lg" iconRight={<Icon name="arrow-right" size={20} />}>
-              Trova il negozio
-            </Button>
-            <WhatsAppButton
-              numero={settings.whatsapp.numero}
-              messaggio="Ciao Home & Co.! Vorrei informazioni sulla carta fedeltà."
-              label="Scrivici su WhatsApp"
-            />
+      {filled && (
+      <section aria-labelledby="carta-domande" className="bg-sand py-6 sm:py-9">
+        <Container size="wide">
+          <div className="on-dark flex flex-col gap-4 rounded-[var(--radius-xl)] bg-brand-blue-600 p-5 text-white sm:flex-row sm:items-center sm:justify-between sm:p-7">
+            <div>
+              <h2 id="carta-domande" className="!text-2xl !font-black text-white">{copy.domande.titolo}</h2>
+              <p className="mt-1 max-w-xl text-white/95">{copy.domande.testo}</p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Button href="/contatti/" variant="light" iconRight={<Icon name="arrow-right" size={20} />}>
+                {copy.domande.scrivici}
+              </Button>
+              <Button href="/dove-siamo/" variant="outline" className="border-white text-white hover:bg-white/10">
+                {copy.domande.negozi}
+              </Button>
+            </div>
           </div>
-        </Reveal>
-      </Section>
+        </Container>
+      </section>
+      )}
     </>
   );
 }

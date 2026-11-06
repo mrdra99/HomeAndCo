@@ -3,7 +3,7 @@ import { CampaignSchema, type AisleHighlight } from "../content/schemas";
 import { featuredIdeasForCampaign } from "../featured-ideas";
 
 const halloween = CampaignSchema.parse({
-  id: "halloween", titolo: "Halloween", etichetta: "Speciale Halloween", accento: "#FF8A24",
+  id: "halloween", titolo: "Halloween", etichetta: "Speciale Halloween",
   cta: { label: "Scopri", href: "/" },
 });
 const idea = (titolo: string, campagne?: string[]): AisleHighlight => ({ titolo, descrizione: "", immagine: { src: null, alt: "" }, campagne });

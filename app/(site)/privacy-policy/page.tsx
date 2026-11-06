@@ -12,7 +12,7 @@ export const metadata: Metadata = buildMetadata({
 export default async function PrivacyPolicyPage() {
   const { societa } = await content.getSettings();
   return (
-    <LegalPage title="Privacy policy" updated="ottobre 2026 (bozza)">
+    <LegalPage title="Privacy policy" path="/privacy-policy/" updated="ottobre 2026 (bozza)">
       <p>
         Questa informativa descrive come vengono trattati i dati personali degli utenti che visitano il sito
         di Home &amp; Co., ai sensi degli artt. 13 e 14 del Regolamento (UE) 2016/679 (GDPR).

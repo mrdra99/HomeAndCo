@@ -1,42 +1,38 @@
-import { Reveal } from "@/components/motion/Reveal";
-import { Stagger, StaggerItem } from "@/components/motion/Stagger";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Container } from "@/components/ui/Container";
-import { StoreCard } from "@/components/stores/StoreCard";
-import type { HomeCopy, Store } from "@/lib/content/schemas";
+"use client";
 
-/** "Dove siamo" (#dove-siamo): sfondo sand con bordo superiore curvo che sfuma dal cream. */
-export function StoresSection({ stores, copy }: { stores: Store[]; copy: HomeCopy["negozi"] }) {
+import Link from "next/link";
+import { StoreCard } from "@/components/stores/StoreCard";
+import { Container } from "@/components/ui/Container";
+import { Icon } from "@/components/ui/Icon";
+import type { HeaderCopy, HomeCopy, Store } from "@/lib/content/schemas";
+import { SectionTitle } from "./SectionTitle";
+
+type Props = { stores: Store[]; copy: HomeCopy["negozi"]; statusCopy: HeaderCopy["negozio"]; neutralPrefix: string };
+
+/** "Dove siamo" (#dove-siamo): tre schede con stato adesso, indirizzo, orari, indicazioni, foto o riquadro con pin (nessuna mappa di terzi in home). */
+export function StoresSection({ stores, copy, statusCopy, neutralPrefix }: Props) {
   return (
-    <section id="dove-siamo" aria-labelledby="dove-siamo-title" className="relative mt-16 bg-sand pb-20 pt-6 sm:pb-28">
-      <svg
-        aria-hidden
-        viewBox="0 0 1440 64"
-        preserveAspectRatio="none"
-        className="pointer-events-none absolute inset-x-0 top-0 h-10 w-full -translate-y-[calc(100%-1px)] text-sand sm:h-16"
-      >
-        <path d="M0 64 V40 C 240 0 480 0 720 24 C 960 48 1200 48 1440 8 V64 Z" fill="currentColor" />
-      </svg>
+    <section id="dove-siamo" aria-labelledby="dove-siamo-title" className="bg-white py-7 sm:py-10">
       <Container size="wide">
-        <Reveal>
-          <SectionHeading
-            as="h2"
-            eyebrow="Dove siamo"
-            title={
-              <span id="dove-siamo-title">
-                {copy.titolo}
-              </span>
-            }
-            subtitle={copy.descrizione}
-          />
-        </Reveal>
-        <Stagger className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {stores.map((s) => (
-            <StaggerItem key={s.id}>
-              <StoreCard store={s} />
-            </StaggerItem>
+        <SectionTitle id="dove-siamo-title" note={copy.descrizione}>{copy.titolo}</SectionTitle>
+        <ul className="grid gap-3 md:grid-cols-3 md:gap-4">
+          {stores.map((store) => (
+            <li key={store.id} className="h-full">
+              <StoreCard
+                store={store}
+                copy={{ orari: copy.orari, indicazioni: copy.indicazioni, mappa: copy.mappa }}
+                statusCopy={statusCopy}
+                neutralPrefix={neutralPrefix}
+              />
+            </li>
           ))}
-        </Stagger>
+        </ul>
+        <p className="mt-4">
+          <Link href="/dove-siamo/" className="inline-flex min-h-11 items-center gap-2 font-extrabold text-brand-blue-700 underline-offset-4 hover:underline">
+            {copy.tutti}
+            <Icon name="arrow-right" size={18} />
+          </Link>
+        </p>
       </Container>
     </section>
   );

@@ -1,19 +1,13 @@
-import type { CSSProperties } from "react";
 import type { Metadata, Viewport } from "next";
 import { Figtree } from "next/font/google";
-import { CampaignThemeScript } from "@/components/campaign/CampaignThemeScript";
-import { CampaignRuntime } from "@/components/campaign/CampaignRuntime";
 import { MotionProvider } from "@/components/motion/MotionProvider";
-import { campaignCssVars } from "@/lib/campaigns";
-import { getActiveCampaign, content } from "@/lib/content";
 import { SITE_CLAIM, SITE_NAME, SITE_URL } from "@/lib/site";
-import { BrandIntroScript } from "@/components/intro/BrandIntroScript";
 import "./globals.css";
 
 const figtree = Figtree({
   variable: "--font-figtree",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
@@ -35,31 +29,13 @@ export const viewport: Viewport = {
 };
 
 /**
- * Radice. Anti-flash delle campagne:
- *  1. in build calcoliamo la campagna attiva e scriviamo data-campaign + CSS vars su <html>
- *     (HTML statico gia' col tema giusto);
- *  2. lo script inline nel <head> ricalcola la campagna con la data reale del visitatore
- *     prima del paint e, se diversa, aggiorna attributo e variabili.
- * suppressHydrationWarning: lo script puo' legittimamente modificare gli attributi di <html>.
+ * Radice. La palette e' fissa (l'accento e' il magenta del logo, definito in globals.css): le campagne
+ * stagionali cambiano immagini e testi scelti in build e ricontrollati nel client, non i colori.
  */
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [active, campaigns] = await Promise.all([getActiveCampaign(), content.getCampaigns()]);
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="it"
-      className={figtree.variable}
-      data-campaign={active.id}
-      data-theme={active.tema}
-      data-scroll-behavior="smooth"
-      style={campaignCssVars(active) as CSSProperties}
-      suppressHydrationWarning
-    >
-      <head>
-        <BrandIntroScript />
-        <CampaignThemeScript campaigns={campaigns} />
-      </head>
+    <html lang="it" className={figtree.variable} data-scroll-behavior="smooth">
       <body>
-        <CampaignRuntime campaigns={campaigns} buildCampaignId={active.id} />
         <MotionProvider>{children}</MotionProvider>
       </body>
     </html>

@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useBrandIntroActive } from "@/components/intro/BrandIntro";
 import { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, m } from "motion/react";
 import { Button } from "@/components/ui/Button";
+import type { ConsentCopy } from "@/lib/content/schemas";
 import { useConsent } from "./ConsentProvider";
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -42,10 +42,9 @@ function Toggle({ id, label, description, checked, disabled, onChange }: {
  * Popup di consenso: bottom-sheet su mobile, finestra centrata da sm in su.
  * Compare al primo ingresso finche' non si sceglie, e quando si riaprono le preferenze.
  */
-export function CookieBanner() {
+export function CookieBanner({ copy }: { copy: ConsentCopy }) {
   const { ready, decided, choices, preferencesOpen, acceptAll, rejectAll, save, closePreferences } = useConsent();
-  const introActive = useBrandIntroActive();
-  const open = ready && !introActive && (!decided || preferencesOpen);
+  const open = ready && (!decided || preferencesOpen);
   const [customizing, setCustomizing] = useState(false);
   const [stat, setStat] = useState(false);
   const [mkt, setMkt] = useState(false);
@@ -122,33 +121,32 @@ export function CookieBanner() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 48, opacity: 0 }}
           >
-            <h2 id={titleId} className="text-2xl text-brand-blue-900">Il tuo consenso ai cookie</h2>
+            <h2 id={titleId} className="text-2xl text-brand-blue-900">{copy.titolo}</h2>
             <p id={descId} className="mt-3 text-muted">
-              Usiamo cookie tecnici necessari al funzionamento del sito. Con il tuo consenso possiamo usare anche
-              cookie statistici e di marketing. Puoi cambiare idea quando vuoi. Maggiori dettagli nella{" "}
+              {copy.testoPrima}{" "}
               <Link href="/cookie-policy/" className="font-semibold text-brand-blue-700 underline underline-offset-4">
-                cookie policy
+                {copy.linkCookie}
               </Link>
               .
             </p>
 
             {customizing && (
               <div className="mt-5 space-y-3">
-                <Toggle id="consent-necessari" label="Necessari" description="Indispensabili al funzionamento del sito. Sempre attivi." checked disabled />
-                <Toggle id="consent-statistiche" label="Statistiche" description="Ci aiutano a capire come viene usato il sito, in forma aggregata." checked={stat} onChange={setStat} />
-                <Toggle id="consent-marketing" label="Marketing" description="Permettono di misurare e personalizzare le nostre comunicazioni." checked={mkt} onChange={setMkt} />
+                <Toggle id="consent-necessari" label={copy.necessari.etichetta} description={copy.necessari.descrizione} checked disabled />
+                <Toggle id="consent-statistiche" label={copy.statistiche.etichetta} description={copy.statistiche.descrizione} checked={stat} onChange={setStat} />
+                <Toggle id="consent-marketing" label={copy.marketing.etichetta} description={copy.marketing.descrizione} checked={mkt} onChange={setMkt} />
               </div>
             )}
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row-reverse">
               {customizing ? (
-                <Button onClick={() => save({ statistiche: stat, marketing: mkt })} className="sm:flex-1">Salva preferenze</Button>
+                <Button onClick={() => save({ statistiche: stat, marketing: mkt })} className="sm:flex-1">{copy.salva}</Button>
               ) : (
-                <Button onClick={acceptAll} className="sm:flex-1">Accetta tutti</Button>
+                <Button onClick={acceptAll} className="sm:flex-1">{copy.accettaTutti}</Button>
               )}
-              <Button variant="outline" onClick={rejectAll} className="sm:flex-1">Rifiuta</Button>
+              <Button variant="outline" onClick={rejectAll} className="sm:flex-1">{copy.rifiuta}</Button>
               {!customizing && (
-                <Button variant="ghost" onClick={() => setCustomizing(true)} className="sm:flex-1">Personalizza</Button>
+                <Button variant="ghost" onClick={() => setCustomizing(true)} className="sm:flex-1">{copy.personalizza}</Button>
               )}
             </div>
           </m.div>

@@ -1,9 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/Button";
-import { Sticker } from "@/components/ui/Badge";
-import { Reveal } from "@/components/motion/Reveal";
 import { useActiveCampaign } from "@/components/campaign/useActiveCampaign";
+import { Button } from "@/components/ui/Button";
 import { isDefaultCampaign } from "@/lib/campaigns";
 import type { Campaign } from "@/lib/content/schemas";
 
@@ -17,31 +15,22 @@ type Props = {
 };
 
 /**
- * Banner "Speciale <campagna>" mostrato solo se la campagna attiva mette in evidenza questo corridoio.
- * Il colore e' l'accento della campagna; la scelta e' ricontrollata nel client con la data reale.
+ * Fascia magenta "<campagna>" mostrata solo se la campagna attiva mette in evidenza questo reparto.
+ * Il colore e' sempre il magenta del marchio; la scelta e' ricontrollata nel client con la data reale.
  */
 export function AisleCampaignBanner({ campaigns, buildCampaignId, slug }: Props) {
   const campaign = useActiveCampaign(campaigns, buildCampaignId);
   if (isDefaultCampaign(campaign) || !campaign.corridoiInEvidenza.includes(slug)) return null;
   return (
-    <Reveal>
-      <div
-        style={{ ["--accent" as string]: campaign.accento }}
-        className="campaign-banner on-dark relative flex flex-col gap-5 overflow-hidden rounded-xl bg-accent p-6 text-white shadow-lift sm:flex-row sm:items-center sm:justify-between sm:p-10"
-      >
-        <div className="max-w-2xl">
-          <Sticker tone="white" rotate={-3}>{campaign.etichetta ?? "Speciale"}</Sticker>
-          <h2 className="mt-4 text-white">{campaign.titolo}</h2>
-          <p className="mt-3 text-lg text-white/90">{campaign.sottotitolo}</p>
-        </div>
-        <Button
-          href={campaign.cta.href}
-          size="lg"
-          className="shrink-0 bg-white text-brand-blue-900 hover:bg-white/90"
-        >
-          {campaign.cta.label}
-        </Button>
+    <div className="on-dark flex flex-col gap-3 rounded-[var(--radius-xl)] bg-brand-magenta-600 p-4 text-white sm:flex-row sm:items-center sm:justify-between sm:p-5">
+      <div className="max-w-2xl">
+        <p className="text-sm font-extrabold uppercase tracking-wide">{campaign.etichetta ?? "Home & Co."}</p>
+        <h2 className="mt-1 !text-2xl !font-black text-white">{campaign.titolo}</h2>
+        <p className="mt-1 text-white/95">{campaign.sottotitolo}</p>
       </div>
-    </Reveal>
+      <Button href={campaign.cta.href} variant="light" className="shrink-0">
+        {campaign.cta.label}
+      </Button>
+    </div>
   );
 }

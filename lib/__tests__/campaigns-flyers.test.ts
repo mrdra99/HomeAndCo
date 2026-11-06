@@ -14,7 +14,7 @@ const base = {
   provvisorio: false,
 };
 const camp = (id: string, inizio: string | null, fine: string | null, priorita = 0): Campaign => ({
-  ...base, id, titolo: id, inizio, fine, priorita, accento: "#000000",
+  ...base, id, titolo: id, inizio, fine, priorita,
 });
 // mezzogiorno UTC: stesso giorno a Roma
 const d = (iso: string) => new Date(`${iso}T12:00:00Z`);

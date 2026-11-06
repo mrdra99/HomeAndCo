@@ -91,3 +91,38 @@ export function telHref(telefono: string | null): string | null {
   if (!telefono) return null;
   return `tel:${telefono.replace(/[^\d+]/g, "")}`;
 }
+
+export type StoreStatusDetail =
+  | { state: "unknown" }
+  | { state: "open"; until: string }
+  | { state: "closed"; opensAt: string | null; when: "today" | "tomorrow" | null };
+
+/**
+ * Stato con orario: "aperto fino alle 20:00" / "chiuso, riapre (oggi|domani) alle 09:00".
+ * `unknown` se gli orari non sono noti. Sempre calcolato in base all'ora italiana.
+ */
+export function storeStatusDetail(store: Pick<Store, "orari">, date: Date = new Date()): StoreStatusDetail {
+  if (!hasOpeningHours(store)) return { state: "unknown" };
+  const { day, minutes } = romeNow(date);
+  const slotsOf = (d: number) =>
+    [...(store.orari!.find((o) => o.giorno === d)?.aperture ?? [])].sort((a, b) => toMinutes(a.da) - toMinutes(b.da));
+  const today = slotsOf(day);
+  const current = today.find((s) => minutes >= toMinutes(s.da) && minutes < toMinutes(s.a));
+  if (current) return { state: "open", until: current.a };
+  const later = today.find((s) => toMinutes(s.da) > minutes);
+  if (later) return { state: "closed", opensAt: later.da, when: "today" };
+  const tomorrow = slotsOf((day + 1) % 7)[0];
+  if (tomorrow) return { state: "closed", opensAt: tomorrow.da, when: "tomorrow" };
+  return { state: "closed", opensAt: null, when: null };
+}
+
+/**
+ * Sintesi degli orari: `uniform` e' valorizzato se tutti e 7 i giorni hanno le stesse aperture
+ * (es. "09:00-20:00"); altrimenti usare `rows` (lun->dom).
+ */
+export function hoursSummary(store: Pick<Store, "orari">): { uniform: string | null; rows: FormattedHoursRow[] } {
+  const rows = formatOpeningHours(store);
+  const first = rows[0]?.testo;
+  const uniform = rows.length === 7 && first !== "Chiuso" && rows.every((r) => r.testo === first) ? first : null;
+  return { uniform, rows };
+}

@@ -6,6 +6,7 @@ import { AnimatePresence, m } from "motion/react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { CONTACT_SUBJECTS, ContactSchema, getContactAdapter } from "@/lib/contact/adapter";
+import type { PagesCopy } from "@/lib/content/schemas";
 
 type Field = "nome" | "email" | "oggetto" | "messaggio" | "privacy";
 type Errors = Partial<Record<Field, string>>;
@@ -33,7 +34,11 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   );
 }
 
-export function ContactForm({ email }: { email: string }) {
+/**
+ * Modulo contatti. Rende qualcosa solo se un adattatore e' configurato (vedi lib/contact/adapter.ts):
+ * senza, la pagina mostra solo l'email e non promette nessun modulo.
+ */
+export function ContactForm({ email, copy }: { email: string; copy: PagesCopy["contatti"]["modulo"] }) {
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [serverError, setServerError] = useState("");
@@ -75,7 +80,7 @@ export function ContactForm({ email }: { email: string }) {
         setStatus("error");
       }
     } catch {
-      setServerError("Qualcosa non ha funzionato. Riprova tra poco.");
+      setServerError(copy.erroreGenerico);
       setStatus("error");
     }
   }
@@ -85,17 +90,11 @@ export function ContactForm({ email }: { email: string }) {
     "aria-describedby": errors[f] ? `err-${f}` : undefined,
   });
 
-  if (!adapter.available) return (
-    <div>
-      <h2 className="text-2xl text-brand-blue-900">Scrivici via email</h2>
-      <p className="mt-3 text-muted">Hai una domanda? Raccontaci di cosa hai bisogno e indica il negozio a cui ti riferisci.</p>
-      <Button href={`mailto:${email}`} className="mt-6 max-w-full [&>span]:break-all">{email}</Button>
-    </div>
-  );
+  if (!adapter.available) return null;
 
   return (
     <div>
-      {adapter.simulated && <p className="mb-5 rounded-xl bg-brand-blue-50 p-4 text-sm text-brand-blue-900">Stai provando il modulo: i messaggi non vengono spediti.</p>}
+      {adapter.simulated && <p className="mb-5 rounded-xl bg-brand-blue-50 p-4 text-sm text-brand-blue-900">{copy.prova}</p>}
       <AnimatePresence mode="wait" initial={false}>
         {status === "success" || status === "demo" ? (
           <m.div
@@ -105,28 +104,28 @@ export function ContactForm({ email }: { email: string }) {
             animate={{ opacity: 1, scale: 1 }}
             className="rounded-lg bg-brand-blue-50 p-8 text-center"
           >
-            <h2 className="text-2xl text-brand-blue-900">{status === "demo" ? "Prova completata" : "Messaggio inviato, grazie!"}</h2>
-            <p className="mt-3 text-muted">{status === "demo" ? "Nessuna email è stata inviata." : "Ti risponderemo il prima possibile."}</p>
+            <h2 className="text-2xl text-brand-blue-900">{status === "demo" ? copy.provaTitolo : copy.inviatoTitolo}</h2>
+            <p className="mt-3 text-muted">{status === "demo" ? copy.provaTesto : copy.inviatoTesto}</p>
             <Button variant="outline" className="mt-6" onClick={() => setStatus("idle")}>
-              Scrivi un altro messaggio
+              {copy.scriviAncora}
             </Button>
           </m.div>
         ) : (
           <m.form key="form" ref={formRef} onSubmit={onSubmit} noValidate className="space-y-5" exit={{ opacity: 0 }}>
             <div>
-              <label htmlFor="nome" className="font-semibold text-brand-blue-900">Nome</label>
+              <label htmlFor="nome" className="font-semibold text-brand-blue-900">{copy.nome}</label>
               <input id="nome" name="nome" type="text" autoComplete="name" required className={inputCls} {...a11y("nome")} />
               <FieldError id="err-nome" message={errors.nome} />
             </div>
             <div>
-              <label htmlFor="email" className="font-semibold text-brand-blue-900">Email</label>
+              <label htmlFor="email" className="font-semibold text-brand-blue-900">{copy.email}</label>
               <input id="email" name="email" type="email" autoComplete="email" required className={inputCls} {...a11y("email")} />
               <FieldError id="err-email" message={errors.email} />
             </div>
             <div>
-              <label htmlFor="oggetto" className="font-semibold text-brand-blue-900">Oggetto</label>
+              <label htmlFor="oggetto" className="font-semibold text-brand-blue-900">{copy.oggetto}</label>
               <select id="oggetto" name="oggetto" defaultValue="" required className={inputCls} {...a11y("oggetto")}>
-                <option value="" disabled>Scegli un argomento</option>
+                <option value="" disabled>{copy.scegliOggetto}</option>
                 {CONTACT_SUBJECTS.map((s) => (
                   <option key={s} value={s}>{s}</option>
                 ))}
@@ -134,7 +133,7 @@ export function ContactForm({ email }: { email: string }) {
               <FieldError id="err-oggetto" message={errors.oggetto} />
             </div>
             <div>
-              <label htmlFor="messaggio" className="font-semibold text-brand-blue-900">Messaggio</label>
+              <label htmlFor="messaggio" className="font-semibold text-brand-blue-900">{copy.messaggio}</label>
               <textarea id="messaggio" name="messaggio" rows={6} required className={inputCls} {...a11y("messaggio")} />
               <FieldError id="err-messaggio" message={errors.messaggio} />
             </div>
@@ -148,11 +147,11 @@ export function ContactForm({ email }: { email: string }) {
                   {...a11y("privacy")}
                 />
                 <label htmlFor="privacy" className="text-sm">
-                  Ho letto l&apos;
+                  {copy.privacyPrima}
                   <Link href="/privacy-policy/" className="font-semibold text-brand-blue-700 underline underline-offset-4">
-                    informativa privacy
+                    {copy.privacyLink}
                   </Link>{" "}
-                  e acconsento al trattamento dei dati per rispondere alla mia richiesta.
+                  {copy.privacyDopo}
                 </label>
               </div>
               <FieldError id="err-privacy" message={errors.privacy} />
@@ -172,10 +171,10 @@ export function ContactForm({ email }: { email: string }) {
               )}
             </AnimatePresence>
 
-            {status === "error" && <a href={`mailto:${email}`} className="inline-flex min-h-11 items-center font-semibold text-brand-blue-700 underline underline-offset-4">Scrivici via email</a>}
+            {status === "error" && <a href={`mailto:${email}`} className="inline-flex min-h-11 items-center font-semibold text-brand-blue-700 underline underline-offset-4">{copy.viaEmail}</a>}
 
             <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={status === "sending"} aria-busy={status === "sending"}>
-              {status === "sending" ? "Invio in corso..." : "Invia messaggio"}
+              {status === "sending" ? copy.invio : copy.invia}
             </Button>
           </m.form>
         )}

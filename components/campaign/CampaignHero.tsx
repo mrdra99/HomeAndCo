@@ -1,11 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { Button } from "@/components/ui/Button";
-import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 import { SmartImage } from "@/components/ui/SmartImage";
-import type { Campaign, Store } from "@/lib/content/schemas";
+import type { Campaign } from "@/lib/content/schemas";
 import { formatDateRangeIt } from "@/lib/flyers";
 import { campaignPeriod, toIsoDate } from "@/lib/campaigns";
 import { useToday } from "@/lib/date-store";
@@ -16,78 +14,68 @@ type CampaignHeroProps = {
   campaigns: Campaign[];
   buildCampaignId: string;
   buildDate: string;
-  stores: Pick<Store, "id" | "citta">[];
+  className?: string;
 };
 
-/** Il contenuto iniziale è già nell'HTML; la data viene poi verificata nel browser. */
-export function CampaignHero({ campaigns, buildCampaignId, buildDate, stores }: CampaignHeroProps) {
+/**
+ * Blocco grande del tabellone: insegna in alto (campagna + date), titolo, chiamata, foto.
+ * Il contenuto iniziale e' gia' nell'HTML; la data viene poi verificata nel browser.
+ * La foto non supera mai la propria risoluzione: i file della campagna sono 1290 px o piu' larghi
+ * e qui vengono mostrati a 560 px al massimo (limite nitido: 645 px per 1290).
+ */
+export function CampaignHero({ campaigns, buildCampaignId, buildDate, className }: CampaignHeroProps) {
   const campaign = useActiveCampaign(campaigns, buildCampaignId);
   const period = campaignPeriod(campaign, toIsoDate(useToday(buildDate)));
-  const dateLabel = period.inizio && period.fine
-    ? formatDateRangeIt(period.inizio, period.fine)
-    : null;
+  const dateLabel = period.inizio && period.fine ? formatDateRangeIt(period.inizio, period.fine) : null;
 
   return (
-    <section className="campaign-hero overflow-hidden pb-8 pt-7 sm:pb-10 sm:pt-10" aria-labelledby="hero-title">
-      <Container size="wide">
-        <div data-campaign-hero={campaign.id} className="grid items-center gap-6 sm:gap-9 lg:grid-cols-[1fr_1fr] lg:gap-12">
-          <div className="py-2 lg:py-8">
-            <p className="hero-eyebrow mb-5 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-accent ring-1 ring-black/5">
-              <span aria-hidden className="size-2 rounded-full bg-accent" />
-              {campaign.etichetta ?? "Ti aspettiamo da Home & Co."}
-            </p>
-            <h1 id="hero-title" className="max-w-[15ch] text-brand-blue-900 !text-[clamp(2.25rem,9.5vw,3.4rem)] !leading-[1.04] lg:max-w-[12ch] lg:!text-[clamp(2.6rem,5.1vw,4.7rem)]">
+    <div
+      data-campaign-hero={campaign.id}
+      className={`on-dark overflow-hidden rounded-[var(--radius-xl)] bg-brand-magenta-600 text-white ${className ?? ""}`}
+    >
+      <div className="flex min-h-11 flex-wrap items-center justify-between gap-x-4 bg-brand-blue-900 px-4 py-2 text-sm font-extrabold uppercase tracking-wide sm:px-6">
+        <span>{campaign.etichetta ?? "Home & Co."}</span>
+        {dateLabel && (
+          <span className="inline-flex items-center gap-2 font-bold normal-case tracking-normal">
+            <Icon name="calendar" size={16} />
+            {dateLabel.charAt(0).toUpperCase() + dateLabel.slice(1)}
+          </span>
+        )}
+      </div>
+      <div className="grid sm:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:h-[calc(100%-2.75rem)]">
+        <div className="order-2 flex flex-col justify-center gap-4 p-4 sm:order-1 sm:gap-6 sm:p-7 lg:p-9">
+          <div>
+            <h1 className="text-[clamp(1.75rem,7vw,2.4rem)] leading-[1.02] text-white sm:text-[clamp(2.1rem,3.3vw,3.25rem)] lg:max-w-[14ch]">
               {campaign.titolo}
             </h1>
-            <p className="mt-5 max-w-lg text-base leading-relaxed text-muted sm:mt-6 sm:text-lg">{campaign.sottotitolo}</p>
-            <div className="mt-6 grid gap-3 min-[400px]:grid-cols-2 sm:mt-8 sm:flex sm:flex-wrap">
-              <Button href={campaign.cta.href} size="lg" className="bg-accent px-5 text-base text-[var(--accent-contrast)] hover:bg-accent hover:brightness-90 sm:px-8 sm:text-lg">
-                {campaign.cta.label}
+            <p className="mt-4 hidden max-w-md text-lg text-white/95 sm:block">{campaign.sottotitolo}</p>
+          </div>
+          <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3">
+            <Button href={campaign.cta.href} variant="light" size="lg" className="px-2 text-[0.9375rem] min-[390px]:px-3 min-[390px]:text-base sm:px-6 sm:text-lg">{campaign.cta.label}</Button>
+            {campaign.ctaSecondaria && (
+              <Button href={campaign.ctaSecondaria.href} variant="outline" size="lg" className="border-white px-2 text-[0.9375rem] text-white hover:bg-white/10 min-[390px]:px-3 min-[390px]:text-base sm:px-6 sm:text-lg">
+                {campaign.ctaSecondaria.label}
               </Button>
-              {campaign.ctaSecondaria && (
-                <Button href={campaign.ctaSecondaria.href} size="lg" variant="outline" className="hero-secondary border-brand-blue-100 bg-white/60 px-5 text-base sm:px-8 sm:text-lg">
-                  {campaign.ctaSecondaria.label}
-                </Button>
-              )}
-            </div>
-            {dateLabel && (
-              <p className="mt-5 flex items-center gap-2 text-sm text-muted">
-                <Icon name="calendar" size={17} />
-                {dateLabel.charAt(0).toUpperCase() + dateLabel.slice(1)}
-              </p>
-            )}
-          </div>
-
-          <div className="relative mx-auto w-full max-w-xl pb-5">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-3xl bg-brand-blue-50 sm:aspect-[8/7] sm:rounded-[2rem]">
-              {campaign.immagineHero.src ? (
-                <SmartImage src={campaign.immagineHero.src} alt={campaign.immagineHero.alt}
-                  label={campaign.immagineHero.label ?? "Home & Co."} priority position={campaign.immagineHero.position}
-                  sizes="(min-width: 1280px) 580px, (min-width: 1024px) 48vw, 100vw" rounded="rounded-none" />
-              ) : (
-                <HeroArt tema={campaign.tema} className="h-full w-full" />
-              )}
-            </div>
-            {campaign.sticker && (
-              <p className="absolute bottom-0 right-4 rotate-[-4deg] rounded-2xl bg-white px-5 py-4 font-display text-lg text-brand-blue-900 shadow-soft sm:right-7 sm:text-xl">
-                {campaign.sticker}
-              </p>
             )}
           </div>
         </div>
-        <div className="hero-locations mt-7 flex flex-col gap-3 border-t border-brand-blue-900/10 pt-5 text-sm sm:flex-row sm:items-center sm:justify-between lg:mt-8">
-          <p className="font-semibold text-brand-blue-900">La tua casa, i nostri negozi in Toscana.</p>
-          <ul className="flex flex-wrap gap-x-5 gap-y-2">
-            {stores.map((store) => (
-              <li key={store.id}>
-                <Link href={`/dove-siamo/#${store.id}`} className="inline-flex min-h-11 items-center gap-1.5 rounded text-brand-blue-800 underline-offset-4 hover:underline">
-                  <Icon name="map-pin" size={16} />{store.citta}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <div className="relative order-1 aspect-[2/1] sm:order-2 sm:aspect-auto sm:min-h-[22rem]">
+          {campaign.immagineHero.src ? (
+            <SmartImage
+              src={campaign.immagineHero.src}
+              alt={campaign.immagineHero.alt}
+              label={campaign.immagineHero.label ?? "Home & Co."}
+              priority
+              position={campaign.immagineHero.position}
+              sizes="(min-width: 1024px) 400px, (min-width: 640px) 330px, 100vw"
+              rounded="rounded-none"
+              imgClassName="group-hover:scale-100"
+            />
+          ) : (
+            <HeroArt tema={campaign.tema} className="absolute inset-0 h-full w-full" />
+          )}
         </div>
-      </Container>
-    </section>
+      </div>
+    </div>
   );
 }

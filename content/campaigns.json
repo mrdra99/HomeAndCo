@@ -1,22 +1,21 @@
 [
   {
     "id": "default",
-    "titolo": "C’è sempre qualcosa che serve per casa.",
-    "sottotitolo": "Il detersivo è finito? Servono piatti nuovi o un cambio di lenzuola? Passa da Home & Co.: casalinghi, biancheria e prodotti per la casa, in tre negozi in Toscana.",
+    "titolo": "Il negozio su misura per la tua casa!",
+    "sottotitolo": "Pulizia della casa, cura della persona, animali, biancheria e complementi d’arredo, cartoleria, elettronica, ferramenta per i tuoi hobby, cura dell’auto. Vieni a trovarci, ti aspettiamo!",
     "inizio": null,
     "fine": null,
     "immagineHero": {
       "src": "/uploads/aisles/cucina-corsia-ritoccata.webp",
       "alt": "Corsia Home & Co. con piatti, ciotole e accessori per la cucina"
     },
-    "accento": "#D11559",
     "tema": "default",
     "cta": {
-      "label": "Scopri i reparti",
+      "label": "Vedi i 13 reparti",
       "href": "/#corridoi"
     },
     "ctaSecondaria": {
-      "label": "Trova il negozio",
+      "label": "Orari dei negozi",
       "href": "/#dove-siamo"
     },
     "corridoiInEvidenza": [
@@ -30,22 +29,21 @@
   },
   {
     "id": "halloween-2026",
-    "titolo": "Ti manca qualcosa per Halloween?",
-    "sottotitolo": "Per la tavola, gli addobbi e gli ultimi preparativi del 31 ottobre. Guarda i reparti e fai un salto nel negozio più vicino.",
+    "titolo": "Halloween: tavola, addobbi e plaid",
+    "sottotitolo": "Piatti e bicchieri per la tavola, carta e colori per gli addobbi fatti in casa, cuscini e plaid per la serata sul divano.",
     "inizio": "2026-10-01",
     "fine": "2026-10-31",
     "immagineHero": {
       "src": null,
       "alt": "Illustrazione di Halloween nei colori Home & Co.: fantasma, pipistrello, ragnetto e zucca su forme magenta e blu"
     },
-    "accento": "#D11559",
     "tema": "halloween",
     "cta": {
-      "label": "Guarda i reparti",
+      "label": "Idee di Halloween",
       "href": "/#idee-di-stagione"
     },
     "ctaSecondaria": {
-      "label": "Trova il negozio",
+      "label": "Orari dei negozi",
       "href": "/#dove-siamo"
     },
     "corridoiInEvidenza": [
@@ -57,12 +55,12 @@
     "provvisorio": true,
     "etichetta": "Speciale Halloween",
     "collezione": {
-      "titolo": "La festa comincia dai preparativi.",
-      "descrizione": "Inviti a cena, lavoretti con i bambini o un film sul divano? Ecco da dove partire.",
+      "titolo": "Halloween: da dove partire",
+      "descrizione": "Tre reparti per la tavola, gli addobbi e la serata in casa.",
       "idee": [
         {
-          "titolo": "Metti tutti a tavola",
-          "testo": "Piatti, bicchieri e accessori. Prima di pensare al menu, fai un giro nel reparto casa.",
+          "titolo": "Per la tavola",
+          "testo": "Piatti, bicchieri e accessori per apparecchiare.",
           "corridoio": "casa-e-cucina",
           "icona": "cucina",
           "immagine": {
@@ -71,8 +69,8 @@
           }
         },
         {
-          "titolo": "Gli addobbi li fai tu",
-          "testo": "Carta, cartoncini e colori: per i lavoretti dei bambini e le decorazioni dell’ultimo minuto.",
+          "titolo": "Per gli addobbi",
+          "testo": "Carta, cartoncini e colori per i lavoretti con i bambini e le decorazioni fatte in casa.",
           "corridoio": "hobby-cartoleria-auto",
           "icona": "hobby",
           "immagine": {
@@ -81,8 +79,8 @@
           }
         },
         {
-          "titolo": "Resti a casa?",
-          "testo": "Cuscini e plaid per stare comodi. Anche quando il programma è un film horror.",
+          "titolo": "Per la serata sul divano",
+          "testo": "Cuscini e plaid.",
           "corridoio": "biancheria-e-arredo",
           "icona": "tessile",
           "immagine": {
@@ -92,28 +90,26 @@
         }
       ]
     },
-    "ricorrenza": "annuale",
-    "accentoTesto": "#B01556"
+    "ricorrenza": "annuale"
   },
   {
     "id": "natale-2026",
-    "titolo": "È il momento di preparare il Natale.",
-    "sottotitolo": "Addobbi, decorazioni e articoli per la tavola. Vieni a vedere il reparto natalizio e scegli con calma cosa portare a casa.",
+    "titolo": "Natale da Home & Co.",
+    "sottotitolo": "Addobbi e decorazioni, idee regalo, piatti e utensili per la tavola delle feste.",
     "inizio": "2026-11-01",
     "fine": "2026-12-31",
     "immagineHero": {
-      "src": "/uploads/photos/natale-negozio-ambientazione.webp",
-      "alt": "Albero illuminato, cuscini rossi e decorazioni natalizie in un negozio di articoli per la casa",
-      "position": "50% 65%"
+      "src": "/uploads/photos/home-co-reparto-natale.webp",
+      "alt": "Reparto natalizio di un negozio Home & Co. con palline, nastri argentati e decorazioni",
+      "position": "50% 50%"
     },
-    "accento": "#A3123F",
     "tema": "natale",
     "cta": {
-      "label": "Idee regalo e offerte",
-      "href": "/offerte/"
+      "label": "Idee di Natale",
+      "href": "/#idee-di-stagione"
     },
     "ctaSecondaria": {
-      "label": "Trova il negozio",
+      "label": "Orari dei negozi",
       "href": "/#dove-siamo"
     },
     "corridoiInEvidenza": [
@@ -124,6 +120,62 @@
     "priorita": 10,
     "provvisorio": true,
     "etichetta": "Speciale Natale",
-    "ricorrenza": "annuale"
+    "ricorrenza": "annuale",
+    "collezione": {
+      "titolo": "Natale: da dove partire",
+      "descrizione": "Addobbi, regali, tavola, tessili e luce. Ogni scheda porta al reparto.",
+      "idee": [
+        {
+          "titolo": "Addobbi e decorazioni",
+          "testo": "Palloncini e piccoli addobbi per le feste.",
+          "corridoio": "feste-e-regalo",
+          "icona": "regalo",
+          "immagine": {
+            "src": "/uploads/aisles/feste-e-regalo-dettaglio-1.webp",
+            "alt": "Palloncini colorati nel reparto feste e idee regalo"
+          }
+        },
+        {
+          "titolo": "Regali e confezioni",
+          "testo": "Buste, sacchetti e confezioni per i regali.",
+          "corridoio": "feste-e-regalo",
+          "icona": "regalo",
+          "immagine": {
+            "src": "/uploads/aisles/feste-e-regalo-dettaglio-3.webp",
+            "alt": "Sacchetti regalo nel reparto feste e idee regalo"
+          }
+        },
+        {
+          "titolo": "La tavola delle feste",
+          "testo": "Piatti, pentole e utensili per cucinare e apparecchiare.",
+          "corridoio": "casa-e-cucina",
+          "icona": "cucina",
+          "immagine": {
+            "src": "/uploads/aisles/casa-e-cucina-dettaglio-1.webp",
+            "alt": "Scaffali di piatti nel reparto casa e cucina"
+          }
+        },
+        {
+          "titolo": "Tessili per la casa",
+          "testo": "Completi letto, cuscini, tende e tappeti.",
+          "corridoio": "biancheria-e-arredo",
+          "icona": "tessile",
+          "immagine": {
+            "src": "/uploads/aisles/biancheria-e-arredo-dettaglio-1.webp",
+            "alt": "Scaffali di biancheria nel reparto biancheria e arredo"
+          }
+        },
+        {
+          "titolo": "Luce in casa",
+          "testo": "Lampade, lampadine, cavi e custodie.",
+          "corridoio": "illuminazione-e-accessori",
+          "icona": "luce",
+          "immagine": {
+            "src": "/uploads/aisles/illuminazione-e-accessori-dettaglio-2.webp",
+            "alt": "Lampade da tavolo nel reparto illuminazione"
+          }
+        }
+      ]
+    }
   }
 ]

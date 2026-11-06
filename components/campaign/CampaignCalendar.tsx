@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState, type CSSProperties } from "react";
-import { campaignCssVars, campaignPeriod, pickCampaign } from "@/lib/campaigns";
+import { useState } from "react";
+import { campaignPeriod, pickCampaign } from "@/lib/campaigns";
 import { isoDate, type Campaign } from "@/lib/content/schemas";
 import { HeroArt } from "./HeroArt";
 
@@ -17,7 +17,7 @@ export function CampaignCalendar({ campaigns, buildDate }: { campaigns: Campaign
       <label htmlFor="campaign-date" className="block font-semibold text-brand-blue-900">Data da visualizzare (Europe/Rome)</label>
       <input id="campaign-date" type="date" value={date} onChange={(event) => setDate(event.target.value)}
         className="mt-2 min-h-12 rounded-xl border border-brand-blue-100 bg-white px-4 text-ink" />
-      <div className="mt-6 grid items-center gap-6 rounded-lg bg-white p-6 sm:grid-cols-2" style={campaignCssVars(campaign) as CSSProperties}>
+      <div className="mt-6 grid items-center gap-6 rounded-lg bg-white p-6 sm:grid-cols-2">
         <div aria-live="polite">
           <p className="font-bold text-[var(--accent-ink)]">{campaign.etichetta ?? campaign.tema}</p>
           <h3 className="mt-3 text-brand-blue-900">{campaign.titolo}</h3>

@@ -6,6 +6,7 @@ import type {
   HomeCopy,
   LoyaltyProgram,
   Navigation,
+  PagesCopy,
   Promotion,
   Settings,
   Store,
@@ -19,6 +20,7 @@ import type {
 export interface ContentSource {
   getSettings(): Promise<Settings>;
   getHomeCopy(): Promise<HomeCopy>;
+  getPagesCopy(): Promise<PagesCopy>;
   getNavigation(): Promise<Navigation>;
   getCampaigns(): Promise<Campaign[]>;
   getAisles(): Promise<Aisle[]>;

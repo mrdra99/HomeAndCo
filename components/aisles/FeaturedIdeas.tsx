@@ -1,28 +1,25 @@
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Stagger, StaggerItem } from "@/components/motion/Stagger";
-import { Reveal } from "@/components/motion/Reveal";
+import { SectionTitle } from "@/components/sections/SectionTitle";
 import { IdeaCard, type IdeaItem } from "./IdeaCard";
 
 type FeaturedIdeasProps = {
   items: IdeaItem[];
-  eyebrow?: string;
   title: string;
   subtitle?: string;
 };
 
 /** Griglia responsive (1/2/3 colonne) di IdeaCard. Pensata anche per i prodotti dello shop. */
-export function FeaturedIdeas({ items, eyebrow, title, subtitle }: FeaturedIdeasProps) {
+export function FeaturedIdeas({ items, title, subtitle }: FeaturedIdeasProps) {
   if (items.length === 0) return null;
   return (
     <div>
-      <Reveal><SectionHeading eyebrow={eyebrow} title={title} subtitle={subtitle} /></Reveal>
-      <Stagger className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <SectionTitle note={subtitle}>{title}</SectionTitle>
+      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
         {items.map((item) => (
-          <StaggerItem key={item.titolo} className="h-full">
+          <li key={item.titolo}>
             <IdeaCard item={item} />
-          </StaggerItem>
+          </li>
         ))}
-      </Stagger>
+      </ul>
     </div>
   );
 }

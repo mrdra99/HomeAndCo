@@ -61,21 +61,3 @@ export function pickCampaign(campaigns: Campaign[], date: Date = new Date()): Ca
   if (!fallback) throw new Error("Nessuna campagna definita in content/campaigns.json");
   return fallback;
 }
-
-/** Variabili CSS del tema per la campagna (da applicare su <html> o su un wrapper). */
-export function campaignCssVars(c: Campaign): Record<string, string> {
-  return {
-    "--accent": c.accento,
-    // sfumatura tenue per fondi/chip: accento al 12% su trasparente
-    "--accent-soft": `color-mix(in srgb, ${c.accento} 12%, transparent)`,
-    "--accent-contrast": c.contrastoAccento ?? "#ffffff",
-    "--accent-ink": c.accentoTesto ?? c.accento,
-  };
-}
-
-/** Stringa `style` inline ("--accent:#...;...") utile in <html style> o in script anti-flash. */
-export function campaignCssText(c: Campaign): string {
-  return Object.entries(campaignCssVars(c))
-    .map(([k, v]) => `${k}:${v}`)
-    .join(";");
-}

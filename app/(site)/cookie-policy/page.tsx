@@ -18,7 +18,7 @@ const COOKIES = [
 
 export default function CookiePolicyPage() {
   return (
-    <LegalPage title="Cookie policy" updated="ottobre 2026 (bozza)">
+    <LegalPage title="Cookie policy" path="/cookie-policy/" updated="ottobre 2026 (bozza)">
       <p>
         Il sito usa cookie e tecnologie simili. I cookie necessari sono sempre attivi; statistiche e marketing si attivano
         solo con il tuo consenso. Oggi nessuno strumento di analisi o marketing è attivo (provvisorio).

@@ -11,7 +11,8 @@ Next.js (App Router) + TypeScript strict, Tailwind CSS v4 (token in `@theme`), `
 
 ## Struttura — dove sta cosa
 - `app/(site)/` pagine del sito (home, offerte, dove-siamo, carta-fedelta, contatti, corridoi/[slug], legali, design-system); `app/(shop)/` riservato al futuro shop.
-- `components/` ui, motion, layout, sections, campaign, aisles, flyers, stores, loyalty, consent, contact, legal, seo.
+- `components/` ui, motion, layout (testata, TabBar mobile, StoreChip, PageHeader, footer), sections, campaign, aisles, flyers, stores, loyalty, consent, contact, legal, seo.
+- `docs/redesign-negozio.md` direzione di UI, UX e copy, vincolante; `docs/copy-per-francesco.md` frasi cambiate e dati da chiedere al cliente.
 - `lib/content/` schemi Zod + `ContentSource` (`NEXT_PUBLIC_CONTENT_SOURCE`); `lib/campaigns|flyers|stores.ts` logica pura; `lib/api/types.ts` tipi shop; `lib/contact/adapter.ts` form.
 - `public/_redirects`, `public/_headers` per Cloudflare Pages. Segnaposto da sostituire: `ASSETS_TODO.md`. Guida completa: `README.md`.
 - `content/` — TUTTI i contenuti (campagne, corridoi, sedi, brand, volantini, promozioni,
@@ -27,8 +28,10 @@ Next.js (App Router) + TypeScript strict, Tailwind CSS v4 (token in `@theme`), `
 ## Convenzioni specifiche di questo repo
 - Contenuto e codice separati: un componente riceve dati, non li importa da `content/`.
 - Immagini mancanti → `<Placeholder />`; ogni segnaposto va censito in `ASSETS_TODO.md`.
-- Palette di brand blu + magenta; i colori stagionali sono solo un accento (`--accent`).
-- Mobile first, angoli smussati, animazioni sempre con `prefers-reduced-motion`.
+- Solo i colori del logo: blu per orientamento e informazioni, magenta per le chiamate commerciali. Le campagne cambiano immagini e testi, mai la palette (`--accent` fisso, presidiato da `palette.test.ts`).
+- Mobile first, raggi 8–14 px, animazioni minime e sempre con `prefers-reduced-motion`.
+- Mai ingrandire un'immagine: larghezza CSS ≤ larghezza reale / 2 (`lib/image-rules.ts`).
+- Mai inventare prezzi, sconti, marchi, telefoni o vantaggi della carta. La carta fedeltà torna in home, testata e tab bar solo con dati veri (`ASSETS_TODO.md`); oggi resta raggiungibile dal footer.
 - Massimo 10 pagine nel menu; elenco corridoi provvisorio, modificabile da un solo file.
 - URL in italiano con slash finale; i vecchi URL WordPress restano validi o hanno 301 in `public/_redirects`.
 - Testi in italiano; i provvisori sono marcati come tali nei file di contenuto.
@@ -36,6 +39,6 @@ Next.js (App Router) + TypeScript strict, Tailwind CSS v4 (token in `@theme`), `
 ## Trappole / cosa non toccare
 - Niente funzionalità che richiedono un server (route handler dinamici, middleware, ISR):
   l'export statico rompe la build. Restare compatibili con una futura modalità server.
-- La campagna attiva è scelta in build (HTML statico, niente flash) e ricontrollata nel client.
+- La campagna attiva è scelta in build e il contenuto è ricontrollato nel client dopo l'idratazione: al cambio di data, senza nuova build, può comparire per un attimo la campagna precedente.
 - Non committa Claude: a fine lavoro propone il messaggio di commit, committa l'utente.
 - > TODO: remote git non ancora configurato; quando c'è, aggiornare la chiave nel registry dell'harness.

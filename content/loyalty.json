@@ -1,33 +1,8 @@
 {
-  "nome": "Carta Fedeltà Home & Co.",
-  "intro": "Fai spesso la spesa da noi? Chiedi in cassa la carta fedeltà e informazioni sulle promozioni riservate ai clienti.",
-  "vantaggi": [
-    {
-      "titolo": "La richiedi in negozio",
-      "testo": "Chiedi in cassa come attivarla e usarla.",
-      "icona": "novita"
-    },
-    {
-      "titolo": "Ti informi sulle iniziative",
-      "testo": "Il personale ti spiega le promozioni attive e le condizioni.",
-      "icona": "sconto"
-    },
-    {
-      "titolo": "La porti con te",
-      "testo": "Tienila nel portafoglio e mostrala quando fai acquisti.",
-      "icona": "check"
-    }
-  ],
-  "comeRichiederla": "Chiedi la carta fedeltà in cassa. Il personale ti spiega come richiederla e quali iniziative sono attive.",
-  "faq": [
-    {
-      "d": "A chi posso chiedere informazioni?",
-      "r": "Al personale del negozio, direttamente in cassa."
-    },
-    {
-      "d": "Dove trovo le condizioni delle iniziative?",
-      "r": "Chiedile in negozio prima di aderire: promozioni e condizioni possono cambiare."
-    }
-  ],
+  "nome": "Carta fedeltà",
+  "intro": "Il regolamento della carta fedeltà Home & Co. sarà pubblicato su questa pagina.",
+  "vantaggi": [],
+  "passi": [],
+  "faq": [],
   "provvisorio": true
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Sticker } from "@/components/ui/Badge";
+import { Badge } from "@/components/ui/Badge";
 import { Icon } from "@/components/ui/Icon";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { HoverLift } from "@/components/motion/HoverLift";
@@ -11,7 +11,7 @@ export function PromotionCard({ promo }: { promo: Promotion }) {
   const dates = promo.validoDal && promo.validoAl ? formatDateRangeIt(promo.validoDal, promo.validoAl) : null;
   return (
     <HoverLift className="h-full">
-      <article className="relative flex h-full flex-col overflow-hidden rounded-lg bg-white shadow-soft transition-shadow duration-300 group-hover:shadow-lift focus-within:shadow-lift">
+      <article className="relative flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] bg-white border-2 border-brand-blue-100 group-hover:border-brand-blue-600 focus-within:border-brand-blue-600">
         <div className="relative">
           <SmartImage
             src={promo.immagine.src}
@@ -22,13 +22,13 @@ export function PromotionCard({ promo }: { promo: Promotion }) {
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           />
           {dates && (
-            <Sticker tone="accent" rotate={-3} className="absolute left-3 top-3 !text-sm">
+            <Badge tone="magenta" className="absolute left-3 top-3">
               {dates}
-            </Sticker>
+            </Badge>
           )}
         </div>
-        <div className="flex flex-1 flex-col gap-2 p-5 sm:p-6">
-          <h3 className="text-xl text-brand-blue-900">
+        <div className="flex flex-1 flex-col gap-1.5 p-4">
+          <h3 className="!text-xl text-brand-blue-900">
             {promo.link ? (
               <Link href={promo.link} className="after:absolute after:inset-0 after:content-['']">
                 {promo.titolo}

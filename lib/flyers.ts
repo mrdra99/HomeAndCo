@@ -73,3 +73,26 @@ export function archivedFlyers(flyers: Flyer[], date: Date = new Date()): Flyer[
 export function flyerAppliesToStore(f: Flyer, storeId: string): boolean {
   return f.negozi === "tutti" || f.negozi.includes(storeId);
 }
+
+export type HomeFlyerStatus = "current" | "upcoming";
+
+/**
+ * Volantino da mostrare in home: quello in corso, altrimenti il primo in arrivo. Se nessuno e' in corso
+ * ne' in arrivo restituisce null: la home non mostra mai la copertina di un volantino concluso
+ * (i volantini precedenti stanno in /offerte/).
+ */
+export function homeFlyer(flyers: Flyer[], date: Date = new Date()): { flyer: Flyer; status: HomeFlyerStatus } | null {
+  const current = currentFlyers(flyers, date)[0];
+  if (current) return { flyer: current, status: "current" };
+  const upcoming = upcomingFlyers(flyers, date)[0];
+  if (upcoming) return { flyer: upcoming, status: "upcoming" };
+  return null;
+}
+
+/** Negozi a cui vale il volantino, in forma testuale ("Prato e Lucca"); null se vale ovunque. */
+export function flyerStoreNames(f: Flyer, stores: { id: string; citta: string }[]): string | null {
+  if (f.negozi === "tutti") return null;
+  const names = stores.filter((s) => (f.negozi as string[]).includes(s.id)).map((s) => s.citta);
+  if (names.length === 0) return null;
+  return names.length === 1 ? names[0] : `${names.slice(0, -1).join(", ")} e ${names[names.length - 1]}`;
+}

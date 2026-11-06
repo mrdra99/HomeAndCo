@@ -2,19 +2,23 @@ import Link from "next/link";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-type Variant = "primary" | "secondary" | "ghost" | "outline";
+type Variant = "primary" | "secondary" | "ghost" | "outline" | "light";
 type Size = "sm" | "md" | "lg";
 
 const VARIANTS: Record<Variant, string> = {
-  primary: "bg-brand-magenta-600 text-white hover:bg-brand-magenta-700 shadow-soft",
-  secondary: "bg-brand-blue-600 text-white hover:bg-brand-blue-700 shadow-soft",
+  /** Chiamata commerciale (offerte, volantino): magenta pieno. */
+  primary: "bg-brand-magenta-600 text-white hover:bg-brand-magenta-700",
+  /** Orientamento (negozi, indicazioni, informazioni): blu pieno. */
+  secondary: "bg-brand-blue-600 text-white hover:bg-brand-blue-700",
   ghost: "bg-transparent text-brand-blue-700 hover:bg-brand-blue-50",
   outline: "border-2 border-current bg-transparent text-brand-blue-700 hover:bg-brand-blue-50",
+  /** Su fondi pieni blu o magenta. */
+  light: "bg-white text-brand-blue-900 hover:bg-brand-blue-50",
 };
 const SIZES: Record<Size, string> = {
   sm: "min-h-11 px-4 text-sm",
-  md: "min-h-12 px-6 text-base",
-  lg: "min-h-14 px-8 text-lg",
+  md: "min-h-11 px-5 text-base",
+  lg: "min-h-12 px-6 text-lg",
 };
 
 type Common = {
@@ -33,8 +37,8 @@ export type ButtonProps = AsLink | AsButton;
 export function Button(props: ButtonProps) {
   const { variant = "primary", size = "md", iconLeft, iconRight, className, children, ...rest } = props;
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 rounded-full py-3 text-center font-semibold leading-snug",
-    "transition-[background-color,transform,box-shadow] duration-200 active:scale-[0.97]",
+    "inline-flex items-center justify-center gap-2 rounded-md py-2.5 text-center font-bold leading-snug",
+    "transition-colors duration-150",
     "disabled:pointer-events-none disabled:opacity-50",
     VARIANTS[variant],
     SIZES[size],

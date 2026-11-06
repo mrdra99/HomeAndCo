@@ -5,7 +5,7 @@ type WhatsAppButtonProps = {
   /** Formato internazionale senza + (es. "393331234567"). null = numero non ancora fornito. */
   numero: string | null;
   messaggio: string;
-  /** Pulsante tondo fisso in basso a destra, solo mobile. */
+  /** Pulsante tondo fisso in basso a destra, sopra la tab bar mobile; nascosto da 1024 px in su. */
   floating?: boolean;
   label?: string;
   className?: string;
@@ -16,8 +16,9 @@ export function whatsappHref(numero: string, messaggio: string) {
 }
 
 /**
- * Pulsante WhatsApp Business. Senza numero: in development mostra un badge TODO,
- * in production non renderizza nulla.
+ * Pulsante WhatsApp Business. Senza numero (oggi non ne esiste uno confermato) non renderizza nulla, in ogni
+ * ambiente: nessun badge di sviluppo. Il colore e' il blu del marchio (contatto/orientamento), non il verde
+ * di WhatsApp: il riconoscimento lo danno il simbolo e l'etichetta, e la palette resta quella del logo.
  */
 export function WhatsAppButton({
   numero,
@@ -26,14 +27,7 @@ export function WhatsAppButton({
   label = "Scrivici su WhatsApp",
   className,
 }: WhatsAppButtonProps) {
-  if (!numero) {
-    if (process.env.NODE_ENV !== "development") return null;
-    return (
-      <span className="inline-flex rounded-full border-2 border-dashed border-amber-300 bg-amber-100 px-3 py-1 text-xs font-bold text-amber-900">
-        TODO numero WhatsApp
-      </span>
-    );
-  }
+  if (!numero) return null;
   return (
     <a
       href={whatsappHref(numero, messaggio)}
@@ -41,10 +35,10 @@ export function WhatsAppButton({
       rel="noopener noreferrer"
       aria-label={floating ? label : undefined}
       className={cn(
-        "inline-flex items-center justify-center gap-2 bg-[#0f7a43] font-semibold text-white shadow-soft transition-[transform,background-color] hover:bg-[#0c6637] active:scale-[0.97]",
+        "inline-flex items-center justify-center gap-2 on-dark bg-brand-blue-600 font-bold text-white transition-colors hover:bg-brand-blue-700",
         floating
-          ? "fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-30 size-14 rounded-full md:hidden"
-          : "min-h-12 rounded-full px-6",
+          ? "fixed bottom-[calc(var(--tabbar-h)+env(safe-area-inset-bottom)+0.75rem)] right-[max(1rem,env(safe-area-inset-right))] z-30 size-14 rounded-full border-2 border-white lg:hidden"
+          : "min-h-12 rounded-md px-6",
         className,
       )}
     >

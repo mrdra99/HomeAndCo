@@ -1,71 +1,85 @@
 [
   {
-    "label": "Home",
-    "href": "/"
+    "label": "Volantino",
+    "href": "/offerte/",
+    "evidenza": true
   },
   {
-    "label": "Offerte",
-    "href": "/offerte/"
+    "label": "Negozi",
+    "href": "/dove-siamo/"
+  },
+  {
+    "label": "Carta fedeltà",
+    "href": "/carta-fedelta/",
+    "soloPiede": true
+  },
+  {
+    "label": "Contatti",
+    "href": "/contatti/"
   },
   {
     "label": "Casa e cucina",
+    "breve": "Cucina",
     "href": "/corridoi/casa-e-cucina/"
   },
   {
     "label": "Biancheria e arredo",
+    "breve": "Tessile",
     "href": "/corridoi/biancheria-e-arredo/"
   },
   {
     "label": "Pulizia della casa",
+    "breve": "Pulizia",
     "href": "/corridoi/pulizia-e-cura-persona/"
   },
   {
     "label": "Cura della persona e beauty",
+    "breve": "Beauty",
     "href": "/corridoi/cura-persona-e-beauty/"
   },
   {
     "label": "Animali",
+    "breve": "Animali",
     "href": "/corridoi/animali/"
   },
   {
     "label": "Giardinaggio e fiori",
+    "breve": "Giardino",
     "href": "/corridoi/giardinaggio/"
   },
   {
     "label": "Cartoleria e creatività",
+    "breve": "Cartoleria",
     "href": "/corridoi/hobby-cartoleria-auto/"
   },
   {
     "label": "Feste e idee regalo",
+    "breve": "Feste",
     "href": "/corridoi/feste-e-regalo/"
   },
   {
     "label": "Ferramenta e fai da te",
+    "breve": "Ferramenta",
     "href": "/corridoi/ferramenta-e-fai-da-te/"
   },
   {
     "label": "Illuminazione e accessori tech",
+    "breve": "Luci",
     "href": "/corridoi/illuminazione-e-accessori/"
   },
   {
     "label": "Ordine e accessori bagno",
+    "breve": "Bagno",
     "href": "/corridoi/ordine-e-bagno/"
   },
   {
     "label": "Cura dell’auto",
+    "breve": "Auto",
     "href": "/corridoi/cura-auto/"
   },
   {
     "label": "Giochi e giocattoli",
+    "breve": "Giochi",
     "href": "/corridoi/giochi-e-giocattoli/"
-  },
-  {
-    "label": "Carta fedeltà",
-    "href": "/carta-fedelta/"
-  },
-  {
-    "label": "Dove siamo",
-    "href": "/#dove-siamo",
-    "evidenza": true
   }
 ]

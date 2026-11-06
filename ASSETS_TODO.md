@@ -6,8 +6,15 @@ Aggiornato al 5 novembre 2026.
 
 - Due reel con copertine originali locali e link diretti a Instagram, senza incorporare il player esterno.
 - Video MP4 fornito dal cliente, ottimizzato H.264 per il sito, avvio manuale e copertina locale.
-- Catalogo Sesto ottobre e iniziativa caramelle aggiunti all’archivio. Il catalogo ottobre resta anche nel lettore come esempio dimostrativo, con date originali e avviso di offerte concluse.
+- Catalogo Sesto ottobre e iniziativa caramelle in archivio, con le date originali e l’etichetta «concluso». Nessun volantino concluso è presentato come attuale.
 - Mappe OSM caricate automaticamente; footer ridotto a una barra essenziale.
+
+## Aggiornamento testi (5 novembre 2026)
+
+- Testi di reparti, campagne, volantino, negozi, contatti, cookie, 404 e SEO riscritti su dati verificati. Le frasi sostituite e i dati richiesti al cliente sono in `docs/copy-per-francesco.md`.
+- Carta fedeltà: la pagina dice soltanto che vantaggi, costo e regolamento non sono pubblicati. Compaiono da soli quando si compilano `vantaggi`, `passi`, `costo`, `regolamento` in `content/loyalty.json`.
+- Negozi: in `stores.json` servizi e particolarità non verificati (parcheggio, ascensore, carte e bancomat, palestra accanto, carta fedeltà) sono passati nel campo `daConfermare`, che non viene mostrato.
+- Volantino: oggi nessuno è in corso (Halloween concluso il 31 ottobre). Il volantino di novembre non è stato fornito: quando arriva si aggiunge a `flyers.json` e sostituisce lo stato «concluso» in home e in /offerte/.
 
 ## Già inseriti
 
@@ -28,13 +35,15 @@ I volantini conclusi, incluso Halloween, restano nell’archivio con le proprie 
 
 | Materiale / dato | Dove | Azione |
 |---|---|---|
+| Foto di Natale del tabellone (`home-co-reparto-natale.webp`) | `campaigns.json` → `natale-2026` | La foto è del negozio, dal caricamento ufficiale (vedi `content/photo-sources.json`). Se si vuole una foto più recente, sostituirla qui. I testi di Natale non usano la parola «alberi». |
+| Volantino di novembre / Natale | `flyers.json`, `public/uploads/flyers/` | Da fornire: copertina, pagine, PDF, date di validità, negozi. Nessuna data inventata. |
 | Foto esterne identificate di Prato e Sesto (Lucca inserita) | `stores.json` → `immagine` | Inserire foto della sede corretta. In assenza la scheda mostra la mappa, senza foto fittizie o segnaposto pubblici. |
 | Numeri telefonici di ogni negozio | `stores.json` | Gli orari sono confermati e gli stati aperto/chiuso sono attivi. I numeri restano da fornire. |
-| Coordinate, CAP e servizi / particolarità delle sedi | `stores.json` | Verificare i dati ancora marcati `provvisorio`. |
+| Coordinate, CAP e servizi / particolarità delle sedi | `stores.json` | Verificare i dati ancora marcati `provvisorio`. Parcheggio, ascensore, carte e bancomat, palestra accanto, carta fedeltà per sede: ora in `daConfermare`, non mostrati. Spostarli in `particolarita`/`servizi` dopo la conferma. |
 | Catalogo / disponibilità dei singoli prodotti | `aisles.json` → `inEvidenza` | Le foto illustrano l’assortimento. Nessuna giacenza o disponibilità attuale è confermata. |
 | Loghi e marchi realmente distribuiti | `brands.json`, `public/uploads/brands/` | SVG o PNG trasparente (altezza 96 px); poi `provvisorio: false`. I provvisori sono nascosti. |
 | Loghi e marchi realmente distribuiti | `brands.json` | I nomi provvisori sono nascosti. |
-| Carta fedeltà: regolamento e condizioni | `loyalty.json` | Testi da confermare. Rimossi punti, buoni e tempi di attivazione non verificati. |
+| Carta fedeltà: cos'è, vantaggi, come si ottiene, costo, regolamento | `loyalty.json` | Da fornire. Con i dati compilati la pagina si completa da sola e il riquadro in home compare (finché mancano vantaggi, passi, costo o regolamento non c'è e video e reel hanno tutta la riga). Per rimettere «Carta» in navigazione, quando i fatti sono confermati: 1) in `content/navigation.json` togliere `"soloPiede": true` dalla voce Carta fedeltà (torna nel menu della testata); 2) in `content/settings.json`, `testata.tab`, sostituire la voce Contatti con `{ "label": "Carta", "icona": "carta", "href": "/carta-fedelta/" }` (le tab sono sempre 5; Contatti resta raggiungibile da menu e footer); 3) riscrivere `intro` in `loyalty.json`. Nessun punto, buono o tempo di attivazione è mostrato finché non è confermato. |
 | Numero WhatsApp Business | `settings.json` | Aggiungere il numero reale. |
 | Dominio definitivo del nuovo sito | `NEXT_PUBLIC_SITE_URL` | Da scegliere; il cliente non richiede il riutilizzo del dominio e del vecchio hosting. Impostarlo prima della pubblicazione. Il riferimento attuale in `settings.json` non è una scelta definitiva. |
 | Form contatti | `lib/contact/adapter.ts` | Collegare un invio reale: l’adapter di partenza è ancora dimostrativo. |

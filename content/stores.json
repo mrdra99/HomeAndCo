@@ -82,20 +82,20 @@
       }
     ],
     "noteOrari": "Orario continuato, tutti i giorni. Domeniche e festivi inclusi.",
-    "particolarita": [
-      "Parcheggio nelle vicinanze",
-      "Reparto casa e cucina ampio"
-    ],
-    "servizi": [
-      "Carta fedeltà"
-    ],
+    "particolarita": [],
+    "servizi": [],
     "immagine": {
       "src": null,
       "alt": "Il negozio Home & Co. di Prato",
       "label": "Negozio di Prato"
     },
     "mappaUrl": "https://www.google.com/maps/search/?api=1&query=Viale+G.+Marconi+38+Prato",
-    "provvisorio": true
+    "provvisorio": true,
+    "daConfermare": [
+      "Carta fedeltà",
+      "Parcheggio nelle vicinanze",
+      "Reparto casa e cucina ampio"
+    ]
   },
   {
     "id": "lucca",
@@ -180,24 +180,25 @@
       }
     ],
     "noteOrari": "Orario continuato, tutti i giorni. Domeniche e festivi inclusi.",
-    "particolarita": [
-      "Comodo da raggiungere in auto",
-      "Ampia scelta per animali"
-    ],
-    "servizi": [
-      "Carta fedeltà"
-    ],
+    "particolarita": [],
+    "servizi": [],
     "immagine": {
       "src": "/uploads/aisles/negozio-lucca-esterno.webp",
       "alt": "Ingresso del negozio Home & Co. di Lucca"
     },
     "mappaUrl": "https://www.google.com/maps/search/?api=1&query=Via+Romana+3137+Lucca",
-    "provvisorio": true
+    "provvisorio": true,
+    "daConfermare": [
+      "Carta fedeltà",
+      "Comodo da raggiungere in auto",
+      "Ampia scelta per animali"
+    ]
   },
   {
     "id": "sesto-fiorentino",
     "nome": "Home & Co. Sesto Fiorentino",
     "citta": "Sesto Fiorentino",
+    "cittaBreve": "Sesto F.no",
     "indirizzo": {
       "via": "Via Giacomo Leopardi 66 (ex Coop Il Neto)",
       "cap": "50019",
@@ -278,20 +279,22 @@
     ],
     "noteOrari": "Orario continuato, tutti i giorni. Domeniche e festivi inclusi.",
     "particolarita": [
-      "Nell’ex Coop Il Neto, accanto alla palestra Redline Gym",
-      "Parcheggio gratuito"
+      "Nell’ex Coop Il Neto"
     ],
-    "servizi": [
-      "Carta fedeltà",
-      "Ascensore",
-      "Carte e bancomat"
-    ],
+    "servizi": [],
     "immagine": {
       "src": null,
       "alt": "Il negozio Home & Co. di Sesto Fiorentino",
       "label": "Negozio di Sesto Fiorentino"
     },
     "mappaUrl": "https://www.google.com/maps/search/?api=1&query=Via+Leopardi+66+Sesto+Fiorentino",
-    "provvisorio": true
+    "provvisorio": true,
+    "daConfermare": [
+      "Carta fedeltà",
+      "Ascensore",
+      "Carte e bancomat",
+      "Accanto alla palestra Redline Gym",
+      "Parcheggio gratuito"
+    ]
   }
 ]

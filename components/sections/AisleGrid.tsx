@@ -1,60 +1,51 @@
-"use client";
-
 import Link from "next/link";
-import { AisleArt } from "@/components/aisles/AisleArt";
-import { Badge } from "@/components/ui/Badge";
+import { Container } from "@/components/ui/Container";
 import { DepartmentIcon } from "@/components/ui/DepartmentIcon";
-import { Reveal } from "@/components/motion/Reveal";
-import { Stagger, StaggerItem } from "@/components/motion/Stagger";
-import { Section } from "@/components/ui/Section";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SmartImage } from "@/components/ui/SmartImage";
-import { useActiveCampaign } from "@/components/campaign/useActiveCampaign";
-import type { Aisle, Campaign, HomeCopy } from "@/lib/content/schemas";
+import type { Aisle, HomeCopy } from "@/lib/content/schemas";
+import { SectionTitle } from "./SectionTitle";
 
-type AisleGridProps = { aisles: Aisle[]; campaigns: Campaign[]; buildCampaignId: string; copy: HomeCopy["reparti"] };
+type AisleGridProps = { aisles: Aisle[]; copy: HomeCopy["reparti"] };
 
-export function AisleGrid({ aisles, campaigns, buildCampaignId, copy }: AisleGridProps) {
-  const campaign = useActiveCampaign(campaigns, buildCampaignId);
-  const slugs = campaign.corridoiInEvidenza;
-  const featured = slugs.map((slug) => aisles.find((aisle) => aisle.slug === slug)).filter((aisle): aisle is Aisle => Boolean(aisle));
-  const ordered = [...featured, ...aisles.filter((aisle) => !slugs.includes(aisle.slug))];
+/**
+ * Due tessere occupano due colonne (la prima e l'ottava) cosi' i 13 reparti riempiono la griglia
+ * senza buchi: 14 celle a 2 colonne, 15 a 3 e a 5 colonne. Le foto hanno almeno 1086 px: nessuna
+ * tessera le mostra oltre 543 px.
+ */
+const WIDE = new Set([0, 7]);
 
+export function AisleGrid({ aisles, copy }: AisleGridProps) {
   return (
-    <Section tone="cream" id="corridoi" containerSize="wide">
-      <Reveal><SectionHeading title={copy.titolo} subtitle={copy.descrizione} /></Reveal>
-      <Stagger as="ul" className="mt-7 grid gap-4 sm:mt-9 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-        {ordered.map((aisle) => (
-          <StaggerItem as="li" key={aisle.slug}>
-            <Link href={`/corridoi/${aisle.slug}/`} className="group grid h-full grid-cols-[88px_minmax(0,1fr)] overflow-hidden rounded-[1.25rem] bg-white ring-1 ring-brand-blue-900/5 transition-shadow hover:shadow-lift min-[380px]:grid-cols-[112px_minmax(0,1fr)] sm:flex sm:flex-col">
-              <div className="relative min-h-40 overflow-hidden sm:min-h-0">
-                {aisle.immagine.src ? (
-                  <SmartImage src={aisle.immagine.src} alt={aisle.immagine.alt} label={aisle.titoloBreve} ratio="20/13"
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 112px" rounded="rounded-none" className="h-full sm:h-auto" />
-                ) : <AisleArt icon={aisle.icona} className="aspect-[20/13] w-full" />}
-                {campaign.tema !== "default" && slugs.includes(aisle.slug) && (
-                  <Badge tone="accent" className="absolute left-4 top-4 hidden !px-2.5 sm:inline-flex sm:!text-xs">
-                    {campaign.etichetta ?? "Di stagione"}
-                  </Badge>
-                )}
-              </div>
-              <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-6">
-                {campaign.tema !== "default" && slugs.includes(aisle.slug) && (
-                  <Badge tone="accent" className="mb-2 self-start !px-2 !py-1 !text-[0.65rem] sm:hidden">
-                    {campaign.etichetta ?? "Di stagione"}
-                  </Badge>
-                )}
-                <h3 className="!text-lg text-brand-blue-900 sm:!text-2xl">{aisle.titoloBreve}</h3>
-                <p className="mt-2 text-sm text-muted">{aisle.descrizione}</p>
-                <span className="mt-auto inline-flex min-h-11 items-center gap-2 pt-3 text-sm font-bold text-brand-blue-700 sm:pt-5">
-                  <DepartmentIcon name={aisle.slug} size={36} className="size-7 sm:size-9" />
-                  <span className="decoration-brand-magenta-600 decoration-2 underline-offset-4 group-hover:underline">{copy.cta}</span>
+    <section id="corridoi" aria-labelledby="reparti-title" className="bg-white py-7 sm:py-10">
+      <Container size="wide">
+        <SectionTitle id="reparti-title" note={copy.descrizione}>{copy.titolo}</SectionTitle>
+        <ul className="grid auto-rows-[9.5rem] grid-flow-dense grid-cols-2 gap-2 sm:auto-rows-[11rem] sm:grid-cols-3 sm:gap-3 lg:auto-rows-[10.5rem] lg:grid-cols-5">
+          {aisles.map((aisle, i) => (
+            <li key={aisle.slug} className={i === 0 ? "col-span-2" : WIDE.has(i) ? "sm:col-span-2" : undefined}>
+              <Link
+                href={`/corridoi/${aisle.slug}/`}
+                className="group relative block h-full overflow-hidden rounded-[var(--radius-lg)] bg-brand-blue-900"
+              >
+                <SmartImage
+                  src={aisle.immagine.src}
+                  alt=""
+                  label={aisle.titoloBreve}
+                  position={aisle.immagine.position}
+                  sizes={i === 0 ? "(min-width: 1280px) 500px, (min-width: 1024px) 40vw, (min-width: 640px) 66vw, 100vw" : "(min-width: 1280px) 245px, (min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw"}
+                  rounded="rounded-none"
+                  imgClassName="group-hover:scale-100"
+                />
+                <span className="absolute inset-x-0 bottom-0 flex min-h-11 items-center gap-2 bg-brand-blue-900 px-2 py-1.5 text-white group-hover:bg-brand-blue-700">
+                  <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-white">
+                    <DepartmentIcon name={aisle.slug} size={24} className="size-6" />
+                  </span>
+                  <span className="text-sm font-extrabold leading-tight sm:text-base">{aisle.titoloBreve}</span>
                 </span>
-              </div>
-            </Link>
-          </StaggerItem>
-        ))}
-      </Stagger>
-    </Section>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Container>
+    </section>
   );
 }

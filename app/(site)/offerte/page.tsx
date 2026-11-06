@@ -1,5 +1,5 @@
 /**
- * Pagina Offerte (/offerte/): volantino in corso, archivio e promozioni.
+ * Pagina Volantino e offerte (/offerte/): volantino in corso (o avviso se non ce n'e'), archivio e promozioni.
  *
  * Per aggiungere un volantino basta aggiungere un elemento a content/flyers.json
  * e caricare i file in public/uploads/flyers/ (copertina, pagine, PDF).
@@ -8,27 +8,29 @@
  * lo ricontrolla con la data reale e sposta in archivio quelli nel frattempo scaduti.
  */
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { FlyersBoard } from "@/components/flyers/FlyersBoard";
 import { PromotionsGrid } from "@/components/flyers/PromotionsGrid";
-import { Container } from "@/components/ui/Container";
 import { content } from "@/lib/content";
 import { toIsoDate } from "@/lib/campaigns";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Offerte e volantino",
+  title: "Volantino e offerte",
   description:
-    "Consulta i volantini Home & Co. con le date e i negozi aderenti. Scarica i PDF originali e ritrova le edizioni precedenti.",
+    "Il volantino Home & Co. con le date e i negozi in cui vale, i volantini scaduti e i PDF da scaricare.",
   path: "/offerte/",
 });
 
 export default async function OffertePage() {
-  const [flyers, promotions, stores, settings] = await Promise.all([
+  const [flyers, promotions, stores, settings, pages] = await Promise.all([
     content.getFlyers(),
     content.getPromotions(),
     content.getStores(),
     content.getSettings(),
+    content.getPagesCopy(),
   ]);
+  const copy = pages.offerte;
   const today = toIsoDate();
   const whatsappHref = settings.whatsapp.numero
     ? `https://wa.me/${settings.whatsapp.numero}?text=${encodeURIComponent(settings.whatsapp.messaggioPredefinito)}`
@@ -36,17 +38,15 @@ export default async function OffertePage() {
 
   return (
     <>
-      <section className="pb-6 pt-10 sm:pt-16">
-        <Container>
-          <p className="mb-3 text-sm font-bold uppercase tracking-[0.14em] text-brand-magenta-700">Offerte</p>
-          <h1 className="max-w-4xl text-brand-blue-900">
-            Le offerte, nero su bianco.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg text-muted sm:text-xl">
-            Prima di passare in negozio, dai un’occhiata ai volantini. Controlla le date e i punti vendita indicati in ogni edizione.
-          </p>
-        </Container>
-      </section>
+      <PageHeader
+        breadcrumbLabel={pages.breadcrumb.aria}
+        breadcrumb={[
+          { label: pages.breadcrumb.home, href: "/" },
+          { label: copy.titolo, href: "/offerte/" },
+        ]}
+        title={copy.titolo}
+        lead={copy.intro}
+      />
 
       <FlyersBoard
         flyers={flyers}
@@ -54,17 +54,10 @@ export default async function OffertePage() {
         storeNames={Object.fromEntries(stores.map((s) => [s.id, s.citta]))}
         social={settings.social}
         whatsappHref={whatsappHref}
+        copy={copy}
       />
 
-      <PromotionsGrid
-        tone="blue"
-        buildDate={today}
-        eyebrow="Promozioni"
-        title="Le promozioni del momento"
-        subtitle="Controlla le date e i negozi aderenti a ogni iniziativa."
-        inverted
-        promotions={promotions}
-      />
+      <PromotionsGrid buildDate={today} title={copy.promozioni.titolo} subtitle={copy.promozioni.sottotitolo} promotions={promotions} />
     </>
   );
 }

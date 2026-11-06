@@ -1,31 +1,31 @@
 "use client";
 
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Section, type SectionTone } from "@/components/ui/Section";
-import { Reveal } from "@/components/motion/Reveal";
-import { Stagger, StaggerItem } from "@/components/motion/Stagger";
+import { SectionTitle } from "@/components/sections/SectionTitle";
+import { Container } from "@/components/ui/Container";
 import { PromotionCard } from "./PromotionCard";
 import type { Promotion } from "@/lib/content/schemas";
 import { useToday } from "@/lib/date-store";
 import { toIsoDate } from "@/lib/campaigns";
 
-type Props = { promotions: Promotion[]; buildDate: string; tone?: SectionTone; eyebrow?: string; title: string; subtitle?: string; inverted?: boolean };
+type Props = { promotions: Promotion[]; buildDate: string; title: string; subtitle?: string; className?: string };
 
-/** Griglia di promozioni con reveal a stagger. Non renderizza nulla se la lista e' vuota. */
-export function PromotionsGrid({ promotions, buildDate, tone = "cream", eyebrow, title, subtitle, inverted }: Props) {
+/** Griglia di promozioni attive oggi. Non renderizza nulla se non ce ne sono. */
+export function PromotionsGrid({ promotions, buildDate, title, subtitle, className }: Props) {
   const today = toIsoDate(useToday(buildDate));
   const current = promotions.filter((promo) => (!promo.validoDal || promo.validoDal <= today) && (!promo.validoAl || promo.validoAl >= today));
   if (current.length === 0) return null;
   return (
-    <Section tone={tone} rounded={tone === "blue"} className={tone === "blue" ? "mx-3 sm:mx-6" : undefined}>
-      <Reveal><SectionHeading eyebrow={eyebrow} title={title} subtitle={subtitle} inverted={inverted} /></Reveal>
-      <Stagger className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {current.map((p) => (
-          <StaggerItem key={p.id} className="h-full">
-            <PromotionCard promo={p} />
-          </StaggerItem>
-        ))}
-      </Stagger>
-    </Section>
+    <section aria-label={title} className={className ?? "bg-sand py-7 sm:py-10"}>
+      <Container size="wide">
+        <SectionTitle note={subtitle}>{title}</SectionTitle>
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+          {current.map((p) => (
+            <li key={p.id}>
+              <PromotionCard promo={p} />
+            </li>
+          ))}
+        </ul>
+      </Container>
+    </section>
   );
 }

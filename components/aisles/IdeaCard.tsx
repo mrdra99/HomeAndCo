@@ -19,11 +19,11 @@ export type IdeaItem = {
   href?: string;
 };
 
-/** Card con foto, badge sticker, titolo e testo. Cliccabile in tutta l'area se c'e' `href`. */
+/** Card con foto, badge, titolo e testo. Cliccabile in tutta l'area se c'e' `href`. */
 export function IdeaCard({ item }: { item: IdeaItem }) {
   return (
     <HoverLift className="h-full">
-      <article className="relative flex h-full flex-col overflow-hidden rounded-lg bg-white shadow-soft transition-shadow duration-300 group-hover:shadow-lift focus-within:shadow-lift">
+      <article className="relative flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border-2 border-brand-blue-100 bg-white group-hover:border-brand-blue-600 focus-within:border-brand-blue-600">
         <div className="relative">
           <SmartImage
             src={item.immagine.src}
@@ -37,13 +37,13 @@ export function IdeaCard({ item }: { item: IdeaItem }) {
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           />
           {item.badge && (
-            <Badge tone={item.badgeTone ?? "magenta"} rotate={-4} className="absolute left-3 top-3">
+            <Badge tone={item.badgeTone ?? "magenta"} className="absolute left-3 top-3">
               {item.badge}
             </Badge>
           )}
         </div>
-        <div className="flex flex-1 flex-col gap-2 p-5">
-          <h3 className="text-xl text-brand-blue-900">
+        <div className="flex flex-1 flex-col gap-1.5 p-4">
+          <h3 className="!text-xl text-brand-blue-900">
             {item.href ? (
               <Link href={item.href} className="after:absolute after:inset-0 after:content-['']">
                 {item.titolo}

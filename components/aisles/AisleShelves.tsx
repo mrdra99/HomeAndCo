@@ -5,8 +5,7 @@ import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type Poin
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 import { SmartImage } from "@/components/ui/SmartImage";
-import { Reveal } from "@/components/motion/Reveal";
-import { Stagger, StaggerItem } from "@/components/motion/Stagger";
+import { SectionTitle } from "@/components/sections/SectionTitle";
 import { cn } from "@/lib/utils";
 import type { AisleShelf } from "@/lib/content/schemas";
 
@@ -79,27 +78,19 @@ export function AisleShelves({ scaffali, titolo, intro }: AisleShelvesProps) {
   const caption = current ? [current.titolo, current.descrizione].filter(Boolean).join(" - ") : "";
 
   return (
-    <section id="scaffali" aria-labelledby="scaffali-titolo" className="scroll-mt-28 py-12 sm:py-16">
-      <Container>
-        <Reveal className="max-w-3xl">
-          <h2 id="scaffali-titolo" className="text-2xl text-brand-blue-900 sm:text-3xl">
-            {titolo}
-          </h2>
-          {intro && <p className="mt-3 text-lg text-ink">{intro}</p>}
-        </Reveal>
+    <section id="scaffali" aria-labelledby="scaffali-titolo" className="scroll-mt-28 bg-white py-7 sm:py-10">
+      <Container size="wide">
+        <SectionTitle id="scaffali-titolo" note={intro}>{titolo}</SectionTitle>
 
-        <Stagger
-          as="div"
-          className="hide-scrollbar -mx-5 mt-8 flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto px-5 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 lg:grid-cols-3"
-        >
+        <ul className="hide-scrollbar -mx-5 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto px-5 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 lg:grid-cols-3">
           {scaffali.map((s, i) => (
-            <StaggerItem key={`${s.immagine.src}-${i}`} className="w-[80%] shrink-0 snap-start sm:w-auto">
+            <li key={`${s.immagine.src}-${i}`} className="w-[80%] shrink-0 snap-start sm:w-auto">
               <button
                 type="button"
                 onClick={() => setOpen(i)}
                 aria-haspopup="dialog"
                 aria-label={`Ingrandisci: ${s.titolo ?? s.immagine.alt}`}
-                className="group block w-full overflow-hidden rounded-lg bg-white text-left shadow-soft transition-[transform,box-shadow] duration-200 hover:shadow-lift active:scale-[0.99]"
+                className="group block w-full overflow-hidden rounded-[var(--radius-lg)] border-2 border-brand-blue-100 bg-white text-left hover:border-brand-blue-600"
               >
                 <SmartImage
                   src={s.immagine.src}
@@ -110,15 +101,15 @@ export function AisleShelves({ scaffali, titolo, intro }: AisleShelvesProps) {
                   rounded="rounded-none"
                 />
                 {(s.titolo || s.descrizione) && (
-                  <span className="block p-4">
+                  <span className="block p-3">
                     {s.titolo && <span className="block font-semibold text-brand-blue-900">{s.titolo}</span>}
                     {s.descrizione && <span className="mt-1 block text-sm text-muted">{s.descrizione}</span>}
                   </span>
                 )}
               </button>
-            </StaggerItem>
+            </li>
           ))}
-        </Stagger>
+        </ul>
       </Container>
 
       <dialog

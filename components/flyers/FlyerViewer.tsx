@@ -6,25 +6,27 @@ import { m } from "motion/react";
 import { Icon } from "@/components/ui/Icon";
 import { Placeholder } from "@/components/ui/Placeholder";
 import { cn } from "@/lib/utils";
-import type { ImageRef } from "@/lib/content/schemas";
+import type { ImageRef, PagesCopy } from "@/lib/content/schemas";
 
 type FlyerViewerProps = {
   pages: ImageRef[];
   /** Titolo del volantino (etichetta accessibile). */
   title: string;
+  /** Etichette del lettore (content/pages.json: offerte.visore). */
+  copy: PagesCopy["offerte"]["visore"];
   className?: string;
 };
 
 const SWIPE_PX = 60;
 const PAGE_SIZES = "(min-width: 768px) 576px, calc(100vw - 64px)";
 
-function Arrow({ dir, onClick, disabled, className }: { dir: "prev" | "next"; onClick: () => void; disabled: boolean; className?: string }) {
+function Arrow({ dir, onClick, disabled, className, label }: { dir: "prev" | "next"; onClick: () => void; disabled: boolean; className?: string; label: string }) {
   return (
     <button
       type="button"
       onClick={onClick}
       disabled={disabled}
-      aria-label={dir === "prev" ? "Pagina precedente" : "Pagina successiva"}
+      aria-label={label}
       className={cn(
         "inline-flex size-12 items-center justify-center rounded-full bg-white text-brand-blue-800 shadow-soft transition-[transform,opacity] active:scale-95 disabled:opacity-30",
         className,
@@ -41,7 +43,7 @@ function Arrow({ dir, onClick, disabled, className }: { dir: "prev" | "next"; on
  * scorre e si fa pinch col browser). Carica solo la pagina corrente e le adiacenti.
  * Pagine senza `src` -> Placeholder con etichetta.
  */
-export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
+export function FlyerViewer({ pages, title, copy, className }: FlyerViewerProps) {
   const [index, setIndex] = useState(0);
   const [dir, setDir] = useState(0);
   const [zoomOpen, setZoomOpen] = useState(false);
@@ -113,7 +115,9 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
 
   if (pages.length === 0) return null;
   const page = pages[index];
-  const pageLabel = page.label ?? `Pagina ${index + 1}`;
+  const pageLabel = page.label ?? copy.pagina.replace("{n}", String(index + 1));
+  const prevLabel = copy.paginaPrecedente;
+  const nextLabel = copy.paginaSuccessiva;
   const near = [index - 1, index + 1].filter((i) => i >= 0 && i <= last && pages[i].src);
 
   return (
@@ -121,8 +125,8 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
       ref={viewerRef}
       className={cn("mx-auto w-full max-w-xl rounded-lg", className)}
       role="group"
-      aria-roledescription="carosello"
-      aria-label={`Volantino ${title}. Usa le frecce sinistra e destra per cambiare pagina.`}
+      aria-roledescription={copy.carosello}
+      aria-label={copy.gruppo.replace("{titolo}", title)}
       tabIndex={0}
       onKeyDown={onKey}
     >
@@ -164,13 +168,13 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
             <circle cx="11" cy="11" r="6" />
             <path d="m20 20-4.200-4.200M11 8.500v5M8.500 11h5" />
           </svg>
-          Ingrandisci
+          {copy.ingrandisci}
         </button>
 
         {pages.length > 1 && (
           <>
-            <Arrow dir="prev" onClick={() => go(-1)} disabled={index === 0} className="absolute left-2 top-1/2 hidden -translate-y-1/2 pointer-fine:inline-flex" />
-            <Arrow dir="next" onClick={() => go(1)} disabled={index === last} className="absolute right-2 top-1/2 hidden -translate-y-1/2 pointer-fine:inline-flex" />
+            <Arrow label={prevLabel} dir="prev" onClick={() => go(-1)} disabled={index === 0} className="absolute left-2 top-1/2 hidden -translate-y-1/2 pointer-fine:inline-flex" />
+            <Arrow label={nextLabel} dir="next" onClick={() => go(1)} disabled={index === last} className="absolute right-2 top-1/2 hidden -translate-y-1/2 pointer-fine:inline-flex" />
           </>
         )}
       </div>
@@ -183,14 +187,14 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
       </div>}
 
       <div className="mt-4 flex items-center justify-center gap-5">
-        {pages.length > 1 && <Arrow dir="prev" onClick={() => go(-1)} disabled={index === 0} className="pointer-fine:hidden" />}
+        {pages.length > 1 && <Arrow label={prevLabel} dir="prev" onClick={() => go(-1)} disabled={index === 0} className="pointer-fine:hidden" />}
         <p className="text-center text-sm font-semibold text-muted" aria-live="polite">
-          Pagina {index + 1} di {pages.length}
+          {copy.paginaDi.replace("{n}", String(index + 1)).replace("{tot}", String(pages.length))}
         </p>
-        {pages.length > 1 && <Arrow dir="next" onClick={() => go(1)} disabled={index === last} className="pointer-fine:hidden" />}
+        {pages.length > 1 && <Arrow label={nextLabel} dir="next" onClick={() => go(1)} disabled={index === last} className="pointer-fine:hidden" />}
       </div>
       {pages.length > 1 && (
-        <ul className="mt-2 flex flex-wrap justify-center" aria-label="Vai alla pagina">
+        <ul className="mt-2 flex flex-wrap justify-center" aria-label={copy.vaiAllaPagina}>
           {pages.map((p, i) => (
             <li key={i}>
               <button
@@ -199,7 +203,7 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
                   setDir(i > index ? 1 : -1);
                   setIndex(i);
                 }}
-                aria-label={`Pagina ${i + 1}`}
+                aria-label={copy.pagina.replace("{n}", String(i + 1))}
                 aria-current={i === index ? "true" : undefined}
                 className="group inline-flex size-11 items-center justify-center"
               >
@@ -238,12 +242,12 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
                   aria-pressed={zoomed}
                   className="min-h-11 rounded-full bg-white px-4 text-sm font-semibold text-brand-blue-900"
                 >
-                  {zoomed ? "Adatta allo schermo" : "Zoom 2x"}
+                  {zoomed ? copy.adatta : copy.zoom}
                 </button>
                 <button
                   type="button"
                   onClick={() => setZoomOpen(false)}
-                  aria-label="Chiudi"
+                  aria-label={copy.chiudiFinestra}
                   autoFocus
                   className="inline-flex size-11 items-center justify-center rounded-full bg-white text-brand-blue-900"
                 >
@@ -267,8 +271,8 @@ export function FlyerViewer({ pages, title, className }: FlyerViewerProps) {
             </div>
             {pages.length > 1 && (
               <div className="pointer-events-none absolute inset-x-0 bottom-[max(1rem,env(safe-area-inset-bottom))] flex justify-center gap-3">
-                <Arrow dir="prev" onClick={() => go(-1)} disabled={index === 0} className="pointer-events-auto" />
-                <Arrow dir="next" onClick={() => go(1)} disabled={index === last} className="pointer-events-auto" />
+                <Arrow label={prevLabel} dir="prev" onClick={() => go(-1)} disabled={index === 0} className="pointer-events-auto" />
+                <Arrow label={nextLabel} dir="next" onClick={() => go(1)} disabled={index === last} className="pointer-events-auto" />
               </div>
             )}
           </div>

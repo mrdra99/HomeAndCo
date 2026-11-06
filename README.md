@@ -54,7 +54,7 @@ Impostazioni del progetto:
 
 - `public/_redirects` (301 dai vecchi URL WordPress) e `public/_headers` (cache lunga su `/_next/static/*`, header di sicurezza) vengono copiati in `out/` e letti da Cloudflare. `/offerte/`, `/contatti/`, `/privacy-policy/`, `/cookie-policy/` restano identici al vecchio sito grazie a `trailingSlash`.
 - **Cache dei visitatori.** HTML, dati `.txt` delle navigazioni Next, foto originali, loghi e PDF hanno `max-age=0, must-revalidate`: ai nuovi accessi il browser verifica se il file è cambiato, riutilizzando la copia se invariata. JS/CSS e varianti responsive in `/_images/` hanno hash nel nome e cache lunga `immutable`: sostituire una foto produce automaticamente URL nuovi. Le regole sono pronte per Cloudflare Pages; il server locale Python non applica `_headers`. Al lancio verificare le intestazioni sul dominio reale, senza regole CDN aggiuntive che forzino cache lunghe sulle pagine. Un file già memorizzato con una vecchia scadenza non si può invalidare retroattivamente nel browser: per sostituzioni di materiali originali già pubblicati usare nomi di file nuovi.
-- **Deploy Hook giornaliero.** La campagna attiva e i volantini validi vengono scelti **in build**, così l'HTML è già corretto e senza flash. Il browser ricontrolla la data prima del primo paint e ogni 30 secondi, oltre che al ritorno sulla scheda: tema, hero, collezione stagionale, reparti e volantini restano sincronizzati, anche oltre la mezzanotte italiana. Ma lo HTML statico (SEO, anteprime social, elenco volantini) cambia solo con una nuova build: crea in Cloudflare Pages un **Deploy Hook** e salva il suo URL nel secret GitHub **`CLOUDFLARE_DEPLOY_HOOK_URL`**. Il workflow incluso `.github/workflows/seasonal-refresh.yml` lo richiama ogni notte alle 01:15 UTC (02:15/03:15 in Italia); si può anche avviare a mano. Senza il secret salta il rinnovo con un avviso: il cambio nei browser continua a funzionare, ma l’HTML per i motori di ricerca si aggiorna solo al prossimo deploy. Il richiamo conferma la richiesta di build, non l’esito del deploy: quest’ultimo va controllato su Cloudflare.
+- **Deploy Hook giornaliero.** La campagna attiva e i volantini validi vengono scelti **in build**, così l'HTML è già corretto e senza flash. Il browser ricontrolla la data dopo l’idratazione (non prima del primo paint), ogni 30 secondi e al ritorno sulla scheda, e aggiorna solo i contenuti: hero, collezione stagionale, reparti e volantini. Con un HTML di build vecchio può comparire per un istante l’hero della campagna precedente. La palette non cambia mai: i colori sono fissi. Ma lo HTML statico (SEO, anteprime social, elenco volantini) cambia solo con una nuova build: crea in Cloudflare Pages un **Deploy Hook** e salva il suo URL nel secret GitHub **`CLOUDFLARE_DEPLOY_HOOK_URL`**. Il workflow incluso `.github/workflows/seasonal-refresh.yml` lo richiama ogni notte alle 01:15 UTC (02:15/03:15 in Italia); si può anche avviare a mano. Senza il secret salta il rinnovo con un avviso: il cambio nei browser continua a funzionare, ma l’HTML per i motori di ricerca si aggiorna solo al prossimo deploy. Il richiamo conferma la richiesta di build, non l’esito del deploy: quest’ultimo va controllato su Cloudflare.
 
 Per attivare il richiamo su un progetto Pages collegato a GitHub:
 
@@ -112,7 +112,6 @@ In `content/campaigns.json` aggiungi un oggetto (la campagna senza date è il de
   "inizio": "2027-03-15",
   "fine": "2027-03-29",
   "immagineHero": { "src": "/uploads/campaigns/pasqua-2027.webp", "alt": "Tavola di Pasqua", "label": "Hero Pasqua" },
-  "accento": "#2F7D5B",
   "tema": "pasqua",
   "cta": { "label": "Vedi le offerte", "href": "/offerte/" },
   "ctaSecondaria": { "label": "Trova il negozio", "href": "/#dove-siamo" },
@@ -122,11 +121,11 @@ In `content/campaigns.json` aggiungi un oggetto (la campagna senza date è il de
 }
 ```
 
-Regole: date `YYYY-MM-DD`, **entrambe inclusive**, fuso Europe/Rome. Se più campagne si sovrappongono vince la `priorita` più alta, a parità l'`inizio` più recente. Fuori da ogni campagna vale il default. `accento` controlla il colore di pulsanti e badge. `contrastoAccento` sceglie il testo sui fondi colorati (default bianco) e `accentoTesto` il colore dei link su fondo chiaro: Halloween usa il magenta del marchio `#D11559`, testo bianco e link magenta scuro `#B01556`, niente arancione, come il volantino Halloween. Il banner iniziale ha fondo bianco, titoli blu e l’illustrazione di ripiego (`HeroArt`) con onde magenta, macchia blu, zucca, fantasma, pipistrello e ragnetto. Senza immagine (`src: null`) compare la grafica di ripiego.
+Regole: date `YYYY-MM-DD`, **entrambe inclusive**, fuso Europe/Rome. Se più campagne si sovrappongono vince la `priorita` più alta, a parità l'`inizio` più recente. Fuori da ogni campagna vale il default. I colori non si configurano per campagna: l'accento è sempre il magenta del logo.
 
 ### Halloween e anteprima per data
 
-Halloween 2026 è già configurato dal **1 al 31 ottobre inclusi**, nel fuso **Europe/Rome**. I volantini hanno intervalli indipendenti: la home li rimuove dalla vetrina alla scadenza senza spegnere la campagna. La copia PDF scaricabile è ricompressa alla stessa risoluzione per rientrare nel limite di 25 MiB di Cloudflare Pages; l’originale ricevuto resta intatto. Il volantino «Halloween da brividi» (7 pagine, tutti i negozi) vale **dal 1 al 31 ottobre 2026** e dal 1 novembre passa in archivio. Il catalogo Sesto Fiorentino di ottobre è stato reinserito il 5 novembre nell’archivio e nel lettore come esempio dimostrativo, con le date originali e un avviso esplicito. Dal **1 novembre al 31 dicembre** il tema è Natale, secondo il calendario confermato da Alessandro.
+Halloween 2026 è già configurato dal **1 al 31 ottobre inclusi**, nel fuso **Europe/Rome**. I volantini hanno intervalli indipendenti: la home li rimuove dalla vetrina alla scadenza senza spegnere la campagna. La copia PDF scaricabile è ricompressa alla stessa risoluzione per rientrare nel limite di 25 MiB di Cloudflare Pages; l’originale ricevuto resta intatto. Il volantino «Halloween da brividi» (7 pagine, tutti i negozi) vale **dal 1 al 31 ottobre 2026** e dal 1 novembre passa in archivio. Il catalogo Sesto Fiorentino di ottobre sta nell’archivio e si apre nel lettore come volantino concluso, con le date originali. Dal **1 novembre al 31 dicembre** il tema è Natale, secondo il calendario confermato da Alessandro.
 
 In `content/campaigns.json` puoi modificare date, titolo, testo, etichetta, sticker, colore, CTA e reparti. Il blocco facoltativo `collezione` contiene titolo, descrizione e `idee` (`titolo`, `testo`, `corridoio`, `icona`, `immagine` opzionale): compare solo durante quella campagna. Le date inesistenti, come il 30 febbraio, bloccano la build con un errore leggibile.
 
@@ -183,10 +182,7 @@ Ogni pagina `/corridoi/<slug>/` mostra la sezione "Gli scaffali in negozio" se l
 Su smartphone le foto scorrono in orizzontale; da tablet in su sono in griglia. Un tocco apre la foto a schermo intero (Esc chiude, frecce e swipe cambiano foto).
 
 ### Sedi, brand, promozioni, impostazioni
-`content/stores.json` (orari: array `{ giorno 0-6, aperture:[{da,a}] }`, `null` = non noti), `brands.json`, `promotions.json`, `settings.json` (WhatsApp, social, dati societari, analytics), `loyalty.json`. Le mappe OpenStreetMap sono caricate automaticamente (`loading="eager"`) su ogni schermo, senza pulsante di attivazione. Anche le promozioni ricontrollano inizio e fine nel browser, senza restare visibili dopo la scadenza o comparire in anticipo.
-
-### Striscia dei marchi (home)
-`components/sections/BrandMarquee.tsx` mostra i loghi in un banner che ruota di continuo (solo CSS, circa 36 px/s, pausa al passaggio del mouse e al focus, scorrimento da destra verso sinistra). Con `prefers-reduced-motion` diventa una riga scorrevole a mano. La sezione compare solo se c'è almeno un marchio con `provvisorio: false` in `content/brands.json`. Per aggiungere un logo: file in `public/uploads/brands/` (SVG oppure PNG trasparente, altezza consigliata 96 px per il PNG, orizzontale, senza margini vuoti attorno), poi nel marchio `logo.src` = `/uploads/brands/nome.svg`, `url` facoltativo e `provvisorio: false`. Senza logo il marchio compare come testo. Anteprima con 8 marchi finti in `/design-system/`.
+`content/stores.json` (orari: array `{ giorno 0-6, aperture:[{da,a}] }`, `null` = non noti), `brands.json` (con `getBrands`: oggi non usato dal sito, resta per il futuro `/shop`), `promotions.json`, `settings.json` (WhatsApp, social, dati societari, analytics), `loyalty.json`. Le mappe OpenStreetMap sono caricate automaticamente (`loading="eager"`) su ogni schermo, senza pulsante di attivazione. Anche le promozioni ricontrollano inizio e fine nel browser, senza restare visibili dopo la scadenza o comparire in anticipo.
 
 ### Foto e loghi
 
@@ -199,11 +195,14 @@ Vedi [ASSETS_TODO.md](ASSETS_TODO.md) (tabella di tutti i segnaposto, formati e 
 
 ## 6. Design system
 
-- Token (blu `#0F6BB4` e magenta `#D11559` del marchio, neutri azzurrati, raggi, ombre, `--accent` di campagna) in `app/globals.css`, sezione `@theme`. Font: Figtree per titoli e testo, coerente con una vetrina fotografica.
-- Componenti base in `components/ui/` (Button, Card, Section, Container, SectionHeading, Badge, Icon, Logo, Placeholder, SmartImage, Accordion) e animazioni in `components/motion/` (Reveal, Stagger, HoverLift; `MotionProvider` rispetta `prefers-reduced-motion`).
+- Token (blu `#0F6BB4` e magenta `#D11559` del marchio, neutri azzurrati, raggi, ombre, `--accent` fisso in magenta) in `app/globals.css`, sezione `@theme`. Font: Figtree per titoli e testo, coerente con una vetrina fotografica.
+- Componenti base in `components/ui/` (Button, Card, Section, Container, Badge, Notice, Icon, Logo, Placeholder, SmartImage, Accordion), intestazione delle pagine interne `components/layout/PageHeader.tsx` (percorso + titolo compatto), titoli di sezione `components/sections/SectionTitle.tsx` e `components/motion/` (solo `HoverLift` e `MotionProvider`, che rispetta `prefers-reduced-motion`). `Reveal` e `Stagger` non esistono più.
 - **Scorrimento**: rotellina, trackpad e tocco usano lo scorrimento nativo del browser, senza intercettare i gesti o mantenere un ciclo JavaScript di animazione. I link interni conservano lo scorrimento morbido CSS e gli spazi sotto l'header; con `prefers-reduced-motion` lo spostamento è immediato. Menu e finestre modali bloccano la pagina tramite `overflow`, mantenendo scorrevole il proprio contenuto.
-- **Comparsa allo scroll**: `Reveal` e `StaggerItem` usano un osservatore per elemento, con easing `cubic-bezier(0.16, 1, 0.3, 1)`: 700 ms e salita di 28 px su desktop; 950 ms e 20 px su smartphone. Si animano solo opacità e trasformazione, senza blur. Le colonne della stessa riga si sfalsano di 110 ms (tetto 450 ms); le righe successive aspettano di entrare nello schermo. L'effetto parte una sola volta. L'HTML iniziale è visibile: si preparano solo gli elementi sotto la vista dopo l'idratazione. Con JavaScript disattivato, movimento ridotto, focus da tastiera o stampa, il contenuto resta subito leggibile.
-- **Smartphone**: schede dei reparti e delle collezioni con foto laterale sotto i 640 px, archivio compatto sotto i 420 px, menu a schermo intero con chiusura sempre raggiungibile e collegamenti grandi. Pulsanti alti almeno 44 px, campi del modulo da 16 px e spazi per le aree sicure nelle finestre modali. La striscia dei marchi, quando presente, si scorre manualmente al tocco.
+- **Niente comparse allo scroll, niente marquee, niente splash** (brief «sito da negozio»): solo hover e transizioni brevi, `prefers-reduced-motion` rispettato.
+- **Palette fissa**: le campagne cambiano foto e testi, non i colori. `--accent` è sempre il magenta del logo (definito una sola volta in `app/globals.css`; nessuno script o attributo `data-theme`); lo schema delle campagne non ha più il campo colore. Coppie di contrasto AA in testa a `app/globals.css`.
+- **Testata e tab bar**: `components/layout/Header.tsx` (3 livelli + mega-menu), `StoreChip.tsx` («Il tuo negozio», `localStorage` chiave `homeco:negozio`), `TabBar.tsx` (sotto 1024 px). Etichette in `content/settings.json` → `testata` e `piede`; voci in `content/navigation.json` (campo `breve` per la striscia dei reparti). Il contenuto riserva lo spazio della tab bar con `pb-tabbar`; il pulsante WhatsApp fluttuante sta sopra la tab bar.
+- **Regola immagini**: larghezza CSS mostrata ≤ larghezza intrinseca / 2 (`lib/image-rules.ts`, test `image-resolution`). I reel 360 px si mostrano a 180 px al massimo.
+- **Smartphone**: schede dei reparti e delle collezioni con foto laterale sotto i 640 px, archivio compatto sotto i 420 px, pannello reparti a schermo intero con chiusura sempre raggiungibile e collegamenti grandi. Pulsanti alti almeno 44 px, campi del modulo da 16 px e spazi per le aree sicure nelle finestre modali.
 - **Lettore volantini**: lo swipe orizzontale usa Pointer Events, senza dipendere dalle feature di trascinamento di Motion. Il gesto verticale mantiene lo scorrimento nativo e il pinch resta disponibile; frecce, tastiera e zoom sono sempre accessibili. Sui dispositivi touch le frecce sono sotto l'immagine per lasciare liberi prezzi e dettagli. I PDF usano link nativi, senza richieste di prefetch alle route Next.
 - La pagina **`/design-system/`** mostra tutto dal vivo. È esclusa da sitemap e robots.
 
@@ -256,7 +255,6 @@ collections:
               - { label: Sottotitolo, name: sottotitolo, widget: text }
               - { label: Inizio, name: inizio, widget: datetime, date_format: YYYY-MM-DD, time_format: false, format: YYYY-MM-DD, required: false }
               - { label: Fine (inclusa), name: fine, widget: datetime, date_format: YYYY-MM-DD, time_format: false, format: YYYY-MM-DD, required: false }
-              - { label: Accento, name: accento, widget: color }
               - { label: Priorità, name: priorita, widget: number }
               - label: Immagine hero
                 name: immagineHero
@@ -315,12 +313,5 @@ Dettaglio completo in [ASSETS_TODO.md](ASSETS_TODO.md). In sintesi:
 
 ### Catalogo dimostrativo e archivio senza date
 
-`content/flyers.json` → `esempioAttivo: true` mantiene il catalogo Sesto ottobre nel lettore come esempio. Non modifica la validità reale né i PDF: `currentFlyers` continua a usare le date originali. Rimuovere il flag per togliere l’esempio dalla vetrina. `archiviato: true` inserisce esplicitamente un documento in archivio; un PDF privo di date, come il foglio caramelle, usa date `null` e un’etichetta `periodo`, senza inventare scadenze.
+I volantini conclusi non sono mai presentati come attuali né come esempio: in `/offerte/` stanno nell'archivio e si aprono nel lettore con l'etichetta «concluso» e le proprie date. Un PDF privo di date, come il foglio caramelle, usa `archiviato: true` con date `null` e un'etichetta `periodo`. I testi delle pagine interne stanno in `content/pages.json` (schema `PagesCopySchema`).
 
-### Splash di ingresso
-
-Il primo ingresso della sessione mostra il logo originale su bianco per 2,6 secondi. Una maschera radiale sfumata ritira il bianco verso il centro, facendo emergere la pagina dagli angoli. Il logo si dissolve in parallelo. Nessun contenuto del sito viene rimosso dal rendering iniziale.
-
-Lo script in `<head>` evita il flash dello splash nelle visite successive (`sessionStorage`, chiave `homeco:intro-seen:v1`). La pagina resta subito accessibile senza JavaScript o con `prefers-reduced-motion: reduce`; Tab, Esc, un clic o lo scroll interrompono l’introduzione. Il consenso cookie compare dopo la fine dell’ingresso. Un timeout indipendente rimuove comunque l’introduzione entro 3,2 secondi se l’idratazione non termina. La pagina `/design-system/` è esclusa.
-
-Implementazione: `components/intro/`, `lib/brand-intro.ts` e regole `.brand-intro` in `app/globals.css`.

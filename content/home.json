@@ -1,35 +1,83 @@
 {
+  "tabellone": {
+    "negozi": {
+      "titolo": "I negozi",
+      "cta": "Orari e indicazioni",
+      "apertoNeutro": "Tutti i giorni"
+    },
+    "aria": "In primo piano"
+  },
+  "fatti": [
+    {
+      "icona": "calendar",
+      "titolo": "Aperti tutti i giorni",
+      "testo": "Domeniche e festivi compresi"
+    },
+    {
+      "icona": "clock",
+      "titolo": "Orario continuato",
+      "testo": "Prato e Lucca 09:00–20:00, Sesto 08:30–19:30"
+    },
+    {
+      "icona": "store",
+      "titolo": "3 negozi in Toscana",
+      "testo": "Prato, Lucca, Sesto Fiorentino"
+    },
+    {
+      "icona": "grid",
+      "titolo": "13 reparti",
+      "testo": "Dalla cucina alla cura dell’auto"
+    }
+  ],
   "reparti": {
-    "titolo": "Di cosa hai bisogno?",
-    "descrizione": "Dal detersivo ai bicchieri nuovi. Scegli il reparto, poi vieni a dare un’occhiata in negozio.",
-    "cta": "Guarda il reparto"
+    "titolo": "I reparti",
+    "descrizione": "Apri un reparto per vedere cosa c’è sugli scaffali."
+  },
+  "idee": {
+    "vaiAlReparto": "Vai al reparto {reparto}",
+    "scorriPrecedente": "Scorri indietro",
+    "scorriSuccessivo": "Scorri avanti",
+    "regione": "Idee di stagione, scorri in orizzontale"
+  },
+  "volantino": {
+    "titolo": "Volantino",
+    "statoAttivo": "In corso",
+    "statoAnteprima": "In arrivo",
+    "avvisoAnteprima": "Le offerte valgono solo nelle date indicate.",
+    "soloNegozi": "Solo {negozi}",
+    "tuttiINegozi": "Tutti i negozi",
+    "ctaAttivo": "Sfoglia il volantino",
+    "ctaAnteprima": "Guarda l’anteprima",
+    "vuoto": {
+      "testo": "Il prossimo volantino sarà pubblicato qui e su Instagram e Facebook.",
+      "cta": "Vedi i volantini precedenti",
+      "fascia": "Nessun volantino in corso.",
+      "ctaFascia": "Volantini precedenti"
+    }
   },
   "negozi": {
-    "titolo": "Ci trovi qui.",
-    "descrizione": "Prato, Lucca e Sesto Fiorentino. Scegli il negozio più comodo e calcola il percorso."
+    "titolo": "I nostri negozi",
+    "descrizione": "Indirizzo, orari e indicazioni per raggiungere ogni negozio.",
+    "indicazioni": "Indicazioni",
+    "tutti": "Orari e mappe di tutti i negozi",
+    "orari": "Orari",
+    "mappa": "Orari e mappa"
   },
-  "volantini": {
-    "titolo": "I volantini Home & Co.",
-    "introAttivo": "Sfoglia le offerte e controlla le date prima di passare in negozio.",
-    "introArchivio": "Qui trovi le ultime edizioni pubblicate. Le offerte concluse restano nell’archivio, con le loro date.",
-    "ctaAttivo": "Sfoglia il volantino",
-    "ctaArchivio": "Vedi i volantini",
-    "statoArchivio": "Edizione conclusa",
-    "introAnteprima": "Il nuovo catalogo è già qui. Sfoglialo in anteprima: le offerte valgono soltanto nelle date e nei negozi indicati.",
-    "ctaAnteprima": "Sfoglia in anteprima",
-    "statoAnteprima": "In anteprima · offerte in arrivo"
+  "carta": {
+    "titolo": "Carta fedeltà Home & Co.",
+    "cta": "Apri la pagina della carta"
   },
   "social": {
-    "titolo": "Un giro da Home & Co.",
-    "descrizione": "Entra tra gli scaffali e lasciati ispirare. Per gli altri video, ti aspettiamo su Instagram.",
+    "titolo": "Il negozio in video",
+    "descrizione": "Un video girato tra gli scaffali e due reel dal nostro profilo Instagram.",
     "video": {
       "src": "/uploads/videos/home-co-negozio.mp4",
       "poster": {
         "src": "/uploads/videos/home-co-negozio-poster.webp",
         "alt": "Un momento del video girato tra gli scaffali Home & Co."
       },
-      "titolo": "Tra gli scaffali, insieme a noi",
-      "descrizione": "Un assaggio dei reparti e delle idee che trovi in negozio."
+      "titolo": "Tra gli scaffali del negozio",
+      "descrizione": "Un video girato nei nostri reparti."
     },
     "reels": [
       {
@@ -48,6 +96,15 @@
           "alt": "Anteprima originale del reel Home & Co.: Mille idee per il tuo bagno"
         }
       }
-    ]
-  }
+    ],
+    "instagram": "Instagram",
+    "videoAlternativa": "Guarda il video del negozio",
+    "videoAria": "{titolo}. Video con sottotitoli impressi nell’immagine.",
+    "reelAria": "{titolo}: apri il reel su Instagram (nuova scheda)",
+    "seguici": "Seguici su Instagram"
+  },
+  "seo": {
+    "descrizione": "Pulizia della casa, cura della persona, animali, biancheria, cartoleria, ferramenta e auto. Negozi a Prato, Lucca e Sesto Fiorentino, aperti tutti i giorni."
+  },
+  "fattiAria": "Home & Co. in breve"
 }

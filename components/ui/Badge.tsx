@@ -3,8 +3,6 @@ import { cn } from "@/lib/utils";
 
 type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
   tone?: "magenta" | "blue" | "sand" | "white" | "accent";
-  /** Gradi di rotazione per l'effetto sticker (consigliati 3-6). */
-  rotate?: number;
 };
 
 const TONES = {
@@ -15,23 +13,12 @@ const TONES = {
   white: "bg-white text-brand-blue-900",
 } as const;
 
-/** Etichetta/sticker. Con `rotate` diventa uno sticker inclinato. */
-export function Badge({ tone = "magenta", rotate = 0, className, style, ...rest }: BadgeProps) {
+/** Etichetta rettangolare arrotondata, a colore pieno. Nessuna inclinazione. */
+export function Badge({ tone = "magenta", className, ...rest }: BadgeProps) {
   return (
     <span
-      className={cn(
-        "inline-flex items-center rounded-full px-3.5 py-1 text-sm font-bold leading-tight",
-        rotate !== 0 && "font-display text-base shadow-pop",
-        TONES[tone],
-        className,
-      )}
-      style={rotate ? { transform: `rotate(${rotate}deg)`, ...style } : style}
+      className={cn("inline-flex items-center rounded-md px-2.5 py-1 text-sm font-bold leading-tight", TONES[tone], className)}
       {...rest}
     />
   );
-}
-
-/** Alias semantico: sticker ruotato di 4 gradi di default. */
-export function Sticker({ rotate = 4, ...rest }: BadgeProps) {
-  return <Badge rotate={rotate} {...rest} />;
 }

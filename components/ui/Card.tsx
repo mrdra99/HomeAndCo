@@ -9,16 +9,16 @@ type CardProps = HTMLAttributes<HTMLElement> & {
 };
 
 const TONES = {
-  white: "bg-white text-ink",
+  white: "bg-white text-ink ring-1 ring-brand-blue-100",
   sand: "bg-sand text-ink",
   "magenta-soft": "bg-brand-magenta-50 text-ink",
-  blue: "bg-brand-blue-700 text-white on-dark",
+  blue: "bg-brand-blue-600 text-white on-dark",
 } as const;
 
 export function Card({ as: Tag = "div", tone = "white", flush = false, className, ...rest }: CardProps) {
   return (
     <Tag
-      className={cn("overflow-hidden rounded-lg shadow-soft", TONES[tone], !flush && "p-6 sm:p-8", className)}
+      className={cn("overflow-hidden rounded-lg", TONES[tone], !flush && "p-4 sm:p-6", className)}
       {...rest}
     />
   );

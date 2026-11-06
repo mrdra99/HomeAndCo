@@ -9,6 +9,7 @@ import flyersJson from "../../content/flyers.json";
 import promotionsJson from "../../content/promotions.json";
 import loyaltyJson from "../../content/loyalty.json";
 import homeJson from "../../content/home.json";
+import pagesJson from "../../content/pages.json";
 import { SITE_URL } from "../site";
 import {
   AisleSchema,
@@ -18,6 +19,7 @@ import {
   HomeCopySchema,
   LoyaltyProgramSchema,
   NavigationSchema,
+  PagesCopySchema,
   PromotionSchema,
   SettingsSchema,
   StoreSchema,
@@ -48,6 +50,9 @@ export class FileContentSource implements ContentSource {
   }
   async getHomeCopy() {
     return this.load("home.json", HomeCopySchema, homeJson);
+  }
+  async getPagesCopy() {
+    return this.load("pages.json", PagesCopySchema, pagesJson);
   }
   async getNavigation() {
     return this.load("navigation.json", NavigationSchema, navigationJson);

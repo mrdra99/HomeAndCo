@@ -35,6 +35,41 @@ const PATHS = {
     </>
   ),
   "arrow-right": <path d="M5 12h14m-6-6 6 6-6 6" />,
+  info: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 11v5" />
+      <circle cx="12" cy="8" r="0.6" fill="currentColor" />
+    </>
+  ),
+  chevron: <path d="m6 9 6 6 6-6" />,
+  home: <path d="M4 11 12 4l8 7M6 10v9h12v-9M10 19v-5h4v5" />,
+  grid: (
+    <>
+      <rect x="4" y="4" width="7" height="7" rx="1.500" />
+      <rect x="13" y="4" width="7" height="7" rx="1.500" />
+      <rect x="4" y="13" width="7" height="7" rx="1.500" />
+      <rect x="13" y="13" width="7" height="7" rx="1.500" />
+    </>
+  ),
+  flyer: (
+    <>
+      <path d="M6 3h9l4 4v14H6z" />
+      <path d="M14 3v5h5M9 13h7M9 17h7" />
+    </>
+  ),
+  store: (
+    <>
+      <path d="M4 9 5.500 4h13L20 9M4 9v11h16V9M4 9c0 1.700 1.300 2.500 2.700 2.500S9.300 10.700 9.300 9c0 1.700 1.300 2.500 2.700 2.500s2.700-.8 2.700-2.500c0 1.700 1.300 2.500 2.700 2.500S20 10.700 20 9" />
+      <path d="M10 20v-5h4v5" />
+    </>
+  ),
+  card: (
+    <>
+      <rect x="3" y="5" width="18" height="14" rx="2.500" />
+      <path d="M3 10h18M7 15h4" />
+    </>
+  ),
   menu: <path d="M4 7h16M4 12h16M4 17h16" />,
   close: <path d="M6 6l12 12M18 6 6 18" />,
   calendar: (

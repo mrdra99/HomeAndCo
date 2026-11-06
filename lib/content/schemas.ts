@@ -45,9 +45,6 @@ export const CampaignSchema = z
     fine: isoDate.nullable().default(null),
     ricorrenza: z.literal("annuale").optional(),
     immagineHero: ImageSchema.default({ src: null, alt: "" }),
-    accento: hexColor,
-    contrastoAccento: hexColor.optional(),
-    accentoTesto: hexColor.optional(),
     tema: z.string().default("default"),
     etichetta: z.string().optional(),
     sticker: z.string().optional(),
@@ -60,7 +57,7 @@ export const CampaignSchema = z
         corridoio: slug,
         icona: z.string(),
         immagine: ImageSchema.optional(),
-      })).min(1).max(4),
+      })).min(1).max(8),
     }).optional(),
     cta: Cta,
     ctaSecondaria: Cta.optional(),
@@ -79,20 +76,47 @@ export const CampaignSchema = z
 export type Campaign = z.infer<typeof CampaignSchema>;
 
 // ---------- Home copy ----------
-const SectionCopySchema = z.object({ titolo: z.string().min(1), descrizione: z.string().min(1) });
+const text = z.string().min(1);
+const template = (token: string) => z.string().min(1).refine((v) => v.includes(token), `Il testo deve contenere ${token}`);
 export const HomeCopySchema = z.object({
+  /** Descrizione della home per i motori di ricerca (max ~160 caratteri). */
+  seo: z.object({ descrizione: text }),
+  /** Primo schermo: riquadri accanto alla campagna (il volantino usa `volantino`). */
+  tabellone: z.object({
+    aria: text,
+    negozi: z.object({ titolo: text, cta: text, apertoNeutro: text }),
+  }),
+  /** Etichetta accessibile della fascia fatti. */
+  fattiAria: text,
+  /** Fascia fatti: 3-4 fatti verificati con icona (nome di Icon). */
+  fatti: z.array(z.object({ icona: text, titolo: text, testo: text })).min(3).max(4),
+  reparti: z.object({ titolo: text, descrizione: text }),
+  idee: z.object({ vaiAlReparto: z.string().refine((v) => v.includes("{reparto}"), "Il testo deve contenere {reparto}"), scorriPrecedente: text, scorriSuccessivo: text, regione: text }),
+  /** Volantino: usato dal riquadro del primo schermo e dalla fascia magenta. */
+  volantino: z.object({
+    titolo: text,
+    statoAttivo: text,
+    statoAnteprima: text,
+    avvisoAnteprima: text,
+    soloNegozi: z.string().refine((v) => v.includes("{negozi}"), "Il testo deve contenere {negozi}"),
+    tuttiINegozi: text,
+    ctaAttivo: text,
+    ctaAnteprima: text,
+    /** Nessun volantino in corso ne' in arrivo: riquadro del primo schermo e striscia sottile. */
+    vuoto: z.object({ testo: text, cta: text, fascia: text, ctaFascia: text }),
+  }),
+  negozi: z.object({ titolo: text, descrizione: text, indicazioni: text, tutti: text, orari: text, mappa: text }),
+  carta: z.object({ titolo: text, cta: text }),
   social: z.object({
-    titolo: z.string().min(1),
+    titolo: text,
     descrizione: z.string(),
     video: z.object({ src: z.string(), poster: ImageSchema, titolo: z.string(), descrizione: z.string() }),
     reels: z.array(z.object({ href: z.string().url(), titolo: z.string(), immagine: ImageSchema })).length(2),
-  }),
-  reparti: SectionCopySchema.extend({ cta: z.string().min(1) }),
-  negozi: SectionCopySchema,
-  volantini: z.object({
-    titolo: z.string().min(1), introAttivo: z.string(), introArchivio: z.string(),
-    ctaAttivo: z.string(), ctaArchivio: z.string(), statoArchivio: z.string(),
-    introAnteprima: z.string(), ctaAnteprima: z.string(), statoAnteprima: z.string(),
+    instagram: text,
+    videoAlternativa: text,
+    seguici: text,
+    videoAria: template("{titolo}"),
+    reelAria: template("{titolo}"),
   }),
 });
 export type HomeCopy = z.infer<typeof HomeCopySchema>;
@@ -169,9 +193,13 @@ export const StoreSchema = z.object({
   whatsapp: z.string().nullable().default(null),
   /** null = orari non ancora forniti: niente stato "Aperto ora". */
   orari: z.array(OpeningDaySchema).nullable().default(null),
+  /** Nome corto per spazi stretti (es. "Sesto F.no"); se assente si usa `citta`. */
+  cittaBreve: z.string().optional(),
   noteOrari: z.string().default(""),
   particolarita: z.array(z.string()).default([]),
   servizi: z.array(z.string()).default([]),
+  /** Dettagli non ancora verificati: NON compaiono sul sito finche' non passano in particolarita' o servizi. */
+  daConfermare: z.array(z.string()).default([]),
   immagine: ImageSchema,
   mappaUrl: z.string(),
   provvisorio,
@@ -197,7 +225,6 @@ export const FlyerSchema = z
     validoAl: isoDate.nullable(),
     periodo: z.string().optional(),
     archiviato: z.boolean().optional(),
-    esempioAttivo: z.boolean().optional(),
     negozi: z.union([z.literal("tutti"), z.array(z.string())]),
     pagine: z.array(ImageSchema).default([]),
     pdf: z.string().nullable().default(null),
@@ -225,6 +252,69 @@ export const PromotionSchema = z.object({
 });
 export type Promotion = z.infer<typeof PromotionSchema>;
 
+// ---------- Testata e piede: etichette dell'interfaccia (mai cablate nei componenti) ----------
+const TEMPLATE_ORA = z.string().refine((v) => v.includes("{ora}"), "Il testo deve contenere {ora}");
+export const TabIconSchema = z.enum(["home", "reparti", "volantino", "negozi", "carta", "contatti"]);
+export const HeaderCopySchema = z.object({
+  /** Fascia superiore blu 900. Le citta' si ricavano dai negozi (cittaBreve o citta). */
+  avviso: z.string().min(1),
+  repartiLabel: z.string().min(1),
+  /** Chip "Il tuo negozio" (scelta salvata nel browser, stato da useOpenStatus). */
+  negozio: z.object({
+    etichetta: z.string().min(1),
+    scegli: z.string().min(1),
+    titoloScelta: z.string().min(1),
+    apertoFinoAlle: TEMPLATE_ORA,
+    chiuso: z.string().min(1),
+    riapreOggi: TEMPLATE_ORA,
+    riapreDomani: TEMPLATE_ORA,
+    orariEIndicazioni: z.string().min(1),
+  }),
+  /** Tab bar mobile: 5 voci. "reparti" apre il pannello dei reparti, le altre sono link. */
+  tab: z.array(z.object({ label: z.string().min(1), icona: TabIconSchema, href: z.string().optional() })).length(5),
+  a11y: z.object({
+    saltaAlContenuto: z.string().min(1),
+    logo: z.string().min(1),
+    navigazione: z.string().min(1),
+    reparti: z.string().min(1),
+    repartiPrecedenti: z.string().min(1),
+    repartiSuccessivi: z.string().min(1),
+    tabBar: z.string().min(1),
+    chiudi: z.string().min(1),
+    altriLink: z.string().min(1),
+  }),
+});
+export type HeaderCopy = z.infer<typeof HeaderCopySchema>;
+
+export const ConsentCopySchema = z.object({
+  titolo: text,
+  testoPrima: text,
+  linkCookie: text,
+  necessari: z.object({ etichetta: text, descrizione: text }),
+  statistiche: z.object({ etichetta: text, descrizione: text }),
+  marketing: z.object({ etichetta: text, descrizione: text }),
+  salva: text,
+  accettaTutti: text,
+  rifiuta: text,
+  personalizza: text,
+});
+export type ConsentCopy = z.infer<typeof ConsentCopySchema>;
+
+export const FooterCopySchema = z.object({
+  reparti: z.string().min(1),
+  negozi: z.string().min(1),
+  linkUtili: z.string().min(1),
+  social: z.string().min(1),
+  legale: z.string().min(1),
+  tuttiIGiorni: z.string().min(1),
+  indicazioni: z.string().min(1),
+  partitaIva: z.string().min(1),
+  privacy: z.string().min(1),
+  cookie: z.string().min(1),
+  preferenzeCookie: z.string().min(1),
+});
+export type FooterCopy = z.infer<typeof FooterCopySchema>;
+
 // ---------- Settings ----------
 export const SettingsSchema = z.object({
   nomeSito: z.string(),
@@ -241,6 +331,9 @@ export const SettingsSchema = z.object({
     numero: z.string().nullable().default(null),
     messaggioPredefinito: z.string(),
   }),
+  testata: HeaderCopySchema,
+  piede: FooterCopySchema,
+  consenso: ConsentCopySchema,
   siteUrl: z.string().url(),
   analytics: z.object({
     gaId: z.string().nullable().default(null),
@@ -253,10 +346,16 @@ export type Settings = z.infer<typeof SettingsSchema>;
 export const LoyaltyProgramSchema = z.object({
   nome: z.string(),
   intro: z.string(),
+  /** Vantaggi confermati dal cliente; vuoto = la sezione non compare. */
   vantaggi: z.array(
     z.object({ titolo: z.string(), testo: z.string(), icona: z.string() }),
-  ),
-  comeRichiederla: z.string(),
+  ).default([]),
+  /** Costo della carta (es. "Gratuita"); compare solo se compilato. */
+  costo: z.string().optional(),
+  /** Regolamento, in sintesi; compare solo se compilato. */
+  regolamento: z.string().optional(),
+  /** Passaggi per ottenere la carta; vuoto = la sezione non compare (nessun passaggio confermato). */
+  passi: z.array(z.string().min(1)).default([]),
   faq: z.array(z.object({ d: z.string(), r: z.string() })).default([]),
   provvisorio,
 });
@@ -265,9 +364,13 @@ export type LoyaltyProgram = z.infer<typeof LoyaltyProgramSchema>;
 // ---------- Navigation ----------
 export const NavItemSchema = z.object({
   label: z.string().min(1),
+  /** Etichetta corta per la striscia dei reparti (opzionale). */
+  breve: z.string().min(1).optional(),
   href: z.string().min(1),
   /** Voce evidenziata (es. pulsante nel menu) */
   evidenza: z.boolean().default(false),
+  /** Compare solo nel footer: non nel menu della testata ne' nella tab bar mobile. */
+  soloPiede: z.boolean().default(false),
 });
 export type NavItem = z.infer<typeof NavItemSchema>;
 
@@ -276,3 +379,115 @@ export const NavigationSchema = z
   .refine((items) => items.filter((item) => !item.href.startsWith("/corridoi/")).length <= 10,
     "Il menu può avere al massimo 10 voci principali, oltre ai reparti nel menu a tendina");
 export type Navigation = z.infer<typeof NavigationSchema>;
+
+// ---------- Testi delle pagine interne ----------
+export const PagesCopySchema = z.object({
+  breadcrumb: z.object({ aria: text, home: text, reparti: text }),
+  offerte: z.object({
+    titolo: text,
+    intro: text,
+    inCorso: text,
+    anteprima: text,
+    testoInCorso: text,
+    testoAnteprima: template("{data}"),
+    nessuno: z.object({ titolo: text, testo: text, social: text }),
+    schede: text,
+    etichettaAnteprima: text,
+    sfoglia: text,
+    scaricaPdf: text,
+    negozi: z.object({ tutti: text, uno: template("{negozi}"), alcuni: template("{negozi}") }),
+    negoziConclusi: z.object({ tutti: text, uno: template("{negozi}"), alcuni: template("{negozi}") }),
+    visore: z.object({
+      titolo: text,
+      istruzioni: text,
+      concluso: template("{date}"),
+      chiudi: text,
+      paginaPrecedente: text,
+      paginaSuccessiva: text,
+      gruppo: template("{titolo}"),
+      carosello: text,
+      ingrandisci: text,
+      paginaDi: template("{n}"),
+      vaiAllaPagina: text,
+      pagina: template("{n}"),
+      zoom: text,
+      adatta: text,
+      chiudiFinestra: text,
+    }),
+    archivio: z.object({ titolo: text, nota: text, concluso: text, sfoglia: text }),
+    promozioni: z.object({ titolo: text, sottotitolo: text }),
+  }),
+  doveSiamo: z.object({
+    titolo: text,
+    intro: text,
+    scegli: text,
+    tuoNegozio: text,
+    daSapere: text,
+    servizi: text,
+    orari: text,
+    orariInAggiornamento: text,
+    mappa: text,
+    indicazioni: text,
+    chiama: text,
+    whatsapp: text,
+    impostaNegozio: text,
+  }),
+  cartaFedelta: z.object({
+    vantaggi: text,
+    passi: text,
+    faq: text,
+    domande: z.object({ titolo: text, testo: text, scrivici: text, negozi: text }),
+    /** Pagina senza dati confermati: solo avviso e due link. */
+    vuota: z.object({ volantino: text, negozi: text }),
+    /** Descrizione per i motori di ricerca: senza dati / con dati. */
+    meta: z.object({ vuota: text, completa: text }),
+    costo: text,
+    regolamento: text,
+  }),
+  contatti: z.object({
+    titolo: text,
+    /** Senza modulo (adattatore non configurato): contiene {email}. */
+    intro: template("{email}"),
+    /** Con un modulo realmente attivo. */
+    introModulo: text,
+    descrizione: text,
+    descrizioneModulo: text,
+    emailTesto: text,
+    indicazioni: text,
+    modulo: z.object({
+      nome: text,
+      email: text,
+      oggetto: text,
+      scegliOggetto: text,
+      messaggio: text,
+      privacyPrima: text,
+      privacyLink: text,
+      privacyDopo: text,
+      invia: text,
+      invio: text,
+      prova: text,
+      provaTitolo: text,
+      provaTesto: text,
+      inviatoTitolo: text,
+      inviatoTesto: text,
+      scriviAncora: text,
+      erroreGenerico: text,
+      viaEmail: text,
+    }),
+    diretti: text,
+    negozi: text,
+    orariEIndicazioni: text,
+    privacyPrima: text,
+    privacyLink: text,
+  }),
+  corridoi: z.object({
+    tuttiIReparti: text,
+    negozi: text,
+    scaffali: text,
+    idee: z.object({ titolo: text, testo: text }),
+    promozioni: template("{reparto}"),
+    chiusura: z.object({ titolo: template("{reparto}"), testo: template("{citta}"), negozi: text, volantino: text }),
+  }),
+  legale: z.object({ avviso: text, aggiornamento: template("{data}") }),
+});
+export type PagesCopy = z.infer<typeof PagesCopySchema>;

@@ -1,0 +1,151 @@
+{
+  "breadcrumb": {
+    "aria": "Percorso di navigazione",
+    "home": "Home",
+    "reparti": "Reparti"
+  },
+  "offerte": {
+    "titolo": "Volantino e offerte",
+    "intro": "Il volantino valido adesso, con le date e i negozi in cui vale. Più sotto i volantini scaduti e le eventuali promozioni attive.",
+    "inCorso": "Volantino in corso",
+    "anteprima": "Prossimo volantino · anteprima",
+    "testoInCorso": "Sfoglia le pagine o scarica il PDF. Le offerte valgono solo nelle date e nei negozi indicati.",
+    "testoAnteprima": "Le offerte iniziano il {data}. Prima di quella data non sono valide.",
+    "nessuno": {
+      "titolo": "Nessun volantino in corso",
+      "testo": "Il prossimo volantino sarà pubblicato su questa pagina e annunciato sui nostri profili Instagram e Facebook. Qui sotto trovi quelli scaduti, ognuno con le date in cui valeva.",
+      "social": "Annunci su"
+    },
+    "schede": "Volantini in corso e in anteprima",
+    "etichettaAnteprima": "Anteprima",
+    "sfoglia": "Sfoglia",
+    "scaricaPdf": "Scarica PDF",
+    "negozi": {
+      "tutti": "Vale in tutti i negozi",
+      "uno": "Vale nel negozio di {negozi}",
+      "alcuni": "Vale a {negozi}"
+    },
+    "negoziConclusi": {
+      "tutti": "Valeva in tutti i negozi",
+      "uno": "Valeva nel negozio di {negozi}",
+      "alcuni": "Valeva a {negozi}"
+    },
+    "visore": {
+      "titolo": "Pagina dopo pagina",
+      "istruzioni": "Scorri con le frecce, con la tastiera o trascinando. Tocca Ingrandisci per vedere i dettagli.",
+      "concluso": "Volantino concluso: {date}. Le offerte non sono più valide.",
+      "chiudi": "Chiudi il lettore",
+      "paginaPrecedente": "Pagina precedente",
+      "paginaSuccessiva": "Pagina successiva",
+      "gruppo": "Volantino {titolo}. Usa le frecce sinistra e destra per cambiare pagina.",
+      "carosello": "carosello",
+      "ingrandisci": "Ingrandisci",
+      "paginaDi": "Pagina {n} di {tot}",
+      "vaiAllaPagina": "Vai alla pagina",
+      "pagina": "Pagina {n}",
+      "zoom": "Zoom 2x",
+      "adatta": "Adatta allo schermo",
+      "chiudiFinestra": "Chiudi"
+    },
+    "archivio": {
+      "titolo": "Volantini precedenti",
+      "nota": "Offerte concluse: le date indicano quando erano valide.",
+      "concluso": "Concluso",
+      "sfoglia": "Sfoglia"
+    },
+    "promozioni": {
+      "titolo": "Promozioni",
+      "sottotitolo": "Controlla le date e i negozi aderenti a ogni iniziativa."
+    }
+  },
+  "doveSiamo": {
+    "titolo": "Negozi e orari",
+    "intro": "Prato, Lucca e Sesto Fiorentino. Aperti tutti i giorni con orario continuato, domeniche e festivi compresi.",
+    "scegli": "Scegli il negozio",
+    "tuoNegozio": "Il tuo negozio",
+    "daSapere": "Da sapere",
+    "servizi": "Servizi",
+    "orari": "Orari",
+    "orariInAggiornamento": "Orari in aggiornamento",
+    "mappa": "Mappa",
+    "indicazioni": "Indicazioni",
+    "chiama": "Chiama",
+    "whatsapp": "WhatsApp",
+    "impostaNegozio": "Imposta come il tuo negozio"
+  },
+  "cartaFedelta": {
+    "vantaggi": "I vantaggi",
+    "passi": "Come si richiede",
+    "faq": "Domande frequenti",
+    "domande": {
+      "titolo": "Domande sulla carta?",
+      "testo": "Scrivici via email dalla pagina Contatti. Gli indirizzi dei negozi sono nella pagina Negozi e orari.",
+      "scrivici": "Scrivici",
+      "negozi": "Negozi e orari"
+    },
+    "vuota": {
+      "volantino": "Vedi il volantino",
+      "negozi": "Negozi e orari"
+    },
+    "costo": "Costo",
+    "regolamento": "Regolamento",
+    "meta": {
+      "vuota": "Carta fedeltà Home & Co.: il regolamento sarà pubblicato su questa pagina. Negozi a Prato, Lucca e Sesto Fiorentino.",
+      "completa": "La carta fedeltà Home & Co.: vantaggi, costo e regolamento. Negozi a Prato, Lucca e Sesto Fiorentino."
+    }
+  },
+  "contatti": {
+    "titolo": "Contatti",
+    "intro": "Scrivici via email: {email}. Gli indirizzi dei tre negozi sono in questa pagina.",
+    "diretti": "Contatti diretti",
+    "negozi": "I nostri negozi",
+    "orariEIndicazioni": "Orari e mappa",
+    "privacyPrima": "Trattiamo i tuoi dati come descritto nell’",
+    "privacyLink": "informativa privacy",
+    "introModulo": "Scrivici con il modulo o via email. Gli indirizzi dei tre negozi sono in questa pagina.",
+    "descrizione": "Scrivi a Home & Co. via email. In questa pagina trovi indirizzi e orari dei negozi di Prato, Lucca e Sesto Fiorentino.",
+    "descrizioneModulo": "Scrivi a Home & Co. con il modulo o via email. In questa pagina trovi indirizzi e orari dei negozi di Prato, Lucca e Sesto Fiorentino.",
+    "emailTesto": "Se la domanda riguarda un negozio in particolare, indica quale.",
+    "indicazioni": "Indicazioni",
+    "modulo": {
+      "nome": "Nome",
+      "email": "Email",
+      "oggetto": "Oggetto",
+      "scegliOggetto": "Scegli un argomento",
+      "messaggio": "Messaggio",
+      "privacyPrima": "Ho letto l’",
+      "privacyLink": "informativa privacy",
+      "privacyDopo": "e acconsento al trattamento dei dati per rispondere alla mia richiesta.",
+      "invia": "Invia messaggio",
+      "invio": "Invio in corso...",
+      "prova": "Modulo di prova: i messaggi non vengono ancora spediti.",
+      "provaTitolo": "Prova completata",
+      "provaTesto": "Nessuna email è stata inviata.",
+      "inviatoTitolo": "Messaggio inviato",
+      "inviatoTesto": "Ti rispondiamo all’indirizzo email che hai indicato.",
+      "scriviAncora": "Scrivi un altro messaggio",
+      "erroreGenerico": "Il messaggio non è partito. Riprova tra qualche minuto o scrivici via email.",
+      "viaEmail": "Scrivici via email"
+    }
+  },
+  "corridoi": {
+    "tuttiIReparti": "Tutti i reparti",
+    "negozi": "Negozi e orari",
+    "scaffali": "Vedi gli scaffali",
+    "idee": {
+      "titolo": "Idee dal reparto",
+      "testo": "Alcuni articoli del reparto. La foto non garantisce che l’articolo sia in negozio adesso."
+    },
+    "promozioni": "Promozioni: {reparto}",
+    "chiusura": {
+      "titolo": "Cerchi il reparto {reparto}?",
+      "testo": "I negozi sono a {citta}. Aperti tutti i giorni con orario continuato, anche domenica e festivi.",
+      "negozi": "Negozi e orari",
+      "volantino": "Vedi il volantino"
+    }
+  },
+  "legale": {
+    "avviso": "Testo provvisorio, in attesa di revisione legale.",
+    "aggiornamento": "Ultimo aggiornamento: {data}"
+  }
+}
