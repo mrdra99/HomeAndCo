@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SITE_NAME, SITE_URL } from "./site";
 import type { Settings, Store } from "./content/schemas";
+import { hasConfirmedCoordinates, mapUrl, streetOnly } from "./stores";
 
 type BuildMetadataInput = {
   title: string;
@@ -49,27 +50,37 @@ export function buildMetadata({ title, description, path, image, noindex }: Buil
 
 const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-function openingHoursSpecification(store: Store) {
+/** Un'unica specifica per ogni fascia oraria, con l'elenco dei giorni in cui vale (ordine lun-dom). */
+export function openingHoursSpecification(store: Pick<Store, "orari">) {
   if (!store.orari || store.orari.length === 0) return undefined;
-  const specs = store.orari.flatMap((d) =>
-    d.aperture.map((s) => ({
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: DAYS[d.giorno],
-      opens: s.da,
-      closes: s.a,
-    })),
-  );
+  const bySlot = new Map<string, { opens: string; closes: string; days: string[] }>();
+  for (const g of [1, 2, 3, 4, 5, 6, 0]) {
+    const day = store.orari.find((d) => d.giorno === g);
+    for (const slot of day?.aperture ?? []) {
+      const key = `${slot.da}-${slot.a}`;
+      const entry = bySlot.get(key) ?? { opens: slot.da, closes: slot.a, days: [] };
+      entry.days.push(DAYS[g]);
+      bySlot.set(key, entry);
+    }
+  }
+  const specs = [...bySlot.values()].map((e) => ({
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: e.days,
+    opens: e.opens,
+    closes: e.closes,
+  }));
   return specs.length ? specs : undefined;
 }
 
-/** Array JSON-LD: Organization + un HomeGoodsStore per sede. */
-export function jsonLdLocalBusiness(stores: Store[], settings: Settings) {
+const organizationId = () => `${SITE_URL}/#organization`;
+
+/** Organization: unica e globale (layout del sito). I negozi stanno ciascuno nella propria pagina. */
+export function jsonLdOrganization(settings: Settings) {
   const sameAs = [settings.social.instagram, settings.social.facebook].filter(Boolean);
-  const orgId = `${SITE_URL}/#organization`;
-  const organization = {
+  return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": orgId,
+    "@id": organizationId(),
     name: settings.nomeSito,
     legalName: settings.societa.ragioneSociale,
     url: SITE_URL,
@@ -79,27 +90,37 @@ export function jsonLdLocalBusiness(stores: Store[], settings: Settings) {
     slogan: settings.claim,
     sameAs,
   };
-  const shops = stores.map((s) => ({
+}
+
+/**
+ * HomeGoodsStore di UN negozio, da inserire solo nella sua pagina /dove-siamo/<id>/.
+ * L'immagine compare solo se esiste la foto del negozio (mai una foto di ripiego); telefono ed email solo se noti.
+ */
+export function jsonLdStore(store: Store, settings: Settings) {
+  const url = absoluteUrl(`/dove-siamo/${store.id}/`);
+  const sameAs = [settings.social.instagram, settings.social.facebook].filter(Boolean);
+  return {
     "@context": "https://schema.org",
     "@type": "HomeGoodsStore",
-    "@id": `${SITE_URL}/dove-siamo/#${s.id}`,
-    name: s.nome,
-    url: absoluteUrl("/dove-siamo/"),
-    image: absoluteUrl(s.immagine.src ?? "/brand/social.png"),
-    parentOrganization: { "@id": orgId },
+    "@id": `${url}#store`,
+    name: store.nome,
+    url,
+    image: store.immagine.src ? absoluteUrl(store.immagine.src) : undefined,
+    parentOrganization: { "@id": organizationId() },
     address: {
       "@type": "PostalAddress",
-      streetAddress: s.indirizzo.via,
-      postalCode: s.indirizzo.cap,
-      addressLocality: s.indirizzo.citta,
-      addressRegion: s.indirizzo.provincia,
+      streetAddress: streetOnly(store),
+      postalCode: store.indirizzo.cap,
+      addressLocality: store.indirizzo.citta,
+      addressRegion: store.indirizzo.provincia,
       addressCountry: "IT",
     },
-    geo: { "@type": "GeoCoordinates", latitude: s.coordinate.lat, longitude: s.coordinate.lng },
-    telephone: s.telefono ?? undefined,
-    email: s.email ?? undefined,
+    // geo solo con le coordinate confermate dal cliente (stores.json -> coordinateConfermate).
+    geo: hasConfirmedCoordinates(store) ? { "@type": "GeoCoordinates", latitude: store.coordinate.lat, longitude: store.coordinate.lng } : undefined,
+    hasMap: mapUrl(store),
+    telephone: store.telefono ?? undefined,
+    email: store.email ?? undefined,
     sameAs,
-    openingHoursSpecification: openingHoursSpecification(s),
-  }));
-  return [organization, ...shops];
+    openingHoursSpecification: openingHoursSpecification(store),
+  };
 }

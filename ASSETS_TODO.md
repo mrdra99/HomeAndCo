@@ -7,7 +7,13 @@ Aggiornato al 5 novembre 2026.
 - Due reel con copertine originali locali e link diretti a Instagram, senza incorporare il player esterno.
 - Video MP4 fornito dal cliente, ottimizzato H.264 per il sito, avvio manuale e copertina locale.
 - Catalogo Sesto ottobre e iniziativa caramelle in archivio, con le date originali e l’etichetta «concluso». Nessun volantino concluso è presentato come attuale.
-- Mappe OSM caricate automaticamente; footer ridotto a una barra essenziale.
+- Footer ridotto a una barra essenziale. (Le mappe OpenStreetMap di questo aggiornamento sono state tolte il 6 novembre: vedi sotto.)
+
+## Aggiornamento negozi e home (6 novembre 2026)
+
+- Pagina per ogni negozio (/dove-siamo/<id>/): oggi corte. Foto esterne di Prato e Sesto, telefoni, servizi confermati e i link ai punti sulla mappa le arricchiscono da sole (elenco in `docs/copy-per-francesco.md`, sezione 3).
+- «I reparti» in home: 5 schede con una foto per macro-area (campo `immagine` in `content/navigation.json` → `gruppi`). Tutte e cinque sono foto reali dei negozi (nessuna foto stock): sostituibili con foto più pulite e luminose se il cliente le fornisce.
+- **Mappe.** Le coordinate in `stores.json` sono approssimative e NON confermate (`coordinateConfermate: false`): finché è così non c'è la mappa OpenStreetMap, non c'è `geo` nei dati strutturati, e «Indicazioni» e «Apri in Google Maps» cercano l'indirizzo. Quando il cliente manda il link al punto esatto su Google Maps di ogni negozio, si correggono le coordinate e si mette `coordinateConfermate: true`: tornano da sole la mappa e `geo`. Prima di rimettere l'iframe OpenStreetMap (servizio di terzi) va deciso se richiede il consenso cookie.
 
 ## Aggiornamento testi (5 novembre 2026)
 
@@ -39,7 +45,8 @@ I volantini conclusi, incluso Halloween, restano nell’archivio con le proprie 
 | Volantino di novembre / Natale | `flyers.json`, `public/uploads/flyers/` | Da fornire: copertina, pagine, PDF, date di validità, negozi. Nessuna data inventata. |
 | Foto esterne identificate di Prato e Sesto (Lucca inserita) | `stores.json` → `immagine` | Inserire foto della sede corretta. In assenza la scheda mostra la mappa, senza foto fittizie o segnaposto pubblici. |
 | Numeri telefonici di ogni negozio | `stores.json` | Gli orari sono confermati e gli stati aperto/chiuso sono attivi. I numeri restano da fornire. |
-| Coordinate, CAP e servizi / particolarità delle sedi | `stores.json` | Verificare i dati ancora marcati `provvisorio`. Parcheggio, ascensore, carte e bancomat, palestra accanto, carta fedeltà per sede: ora in `daConfermare`, non mostrati. Spostarli in `particolarita`/`servizi` dopo la conferma. |
+| Link al punto esatto su Google Maps di ogni negozio (il «pin») | `stores.json` → `coordinate` + `coordinateConfermate` | Servono a correggere le coordinate: sbloccano la mappa nella pagina del negozio e `geo` per Google. Oggi le coordinate misurate non coincidono con gli indirizzi (da 1 a 4 km). |
+| CAP e servizi / particolarità delle sedi | `stores.json` | Verificare i dati ancora marcati `provvisorio`. Parcheggio, ascensore, carte e bancomat, palestra accanto, carta fedeltà per sede: ora in `daConfermare`, non mostrati. Spostarli in `particolarita`/`servizi` dopo la conferma. |
 | Catalogo / disponibilità dei singoli prodotti | `aisles.json` → `inEvidenza` | Le foto illustrano l’assortimento. Nessuna giacenza o disponibilità attuale è confermata. |
 | Loghi e marchi realmente distribuiti | `brands.json`, `public/uploads/brands/` | SVG o PNG trasparente (altezza 96 px); poi `provvisorio: false`. I provvisori sono nascosti. |
 | Loghi e marchi realmente distribuiti | `brands.json` | I nomi provvisori sono nascosti. |

@@ -3,7 +3,7 @@ import { CookiePreferencesLink } from "@/components/consent/CookiePreferencesLin
 import { Icon } from "@/components/ui/Icon";
 import { Logo } from "@/components/ui/Logo";
 import type { NavItem, Settings, Store } from "@/lib/content/schemas";
-import { directionsUrl, formatAddress, hoursSummary } from "@/lib/stores";
+import { directionsUrl, formatAddress, hoursSummary, storePath } from "@/lib/stores";
 
 const linkCls =
   "inline-flex min-h-11 items-center rounded text-white/90 lg:min-h-9 underline-offset-4 hover:text-white hover:underline focus-visible:outline-white";
@@ -31,10 +31,10 @@ export function Footer({ settings, stores, items }: FooterProps) {
       <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-9 sm:px-8 lg:grid-cols-[1.2fr_1.6fr_1fr] lg:gap-10">
         <section aria-labelledby="footer-reparti">
           <h2 id="footer-reparti" className={headingCls}>{copy.reparti}</h2>
-          <ul className="grid grid-cols-1 gap-x-4 min-[420px]:grid-cols-2">
+          <ul className="grid auto-rows-[2.75rem] grid-cols-1 gap-x-4 min-[420px]:grid-cols-2">
             {reparti.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className={linkCls}>{item.label}</Link>
+                <Link href={item.href} className={`${linkCls} !min-h-11 leading-tight`}>{item.label}</Link>
               </li>
             ))}
           </ul>
@@ -47,7 +47,9 @@ export function Footer({ settings, stores, items }: FooterProps) {
               const { uniform, rows } = hoursSummary(store);
               return (
                 <li key={store.id}>
-                  <p className="font-bold text-white">{store.citta}</p>
+                  <p>
+                    <Link href={storePath(store)} className={`${linkCls} font-bold !text-white`}>{store.citta}</Link>
+                  </p>
                   <address className="mt-0.5 not-italic text-white/90">{formatAddress(store)}</address>
                   {uniform ? (
                     <p className="mt-1 text-white/90">{copy.tuttiIGiorni} {uniform.replace("-", "–")}</p>

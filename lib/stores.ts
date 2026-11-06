@@ -42,7 +42,7 @@ export function isOpenNow(store: Pick<Store, "orari">, date: Date = new Date()):
 }
 
 /** "09:00-13:00, 15:30-19:30" oppure "Chiuso". */
-export function formatDaySlots(day: OpeningDay): string {
+function formatDaySlots(day: OpeningDay): string {
   if (day.aperture.length === 0) return "Chiuso";
   return day.aperture.map((s) => `${s.da}-${s.a}`).join(", ");
 }
@@ -68,18 +68,44 @@ export function formatOpeningHours(store: Pick<Store, "orari">): FormattedHoursR
   });
 }
 
+/** Pagina dedicata del negozio (slash finale, come tutti gli URL del sito). */
+export function storePath(store: Pick<Store, "id">): string {
+  return `/dove-siamo/${store.id}/`;
+}
+
 /** Indirizzo su una riga: "Viale G. Marconi 38, 59100 Prato (PO)". */
 export function formatAddress(store: Pick<Store, "indirizzo">): string {
   const a = store.indirizzo;
   return `${a.via}, ${a.cap} ${a.citta} (${a.provincia})`;
 }
 
-/** Link "indicazioni" Google Maps senza chiavi API. */
-export function directionsUrl(store: Pick<Store, "coordinate">): string {
-  return `https://www.google.com/maps/dir/?api=1&destination=${store.coordinate.lat},${store.coordinate.lng}`;
+/** Via senza la nota tra parentesi ("Via Giacomo Leopardi 66 (ex Coop Il Neto)" -> "Via Giacomo Leopardi 66"). */
+export function streetOnly(store: Pick<Store, "indirizzo">): string {
+  return store.indirizzo.via.replace(/\s*\([^)]*\)\s*/g, " ").trim();
 }
 
-/** Embed OpenStreetMap (iframe) senza chiavi API. */
+/** Indirizzo per le ricerche su Google Maps: via (senza note), CAP, citta', provincia. Mai le coordinate. */
+function mapsQuery(store: Pick<Store, "indirizzo">): string {
+  const a = store.indirizzo;
+  return encodeURIComponent(`${streetOnly(store)}, ${a.cap} ${a.citta} ${a.provincia}`);
+}
+
+/** «Indicazioni»: percorso verso l'indirizzo del negozio (non verso le coordinate), senza chiavi API. */
+export function directionsUrl(store: Pick<Store, "indirizzo">): string {
+  return `https://www.google.com/maps/dir/?api=1&destination=${mapsQuery(store)}`;
+}
+
+/** «Apri in Google Maps»: ricerca dell'indirizzo del negozio. */
+export function mapUrl(store: Pick<Store, "indirizzo">): string {
+  return `https://www.google.com/maps/search/?api=1&query=${mapsQuery(store)}`;
+}
+
+/** La mappa incorporata e `geo` si usano solo con le coordinate confermate dal cliente. */
+export function hasConfirmedCoordinates(store: Pick<Store, "coordinateConfermate">): boolean {
+  return store.coordinateConfermate === true;
+}
+
+/** Embed OpenStreetMap (iframe) senza chiavi API: solo con coordinate confermate. */
 export function osmEmbedUrl(store: Pick<Store, "coordinate">, delta = 0.004): string {
   const { lat, lng } = store.coordinate;
   const bbox = [lng - delta, lat - delta, lng + delta, lat + delta].join(",");

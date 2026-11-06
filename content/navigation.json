@@ -86,7 +86,11 @@
   ],
   "gruppi": [
     {
-      "titolo": "Casa",
+      "titolo": "Per la casa",
+      "immagine": {
+        "src": "/uploads/aisles/casa-e-cucina-dettaglio-1.webp",
+        "alt": "Scaffali con piatti, ciotole e contenitori da cucina in un negozio Home & Co."
+      },
       "reparti": [
         "/corridoi/casa-e-cucina/",
         "/corridoi/biancheria-e-arredo/",
@@ -96,6 +100,10 @@
     },
     {
       "titolo": "Pulizia e cura",
+      "immagine": {
+        "src": "/uploads/aisles/pulizia-e-cura-persona-dettaglio-1.webp",
+        "alt": "Scaffali di detersivi e ammorbidenti colorati in un negozio Home & Co."
+      },
       "reparti": [
         "/corridoi/pulizia-e-cura-persona/",
         "/corridoi/cura-persona-e-beauty/"
@@ -103,6 +111,10 @@
     },
     {
       "titolo": "Regali e tempo libero",
+      "immagine": {
+        "src": "/uploads/aisles/feste-e-regalo-dettaglio-3.webp",
+        "alt": "Sacchetti regalo colorati e occhiali per le feste sugli scaffali di un negozio Home & Co."
+      },
       "reparti": [
         "/corridoi/feste-e-regalo/",
         "/corridoi/hobby-cartoleria-auto/",
@@ -111,6 +123,10 @@
     },
     {
       "titolo": "Animali e giardino",
+      "immagine": {
+        "src": "/uploads/aisles/animali-dettaglio-3.webp",
+        "alt": "Cucce e cuscini per cani e gatti sugli scaffali del reparto animali Home & Co."
+      },
       "reparti": [
         "/corridoi/animali/",
         "/corridoi/giardinaggio/"
@@ -118,6 +134,10 @@
     },
     {
       "titolo": "Fai da te e auto",
+      "immagine": {
+        "src": "/uploads/aisles/ferramenta-e-fai-da-te-dettaglio-3.webp",
+        "alt": "Scaffale di vernici, spray e colori nel reparto ferramenta di un negozio Home & Co."
+      },
       "reparti": [
         "/corridoi/ferramenta-e-fai-da-te/",
         "/corridoi/cura-auto/"

@@ -82,3 +82,15 @@ Titoli e descrizioni per i motori di ricerca sono stati riscritti per ogni pagin
 9. **Addobbi e alberi di Natale in vendita.** La foto di Natale è del negozio, ma i testi non dicono cosa si vende. Sblocca: testi di Natale più precisi, se ci sono.
 10. **Dove annunciare i nuovi volantini.** Confermare che escono su Instagram e Facebook, come ora scritto nel sito.
 11. **13 foto di singoli prodotti su fondo chiaro**, una per reparto (non foto di scaffale). Sblocca: riga di foto tonde dei reparti in stile Kasanova, nella testata o in home.
+
+## 3. Pagine dei negozi (6 novembre 2026): dati che le renderebbero più ricche
+
+Ogni negozio ha ora la sua pagina (/dove-siamo/prato/, /lucca/, /sesto-fiorentino/). Con i dati attuali sono brevi e pulite: stato, indirizzo, orari, indicazioni, riquadro «Apri in Google Maps», volantino (solo se in corso o in arrivo), altri negozi, reparti. Non c'è riempitivo. Per arricchirle servono:
+
+1. **Foto esterne di Prato e Sesto Fiorentino** (Lucca c'è): compaiono da sole nella pagina e nei dati per Google.
+2. **Telefono di ogni negozio** (e WhatsApp): compaiono «Chiama» e, nei dati strutturati, il numero.
+3. **Servizi confermati per ogni negozio**: parcheggio (e se gratuito), ascensore, pagamenti con carte e bancomat, vicinanza (palestra a Sesto). Compaiono in «Da sapere» / «Servizi».
+4. **Come arrivare**: una riga per negozio (stazione o uscita più vicina, parcheggio), se il cliente la conferma.
+5. **Reparti presenti in ogni negozio**: oggi i testi non dicono che un negozio ha un dato reparto, il blocco si intitola solo «Reparti Home & Co.». Con l'elenco per negozio si possono mostrare solo quelli presenti.
+6. **Il link al punto esatto su Google Maps di ogni negozio** (si apre il negozio su Google Maps, «Condividi», «Copia link»). Le coordinate che avevamo non coincidono con gli indirizzi (da 1 a 4 km), quindi per ora il sito non mostra la mappa e «Indicazioni» cerca l'indirizzo. Sblocca: mappa nella pagina del negozio, indicazioni sul punto giusto, dati per Google (`geo`). Prima di rimettere una mappa di terzi nella pagina va deciso se serve il consenso ai cookie.
+7. **Volantino per negozio**: con date e negozi di validità la pagina mostra il volantino giusto da sola.

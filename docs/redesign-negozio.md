@@ -17,7 +17,10 @@ Altri punti aperti: foto di Natale presa da internet; volantino «esempio» di o
 
 ## Riferimenti
 
-Letti Risparmio Casa, Tigotà, Acqua & Sapone, Maury's e il vecchio home-co.it. Pattern ricorrenti:
+Letti Risparmio Casa, Tigotà, Acqua & Sapone, Maury's e il vecchio home-co.it. In una seconda passata, con schermate
+salvate, Eurospin, Lidl, IKEA, Kasanova, Risparmio Casa e Pepco: da Eurospin il volantino come blocco principale della
+home (colore pieno, insegna con le date, copertina vera grande a lato, selettore del negozio nella fascia in alto) e le
+grandi schede di categoria; da Lidl e Pepco il peso dato al volantino e alle categorie come schede con foto. Pattern ricorrenti:
 il volantino è una chiamata primaria (menu e primo schermo); la prima cosa che si vede è una
 promozione, non un manifesto; punti vendita e orari sempre a un clic; carta fedeltà come riquadro,
 non come sezione-manifesto; footer ricco di informazioni. 21st.dev: nessun template negozio, solo
@@ -48,9 +51,17 @@ allo scroll, niente marquee; hover e transizioni brevi; `prefers-reduced-motion`
 ### Testata (tutte le pagine)
 
 ```
-[blu 900] Aperti tutti i giorni, anche domenica e festivi · Prato · Lucca · Sesto F.no   Instagram
-[bianco ] LOGO   [Tutti i reparti ▾]  Volantino  Negozi  Contatti        [Il tuo negozio: Prato · Aperto fino alle 20:00]
+[blu 900] Aperti tutti i giorni, anche domenica e festivi · Prato · Lucca · Sesto F.no   [Il tuo negozio: Prato · Aperto fino alle 20:00 ▾]  Instagram
+[bianco ] LOGO   [Tutti i reparti ▾]  Negozi  Contatti                                                                       [Volantino]
 ```
+
+- **Il tuo negozio in cima (da 1024 px).** Il selettore sta nella fascia blu 900, a destra, prima di Instagram: bordo
+  bianco, testo bianco, una riga, 44 px di altezza; il menu a tendina si apre sopra la riga bianca (la fascia ha `z-50`,
+  la riga bianca `z-40`). A 1024 px le città dopo l'avviso spariscono (tornano da 1280 px) per lasciare posto al
+  selettore. Sotto 1024 px non c'è la fascia: il selettore resta nella barra compatta. La riga bianca chiude a destra
+  con «Volantino» (voce con `evidenza`), così non resta un vuoto.
+- **Scorrimento.** Solo la riga bianca è `sticky`; la fascia blu scorre via con la pagina. Scelta voluta: il negozio si
+  imposta in cima e, scorrendo, resta il pulsante «Imposta come il tuo negozio» nella pagina di ogni negozio.
 
 - Direzione scelta dal titolare: **«testata pulita»**. Una sola riga bianca sotto la fascia informativa; nessuna
   striscia di reparti e nessuna icona di reparto.
@@ -79,15 +90,26 @@ allo scroll, niente marquee; hover e transizioni brevi; `prefers-reduced-motion`
 
 ### Home, in quest'ordine
 
-1. **Tabellone promozionale** (non un hero a tutto schermo): griglia a un blocco grande e due riquadri.
-   Grande = campagna attiva con foto, titolo, date, chiamata. Riquadri = volantino con copertina e stato;
-   negozi con aperti/chiusi ora. Mobile: impilati; tutto il primo schermo deve dire «negozio». Nessun carosello.
+1. **Tabellone promozionale** (non un hero a tutto schermo): griglia a un blocco grande e due riquadri. Nessun carosello.
+   Due stati, scelti da `homeFlyer()` (build + ricontrollo della data nel client, come per le campagne):
+   - **con un volantino in corso o in arrivo** (come Eurospin): blocco grande = volantino, a colore pieno magenta,
+     insegna «Volantino» con le date, titolo del volantino come H1, negozi coperti, «Sfoglia il volantino» (o
+     «Guarda l'anteprima»), copertina vera a lato con una piccola inclinazione fissa (nessuna animazione); riquadro
+     in alto a destra = campagna stagionale in forma compatta (etichetta, titolo, link); sotto, negozi. La fascia
+     magenta del volantino non ripete lo stesso volantino: resta una striscia sottile col rimando all'archivio;
+   - **senza volantino**: blocco grande = campagna (H1), riquadro «Volantino» neutro, negozi; striscia sottile
+     «Nessun volantino in corso». Nessuna copertina di volantini conclusi.
 2. **Fascia fatti**: 3–4 fatti verificati con icona (tutti i giorni, orario continuato, tre negozi in Toscana,
    domeniche e festivi).
-3. **Reparti**: griglia fitta dei 13 reparti, foto vera con etichetta piena (nessuna icona). 2 colonne mobile, 4–5 desktop.
+3. **Reparti** (`#corridoi`): 5 schede grandi, una per macro-area di `content/navigation.json` → `gruppi` (Casa; Pulizia e cura;
+   Regali e tempo libero; Animali e giardino; Fai da te e auto). Ognuna: una foto pulita (campo `immagine` del gruppo,
+   con alt, validato da Zod), titolo del gruppo e i suoi reparti come link di testo su fondo blu 900, alti 44 px.
+   Griglia a 12 colonne da 1024 px: 7 + 5 sulla prima riga, 4 + 4 + 4 sulla seconda; da 480 a 1023 px due colonne con
+   Casa su tutta la riga; sotto 480 px una sotto l'altra. Nessuna icona. Il test verifica che i 13 reparti restino
+   raggiungibili e che le foto non siano ingrandite (`DEPARTMENT_CARD_MAX_CSS_WIDTH`).
 4. **Campagna in corso**: rail orizzontale di articoli (`CampaignCollection`), senza prezzi inventati.
-5. **Volantino**: fascia magenta a tutta larghezza, copertina grande, date, stato veritiero, archivio.
-6. **Negozi**: tre schede con stato ora, indirizzo, orari, «Indicazioni», foto o mappa.
+5. **Volantino**: striscia sottile con rimando all'archivio (il volantino in corso è già nel tabellone).
+6. **Negozi**: tre schede compatte con stato ora, indirizzo, orari, «Indicazioni» (verso l'indirizzo, mai le coordinate) e «Orari e mappa», che porta alla pagina del negozio.
 7. **Carta fedeltà + video** affiancati su desktop: riquadro carta compatto; video e reel in formato piccolo.
 8. **Footer ricco**: reparti, negozi con orari, link utili, social, dati legali.
 
@@ -97,7 +119,16 @@ Via: splash `BrandIntro` (ritarda il negozio) e marquee.
 
 Stessa grammatica: intestazione compatta con breadcrumb, niente hero enormi.
 - `/offerte/`: volantino corrente in cima, archivio a griglia, lettore invariato nel funzionamento.
-- `/dove-siamo/`: selettore negozio, schede con stato, mappa, indicazioni.
+- `/dove-siamo/`: indice con tre schede (stesse della home) che portano alle pagine dei negozi. Gli `id` `prato`,
+  `lucca`, `sesto-fiorentino` restano come ancore (`/dove-siamo/#prato`) per i link storici.
+- `/dove-siamo/<id>/` (una pagina statica per negozio, `generateStaticParams` sugli id di `content/stores.json`):
+  percorso, H1 col nome del negozio, stato aperto/chiuso dal vivo, indirizzo, orari, «Indicazioni», «Imposta come il tuo
+  negozio» (stessa scelta della testata), riquadro «Apri in Google Maps» (la mappa OpenStreetMap compare solo con `coordinateConfermate: true`), foto esterna solo se esiste (oggi Lucca, mai un ripiego), fatti solo
+  dai dati (`particolarita`, `servizi`), volantino valido per quel negozio solo se in corso o in arrivo, link agli altri
+  due negozi, «Reparti Home & Co.» (link ai reparti senza dire che il negozio li ha tutti). Titolo, descrizione e
+  canonical propri. Dati strutturati: BreadcrumbList e HomeGoodsStore di quel negozio (indirizzo senza note, `geo` solo con coordinate confermate,
+  OpeningHoursSpecification, immagine solo se la foto c'è). `Organization` resta globale nel layout; i negozi non sono più
+  ripetuti su ogni pagina. Sitemap: indice, tre negozi, reparti.
 - `/corridoi/[slug]/`: testata reparto con foto, scaffali, altri reparti sempre visibili. URL invariati.
 - `/carta-fedelta/`, `/contatti/`: compatte, informative, coerenti.
 

@@ -7,7 +7,7 @@ import { ConsentProvider } from "@/components/consent/ConsentProvider";
 import { CookieBanner } from "@/components/consent/CookieBanner";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { content } from "@/lib/content";
-import { jsonLdLocalBusiness } from "@/lib/seo";
+import { jsonLdOrganization } from "@/lib/seo";
 
 /** Layout del sito vetrina: skip link, header, contenuto, footer, WhatsApp flottante (sotto 1024 px, sopra la tab bar). */
 export default async function SiteLayout({ children }: { children: ReactNode }) {
@@ -19,7 +19,7 @@ export default async function SiteLayout({ children }: { children: ReactNode }) 
 
   return (
     <ConsentProvider>
-      <JsonLd data={jsonLdLocalBusiness(stores, settings)} />
+      <JsonLd data={jsonLdOrganization(settings)} />
       <a
         href="#contenuto"
         className="sr-only z-[60] rounded-md bg-brand-blue-900 px-5 py-3 font-bold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"

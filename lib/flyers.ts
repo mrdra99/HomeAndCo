@@ -34,7 +34,7 @@ export function formatDateRangeIt(dal: string | null, al: string | null): string
   return `dal ${formatDateIt(dal)} al ${formatDateIt(al)}`;
 }
 
-export function isFlyerCurrent(f: Flyer, date: Date = new Date()): boolean {
+function isFlyerCurrent(f: Flyer, date: Date = new Date()): boolean {
   const t = toIsoDate(date);
   return !f.archiviato && Boolean(f.validoDal && f.validoAl && f.validoDal <= t && t <= f.validoAl);
 }
@@ -43,7 +43,7 @@ export function isFlyerUpcoming(f: Flyer, date: Date = new Date()): boolean {
   return !f.archiviato && Boolean(f.validoDal && f.validoDal > toIsoDate(date));
 }
 
-export function isFlyerExpired(f: Flyer, date: Date = new Date()): boolean {
+function isFlyerExpired(f: Flyer, date: Date = new Date()): boolean {
   return f.archiviato === true || Boolean(f.validoAl && f.validoAl < toIsoDate(date));
 }
 
@@ -87,6 +87,20 @@ export function homeFlyer(flyers: Flyer[], date: Date = new Date()): { flyer: Fl
   const upcoming = upcomingFlyers(flyers, date)[0];
   if (upcoming) return { flyer: upcoming, status: "upcoming" };
   return null;
+}
+
+/**
+ * Stato del blocco grande del tabellone in home: con un volantino in corso o in arrivo lo mostra il blocco
+ * grande ("flyer") e la campagna passa a un riquadro compatto; altrimenti resta la campagna ("campaign").
+ */
+export type BoardMode = "flyer" | "campaign";
+export function boardMode(flyers: Flyer[], date: Date = new Date()): BoardMode {
+  return homeFlyer(flyers, date) ? "flyer" : "campaign";
+}
+
+/** Volantino da mostrare nella pagina di un negozio: in corso o in arrivo e valido per quel negozio, altrimenti null. */
+export function storeFlyer(flyers: Flyer[], storeId: string, date: Date = new Date()): { flyer: Flyer; status: HomeFlyerStatus } | null {
+  return homeFlyer(flyers.filter((f) => flyerAppliesToStore(f, storeId)), date);
 }
 
 /** Negozi a cui vale il volantino, in forma testuale ("Prato e Lucca"); null se vale ovunque. */

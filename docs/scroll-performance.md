@@ -45,9 +45,8 @@ Il confronto conferma l'intercettazione e il lavoro continuo eliminati.
 - **Video e volantini:** nessun autoplay del video del negozio, `preload="none"`;
   pagine adiacenti del lettore anticipate solo vicino alla vista e PDF scaricati
   su richiesta.
-- **Mappe:** tre iframe OpenStreetMap caricati subito su `/dove-siamo/`.
-  Possono pesare sul caricamento di quella pagina, ma non spiegano il difetto
-  globale. Il comportamento richiesto delle mappe è stato mantenuto.
+- **Mappe:** (storico) tre iframe OpenStreetMap su `/dove-siamo/`; dal 6 novembre 2026 non ci sono mappe di terzi finché le coordinate non sono confermate (`coordinateConfermate`).
+  Pesavano sul caricamento di quella pagina, ma non spiegavano il difetto globale.
 - **Effetti decorativi:** splash di introduzione e marquee dei marchi sono stati rimossi; nessuna animazione JavaScript continua a riposo. Il tema stagionale non cambia piu' i colori e non c'e' piu' lo script inline nel `<head>`.
 
 ## Verifica

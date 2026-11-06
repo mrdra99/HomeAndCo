@@ -10,7 +10,7 @@ Next.js (App Router) + TypeScript strict, Tailwind CSS v4 (token in `@theme`), `
 `trailingSlash: true`) su Cloudflare Pages.
 
 ## Struttura — dove sta cosa
-- `app/(site)/` pagine del sito (home, offerte, dove-siamo, carta-fedelta, contatti, corridoi/[slug], legali, design-system); `app/(shop)/` riservato al futuro shop.
+- `app/(site)/` pagine del sito (home, offerte, dove-siamo con una pagina per negozio in `[slug]`, carta-fedelta, contatti, corridoi/[slug], legali, design-system); `app/(shop)/` riservato al futuro shop.
 - `components/` ui, motion, layout (testata, TabBar mobile, StoreChip, PageHeader, footer), sections, campaign, aisles, flyers, stores, loyalty, consent, contact, legal, seo.
 - `docs/redesign-negozio.md` direzione di UI, UX e copy, vincolante; `docs/copy-per-francesco.md` frasi cambiate e dati da chiedere al cliente.
 - `lib/content/` schemi Zod + `ContentSource` (`NEXT_PUBLIC_CONTENT_SOURCE`); `lib/campaigns|flyers|stores.ts` logica pura; `lib/api/types.ts` tipi shop; `lib/contact/adapter.ts` form.
@@ -40,5 +40,6 @@ Next.js (App Router) + TypeScript strict, Tailwind CSS v4 (token in `@theme`), `
 - Niente funzionalità che richiedono un server (route handler dinamici, middleware, ISR):
   l'export statico rompe la build. Restare compatibili con una futura modalità server.
 - La campagna attiva è scelta in build e il contenuto è ricontrollato nel client dopo l'idratazione: al cambio di data, senza nuova build, può comparire per un attimo la campagna precedente.
+- Coordinate dei negozi non confermate (`coordinateConfermate: false` in `stores.json`): niente mappa né `geo` finché il cliente non dà il pin di ogni sede; «Indicazioni» va sempre per indirizzo.
 - Non committa Claude: a fine lavoro propone il messaggio di commit, committa l'utente.
 - > TODO: remote git non ancora configurato; quando c'è, aggiornare la chiave nel registry dell'harness.

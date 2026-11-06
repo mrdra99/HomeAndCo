@@ -60,18 +60,30 @@
   },
   "doveSiamo": {
     "titolo": "Negozi e orari",
-    "intro": "Prato, Lucca e Sesto Fiorentino. Aperti tutti i giorni con orario continuato, domeniche e festivi compresi.",
-    "scegli": "Scegli il negozio",
+    "intro": "Prato, Lucca e Sesto Fiorentino. Aperti tutti i giorni con orario continuato, domeniche e festivi compresi."
+  },
+  "negozio": {
+    "metaTitolo": "Negozio di {citta}: orari, indirizzo e indicazioni",
+    "metaDescrizione": "Home & Co. {citta}: {indirizzo}. Orari, mappa e indicazioni per arrivare.",
+    "metaDescrizioneConOrario": "Home & Co. {citta}: {indirizzo}. Aperto tutti i giorni {orario}, anche domenica e festivi. Mappa e indicazioni.",
     "tuoNegozio": "Il tuo negozio",
-    "daSapere": "Da sapere",
-    "servizi": "Servizi",
+    "impostaNegozio": "Imposta come il tuo negozio",
     "orari": "Orari",
     "orariInAggiornamento": "Orari in aggiornamento",
+    "indirizzo": "Indirizzo",
     "mappa": "Mappa",
     "indicazioni": "Indicazioni",
+    "daSapere": "Da sapere",
+    "servizi": "Servizi",
     "chiama": "Chiama",
     "whatsapp": "WhatsApp",
-    "impostaNegozio": "Imposta come il tuo negozio"
+    "volantino": {
+      "titoloAttivo": "Volantino in corso",
+      "titoloAnteprima": "Volantino in arrivo"
+    },
+    "altriNegozi": "Gli altri negozi",
+    "reparti": "Reparti Home & Co.",
+    "apriMappa": "Apri in Google Maps"
   },
   "cartaFedelta": {
     "vantaggi": "I vantaggi",

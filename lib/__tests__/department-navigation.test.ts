@@ -32,7 +32,7 @@ describe("reparti dalle fotografie del cliente", () => {
     expect(departments).toHaveLength(13);
     expect(grouped).toHaveLength(13);
     expect(new Set(grouped)).toEqual(new Set(departments));
-    expect(nav.gruppi.map((g) => g.titolo)).toEqual(["Casa", "Pulizia e cura", "Regali e tempo libero", "Animali e giardino", "Fai da te e auto"]);
+    expect(nav.gruppi.map((g) => g.titolo)).toEqual(["Per la casa", "Pulizia e cura", "Regali e tempo libero", "Animali e giardino", "Fai da te e auto"]);
   });
   it("rifiuta un reparto duplicato o mancante nei gruppi", () => {
     const nav = NavigationSchema.parse(navigation);

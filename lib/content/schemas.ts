@@ -103,6 +103,8 @@ export const HomeCopySchema = z.object({
     ctaAnteprima: text,
     /** Nessun volantino in corso ne' in arrivo: riquadro del primo schermo e striscia sottile. */
     vuoto: z.object({ testo: text, cta: text, fascia: text, ctaFascia: text }),
+    /** Con un volantino in primo piano la fascia magenta non lo ripete: solo un rimando all'archivio. */
+    archivio: z.object({ fascia: text, cta: text }),
   }),
   negozi: z.object({ titolo: text, descrizione: text, indicazioni: text, tutti: text, orari: text, mappa: text }),
   carta: z.object({ titolo: text, cta: text }),
@@ -184,7 +186,10 @@ export const StoreSchema = z.object({
     citta: z.string(),
     provincia: z.string().length(2),
   }),
+  /** Coordinate approssimative, NON confermate dal cliente: finche' `coordinateConfermate` e' false non si usano ne' per la mappa ne' per `geo`. */
   coordinate: z.object({ lat: z.number(), lng: z.number() }),
+  /** true solo quando il cliente conferma il punto sulla mappa: allora tornano mappa incorporata e `geo` nei dati strutturati. */
+  coordinateConfermate: z.boolean().default(false),
   telefono: z.string().nullable().default(null),
   email: z.string().nullable().default(null),
   whatsapp: z.string().nullable().default(null),
@@ -198,7 +203,6 @@ export const StoreSchema = z.object({
   /** Dettagli non ancora verificati: NON compaiono sul sito finche' non passano in particolarita' o servizi. */
   daConfermare: z.array(z.string()).default([]),
   immagine: ImageSchema,
-  mappaUrl: z.string(),
   provvisorio,
 });
 export type Store = z.infer<typeof StoreSchema>;
@@ -266,6 +270,8 @@ export const HeaderCopySchema = z.object({
     riapreOggi: TEMPLATE_ORA,
     riapreDomani: TEMPLATE_ORA,
     orariEIndicazioni: z.string().min(1),
+    /** Etichetta accessibile del selettore nella fascia in alto (desktop): {negozio} e {stato}. */
+    ariaNegozio: z.string().refine((v) => v.includes("{negozio}") && v.includes("{stato}"), "Servono {negozio} e {stato}"),
   }),
   /** Tab bar mobile: 5 voci. "reparti" apre il pannello dei reparti, le altre sono link. */
   tab: z.array(z.object({ label: z.string().min(1), icona: TabIconSchema, href: z.string().optional() })).length(5),
@@ -372,6 +378,8 @@ export type NavItem = z.infer<typeof NavItemSchema>;
 const DEPT_PREFIX = "/corridoi/";
 export const NavGroupSchema = z.object({
   titolo: z.string().min(1),
+  /** Foto della scheda del gruppo in home (una per gruppo, alt fedele obbligatorio). */
+  immagine: ImageSchema.extend({ src: z.string().min(1), alt: z.string().min(1) }),
   /** Href dei reparti (come in `voci`), nell'ordine in cui compaiono nel menu. */
   reparti: z.array(z.string().min(1)).min(1),
 });
@@ -436,20 +444,32 @@ export const PagesCopySchema = z.object({
     archivio: z.object({ titolo: text, nota: text, concluso: text, sfoglia: text }),
     promozioni: z.object({ titolo: text, sottotitolo: text }),
   }),
+  /** Indice /dove-siamo/: tre schede che portano alle pagine dei negozi. */
   doveSiamo: z.object({
     titolo: text,
     intro: text,
-    scegli: text,
+  }),
+  /** Pagina di un negozio: /dove-siamo/<id>/. */
+  negozio: z.object({
+    /** Title e description dei motori di ricerca; {citta} {indirizzo} {orario}. */
+    metaTitolo: template("{citta}"),
+    metaDescrizione: template("{citta}"),
+    metaDescrizioneConOrario: template("{orario}"),
     tuoNegozio: text,
-    daSapere: text,
-    servizi: text,
+    impostaNegozio: text,
     orari: text,
     orariInAggiornamento: text,
+    indirizzo: text,
     mappa: text,
+    apriMappa: text,
     indicazioni: text,
+    daSapere: text,
+    servizi: text,
     chiama: text,
     whatsapp: text,
-    impostaNegozio: text,
+    volantino: z.object({ titoloAttivo: text, titoloAnteprima: text }),
+    altriNegozi: text,
+    reparti: text,
   }),
   cartaFedelta: z.object({
     vantaggi: text,

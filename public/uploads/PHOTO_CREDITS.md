@@ -37,12 +37,10 @@ Fonte e condizioni: [Pexels License](https://www.pexels.com/license/). Uso previ
 | `/uploads/photos/biancheria-letto.webp` | Kaktus Argentina | [Pagina originale](https://www.pexels.com/photo/a-white-linen-on-the-bed-8325262/) | Pexels License |
 | `/uploads/photos/utensili-cucina.webp` | Romina BM | [Pagina originale](https://www.pexels.com/photo/kitchen-utensils-on-a-glass-jar-5430064/) | Pexels License |
 | `/uploads/photos/crocchette-ciotola.webp` | Barking Royalty | [Pagina originale](https://www.pexels.com/photo/animal-feed-in-bowl-12928245/) | Pexels License |
-| `/uploads/photos/accessori-pulizia.webp` | Polina Tankilevitch | [Pagina originale](https://www.pexels.com/photo/cleaning-materials-on-white-surface-4440525/) | Pexels License |
 | `/uploads/photos/attrezzi-giardino.webp` | ROCKETMANN TEAM | [Pagina originale](https://www.pexels.com/photo/black-and-silver-hand-tool-9507250/) | Pexels License |
 | `/uploads/photos/rinvasi-terriccio.webp` | Kampus Production | [Pagina originale](https://www.pexels.com/photo/dirty-garden-tools-7658756/) | Pexels License |
 | `/uploads/photos/giochi-cane.webp` | Tetiana Kos | [Pagina originale](https://www.pexels.com/photo/photo-of-a-white-dog-playing-with-a-ball-7017670/) | Pexels License |
 | `/uploads/photos/lavaggio-auto.webp` | Srattha Nualsate | [Pagina originale](https://www.pexels.com/photo/man-squeezing-a-sponge-into-a-bucket-13005115/) | Pexels License |
-| `/uploads/photos/utensili-fai-da-te.webp` | Anete Lusina | [Pagina originale](https://www.pexels.com/photo/repair-tools-in-container-with-hammer-and-screwdriver-4792478/) | Pexels License |
 
 ## Volantini originali
 

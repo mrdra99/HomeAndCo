@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { CampaignCollection } from "@/components/campaign/CampaignCollection";
-import { AisleGrid } from "@/components/sections/AisleGrid";
+import { DepartmentCards } from "@/components/sections/DepartmentCards";
 import { FactsStrip } from "@/components/sections/FactsStrip";
 import { FlyerBand } from "@/components/sections/FlyerBand";
 import { LoyaltyBlock } from "@/components/sections/LoyaltyBlock";
@@ -11,6 +11,7 @@ import { StoresSection } from "@/components/sections/StoresSection";
 import { Container } from "@/components/ui/Container";
 import { content, getActiveCampaign } from "@/lib/content";
 import { toIsoDate } from "@/lib/campaigns";
+import { groupDepartments } from "@/lib/navigation";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [settings, home] = await Promise.all([content.getSettings(), content.getHomeCopy()]);
@@ -34,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const [campaigns, active, aisles, flyers, stores, copy, settings, loyalty] = await Promise.all([
+  const [campaigns, active, aisles, flyers, stores, copy, settings, loyalty, navigation] = await Promise.all([
     content.getCampaigns(),
     getActiveCampaign(),
     content.getAisles(),
@@ -43,6 +44,7 @@ export default async function HomePage() {
     content.getHomeCopy(),
     content.getSettings(),
     content.getLoyalty(),
+    content.getNavigation(),
   ]);
   const visibleAisles = aisles.filter((a) => a.visibile).sort((a, b) => a.ordine - b.ordine);
   const buildDate = toIsoDate();
@@ -61,9 +63,9 @@ export default async function HomePage() {
         statusCopy={statusCopy}
       />
       <FactsStrip facts={copy.fatti} label={copy.fattiAria} />
-      <AisleGrid aisles={visibleAisles} copy={copy.reparti} />
+      <DepartmentCards groups={groupDepartments(navigation.voci, navigation.gruppi)} copy={copy.reparti} />
       <CampaignCollection campaigns={campaigns} buildCampaignId={active.id} copy={copy.idee} aisles={visibleAisles} />
-      <FlyerBand flyers={flyers} stores={stores} buildDate={buildDate} copy={copy.volantino} />
+      <FlyerBand flyers={flyers} buildDate={buildDate} copy={copy.volantino} />
       <StoresSection stores={stores} copy={copy.negozi} statusCopy={statusCopy} neutralPrefix={copy.tabellone.negozi.apertoNeutro} />
       <div className="bg-sand py-7 sm:py-10">
         <Container size="wide">

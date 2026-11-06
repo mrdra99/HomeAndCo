@@ -8,7 +8,7 @@ import { Icon } from "@/components/ui/Icon";
 import { getContactAdapter } from "@/lib/contact/adapter";
 import { content } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
-import { directionsUrl, formatAddress, hoursSummary } from "@/lib/stores";
+import { directionsUrl, formatAddress, hoursSummary, storePath } from "@/lib/stores";
 
 /** Il modulo esiste solo con un adattatore realmente configurato (variabile pubblica incorporata in build). */
 const formAvailable = () => getContactAdapter().available;
@@ -118,7 +118,7 @@ export default async function ContattiPage() {
                       <Button href={directionsUrl(s)} variant="secondary" size="sm" iconRight={<Icon name="external" size={16} />}>
                         {copy.indicazioni}
                       </Button>
-                      <Button href={`/dove-siamo/#${s.id}`} variant="outline" size="sm">
+                      <Button href={storePath(s)} variant="outline" size="sm">
                         {copy.orariEIndicazioni}
                       </Button>
                     </div>

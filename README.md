@@ -73,7 +73,7 @@ app/
   sitemap.ts, robots.ts         statici (force-static)
   (site)/                       sito vetrina
     page.tsx                    home
-    offerte/  dove-siamo/  carta-fedelta/  contatti/
+    offerte/  dove-siamo/ (indice) e dove-siamo/[slug]/ (un negozio)  carta-fedelta/  contatti/
     corridoi/[slug]/            pagine corridoio (generateStaticParams)
     privacy-policy/  cookie-policy/
     design-system/              vetrina dei componenti (non in sitemap)
@@ -99,7 +99,7 @@ public/
 Ogni JSON è validato all'avvio/build: se sbagli un campo l'errore dice file e percorso. I campi `"provvisorio": true` segnalano testi o dati da confermare.
 
 ### Menu
-Un solo file: `content/navigation.json`, oggetto con `voci` (array di `{ "label", "href", "evidenza"? }`, **massimo 10 voci** oltre ai reparti) e `gruppi` (i 5 gruppi del mega-menu, ciascuno con `titolo` e `reparti`: href). Ogni reparto deve stare in un solo gruppo, altrimenti la build si ferma. `evidenza: true` mette la voce in risalto.
+Un solo file: `content/navigation.json`, oggetto con `voci` (array di `{ "label", "href", "evidenza"? }`, **massimo 10 voci** oltre ai reparti) e `gruppi` (i 5 gruppi del mega-menu e delle 5 schede di «I reparti» in home, ciascuno con `titolo`, `immagine` `{ src, alt }` e `reparti`: href). Ogni reparto deve stare in un solo gruppo, altrimenti la build si ferma. `evidenza: true` mette la voce in risalto.
 
 ### Aggiungere una campagna
 In `content/campaigns.json` aggiungi un oggetto (la campagna senza date è il default e non va rimossa):
@@ -107,7 +107,7 @@ In `content/campaigns.json` aggiungi un oggetto (la campagna senza date è il de
 ```json
 {
   "id": "pasqua-2027",
-  "titolo": "Pasqua in casa, che bella idea",
+  "titolo": "Pasqua da Home & Co.",
   "sottotitolo": "Tavola, decorazioni e uova da regalare.",
   "inizio": "2027-03-15",
   "fine": "2027-03-29",
@@ -200,7 +200,7 @@ Vedi [ASSETS_TODO.md](ASSETS_TODO.md) (tabella di tutti i segnaposto, formati e 
 - **Scorrimento**: rotellina, trackpad e tocco usano lo scorrimento nativo del browser, senza intercettare i gesti o mantenere un ciclo JavaScript di animazione. I link interni conservano lo scorrimento morbido CSS e gli spazi sotto l'header; con `prefers-reduced-motion` lo spostamento è immediato. Menu e finestre modali bloccano la pagina tramite `overflow`, mantenendo scorrevole il proprio contenuto.
 - **Niente comparse allo scroll, niente marquee, niente splash** (brief «sito da negozio»): solo hover e transizioni brevi, `prefers-reduced-motion` rispettato.
 - **Palette fissa**: le campagne cambiano foto e testi, non i colori. `--accent` è sempre il magenta del logo (definito una sola volta in `app/globals.css`; nessuno script o attributo `data-theme`); lo schema delle campagne non ha più il campo colore. Coppie di contrasto AA in testa a `app/globals.css`.
-- **Testata e tab bar**: `components/layout/Header.tsx` (fascia informativa + riga bianca + mega-menu a gruppi), `StoreChip.tsx` («Il tuo negozio», `localStorage` chiave `homeco:negozio`), `TabBar.tsx` (sotto 1024 px). Etichette in `content/settings.json` → `testata` e `piede`; voci in `content/navigation.json` (`gruppi` per il mega-menu; campo `breve` per i chip nella pagina reparto). Il contenuto riserva lo spazio della tab bar con `pb-tabbar`; il pulsante WhatsApp fluttuante sta sopra la tab bar.
+- **Testata e tab bar**: `components/layout/Header.tsx` (fascia informativa con «Il tuo negozio» e Instagram da 1024 px + riga bianca + mega-menu a gruppi), `StoreChip.tsx` («Il tuo negozio», `localStorage` chiave `homeco:negozio`), `TabBar.tsx` (sotto 1024 px). Etichette in `content/settings.json` → `testata` e `piede`; voci in `content/navigation.json` (`gruppi` per il mega-menu; campo `breve` per i chip nella pagina reparto). Il contenuto riserva lo spazio della tab bar con `pb-tabbar`; il pulsante WhatsApp fluttuante sta sopra la tab bar.
 - **Regola immagini**: larghezza CSS mostrata ≤ larghezza intrinseca / 2 (`lib/image-rules.ts`, test `image-resolution`). I reel 360 px si mostrano a 180 px al massimo.
 - **Smartphone**: schede dei reparti e delle collezioni con foto laterale sotto i 640 px, archivio compatto sotto i 420 px, pannello reparti a schermo intero con chiusura sempre raggiungibile e collegamenti grandi. Pulsanti alti almeno 44 px, campi del modulo da 16 px e spazi per le aree sicure nelle finestre modali.
 - **Lettore volantini**: lo swipe orizzontale usa Pointer Events, senza dipendere dalle feature di trascinamento di Motion. Il gesto verticale mantiene lo scorrimento nativo e il pinch resta disponibile; frecce, tastiera e zoom sono sempre accessibili. Sui dispositivi touch le frecce sono sotto l'immagine per lasciare liberi prezzi e dettagli. I PDF usano link nativi, senza richieste di prefetch alle route Next.
@@ -299,7 +299,7 @@ Pro: un solo sistema per catalogo, contenuti e ordini, controllo totale, nessun 
 Dettaglio completo in [ASSETS_TODO.md](ASSETS_TODO.md). In sintesi:
 
 - Foto aggiornate e identificate di ciascun punto vendita, nuovi volantini e loghi dei brand. Corsie e categorie hanno foto reali; le fonti sono in `content/photo-sources.json`. I marchi ancora provvisori non vengono mostrati.
-- Telefoni, particolarità di ogni sede; conferma del CAP di Sesto Fiorentino e delle coordinate. Orari già confermati tutti i giorni: Prato/Lucca 09:00–20:00, Sesto 08:30–19:30, domeniche e festivi inclusi.
+- Telefoni, particolarità di ogni sede; conferma del CAP di Sesto Fiorentino e delle coordinate (`coordinateConfermate` in `stores.json`: finché è `false` niente mappa OSM né `geo`). Orari già confermati tutti i giorni: Prato/Lucca 09:00–20:00, Sesto 08:30–19:30, domeniche e festivi inclusi.
 - Numero WhatsApp Business.
 - Testi e regolamento della carta fedeltà.
 - I prossimi volantini: il volantino Halloween 2026 è integrato (1–31 ottobre, 7 pagine, tutti i negozi) al posto del catalogo Sesto ottobre 2026. Le tre edizioni precedenti rimangono in archivio.

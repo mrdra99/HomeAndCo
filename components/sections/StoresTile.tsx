@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import type { HeaderCopy, HomeCopy, Store } from "@/lib/content/schemas";
+import { storePath } from "@/lib/stores";
 import { cn } from "@/lib/utils";
 import { StoreStatus } from "./StoreStatus";
 
@@ -17,7 +18,7 @@ export function StoresTile({ stores, copy, statusCopy, className }: Props) {
       <ul className="mt-2 divide-y divide-white/20">
         {stores.map((store) => (
           <li key={store.id}>
-            <Link href={`/dove-siamo/#${store.id}`} className="flex min-h-14 items-center justify-between gap-3 py-2 hover:text-white/80">
+            <Link href={storePath(store)} className="flex min-h-14 items-center justify-between gap-3 py-2 hover:text-white/80">
               <span className="min-w-0">
                 <span className="block text-lg font-extrabold leading-tight">{store.citta}</span>
                 <StoreStatus store={store} copy={statusCopy} neutralPrefix={copy.apertoNeutro} tone="light" />

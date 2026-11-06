@@ -53,6 +53,10 @@
       "cta": "Vedi i volantini precedenti",
       "fascia": "Nessun volantino in corso.",
       "ctaFascia": "Volantini precedenti"
+    },
+    "archivio": {
+      "fascia": "Cerchi un volantino già concluso?",
+      "cta": "Volantini precedenti"
     }
   },
   "negozi": {

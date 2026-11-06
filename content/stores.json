@@ -13,6 +13,7 @@
       "lat": 43.8795,
       "lng": 11.0735
     },
+    "coordinateConfermate": false,
     "telefono": null,
     "email": null,
     "whatsapp": null,
@@ -89,7 +90,6 @@
       "alt": "Il negozio Home & Co. di Prato",
       "label": "Negozio di Prato"
     },
-    "mappaUrl": "https://www.google.com/maps/search/?api=1&query=Viale+G.+Marconi+38+Prato",
     "provvisorio": true,
     "daConfermare": [
       "Carta fedeltà",
@@ -111,6 +111,7 @@
       "lat": 43.8335,
       "lng": 10.5175
     },
+    "coordinateConfermate": false,
     "telefono": null,
     "email": null,
     "whatsapp": null,
@@ -186,7 +187,6 @@
       "src": "/uploads/aisles/negozio-lucca-esterno.webp",
       "alt": "Ingresso del negozio Home & Co. di Lucca"
     },
-    "mappaUrl": "https://www.google.com/maps/search/?api=1&query=Via+Romana+3137+Lucca",
     "provvisorio": true,
     "daConfermare": [
       "Carta fedeltà",
@@ -209,6 +209,7 @@
       "lat": 43.834,
       "lng": 11.193
     },
+    "coordinateConfermate": false,
     "telefono": null,
     "email": null,
     "whatsapp": null,
@@ -287,7 +288,6 @@
       "alt": "Il negozio Home & Co. di Sesto Fiorentino",
       "label": "Negozio di Sesto Fiorentino"
     },
-    "mappaUrl": "https://www.google.com/maps/search/?api=1&query=Via+Leopardi+66+Sesto+Fiorentino",
     "provvisorio": true,
     "daConfermare": [
       "Carta fedeltà",

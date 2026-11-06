@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { StoresBoard } from "@/components/stores/StoresBoard";
+import { StoreCard } from "@/components/stores/StoreCard";
+import { Container } from "@/components/ui/Container";
 import { content } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 
@@ -11,6 +12,7 @@ export const metadata: Metadata = buildMetadata({
   path: "/dove-siamo/",
 });
 
+/** Indice dei negozi: una scheda per negozio, con l'ancora storica /dove-siamo/#<id>, che porta alla sua pagina. */
 export default async function DoveSiamoPage() {
   const [stores, settings, home, pages] = await Promise.all([
     content.getStores(),
@@ -30,14 +32,21 @@ export default async function DoveSiamoPage() {
         title={copy.titolo}
         lead={copy.intro}
       />
-      <StoresBoard
-        stores={stores}
-        copy={copy}
-        cardCopy={{ orari: home.negozi.orari, indicazioni: home.negozi.indicazioni, mappa: home.negozi.mappa }}
-        statusCopy={settings.testata.negozio}
-        neutralPrefix={home.tabellone.negozi.apertoNeutro}
-        whatsapp={{ numero: settings.whatsapp.numero, messaggio: settings.whatsapp.messaggioPredefinito }}
-      />
+      <Container size="wide" className="py-5 sm:py-8">
+        <ul className="grid gap-3 md:grid-cols-3 md:gap-4">
+          {stores.map((store) => (
+            <li key={store.id} className="h-full">
+              <StoreCard
+                store={store}
+                copy={{ orari: home.negozi.orari, indicazioni: home.negozi.indicazioni, mappa: home.negozi.mappa }}
+                statusCopy={settings.testata.negozio}
+                neutralPrefix={home.tabellone.negozi.apertoNeutro}
+                headingLevel="h2"
+              />
+            </li>
+          ))}
+        </ul>
+      </Container>
     </>
   );
 }

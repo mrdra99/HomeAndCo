@@ -8,7 +8,7 @@ import { Logo } from "@/components/ui/Logo";
 import type { HeaderCopy, NavGroup, NavItem, Store } from "@/lib/content/schemas";
 import { DEPARTMENT_PREFIX, groupDepartments } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
-import { StoreChip } from "./StoreChip";
+import { MENU_OPEN_EVENT, StoreChip } from "./StoreChip";
 import { TabBar } from "./TabBar";
 
 const CORRIDOI_PREFIX = DEPARTMENT_PREFIX;
@@ -24,9 +24,11 @@ type HeaderProps = {
 };
 
 /**
- * Testata pulita (desktop): avviso blu 900 e una sola riga bianca con logo, «Tutti i reparti» (mega-menu a
- * gruppi, solo testo), Volantino, Negozi, Contatti e "Il tuo negozio". Sotto 1024 px: barra compatta
- * (logo + negozio) e tab bar fissa in basso. La riga bianca e' `sticky` (nessun salto di layout).
+ * Testata pulita (desktop): fascia blu 900 con avviso, "Il tuo negozio" e Instagram, poi una sola riga bianca con
+ * logo, «Tutti i reparti» (mega-menu a gruppi, solo testo), Negozi, Contatti e, a destra, Volantino.
+ * Sotto 1024 px: nessuna fascia; barra compatta (logo + negozio) e tab bar fissa in basso.
+ * Scorrimento: solo la riga bianca e' `sticky`; la fascia blu scorre via con la pagina (scelta voluta: il negozio
+ * si imposta in cima, e dalla pagina di ogni negozio resta il pulsante «Imposta come il tuo negozio»).
  */
 export function Header({ items, groups, stores, copy, instagramUrl }: HeaderProps) {
   const [megaOpen, setMegaOpen] = useState(false);
@@ -39,6 +41,8 @@ export function Header({ items, groups, stores, copy, instagramUrl }: HeaderProp
 
   const departmentGroups = groupDepartments(items, groups);
   const main = items.filter((i) => !i.href.startsWith(CORRIDOI_PREFIX) && !i.soloPiede);
+  const primary = main.filter((i) => !i.evidenza);
+  const highlighted = main.filter((i) => i.evidenza);
   const repartiActive = pathname.startsWith(CORRIDOI_PREFIX);
   const cities = stores.map((s) => s.cittaBreve ?? s.citta);
 
@@ -59,6 +63,11 @@ export function Header({ items, groups, stores, copy, instagramUrl }: HeaderProp
 
   useEffect(() => {
     if (!megaOpen) return;
+    window.dispatchEvent(new CustomEvent(MENU_OPEN_EVENT, { detail: "mega" }));
+    const onOther = (e: Event) => {
+      if ((e as CustomEvent).detail !== "mega") setMegaOpen(false);
+    };
+    window.addEventListener(MENU_OPEN_EVENT, onOther);
     const onDown = (e: MouseEvent) => {
       if (!rootRef.current?.contains(e.target as Node)) setMegaOpen(false);
     };
@@ -70,6 +79,7 @@ export function Header({ items, groups, stores, copy, instagramUrl }: HeaderProp
     document.addEventListener("mousedown", onDown);
     document.addEventListener("keydown", onKey);
     return () => {
+      window.removeEventListener(MENU_OPEN_EVENT, onOther);
       document.removeEventListener("mousedown", onDown);
       document.removeEventListener("keydown", onKey);
     };
@@ -84,22 +94,27 @@ export function Header({ items, groups, stores, copy, instagramUrl }: HeaderProp
   return (
     <>
       {/* Livello 1: avviso e social (solo desktop) */}
-      <div className="on-dark hidden bg-brand-blue-900 text-sm text-white lg:block">
-        <div className="mx-auto flex min-h-9 w-full max-w-7xl items-center justify-between gap-6 px-8">
-          <p>
+      {/* z-50: il menu a tendina del negozio si apre sopra la riga bianca sticky (z-40) */}
+      <div className="on-dark relative z-50 hidden bg-brand-blue-900 text-sm text-white lg:block">
+        <div className="mx-auto flex min-h-12 w-full max-w-7xl items-center justify-between gap-4 px-8">
+          <p className="min-w-0">
             {copy.avviso}
-            {cities.length > 0 && <span aria-hidden="true"> · </span>}
-            {cities.join(" · ")}
+            {/* Le citta' compaiono da 1280 px: a 1024 px lasciano il posto al selettore del negozio. */}
+            {cities.length > 0 && <span aria-hidden="true" className="hidden xl:inline"> · </span>}
+            <span className="hidden xl:inline">{cities.join(" · ")}</span>
           </p>
-          <a
-            href={instagramUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex min-h-9 items-center gap-2 font-semibold hover:underline"
-          >
-            <Icon name="instagram" size={16} />
-            Instagram
-          </a>
+          <div className="flex shrink-0 items-center gap-4">
+            <StoreChip stores={stores} copy={copy.negozio} tone="bar" />
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 items-center gap-2 font-semibold hover:underline"
+            >
+              <Icon name="instagram" size={16} />
+              Instagram
+            </a>
+          </div>
         </div>
       </div>
 
@@ -110,7 +125,7 @@ export function Header({ items, groups, stores, copy, instagramUrl }: HeaderProp
             <Logo priority className="w-32 sm:w-36 lg:w-44" />
           </Link>
 
-          <nav aria-label={copy.a11y.navigazione} className="hidden lg:block">
+          <nav aria-label={copy.a11y.navigazione} className="hidden lg:block lg:flex-1">
             <ul className="flex items-center gap-1">
               <li>
                 <button
@@ -138,16 +153,20 @@ export function Header({ items, groups, stores, copy, instagramUrl }: HeaderProp
                   <Icon name="chevron" size={18} className={cn("transition-transform", megaOpen && "rotate-180")} />
                 </button>
               </li>
-              {main.map((item) => (
+              {primary.map((item) => (
                 <li key={item.href}>
+                  <Link href={item.href} aria-current={item.href === pathname ? "page" : undefined} className={linkClass(item.href === pathname)}>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+              {/* La voce evidenziata (Volantino) chiude la riga a destra. */}
+              {highlighted.map((item, i) => (
+                <li key={item.href} className={i === 0 ? "ml-auto" : undefined}>
                   <Link
                     href={item.href}
                     aria-current={item.href === pathname ? "page" : undefined}
-                    className={
-                      item.evidenza
-                        ? "inline-flex min-h-11 items-center rounded-md bg-brand-magenta-600 px-4 text-[0.95rem] font-bold text-white transition-colors hover:bg-brand-magenta-700"
-                        : linkClass(item.href === pathname)
-                    }
+                    className="inline-flex min-h-11 items-center rounded-md bg-brand-magenta-600 px-5 text-[0.95rem] font-bold text-white transition-colors hover:bg-brand-magenta-700"
                   >
                     {item.label}
                   </Link>
@@ -156,7 +175,8 @@ export function Header({ items, groups, stores, copy, instagramUrl }: HeaderProp
             </ul>
           </nav>
 
-          <div className="ml-auto min-w-0">
+          {/* Mobile: il negozio resta nella barra compatta (da 1024 px sta nella fascia blu in alto). */}
+          <div className="ml-auto min-w-0 lg:hidden">
             <StoreChip stores={stores} copy={copy.negozio} />
           </div>
         </div>

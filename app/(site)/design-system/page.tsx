@@ -91,7 +91,7 @@ export default async function DesignSystemPreview() {
         <SectionTitle note="Riquadro di ripiego della mappa e tessera piatta della carta.">Schede</SectionTitle>
         <div className="grid gap-4 md:grid-cols-3">
           <div className="aspect-[16/9] overflow-hidden rounded-[var(--radius-lg)] border-2 border-brand-blue-100">
-            <StoreMapFallback store={{ citta: "Prato", indirizzo: { via: "Viale G. Marconi 38", cap: "59100", citta: "Prato", provincia: "PO" } }} href="/dove-siamo/#prato" cta="Mappa e indicazioni" />
+            <StoreMapFallback store={{ citta: "Prato", indirizzo: { via: "Viale G. Marconi 38", cap: "59100", citta: "Prato", provincia: "PO" } }} href="/dove-siamo/prato/" cta="Mappa e indicazioni" />
           </div>
           <LoyaltyCard nome="Carta Fedeltà Home & Co." />
           <HoverLift>

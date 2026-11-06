@@ -29,3 +29,10 @@ export function maxDisplayWidthAtDpr(intrinsicWidth: number, dpr: number): numbe
 export const REEL_COVER_MAX_CSS_WIDTH_MOBILE = 120;
 export const REEL_COVER_MAX_CSS_WIDTH = 180;
 export const VIDEO_POSTER_MAX_CSS_WIDTH = 320;
+
+/**
+ * Larghezza CSS massima delle 5 schede dei gruppi di reparti in home (ordine di content/navigation.json → gruppi),
+ * misurata a 1440 px con il contenitore largo (7xl). Sotto 1440 px le schede sono piu' strette, mai piu' larghe.
+ * Il test department-cards verifica che ogni foto sia larga almeno il doppio.
+ */
+export const DEPARTMENT_CARD_MAX_CSS_WIDTH = [720, 520, 400, 400, 400] as const;

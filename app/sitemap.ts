@@ -1,15 +1,13 @@
 import type { MetadataRoute } from "next";
-import { getAisleSlugs } from "@/lib/content";
-import { SITE_URL } from "@/lib/site";
+import { content, getAisleSlugs } from "../lib/content";
+import { SITE_URL } from "../lib/site";
+import { sitemapRoutes } from "../lib/sitemap-routes";
 
 export const dynamic = "force-static";
 
-/** Rotte pubbliche statiche (con slash finale). /design-system/ e' escluso di proposito. */
-const STATIC_ROUTES = ["/", "/offerte/", "/dove-siamo/", "/carta-fedelta/", "/contatti/", "/privacy-policy/", "/cookie-policy/"];
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const slugs = await getAisleSlugs();
-  const routes = [...STATIC_ROUTES, ...slugs.map((s) => `/corridoi/${s}/`)];
+  const [slugs, stores] = await Promise.all([getAisleSlugs(), content.getStores()]);
+  const routes = sitemapRoutes(slugs, stores.map((s) => s.id));
   const lastModified = new Date();
   return routes.map((path) => ({
     url: new URL(path, SITE_URL).toString(),

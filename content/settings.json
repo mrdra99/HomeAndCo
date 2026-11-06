@@ -26,7 +26,8 @@
       "chiuso": "Chiuso",
       "riapreOggi": "Riapre alle {ora}",
       "riapreDomani": "Riapre domani alle {ora}",
-      "orariEIndicazioni": "Orari e indicazioni"
+      "orariEIndicazioni": "Orari e indicazioni",
+      "ariaNegozio": "Il tuo negozio: {negozio}, {stato}"
     },
     "tab": [
       {
