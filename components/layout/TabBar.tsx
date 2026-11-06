@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { DepartmentIcon } from "@/components/ui/DepartmentIcon";
 import { Icon, type IconName } from "@/components/ui/Icon";
-import type { HeaderCopy, NavItem } from "@/lib/content/schemas";
+import type { HeaderCopy, NavGroup, NavItem } from "@/lib/content/schemas";
+import { groupDepartments } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -24,7 +24,7 @@ const TAB_ICONS: Record<HeaderCopy["tab"][number]["icona"], IconName> = {
  * a schermo intero con i reparti e le altre pagine. Rispetta env(safe-area-inset-bottom); il layout
  * riserva lo spazio con la classe `pb-tabbar`.
  */
-export function TabBar({ items, copy }: { items: NavItem[]; copy: HeaderCopy }) {
+export function TabBar({ items, groups, copy }: { items: NavItem[]; groups: NavGroup[]; copy: HeaderCopy }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -63,7 +63,7 @@ export function TabBar({ items, copy }: { items: NavItem[]; copy: HeaderCopy }) 
   }, [open]);
 
   const close = () => setOpen(false);
-  const reparti = items.filter((i) => i.href.startsWith(CORRIDOI_PREFIX));
+  const departmentGroups = groupDepartments(items, groups);
   const tabHrefs = new Set(copy.tab.map((t) => t.href).filter(Boolean));
   const others = items.filter((i) => !i.href.startsWith(CORRIDOI_PREFIX) && !i.soloPiede && !tabHrefs.has(i.href));
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
@@ -138,24 +138,30 @@ export function TabBar({ items, copy }: { items: NavItem[]; copy: HeaderCopy }) 
             </button>
           </div>
           <div className="px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-3">
-            <ul className="grid grid-cols-2 gap-2">
-              {reparti.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    onClick={close}
-                    aria-current={item.href === pathname ? "page" : undefined}
-                    className={cn(
-                      "flex h-full min-h-16 items-center gap-2.5 rounded-lg border border-brand-blue-100 p-2.5 text-sm font-bold leading-snug text-brand-blue-900 active:bg-brand-blue-50",
-                      item.href === pathname && "border-brand-blue-600 bg-brand-blue-50",
-                    )}
-                  >
-                    <DepartmentIcon name={item.href.split("/")[2]} size={32} />
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {departmentGroups.map((group, i) => (
+              <section key={group.titolo} aria-label={group.titolo} className={i > 0 ? "mt-5" : undefined}>
+                <h3 className="border-b-2 border-brand-blue-600 pb-1.5 !text-[0.8125rem] font-extrabold uppercase tracking-wider text-brand-blue-700">
+                  {group.titolo}
+                </h3>
+                <ul>
+                  {group.items.map((item) => (
+                    <li key={item.href} className="border-b border-brand-blue-100">
+                      <Link
+                        href={item.href}
+                        onClick={close}
+                        aria-current={item.href === pathname ? "page" : undefined}
+                        className={cn(
+                          "flex min-h-11 items-center px-1 py-2 text-base font-semibold leading-snug text-brand-blue-900 active:bg-brand-blue-50",
+                          item.href === pathname && "bg-brand-blue-50 text-brand-blue-700",
+                        )}
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
             {others.length > 0 && (
               <>
                 <h3 className="mb-2 mt-6 text-base text-brand-blue-900">{copy.a11y.altriLink}</h3>

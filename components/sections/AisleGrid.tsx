@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { DepartmentIcon } from "@/components/ui/DepartmentIcon";
 import { SmartImage } from "@/components/ui/SmartImage";
 import type { Aisle, HomeCopy } from "@/lib/content/schemas";
 import { SectionTitle } from "./SectionTitle";
@@ -35,10 +34,7 @@ export function AisleGrid({ aisles, copy }: AisleGridProps) {
                   rounded="rounded-none"
                   imgClassName="group-hover:scale-100"
                 />
-                <span className="absolute inset-x-0 bottom-0 flex min-h-11 items-center gap-2 bg-brand-blue-900 px-2 py-1.5 text-white group-hover:bg-brand-blue-700">
-                  <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-white">
-                    <DepartmentIcon name={aisle.slug} size={24} className="size-6" />
-                  </span>
+                <span className="absolute inset-x-0 bottom-0 flex min-h-11 items-center bg-brand-blue-900 px-3 py-1.5 text-white group-hover:bg-brand-blue-700">
                   <span className="text-sm font-extrabold leading-tight sm:text-base">{aisle.titoloBreve}</span>
                 </span>
               </Link>

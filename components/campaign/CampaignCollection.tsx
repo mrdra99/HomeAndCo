@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/Container";
-import { DepartmentIcon } from "@/components/ui/DepartmentIcon";
 import { Icon } from "@/components/ui/Icon";
 import { SmartImage } from "@/components/ui/SmartImage";
 import type { Aisle, Campaign, HomeCopy } from "@/lib/content/schemas";
@@ -103,8 +102,8 @@ export function CampaignCollection({ campaigns, buildCampaignId, copy, aisles }:
                   <h3 className="!text-lg text-brand-blue-900">{idea.titolo}</h3>
                   <p className="mt-1 text-sm text-muted">{idea.testo}</p>
                   <span className="mt-auto flex min-h-11 items-center gap-2 pt-2 text-sm font-extrabold text-brand-blue-700">
-                    <DepartmentIcon name={idea.corridoio} size={28} className="size-7" />
                     <span className="group-hover:underline">{copy.vaiAlReparto.replace("{reparto}", names.get(idea.corridoio) ?? idea.titolo)}</span>
+                    <Icon name="arrow-right" size={18} />
                   </span>
                 </div>
               </Link>

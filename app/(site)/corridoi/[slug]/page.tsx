@@ -60,7 +60,7 @@ export default async function AislePage({ params }: { params: Promise<Params> })
   const copy = pages.corridoi;
   const today = toIsoDate();
   const linkedPromos = promotions.filter((p) => p.corridoio === aisle.slug);
-  const breve = new Map(navigation.map((n) => [n.href.split("/")[2], n.breve ?? n.label]));
+  const breve = new Map(navigation.voci.map((n) => [n.href.split("/")[2], n.breve ?? n.label]));
   const switcher = allAisles
     .filter((a) => a.visibile)
     .sort((a, b) => a.ordine - b.ordine)
@@ -69,7 +69,6 @@ export default async function AislePage({ params }: { params: Promise<Params> })
   return (
     <>
       <AisleHero
-        slug={aisle.slug}
         titolo={aisle.titolo}
         descrizione={aisle.descrizione}
         immagine={aisle.immagine}

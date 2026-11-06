@@ -9,7 +9,6 @@
       "src": "/uploads/aisles/cucina-corsia-ritoccata.webp",
       "alt": "Corsia Home & Co. con piatti, ciotole e accessori per la cucina"
     },
-    "icona": "cucina",
     "colore": "#0B6CB0",
     "inEvidenza": [],
     "scaffali": [
@@ -58,7 +57,6 @@
       "src": "/uploads/aisles/biancheria-e-arredo-reparto.webp",
       "alt": "Il reparto biancheria e arredo di Home & Co."
     },
-    "icona": "tessile",
     "colore": "#D11559",
     "inEvidenza": [],
     "scaffali": [
@@ -107,7 +105,6 @@
       "src": "/uploads/aisles/pulizia-corsia-ritoccata.webp",
       "alt": "La corsia detersivi e accessori per la pulizia di Home & Co."
     },
-    "icona": "pulizia",
     "colore": "#0B6CB0",
     "inEvidenza": [],
     "scaffali": [
@@ -150,7 +147,6 @@
     "slug": "cura-persona-e-beauty",
     "titolo": "Cura della persona e beauty",
     "titoloBreve": "Cura della persona e beauty",
-    "icona": "pulizia",
     "colore": "#D11559",
     "descrizione": "Make-up, igiene e cura del corpo, prodotti per i capelli.",
     "descrizioneLunga": "Tre scaffali: make-up e cosmetici; igiene e cura del corpo, dalla doccia all’idratazione; capelli, con shampoo, trattamenti e colori.",
@@ -205,7 +201,6 @@
       "src": "/uploads/aisles/animali-reparto.webp",
       "alt": "Il reparto animali di Home & Co."
     },
-    "icona": "animali",
     "colore": "#0B6CB0",
     "inEvidenza": [],
     "scaffali": [
@@ -254,7 +249,6 @@
       "src": "/uploads/aisles/fiori-corsia-ritoccata.webp",
       "alt": "Corsia Home & Co. con fiori artificiali e accessori per la casa"
     },
-    "icona": "giardino",
     "colore": "#D11559",
     "inEvidenza": [],
     "scaffali": [
@@ -303,7 +297,6 @@
       "src": "/uploads/aisles/hobby-cartoleria-auto-reparto.webp",
       "alt": "Il reparto cartoleria e creatività di Home & Co."
     },
-    "icona": "hobby",
     "colore": "#0B6CB0",
     "inEvidenza": [],
     "scaffali": [
@@ -346,7 +339,6 @@
     "slug": "feste-e-regalo",
     "titolo": "Feste e idee regalo",
     "titoloBreve": "Feste e idee regalo",
-    "icona": "hobby",
     "colore": "#D11559",
     "descrizione": "Palloncini, candeline, buste e confezioni regalo.",
     "descrizioneLunga": "Per la festa: palloncini e piccoli addobbi, candeline per i compleanni. Per il regalo: buste e confezioni.",
@@ -396,7 +388,6 @@
     "slug": "ferramenta-e-fai-da-te",
     "titolo": "Ferramenta e fai da te",
     "titoloBreve": "Ferramenta e fai da te",
-    "icona": "hobby",
     "colore": "#0B6CB0",
     "descrizione": "Ferramenta per i tuoi hobby: utensili, viti, minuteria, vernici.",
     "descrizioneLunga": "Utensili da lavoro come pinze e cacciaviti, viti e minuteria, vernici e prodotti per la manutenzione. Per sostituire un pezzo, porta con te quello vecchio o le sue misure.",
@@ -445,7 +436,6 @@
     "slug": "illuminazione-e-accessori",
     "titolo": "Illuminazione e accessori tech",
     "titoloBreve": "Illuminazione e accessori tech",
-    "icona": "cucina",
     "colore": "#D11559",
     "descrizione": "Lampade, lampadine, cavi, custodie e accessori per smartphone.",
     "descrizioneLunga": "Lampade per camera, studio e soggiorno. Lampadine di diversi tipi: controlla l’attacco prima di scegliere, meglio se hai con te quella da sostituire. Cavi, custodie e piccoli accessori per smartphone.",
@@ -494,7 +484,6 @@
     "slug": "ordine-e-bagno",
     "titolo": "Ordine e accessori bagno",
     "titoloBreve": "Ordine e accessori bagno",
-    "icona": "tessile",
     "colore": "#0B6CB0",
     "descrizione": "Scatole, contenitori, ceste e accessori per il bagno.",
     "descrizioneLunga": "Scatole e contenitori per armadi, ripostigli e piccoli oggetti. Ceste e cestini per ogni stanza. In bagno: portasapone, bicchieri e accessori coordinati. Guarda le misure prima di scegliere.",
@@ -543,7 +532,6 @@
     "slug": "cura-auto",
     "titolo": "Cura dell’auto",
     "titoloBreve": "Cura dell’auto",
-    "icona": "hobby",
     "colore": "#D11559",
     "descrizione": "Prodotti per pulire l’auto e accessori per l’abitacolo.",
     "descrizioneLunga": "Due scaffali: pulizia e manutenzione dell’auto, accessori per l’abitacolo come i coprivolanti.",
@@ -590,7 +578,6 @@
       "src": "/uploads/aisles/giocattoli-reparto.webp",
       "alt": "Giochi e giocattoli sugli scaffali Home & Co."
     },
-    "icona": "hobby",
     "colore": "#D11559",
     "inEvidenza": [],
     "scaffali": [

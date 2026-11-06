@@ -116,7 +116,7 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
               role={available.length > 1 && !ended ? "tabpanel" : undefined}
               aria-labelledby={available.length > 1 && !ended ? `tab-${selected.id}` : undefined}
               key={selected.id}
-              className="grid scroll-mt-28 gap-5 sm:grid-cols-[14rem_minmax(0,1fr)] sm:gap-8 lg:grid-cols-[18rem_minmax(0,1fr)] lg:gap-12"
+              className="grid scroll-mt-4 gap-5 sm:grid-cols-[14rem_minmax(0,1fr)] sm:gap-8 lg:grid-cols-[18rem_minmax(0,1fr)] lg:gap-12"
             >
               <a href="#sfoglia" aria-label={`${copy.sfoglia}: ${selected.titolo}`} className="group relative mx-auto block w-44 sm:w-full">
                 <SmartImage
@@ -179,7 +179,7 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
           </Container>
 
           {selected.pagine.length > 0 && (
-            <div id="sfoglia" className="mt-7 scroll-mt-28 bg-sand py-6 sm:py-9">
+            <div id="sfoglia" className="mt-7 scroll-mt-4 bg-sand py-6 sm:py-9">
               <Container size="wide">
                 <SectionTitle note={copy.visore.istruzioni}>{copy.visore.titolo}</SectionTitle>
                 <FlyerViewer key={selected.id} pages={selected.pagine} title={selected.titolo} copy={copy.visore} />
@@ -212,7 +212,7 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
       )}
 
       {archived.length > 0 && (
-        <section id="archivio" aria-labelledby="archivio-title" className="scroll-mt-28 bg-white py-7 sm:py-10">
+        <section id="archivio" aria-labelledby="archivio-title" className="scroll-mt-4 bg-white py-7 sm:py-10">
           <Container size="wide">
             <SectionTitle id="archivio-title" note={copy.archivio.nota}>{copy.archivio.titolo}</SectionTitle>
             <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">

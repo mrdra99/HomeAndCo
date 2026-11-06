@@ -62,7 +62,6 @@
           "titolo": "Per la tavola",
           "testo": "Piatti, bicchieri e accessori per apparecchiare.",
           "corridoio": "casa-e-cucina",
-          "icona": "cucina",
           "immagine": {
             "src": "/uploads/photos/tavola-halloween.webp",
             "alt": "Tavola apparecchiata con candele nere e zucche"
@@ -72,7 +71,6 @@
           "titolo": "Per gli addobbi",
           "testo": "Carta, cartoncini e colori per i lavoretti con i bambini e le decorazioni fatte in casa.",
           "corridoio": "hobby-cartoleria-auto",
-          "icona": "hobby",
           "immagine": {
             "src": "/uploads/photos/carta-e-colori.webp",
             "alt": "Matite colorate e materiali per i lavori creativi"
@@ -82,7 +80,6 @@
           "titolo": "Per la serata sul divano",
           "testo": "Cuscini e plaid.",
           "corridoio": "biancheria-e-arredo",
-          "icona": "tessile",
           "immagine": {
             "src": "/uploads/photos/plaid-divano.webp",
             "alt": "Plaid a disegno geometrico su un divano"
@@ -129,7 +126,6 @@
           "titolo": "Addobbi e decorazioni",
           "testo": "Palloncini e piccoli addobbi per le feste.",
           "corridoio": "feste-e-regalo",
-          "icona": "regalo",
           "immagine": {
             "src": "/uploads/aisles/feste-e-regalo-dettaglio-1.webp",
             "alt": "Palloncini colorati nel reparto feste e idee regalo"
@@ -139,7 +135,6 @@
           "titolo": "Regali e confezioni",
           "testo": "Buste, sacchetti e confezioni per i regali.",
           "corridoio": "feste-e-regalo",
-          "icona": "regalo",
           "immagine": {
             "src": "/uploads/aisles/feste-e-regalo-dettaglio-3.webp",
             "alt": "Sacchetti regalo nel reparto feste e idee regalo"
@@ -149,7 +144,6 @@
           "titolo": "La tavola delle feste",
           "testo": "Piatti, pentole e utensili per cucinare e apparecchiare.",
           "corridoio": "casa-e-cucina",
-          "icona": "cucina",
           "immagine": {
             "src": "/uploads/aisles/casa-e-cucina-dettaglio-1.webp",
             "alt": "Scaffali di piatti nel reparto casa e cucina"
@@ -159,7 +153,6 @@
           "titolo": "Tessili per la casa",
           "testo": "Completi letto, cuscini, tende e tappeti.",
           "corridoio": "biancheria-e-arredo",
-          "icona": "tessile",
           "immagine": {
             "src": "/uploads/aisles/biancheria-e-arredo-dettaglio-1.webp",
             "alt": "Scaffali di biancheria nel reparto biancheria e arredo"
@@ -169,7 +162,6 @@
           "titolo": "Luce in casa",
           "testo": "Lampade, lampadine, cavi e custodie.",
           "corridoio": "illuminazione-e-accessori",
-          "icona": "luce",
           "immagine": {
             "src": "/uploads/aisles/illuminazione-e-accessori-dettaglio-2.webp",
             "alt": "Lampade da tavolo nel reparto illuminazione"

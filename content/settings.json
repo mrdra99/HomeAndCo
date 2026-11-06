@@ -17,7 +17,7 @@
   },
   "testata": {
     "avviso": "Aperti tutti i giorni, anche domenica e festivi",
-    "repartiLabel": "Reparti",
+    "repartiLabel": "Tutti i reparti",
     "negozio": {
       "etichetta": "Il tuo negozio",
       "scegli": "Scegli il negozio",
@@ -59,8 +59,6 @@
       "logo": "Home & Co., vai alla home",
       "navigazione": "Principale",
       "reparti": "Reparti",
-      "repartiPrecedenti": "Reparti precedenti",
-      "repartiSuccessivi": "Altri reparti",
       "tabBar": "Navigazione rapida",
       "chiudi": "Chiudi",
       "altriLink": "Altre pagine"

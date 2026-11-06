@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { DepartmentIcon } from "@/components/ui/DepartmentIcon";
 import { cn } from "@/lib/utils";
 
 export type AisleNavItem = { slug: string; label: string };
@@ -20,13 +19,10 @@ export function AisleNav({ items, current, label }: { items: AisleNavItem[]; cur
                   href={`/corridoi/${a.slug}/`}
                   aria-current={on ? "page" : undefined}
                   className={cn(
-                    "inline-flex min-h-11 items-center gap-2 rounded-md border-2 px-2.5 text-sm font-bold",
+                    "inline-flex min-h-11 items-center rounded-md border-2 px-3.5 text-sm font-bold",
                     on ? "border-brand-blue-600 bg-brand-blue-600 text-white" : "border-brand-blue-100 bg-white text-brand-blue-900 hover:border-brand-blue-600",
                   )}
                 >
-                  <span className="rounded bg-white p-0.5">
-                    <DepartmentIcon name={a.slug} size={22} />
-                  </span>
                   {a.label}
                 </Link>
               </li>

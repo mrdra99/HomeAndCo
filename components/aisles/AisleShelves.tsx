@@ -78,7 +78,7 @@ export function AisleShelves({ scaffali, titolo, intro }: AisleShelvesProps) {
   const caption = current ? [current.titolo, current.descrizione].filter(Boolean).join(" - ") : "";
 
   return (
-    <section id="scaffali" aria-labelledby="scaffali-titolo" className="scroll-mt-28 bg-white py-7 sm:py-10">
+    <section id="scaffali" aria-labelledby="scaffali-titolo" className="scroll-mt-4 bg-white py-7 sm:py-10">
       <Container size="wide">
         <SectionTitle id="scaffali-titolo" note={intro}>{titolo}</SectionTitle>
 

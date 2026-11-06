@@ -33,7 +33,7 @@ describe("regole di copy", () => {
   });
   it("«Carta fedeltà» non e' nel menu principale ne' nella tab bar; resta nel footer", () => {
     const nav = NavigationSchema.parse(navigationJson);
-    const carta = nav.find((i) => i.href === "/carta-fedelta/")!;
+    const carta = nav.voci.find((i) => i.href === "/carta-fedelta/")!;
     expect(carta.soloPiede).toBe(true);
     expect(settingsJson.testata.tab.map((t) => t.href)).not.toContain("/carta-fedelta/");
     expect(settingsJson.testata.tab.map((t) => t.href)).toContain("/contatti/");

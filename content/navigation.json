@@ -1,85 +1,127 @@
-[
-  {
-    "label": "Volantino",
-    "href": "/offerte/",
-    "evidenza": true
-  },
-  {
-    "label": "Negozi",
-    "href": "/dove-siamo/"
-  },
-  {
-    "label": "Carta fedeltà",
-    "href": "/carta-fedelta/",
-    "soloPiede": true
-  },
-  {
-    "label": "Contatti",
-    "href": "/contatti/"
-  },
-  {
-    "label": "Casa e cucina",
-    "breve": "Cucina",
-    "href": "/corridoi/casa-e-cucina/"
-  },
-  {
-    "label": "Biancheria e arredo",
-    "breve": "Tessile",
-    "href": "/corridoi/biancheria-e-arredo/"
-  },
-  {
-    "label": "Pulizia della casa",
-    "breve": "Pulizia",
-    "href": "/corridoi/pulizia-e-cura-persona/"
-  },
-  {
-    "label": "Cura della persona e beauty",
-    "breve": "Beauty",
-    "href": "/corridoi/cura-persona-e-beauty/"
-  },
-  {
-    "label": "Animali",
-    "breve": "Animali",
-    "href": "/corridoi/animali/"
-  },
-  {
-    "label": "Giardinaggio e fiori",
-    "breve": "Giardino",
-    "href": "/corridoi/giardinaggio/"
-  },
-  {
-    "label": "Cartoleria e creatività",
-    "breve": "Cartoleria",
-    "href": "/corridoi/hobby-cartoleria-auto/"
-  },
-  {
-    "label": "Feste e idee regalo",
-    "breve": "Feste",
-    "href": "/corridoi/feste-e-regalo/"
-  },
-  {
-    "label": "Ferramenta e fai da te",
-    "breve": "Ferramenta",
-    "href": "/corridoi/ferramenta-e-fai-da-te/"
-  },
-  {
-    "label": "Illuminazione e accessori tech",
-    "breve": "Luci",
-    "href": "/corridoi/illuminazione-e-accessori/"
-  },
-  {
-    "label": "Ordine e accessori bagno",
-    "breve": "Bagno",
-    "href": "/corridoi/ordine-e-bagno/"
-  },
-  {
-    "label": "Cura dell’auto",
-    "breve": "Auto",
-    "href": "/corridoi/cura-auto/"
-  },
-  {
-    "label": "Giochi e giocattoli",
-    "breve": "Giochi",
-    "href": "/corridoi/giochi-e-giocattoli/"
-  }
-]
+{
+  "voci": [
+    {
+      "label": "Volantino",
+      "href": "/offerte/",
+      "evidenza": true
+    },
+    {
+      "label": "Negozi",
+      "href": "/dove-siamo/"
+    },
+    {
+      "label": "Carta fedeltà",
+      "href": "/carta-fedelta/",
+      "soloPiede": true
+    },
+    {
+      "label": "Contatti",
+      "href": "/contatti/"
+    },
+    {
+      "label": "Casa e cucina",
+      "breve": "Cucina",
+      "href": "/corridoi/casa-e-cucina/"
+    },
+    {
+      "label": "Biancheria e arredo",
+      "breve": "Tessile",
+      "href": "/corridoi/biancheria-e-arredo/"
+    },
+    {
+      "label": "Pulizia della casa",
+      "breve": "Pulizia",
+      "href": "/corridoi/pulizia-e-cura-persona/"
+    },
+    {
+      "label": "Cura della persona e beauty",
+      "breve": "Beauty",
+      "href": "/corridoi/cura-persona-e-beauty/"
+    },
+    {
+      "label": "Animali",
+      "breve": "Animali",
+      "href": "/corridoi/animali/"
+    },
+    {
+      "label": "Giardinaggio e fiori",
+      "breve": "Giardino",
+      "href": "/corridoi/giardinaggio/"
+    },
+    {
+      "label": "Cartoleria e creatività",
+      "breve": "Cartoleria",
+      "href": "/corridoi/hobby-cartoleria-auto/"
+    },
+    {
+      "label": "Feste e idee regalo",
+      "breve": "Feste",
+      "href": "/corridoi/feste-e-regalo/"
+    },
+    {
+      "label": "Ferramenta e fai da te",
+      "breve": "Ferramenta",
+      "href": "/corridoi/ferramenta-e-fai-da-te/"
+    },
+    {
+      "label": "Illuminazione e accessori tech",
+      "breve": "Luci",
+      "href": "/corridoi/illuminazione-e-accessori/"
+    },
+    {
+      "label": "Ordine e accessori bagno",
+      "breve": "Bagno",
+      "href": "/corridoi/ordine-e-bagno/"
+    },
+    {
+      "label": "Cura dell’auto",
+      "breve": "Auto",
+      "href": "/corridoi/cura-auto/"
+    },
+    {
+      "label": "Giochi e giocattoli",
+      "breve": "Giochi",
+      "href": "/corridoi/giochi-e-giocattoli/"
+    }
+  ],
+  "gruppi": [
+    {
+      "titolo": "Casa",
+      "reparti": [
+        "/corridoi/casa-e-cucina/",
+        "/corridoi/biancheria-e-arredo/",
+        "/corridoi/ordine-e-bagno/",
+        "/corridoi/illuminazione-e-accessori/"
+      ]
+    },
+    {
+      "titolo": "Pulizia e cura",
+      "reparti": [
+        "/corridoi/pulizia-e-cura-persona/",
+        "/corridoi/cura-persona-e-beauty/"
+      ]
+    },
+    {
+      "titolo": "Regali e tempo libero",
+      "reparti": [
+        "/corridoi/feste-e-regalo/",
+        "/corridoi/hobby-cartoleria-auto/",
+        "/corridoi/giochi-e-giocattoli/"
+      ]
+    },
+    {
+      "titolo": "Animali e giardino",
+      "reparti": [
+        "/corridoi/animali/",
+        "/corridoi/giardinaggio/"
+      ]
+    },
+    {
+      "titolo": "Fai da te e auto",
+      "reparti": [
+        "/corridoi/ferramenta-e-fai-da-te/",
+        "/corridoi/cura-auto/"
+      ]
+    }
+  ]
+}

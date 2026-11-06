@@ -49,11 +49,28 @@ allo scroll, niente marquee; hover e transizioni brevi; `prefers-reduced-motion`
 
 ```
 [blu 900] Aperti tutti i giorni, anche domenica e festivi · Prato · Lucca · Sesto F.no   Instagram
-[bianco ] LOGO     [Reparti ▾] Volantino  Negozi  Carta fedeltà  Contatti   [Il tuo negozio: Prato · Aperto fino alle 20:00]
-[blu 600] Cucina · Tessile · Pulizia · Beauty · Animali · Giardino · ... (reparti con icona, scorribile)
+[bianco ] LOGO   [Tutti i reparti ▾]  Volantino  Negozi  Contatti        [Il tuo negozio: Prato · Aperto fino alle 20:00]
 ```
 
-- «Reparti» apre un mega-menu con tutti i reparti e relativa icona.
+- Direzione scelta dal titolare: **«testata pulita»**. Una sola riga bianca sotto la fascia informativa; nessuna
+  striscia di reparti e nessuna icona di reparto.
+- «Tutti i reparti» è un pulsante che apre un mega-menu a tutta larghezza del contenitore, solo testo, in 5 gruppi:
+  Casa; Pulizia e cura; Regali e tempo libero; Animali e giardino; Fai da te e auto. I gruppi sono dati in
+  `content/navigation.json` (`gruppi`), validati da Zod: ognuno dei 13 reparti compare una sola volta (test).
+  Tastiera: Invio/clic apre, Freccia giù entra nel menu, Esc chiude e riporta il focus sul pulsante; chiude anche
+  con clic fuori e a ogni navigazione. Mobile: il pannello «Reparti» della tab bar mostra gli stessi 5 gruppi come
+  elenchi di testo con righe piene da 44 px.
+- **Perché la barra blu e le icone sono state tolte.** Nessun sito visto ha una barra colorata piena con tutti i
+  reparti: Kasanova usa un mega-menu raggruppato in 5 macro-aree con elenchi di testo, Tigotà un pulsante «Tutti i
+  prodotti» senza riga di categorie. La barra pesava sulla testata e le 13 icone al tratto risultavano economiche
+  (decisione del titolare). Le icone di reparto sono state rimosse ovunque (griglia, hero, chip, footer, rail,
+  menu): restano solo le icone funzionali di interfaccia (tab bar, pin del negozio, fascia fatti, link esterno, frecce).
+- **Siti realmente visti.** Con schermate: Kasanova, IKEA, Tigotà, Risparmio Casa (indicato come esempio dal CEO del
+  cliente, ma è un riferimento fra gli altri). Leroy Merlin, Bricocenter, Maisons du Monde e Action hanno bloccato i
+  browser automatici: non visti, non citati come riferimenti.
+- **Possibile evoluzione.** Una riga di foto tonde di prodotto in stile Kasanova si può aggiungere quando esistono
+  13 foto di singoli prodotti su fondo chiaro (una per reparto): le foto di scaffale non sono leggibili a quella
+  dimensione. La richiesta è in `docs/copy-per-francesco.md` e in `ASSETS_TODO.md`.
 - «Il tuo negozio»: scelta salvata in `localStorage`, stato aperto/chiuso da `useOpenStatus`; stato neutro
   fino al mount, così non c'è mismatch di idratazione e l'export statico resta valido.
 - Mobile: barra compatta logo + stato negozio; **tab bar fissa in basso come una app**: Home, Reparti,
@@ -67,7 +84,7 @@ allo scroll, niente marquee; hover e transizioni brevi; `prefers-reduced-motion`
    negozi con aperti/chiusi ora. Mobile: impilati; tutto il primo schermo deve dire «negozio». Nessun carosello.
 2. **Fascia fatti**: 3–4 fatti verificati con icona (tutti i giorni, orario continuato, tre negozi in Toscana,
    domeniche e festivi).
-3. **Reparti**: griglia fitta dei 13 reparti, foto vera con etichetta piena e icona. 2 colonne mobile, 4–5 desktop.
+3. **Reparti**: griglia fitta dei 13 reparti, foto vera con etichetta piena (nessuna icona). 2 colonne mobile, 4–5 desktop.
 4. **Campagna in corso**: rail orizzontale di articoli (`CampaignCollection`), senza prezzi inventati.
 5. **Volantino**: fascia magenta a tutta larghezza, copertina grande, date, stato veritiero, archivio.
 6. **Negozi**: tre schede con stato ora, indirizzo, orari, «Indicazioni», foto o mappa.

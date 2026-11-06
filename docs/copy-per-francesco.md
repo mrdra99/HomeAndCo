@@ -81,3 +81,4 @@ Titoli e descrizioni per i motori di ricerca sono stati riscritti per ogni pagin
 8. **Marchi realmente venduti**, con logo in SVG o PNG trasparente. Sblocca: fascia marchi.
 9. **Addobbi e alberi di Natale in vendita.** La foto di Natale è del negozio, ma i testi non dicono cosa si vende. Sblocca: testi di Natale più precisi, se ci sono.
 10. **Dove annunciare i nuovi volantini.** Confermare che escono su Instagram e Facebook, come ora scritto nel sito.
+11. **13 foto di singoli prodotti su fondo chiaro**, una per reparto (non foto di scaffale). Sblocca: riga di foto tonde dei reparti in stile Kasanova, nella testata o in home.

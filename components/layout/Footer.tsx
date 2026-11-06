@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { CookiePreferencesLink } from "@/components/consent/CookiePreferencesLink";
-import { DepartmentIcon } from "@/components/ui/DepartmentIcon";
 import { Icon } from "@/components/ui/Icon";
 import { Logo } from "@/components/ui/Logo";
 import type { NavItem, Settings, Store } from "@/lib/content/schemas";
@@ -35,12 +34,7 @@ export function Footer({ settings, stores, items }: FooterProps) {
           <ul className="grid grid-cols-1 gap-x-4 min-[420px]:grid-cols-2">
             {reparti.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className={`${linkCls} gap-2`}>
-                  <span className="rounded bg-white p-0.5">
-                    <DepartmentIcon name={item.href.split("/")[2]} size={18} />
-                  </span>
-                  {item.label}
-                </Link>
+                <Link href={item.href} className={linkCls}>{item.label}</Link>
               </li>
             ))}
           </ul>

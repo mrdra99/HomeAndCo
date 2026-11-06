@@ -58,7 +58,7 @@ export function StoreCard({ store, copy, statusCopy, neutralPrefix, detail }: Pr
       id={store.id}
       aria-labelledby={`store-${store.id}`}
       className={cn(
-        "flex h-full scroll-mt-28 flex-col overflow-hidden rounded-[var(--radius-lg)] border-2 bg-white",
+        "flex h-full scroll-mt-4 flex-col overflow-hidden rounded-[var(--radius-lg)] border-2 bg-white",
         detail?.selected ? "border-brand-magenta-600" : "border-brand-blue-100",
         detail && "lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]",
       )}

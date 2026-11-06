@@ -55,7 +55,6 @@ export const CampaignSchema = z
         titolo: z.string().min(1),
         testo: z.string(),
         corridoio: slug,
-        icona: z.string(),
         immagine: ImageSchema.optional(),
       })).min(1).max(8),
     }).optional(),
@@ -147,8 +146,6 @@ export const AisleSchema = z.object({
   descrizione: z.string(),
   descrizioneLunga: z.string(),
   immagine: ImageSchema,
-  /** Nome icona (es. "cucina", "tessile"): risolto dai componenti. */
-  icona: z.string(),
   colore: hexColor.optional(),
   inEvidenza: z.array(AisleHighlightSchema).default([]),
   /** Foto degli scaffali in negozio; vuoto = la sezione non compare. */
@@ -277,8 +274,6 @@ export const HeaderCopySchema = z.object({
     logo: z.string().min(1),
     navigazione: z.string().min(1),
     reparti: z.string().min(1),
-    repartiPrecedenti: z.string().min(1),
-    repartiSuccessivi: z.string().min(1),
     tabBar: z.string().min(1),
     chiudi: z.string().min(1),
     altriLink: z.string().min(1),
@@ -364,7 +359,7 @@ export type LoyaltyProgram = z.infer<typeof LoyaltyProgramSchema>;
 // ---------- Navigation ----------
 export const NavItemSchema = z.object({
   label: z.string().min(1),
-  /** Etichetta corta per la striscia dei reparti (opzionale). */
+  /** Etichetta corta per i selettori compatti dei reparti (chip nella pagina reparto). */
   breve: z.string().min(1).optional(),
   href: z.string().min(1),
   /** Voce evidenziata (es. pulsante nel menu) */
@@ -374,10 +369,34 @@ export const NavItemSchema = z.object({
 });
 export type NavItem = z.infer<typeof NavItemSchema>;
 
+const DEPT_PREFIX = "/corridoi/";
+export const NavGroupSchema = z.object({
+  titolo: z.string().min(1),
+  /** Href dei reparti (come in `voci`), nell'ordine in cui compaiono nel menu. */
+  reparti: z.array(z.string().min(1)).min(1),
+});
+export type NavGroup = z.infer<typeof NavGroupSchema>;
+
 export const NavigationSchema = z
-  .array(NavItemSchema)
-  .refine((items) => items.filter((item) => !item.href.startsWith("/corridoi/")).length <= 10,
-    "Il menu può avere al massimo 10 voci principali, oltre ai reparti nel menu a tendina");
+  .object({
+    voci: z.array(NavItemSchema),
+    /** Raggruppamento dei reparti per il mega-menu e il pannello mobile. */
+    gruppi: z.array(NavGroupSchema).min(1),
+  })
+  .superRefine(({ voci, gruppi }, ctx) => {
+    if (voci.filter((item) => !item.href.startsWith(DEPT_PREFIX)).length > 10) {
+      ctx.addIssue({ code: "custom", message: "Il menu può avere al massimo 10 voci principali, oltre ai reparti nel menu a tendina" });
+    }
+    const departments = voci.filter((item) => item.href.startsWith(DEPT_PREFIX)).map((item) => item.href);
+    const grouped = gruppi.flatMap((g) => g.reparti);
+    for (const href of departments) {
+      const n = grouped.filter((h) => h === href).length;
+      if (n !== 1) ctx.addIssue({ code: "custom", message: `Il reparto ${href} deve comparire in un solo gruppo (trovato ${n})` });
+    }
+    for (const href of grouped) {
+      if (!departments.includes(href)) ctx.addIssue({ code: "custom", message: `Il gruppo cita ${href}, che non è un reparto in "voci"` });
+    }
+  });
 export type Navigation = z.infer<typeof NavigationSchema>;
 
 // ---------- Testi delle pagine interne ----------

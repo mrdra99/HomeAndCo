@@ -26,7 +26,7 @@ type Props = {
 export function StoreVideos({ copy, instagramUrl, layout = "column" }: Props) {
   const full = layout === "full";
   return (
-    <section id="video" aria-labelledby="video-title" className="scroll-mt-24">
+    <section id="video" aria-labelledby="video-title" className="scroll-mt-4">
       <div className={cn(full && "lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-12")}>
         <div>
           <SectionTitle id="video-title" note={copy.descrizione} className={cn("sm:flex-col sm:items-start sm:gap-1", full && "lg:mb-4")}>
