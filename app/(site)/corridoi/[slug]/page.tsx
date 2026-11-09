@@ -91,11 +91,8 @@ export default async function AislePage({ params }: { params: Promise<Params> })
       <section className="bg-white py-6 sm:py-8">
         <Container size="wide" className="space-y-5">
           <AisleCampaignBanner campaigns={campaigns} buildCampaignId={activeCampaign.id} slug={aisle.slug} />
-          <p className="max-w-3xl text-base text-ink sm:text-lg">{aisle.descrizioneLunga}</p>
         </Container>
       </section>
-
-
       <CampaignFeaturedIdeas items={aisle.inEvidenza} campaigns={campaigns} buildCampaignId={activeCampaign.id} copy={copy.idee} />
 
       {linkedPromos.length > 0 && (
