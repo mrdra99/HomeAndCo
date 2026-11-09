@@ -86,6 +86,7 @@ export default async function AislePage({ params }: { params: Promise<Params> })
         }
       />
       <AisleNav items={switcher} current={aisle.slug} label={copy.tuttiIReparti} />
+      <AisleShelves scaffali={aisle.scaffali} titolo={aisle.scaffaliTitolo} intro={aisle.scaffaliIntro} />
 
       <section className="bg-white py-6 sm:py-8">
         <Container size="wide" className="space-y-5">
@@ -94,7 +95,6 @@ export default async function AislePage({ params }: { params: Promise<Params> })
         </Container>
       </section>
 
-      <AisleShelves scaffali={aisle.scaffali} titolo={aisle.scaffaliTitolo} intro={aisle.scaffaliIntro} />
 
       <CampaignFeaturedIdeas items={aisle.inEvidenza} campaigns={campaigns} buildCampaignId={activeCampaign.id} copy={copy.idee} />
 

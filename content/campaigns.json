@@ -96,9 +96,10 @@
     "inizio": "2026-11-01",
     "fine": "2026-12-25",
     "immagineHero": {
-      "src": "/uploads/photos/home-co-reparto-natale.webp",
-      "alt": "Reparto natalizio di un negozio Home & Co. con palline, nastri argentati e decorazioni",
-      "position": "50% 50%"
+      "src": "/uploads/photos/natale-corsia-concept.webp",
+      "alt": "Scena illustrativa di una corsia natalizia con palline, nastri, decorazioni e confezioni regalo",
+      "position": "58% 52%",
+      "credito": "Immagine illustrativa"
     },
     "tema": "natale",
     "cta": {

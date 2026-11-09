@@ -16,10 +16,7 @@ type Props = {
   className?: string;
 };
 
-/**
- * Volantino valido per questo negozio, solo se in corso o in arrivo. Nessun blocco altrimenti: mai un volantino
- * concluso ne' uno di un altro negozio. Stessa scelta di data della home (HTML di build, poi data reale).
- */
+/** Volantino della sede: in corso, anteprima o ultima edizione ufficiale. Date e negozi non cambiano. */
 export function StoreFlyer({ flyers, storeId, stores, buildDate, copy, flyerCopy, className }: Props) {
   const today = useToday(buildDate);
   const found = storeFlyer(flyers, storeId, today);
@@ -44,11 +41,12 @@ export function StoreFlyer({ flyers, storeId, stores, buildDate, copy, flyerCopy
         </div>
         <div className="flex min-w-0 flex-col items-start">
           <h2 id="negozio-volantino" className="!text-base !font-black uppercase tracking-wide text-brand-magenta-700">
-            {upcoming ? copy.titoloAnteprima : copy.titoloAttivo}
+            {status === "latest" ? flyerCopy.statoUltimo : upcoming ? copy.titoloAnteprima : copy.titoloAttivo}
           </h2>
           <p className="mt-1 text-xl font-extrabold leading-tight text-brand-blue-900">{flyer.titolo}</p>
           <p className="mt-1 text-sm font-semibold text-ink">{dates.charAt(0).toUpperCase() + dates.slice(1)}</p>
           <p className="text-sm text-muted">{names ? flyerCopy.soloNegozi.replace("{negozi}", names) : flyerCopy.tuttiINegozi}</p>
+          {status === "latest" && <p className="mt-1 text-sm text-brand-blue-800">{flyerCopy.testoUltimo}</p>}
           {upcoming && <p className="mt-1 text-sm text-brand-blue-800">{flyerCopy.avvisoAnteprima}</p>}
           <Button href="/offerte/" size="sm" className="mt-3">
             {upcoming ? flyerCopy.ctaAnteprima : flyerCopy.ctaAttivo}

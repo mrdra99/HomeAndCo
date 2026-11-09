@@ -96,7 +96,9 @@ export function AisleShelves({ scaffali, titolo, intro }: AisleShelvesProps) {
                   src={s.immagine.src}
                   alt={s.immagine.alt}
                   label={s.titolo ?? "Scaffale"}
-                  ratio="4/3"
+                  ratio="1/1"
+                  position={s.immagine.position}
+                  imgClassName="scale-[1.12] group-hover:scale-[1.12]"
                   sizes={CARD_SIZES}
                   rounded="rounded-none"
                 />

@@ -74,31 +74,38 @@ export function flyerAppliesToStore(f: Flyer, storeId: string): boolean {
   return f.negozi === "tutti" || f.negozi.includes(storeId);
 }
 
-export type HomeFlyerStatus = "current" | "upcoming";
+export type HomeFlyerStatus = "current" | "upcoming" | "latest";
 
-/**
- * Volantino da mostrare in home: quello in corso, altrimenti il primo in arrivo. Se nessuno e' in corso
- * ne' in arrivo restituisce null: la home non mostra mai la copertina di un volantino concluso
- * (i volantini precedenti stanno in /offerte/).
- */
+/** Ultima edizione scelta dal cliente: le date restano quelle stampate sul volantino. */
+export function featuredFlyer(flyers: Flyer[], date: Date = new Date()): Flyer | null {
+  const today = toIsoDate(date);
+  const published = sortFlyersRecentFirst(flyers.filter((f) => f.validoDal && f.validoDal <= today));
+  // Dopo la pubblicazione di un'edizione più recente, quella vecchia non torna in primo piano.
+  const latest = published[0];
+  return latest?.inPrimoPiano && !latest.archiviato ? latest : null;
+}
+
+/** In corso, poi anteprima, altrimenti ultima edizione ufficiale scelta dal cliente. */
 export function homeFlyer(flyers: Flyer[], date: Date = new Date()): { flyer: Flyer; status: HomeFlyerStatus } | null {
   const current = currentFlyers(flyers, date)[0];
   if (current) return { flyer: current, status: "current" };
   const upcoming = upcomingFlyers(flyers, date)[0];
   if (upcoming) return { flyer: upcoming, status: "upcoming" };
-  return null;
+  const featured = featuredFlyer(flyers, date);
+  return featured ? { flyer: featured, status: "latest" } : null;
 }
 
 /**
  * Stato del blocco grande del tabellone in home: con un volantino in corso o in arrivo lo mostra il blocco
- * grande ("flyer") e la campagna passa a un riquadro compatto; altrimenti resta la campagna ("campaign").
+ * grande ("flyer"); per l’ultima edizione già conclusa resta la campagna fotografica ("campaign").
  */
 export type BoardMode = "flyer" | "campaign";
 export function boardMode(flyers: Flyer[], date: Date = new Date()): BoardMode {
-  return homeFlyer(flyers, date) ? "flyer" : "campaign";
+  const found = homeFlyer(flyers, date);
+  return found && found.status !== "latest" ? "flyer" : "campaign";
 }
 
-/** Volantino da mostrare nella pagina di un negozio: in corso o in arrivo e valido per quel negozio, altrimenti null. */
+/** Volantino da consultare per il negozio: in corso, anteprima o ultima edizione ufficiale di quella sede. */
 export function storeFlyer(flyers: Flyer[], storeId: string, date: Date = new Date()): { flyer: Flyer; status: HomeFlyerStatus } | null {
   return homeFlyer(flyers.filter((f) => flyerAppliesToStore(f, storeId)), date);
 }

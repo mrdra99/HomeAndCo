@@ -1,6 +1,11 @@
 # Materiali del sito: stato e dati da confermare
 
-Aggiornato al 5 novembre 2026.
+Aggiornato al 9 novembre 2026.
+
+## Ultimo volantino ufficiale — indicazione del titolare, 9 novembre
+
+Sesto Fiorentino, 23 ottobre–1 novembre 2026, resta in primo piano (`inPrimoPiano: true`) come ultima edizione ufficiale fino al nuovo volantino previsto a fine novembre. Date originali e ambito Sesto invariati. La scheda animata parte nella home normale, anche in produzione, dopo la scelta cookie. Una nuova edizione in corso o in anteprima ha precedenza automatica. Le note precedenti sul riquadro vuoto e sull'assenza di copertine scadute in home sono superate da questa scelta.
+
 
 ## Aggiornamento video, offerte e mappe (5 novembre 2026)
 

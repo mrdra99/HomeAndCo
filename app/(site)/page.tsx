@@ -62,8 +62,8 @@ export default async function HomePage() {
         copy={copy}
         statusCopy={statusCopy}
       />
-      <FactsStrip facts={copy.fatti} label={copy.fattiAria} />
       <DepartmentCards groups={groupDepartments(navigation.voci, navigation.gruppi)} copy={copy.reparti} />
+      <FactsStrip facts={copy.fatti} label={copy.fattiAria} />
       <CampaignCollection campaigns={campaigns} buildCampaignId={active.id} copy={copy.idee} aisles={visibleAisles} />
       <FlyerBand flyers={flyers} buildDate={buildDate} copy={copy.volantino} />
       <StoresSection stores={stores} copy={copy.negozi} statusCopy={statusCopy} neutralPrefix={copy.tabellone.negozi.apertoNeutro} />

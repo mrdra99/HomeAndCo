@@ -29,7 +29,7 @@ export function DepartmentCards({ groups, copy }: Props) {
   return (
     <section id="corridoi" aria-labelledby="reparti-title" className="scroll-mt-24 bg-white py-7 sm:py-10">
       <Container size="wide">
-        <SectionTitle id="reparti-title" note={copy.descrizione}>{copy.titolo}</SectionTitle>
+        <SectionTitle id="reparti-title">{copy.titolo}</SectionTitle>
         <ul className="grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 lg:grid-cols-12 lg:gap-4">
           {groups.map((group, i) => (
             <li key={group.titolo} className={cn("flex", i === 0 && "min-[480px]:max-lg:col-span-2", SPAN[i])}>
@@ -43,6 +43,7 @@ export function DepartmentCards({ groups, copy }: Props) {
                     alt={group.immagine.alt}
                     label={group.titolo}
                     sizes={SIZES[i] ?? SIZES_SMALL}
+                    position={group.immagine.position}
                     rounded="rounded-none"
                     className="absolute inset-0"
                   />

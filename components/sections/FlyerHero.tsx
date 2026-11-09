@@ -20,7 +20,7 @@ type Props = {
  */
 export function FlyerHero({ flyer, status, stores, copy, className }: Props) {
   const upcoming = status === "upcoming";
-  const state = upcoming ? copy.statoAnteprima : copy.statoAttivo;
+  const state = status === "latest" ? copy.statoUltimo : upcoming ? copy.statoAnteprima : copy.statoAttivo;
   const names = flyerStoreNames(flyer, stores);
   const dates = formatDateRangeIt(flyer.validoDal, flyer.validoAl);
   return (

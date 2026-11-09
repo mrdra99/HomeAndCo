@@ -67,3 +67,7 @@ Ritocchi con lo strumento integrato image_gen: `pulizia-corsia-ritoccata.webp` `
 - `/uploads/videos/home-co-negozio.mp4`: video fornito dal cliente (`home&co.mp4`), convertito in H.264/AAC, 720 × 1280, 30 fps, con avvio manuale. Fotogramma di copertina estratto dal medesimo video.
 - PDF Sesto ottobre: copia ottimizzata sotto il limite per file dell’hosting; otto pagine con contenuti, proporzioni e date originali. Sorgente invariata nei Download. Hash di sorgente e copia web nel registro JSON.
 - PDF caramelle: originale invariato. Non riporta date: archiviato senza attribuire date inventate.
+
+## Proposta Mike — 9 novembre 2026
+
+`photos/natale-corsia-concept.webp`: scena illustrativa generata con image_gen; riferimento alla corsia cucina solo per architettura e materiali. Non è una foto documentaria del negozio. Prompt in `docs/proposta-mike.md`.

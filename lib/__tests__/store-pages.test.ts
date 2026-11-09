@@ -120,8 +120,10 @@ describe("volantino nella pagina del negozio", () => {
     expect(storeFlyer([list[0]], "prato", d("2026-10-25"))).toBeNull();
     expect(storeFlyer(list, "lucca", d("2027-01-10"))).toBeNull();
   });
-  it("oggi (6 novembre 2026) nessun negozio ha un volantino", () => {
-    for (const s of stores) expect(storeFlyer(flyers, s.id, d("2026-11-06"))).toBeNull();
+  it("l'ultima edizione ufficiale di Sesto resta solo sulla pagina di Sesto", () => {
+    expect(storeFlyer(flyers, "sesto-fiorentino", d("2026-11-09"))).toMatchObject({ status: "latest", flyer: { id: "sesto-ottobre-2026" } });
+    expect(storeFlyer(flyers, "prato", d("2026-11-09"))).toBeNull();
+    expect(storeFlyer(flyers, "lucca", d("2026-11-09"))).toBeNull();
   });
 });
 

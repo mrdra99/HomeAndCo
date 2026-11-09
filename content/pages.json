@@ -6,7 +6,7 @@
   },
   "offerte": {
     "titolo": "Volantino e offerte",
-    "intro": "Il volantino valido adesso, con le date e i negozi in cui vale. Più sotto i volantini scaduti e le eventuali promozioni attive.",
+    "intro": "Sfoglia il volantino Home & Co. o scarica il PDF. Date e negozi sono indicati su ogni edizione.",
     "inCorso": "Volantino in corso",
     "anteprima": "Prossimo volantino · anteprima",
     "testoInCorso": "Sfoglia le pagine o scarica il PDF. Le offerte valgono solo nelle date e nei negozi indicati.",
@@ -56,7 +56,9 @@
     "promozioni": {
       "titolo": "Promozioni",
       "sottotitolo": "Controlla le date e i negozi aderenti a ogni iniziativa."
-    }
+    },
+    "ultimo": "Ultimo volantino ufficiale",
+    "testoUltimo": "Questa è l’ultima edizione pubblicata, con le sue date originali. Il nuovo volantino arriva a fine novembre."
   },
   "doveSiamo": {
     "titolo": "Negozi e orari",

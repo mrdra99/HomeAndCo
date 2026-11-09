@@ -29,6 +29,7 @@ export const ImageSchema = z.object({
   label: z.string().optional(),
   fit: z.enum(["cover", "contain"]).optional(),
   position: z.string().optional(),
+  credito: z.string().optional(),
 });
 export type ImageRef = z.infer<typeof ImageSchema>;
 
@@ -94,7 +95,10 @@ export const HomeCopySchema = z.object({
   /** Volantino: usato dal riquadro del primo schermo e dalla fascia magenta. */
   volantino: z.object({
     titolo: text,
+    arrivo: z.object({ titolo: text, chiudi: text }),
     statoAttivo: text,
+    statoUltimo: text,
+    testoUltimo: text,
     statoAnteprima: text,
     avvisoAnteprima: text,
     soloNegozi: z.string().refine((v) => v.includes("{negozi}"), "Il testo deve contenere {negozi}"),
@@ -226,6 +230,8 @@ export const FlyerSchema = z
     validoAl: isoDate.nullable(),
     periodo: z.string().optional(),
     archiviato: z.boolean().optional(),
+    /** Ultima edizione ufficiale da tenere consultabile fino alla successiva, senza prorogare le offerte. */
+    inPrimoPiano: z.boolean().optional(),
     negozi: z.union([z.literal("tutti"), z.array(z.string())]),
     pagine: z.array(ImageSchema).default([]),
     pdf: z.string().nullable().default(null),
@@ -414,6 +420,8 @@ export const PagesCopySchema = z.object({
     titolo: text,
     intro: text,
     inCorso: text,
+    ultimo: text,
+    testoUltimo: text,
     anteprima: text,
     testoInCorso: text,
     testoAnteprima: template("{data}"),

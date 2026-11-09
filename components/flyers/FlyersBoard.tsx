@@ -7,7 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 import { Notice } from "@/components/ui/Notice";
 import { SmartImage } from "@/components/ui/SmartImage";
-import { archivedFlyers, currentFlyers, formatDateIt, formatDateRangeIt, isFlyerUpcoming, upcomingFlyers } from "@/lib/flyers";
+import { archivedFlyers, currentFlyers, featuredFlyer, formatDateIt, formatDateRangeIt, isFlyerUpcoming, upcomingFlyers } from "@/lib/flyers";
 import { useToday } from "@/lib/date-store";
 import { scrollBehavior } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -43,17 +43,14 @@ function datesLabel(f: Flyer): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-/**
- * Pagina Offerte. Il server la renderizza con la lista calcolata in build; al mount rifiltra con la data
- * reale: i volantini scaduti passano in archivio. Un volantino concluso non e' mai presentato come attuale:
- * dall'archivio si puo' aprire nel lettore, sempre con l'etichetta "concluso" e le sue date.
- */
+/** Volantino da sfogliare: in corso, anteprima o ultima edizione ufficiale, sempre con le date originali. */
 export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHref, copy }: FlyersBoardProps) {
   const today = useToday(buildDate);
   const current = currentFlyers(flyers, today);
   const upcoming = upcomingFlyers(flyers, today);
-  const available = [...current, ...upcoming];
-  const archived = archivedFlyers(flyers, today);
+  const featured = current.length === 0 && upcoming.length === 0 ? featuredFlyer(flyers, today) : null;
+  const available = [...current, ...upcoming, ...(featured ? [featured] : [])];
+  const archived = archivedFlyers(flyers, today).filter((f) => f.id !== featured?.id);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [viewingId, setViewingId] = useState<string | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -61,13 +58,14 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
   const viewing = archived.find((f) => f.id === viewingId) ?? null;
   const selected = viewing ?? available.find((f) => f.id === selectedId) ?? available[0] ?? null;
   const ended = Boolean(viewing);
+  const latest = Boolean(!ended && selected && selected.id === featured?.id);
   const preview = Boolean(selected && !ended && isFlyerUpcoming(selected, today));
 
   useEffect(() => {
     if (viewingId) panelRef.current?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
   }, [viewingId]);
 
-  const eyebrow = ended ? copy.archivio.concluso : preview ? copy.anteprima : copy.inCorso;
+  const eyebrow = ended ? copy.archivio.concluso : latest ? copy.ultimo : preview ? copy.anteprima : copy.inCorso;
 
   return (
     <>
@@ -152,6 +150,8 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
                 <p className="mt-3 max-w-xl text-base text-ink">
                   {ended
                     ? copy.visore.concluso.replace("{date}", datesLabel(selected))
+                    : latest
+                      ? copy.testoUltimo
                     : preview
                       ? copy.testoAnteprima.replace("{data}", formatDateIt(selected.validoDal))
                       : copy.testoInCorso}

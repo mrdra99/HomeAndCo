@@ -562,6 +562,13 @@
       "author": "Home & Co.",
       "license": "Materiale del marchio per il medesimo sito",
       "kind": "fotogramma originale del video, senza ritocchi"
+    },
+    {
+      "file": "/uploads/photos/natale-corsia-concept.webp",
+      "source": "Generata con image_gen il 9 novembre 2026; prompt in docs/proposta-mike.md",
+      "author": "OpenAI image_gen, su richiesta del titolare del progetto",
+      "license": "Immagine generata per questa proposta",
+      "kind": "scena natalizia illustrativa AI; riferimento architetturale: cucina-corsia-ritoccata.webp, non fotografia di una sede reale"
     }
   ],
   "flyers": [

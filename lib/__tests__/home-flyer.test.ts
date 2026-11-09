@@ -33,13 +33,20 @@ describe("volantino in home: quale mostrare", () => {
     expect(homeFlyer([fl("vecchio", "2026-10-01", "2026-10-31", { archiviato: true })], d("2026-10-15"))).toBeNull();
     expect(homeFlyer([], d("2026-11-06"))).toBeNull();
   });
-  it("sul contenuto reale, il 6 novembre 2026 la home non ha un volantino (vale il riquadro neutro)", () => {
+  it("mantiene l’ultima edizione ufficiale di ottobre fino al nuovo volantino", () => {
     const all = FlyerSchema.array().parse(flyersJson);
-    expect(homeFlyer(all, d("2026-11-06"))).toBeNull();
+    expect(homeFlyer(all, d("2026-11-06"))).toMatchObject({ status: "latest", flyer: { id: "sesto-ottobre-2026", validoAl: "2026-11-01" } });
     // simulazione: un volantino di dicembre farebbe tornare il riquadro ricco con la copertina
     const withDecember = [...all, fl("natale-2026-test", "2026-12-04", "2026-12-24")];
     expect(homeFlyer(withDecember, d("2026-11-06"))).toMatchObject({ status: "upcoming" });
     expect(homeFlyer(withDecember, d("2026-12-10"))).toMatchObject({ status: "current" });
+  });
+  it("non prolunga le offerte e non ripropone ottobre dopo un'edizione successiva", () => {
+    const october = fl("ottobre", "2026-10-23", "2026-11-01", { inPrimoPiano: true });
+    const november = fl("novembre", "2026-11-25", "2026-11-30");
+    expect(homeFlyer([october], d("2026-11-09"))).toMatchObject({ status: "latest", flyer: { validoAl: "2026-11-01" } });
+    expect(homeFlyer([october, november], d("2026-11-26"))).toMatchObject({ status: "current", flyer: { id: "novembre" } });
+    expect(homeFlyer([october, november], d("2026-12-01"))).toBeNull();
   });
 });
 

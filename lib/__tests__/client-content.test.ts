@@ -20,9 +20,10 @@ describe("volantino Halloween fornito dal cliente", () => {
     expect(currentFlyers(flyers, new Date("2026-09-30T22:00:00Z"))[0].id).toBe(id);
   });
   it("scade il 31 ottobre incluso e non diventa una promozione ricorrente", () => {
-    expect(currentFlyers(flyers, new Date("2026-10-31T22:59:59Z"))[0].id).toBe(id);
+    expect(currentFlyers(flyers, new Date("2026-10-31T22:59:59Z")).some((f) => f.id === id)).toBe(true);
     const after = new Date("2026-10-31T23:00:00Z");
-    expect(currentFlyers(flyers, after)).toEqual([]);
+    expect(currentFlyers(flyers, after).some((f) => f.id === id)).toBe(false);
+    expect(currentFlyers(flyers, new Date("2026-11-01T23:00:00Z"))).toEqual([]);
     expect(archivedFlyers(flyers, after).some((f) => f.id === id)).toBe(true);
     expect(currentFlyers(flyers, new Date("2027-10-16T12:00:00Z"))).toEqual([]);
   });

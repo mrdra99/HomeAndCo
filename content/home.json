@@ -30,8 +30,8 @@
     }
   ],
   "reparti": {
-    "titolo": "I reparti",
-    "descrizione": "Apri un reparto per vedere cosa c’è sugli scaffali."
+    "titolo": "Le nostre aree merceologiche",
+    "descrizione": "Casa, cura, tempo libero e fai da te."
   },
   "idee": {
     "vaiAlReparto": "Vai al reparto {reparto}",
@@ -57,7 +57,13 @@
     "archivio": {
       "fascia": "Cerchi un volantino già concluso?",
       "cta": "Volantini precedenti"
-    }
+    },
+    "arrivo": {
+      "titolo": "Il volantino da sfogliare",
+      "chiudi": "Chiudi il volantino"
+    },
+    "statoUltimo": "Ultimo volantino",
+    "testoUltimo": "Il nuovo volantino arriva a fine novembre."
   },
   "negozi": {
     "titolo": "I nostri negozi",
