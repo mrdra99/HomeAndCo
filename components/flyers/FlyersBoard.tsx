@@ -11,7 +11,7 @@ import { archivedFlyers, currentFlyers, featuredFlyer, formatDateIt, formatDateR
 import { useToday } from "@/lib/date-store";
 import { scrollBehavior } from "@/lib/motion";
 import { cn } from "@/lib/utils";
-import type { Flyer, PagesCopy } from "@/lib/content/schemas";
+import type { Flyer, ImageRef, PagesCopy } from "@/lib/content/schemas";
 import { FlyerViewer } from "./FlyerViewer";
 
 type FlyersBoardProps = {
@@ -41,6 +41,42 @@ function storesLabel(f: Flyer, names: Record<string, string>, t: StoresCopy): st
 function datesLabel(f: Flyer): string {
   const text = f.validoDal && f.validoAl ? formatDateRangeIt(f.validoDal, f.validoAl) : (f.periodo ?? "");
   return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+/**
+ * Miniature del volantino sotto 1024 px: striscia orizzontale (scorrimento a scatti), la pagina aperta e' cerchiata di
+ * magenta e la striscia la tiene sempre in vista quando si gira pagina dal lettore. Copertine piccole (56 px), lazy.
+ */
+function MobileThumbs({ pages, page, onPage, label, pageLabel, goLabel }: { pages: ImageRef[]; page: number; onPage: (n: number) => void; label: string; pageLabel: string; goLabel: string }) {
+  const ref = useRef<HTMLUListElement>(null);
+  useEffect(() => {
+    const list = ref.current;
+    const item = list?.children[page] as HTMLElement | undefined;
+    if (!list || !item) return;
+    const left = item.offsetLeft - (list.clientWidth - item.offsetWidth) / 2;
+    list.scrollTo({ left: Math.max(0, left), behavior: scrollBehavior() });
+  }, [page]);
+  return (
+    <div className="mt-5 lg:hidden">
+      <p className="text-xs font-extrabold uppercase tracking-wider text-brand-blue-700">{label}</p>
+      <ul ref={ref} aria-label={label} className="hide-scrollbar -mx-5 mt-2 flex snap-x gap-2.5 overflow-x-auto px-5 pb-1 pt-1 sm:-mx-8 sm:px-8">
+        {pages.map((p, i) => (
+          <li key={p.src ?? i} className="w-14 shrink-0 snap-center">
+            <button
+              type="button"
+              onClick={() => onPage(i)}
+              aria-label={goLabel.replace("{n}", String(i + 1))}
+              aria-current={i === page ? "true" : undefined}
+              className={cn("block w-full overflow-hidden rounded-md bg-white ring-2 transition", i === page ? "ring-brand-magenta-600 shadow-lift" : "ring-brand-blue-100")}
+            >
+              <SmartImage src={p.src} alt="" label={p.label ?? pageLabel.replace("{n}", String(i + 1))} ratio="210/297" sizes="56px" rounded="rounded-none" imgClassName="group-hover:scale-100" />
+              <span className={cn("block py-0.5 text-center text-[0.6875rem] font-bold", i === page ? "bg-brand-magenta-600 text-white" : "text-brand-blue-800")}>{i + 1}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 /** Volantino da sfogliare: in corso, anteprima o ultima edizione ufficiale, sempre con le date originali. */
@@ -143,11 +179,32 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
                   {eyebrow}
                 </p>
                 <h2 className="mt-3 border-l-[6px] border-brand-magenta-600 pl-3 text-brand-blue-900 lg:mt-4 lg:border-l-8 lg:pl-4 lg:!text-[clamp(2.75rem,3.6vw,4.25rem)] lg:!font-black lg:!leading-[0.98]">{selected.titolo}</h2>
-                <p className="mt-4 inline-flex items-center gap-2 rounded-md bg-sand px-3 py-2 text-lg font-extrabold text-brand-blue-900 lg:mt-6 lg:px-4 lg:py-2.5 lg:text-xl">
+                {/* Sotto 1024 px: «In breve» come su desktop, al posto delle righe di date e negozi (niente doppioni). */}
+                {copy.scheda && (
+                  <dl className="mt-4 flex items-stretch gap-4 rounded-[var(--radius-lg)] border border-brand-blue-100 bg-sand p-4 lg:hidden">
+                    {selected.pagine.length > 0 && (
+                      <div className="flex shrink-0 flex-col-reverse justify-center border-r border-brand-blue-100 pr-4 text-center">
+                        <dt className="mt-1 text-xs font-semibold text-muted">{copy.scheda.pagine}</dt>
+                        <dd className="text-4xl font-black leading-none text-brand-magenta-600">{selected.pagine.length}</dd>
+                      </div>
+                    )}
+                    <div className="flex min-w-0 flex-col justify-center gap-2.5">
+                      <div>
+                        <dt className="text-xs font-semibold text-muted">{copy.scheda.validita}</dt>
+                        <dd className="font-extrabold leading-snug text-brand-blue-900">{datesLabel(selected)}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-xs font-semibold text-muted">{copy.scheda.negozi}</dt>
+                        <dd className="font-extrabold leading-snug text-brand-blue-900">{storesLabel(selected, storeNames, ended ? copy.negoziConclusi : copy.negozi)}</dd>
+                      </div>
+                    </div>
+                  </dl>
+                )}
+                <p className={cn("mt-4 inline-flex items-center gap-2 rounded-md bg-sand px-3 py-2 text-lg font-extrabold text-brand-blue-900 lg:mt-6 lg:px-4 lg:py-2.5 lg:text-xl", copy.scheda && "max-lg:hidden")}>
                   <Icon name="calendar" size={22} className="text-brand-magenta-700" />
                   <span>{datesLabel(selected)}</span>
                 </p>
-                <p className="mt-3 flex items-center gap-2 font-semibold text-brand-blue-800">
+                <p className={cn("mt-3 flex items-center gap-2 font-semibold text-brand-blue-800", copy.scheda && "max-lg:hidden")}>
                   <Icon name="map-pin" size={20} className="shrink-0 text-brand-magenta-700" />
                   {storesLabel(selected, storeNames, ended ? copy.negoziConclusi : copy.negozi)}
                 </p>
@@ -241,7 +298,11 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
                     </div>
                   )}
                 </div>
-                <FlyerViewer key={selected.id} pages={selected.pagine} title={selected.titolo} copy={copy.visore} index={page} onIndexChange={setPage} className="lg:sticky lg:top-28" />
+                <FlyerViewer key={selected.id} pages={selected.pagine} title={selected.titolo} copy={copy.visore} index={page} onIndexChange={setPage} className="lg:sticky lg:top-28" mobileDots={!(copy.miniature && selected.pagine.length > 1)} />
+                {/* Sotto 1024 px le miniature stanno sotto il lettore, in una striscia da scorrere col dito, al posto dei pallini. */}
+                {copy.miniature && selected.pagine.length > 1 && (
+                  <MobileThumbs key={`t-${selected.id}`} pages={selected.pagine} page={page} onPage={setPage} label={copy.miniature.titolo} pageLabel={copy.visore.pagina} goLabel={copy.miniature.vaiAllaPagina} />
+                )}
               </Container>
             </div>
           )}

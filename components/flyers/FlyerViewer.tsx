@@ -18,6 +18,8 @@ type FlyerViewerProps = {
   /** Facoltativi: pagina guidata da fuori (miniature su desktop). Senza, il lettore gestisce la pagina da solo. */
   index?: number;
   onIndexChange?: (index: number) => void;
+  /** Pallini delle pagine sotto 1024 px (default si'); no quando la pagina mostra le sue miniature al loro posto. */
+  mobileDots?: boolean;
 };
 
 const SWIPE_PX = 60;
@@ -46,7 +48,7 @@ function Arrow({ dir, onClick, disabled, className, label }: { dir: "prev" | "ne
  * scorre e si fa pinch col browser). Carica solo la pagina corrente e le adiacenti.
  * Pagine senza `src` -> Placeholder con etichetta.
  */
-export function FlyerViewer({ pages, title, copy, className, index: controlledIndex, onIndexChange }: FlyerViewerProps) {
+export function FlyerViewer({ pages, title, copy, className, index: controlledIndex, onIndexChange, mobileDots = true }: FlyerViewerProps) {
   const [innerIndex, setInnerIndex] = useState(0);
   const index = controlledIndex ?? innerIndex;
   const setIndex = onIndexChange ?? setInnerIndex;
@@ -205,7 +207,7 @@ export function FlyerViewer({ pages, title, copy, className, index: controlledIn
         {pages.length > 1 && <Arrow label={nextLabel} dir="next" onClick={() => go(1)} disabled={index === last} className="pointer-fine:hidden" />}
       </div>
       {pages.length > 1 && (
-        <ul className="mt-2 flex flex-wrap justify-center" aria-label={copy.vaiAllaPagina}>
+        <ul className={cn("mt-2 flex flex-wrap justify-center", !mobileDots && "max-lg:hidden")} aria-label={copy.vaiAllaPagina}>
           {pages.map((p, i) => (
             <li key={i}>
               <button

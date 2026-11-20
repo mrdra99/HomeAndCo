@@ -35,6 +35,22 @@ function CollectionGallery({ images }: { images: GalleryImage[] }) {
   );
 }
 
+/** Inclinazioni del ventaglio mobile: tre foto appoggiate e sovrapposte, quella centrale piu' in alto. */
+const FAN = ["-rotate-[7deg] translate-y-2", "z-10 rotate-[2deg] -translate-y-1", "rotate-[8deg] translate-y-3"];
+
+/** Ventaglio di foto di stagione sotto il titolo grande (solo sotto 1024 px). Foto 1200 px mostrate a 140 px al massimo. */
+function CollectionFan({ images }: { images: GalleryImage[] }) {
+  return (
+    <ul aria-hidden="true" className="mt-6 flex justify-center">
+      {images.slice(0, 3).map((img, i) => (
+        <li key={img.src} className={cn("-mx-2 w-[34%] max-w-[140px] overflow-hidden rounded-[var(--radius-lg)] border-4 border-white bg-white shadow-[0_14px_34px_rgb(0_0_0/0.45)]", FAN[i])}>
+          <SmartImage src={img.src} alt="" label={img.alt} ratio="4/5" sizes="140px" position={img.position} rounded="rounded-none" imgClassName="group-hover:scale-100" />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /**
  * Rail orizzontale con scroll-snap della campagna in corso. Il contenitore scorrevole e' focalizzabile
  * (frecce da tastiera) e ha due pulsanti da 44 px; ogni scheda e' un link. Nessun prezzo.
@@ -93,10 +109,10 @@ export function CampaignCollection({ campaigns, buildCampaignId, copy, aisles }:
     <section
       id="idee-di-stagione"
       aria-labelledby="collection-title"
-      className={cn("bg-brand-blue-50 py-7 sm:py-10", big && "lg:relative lg:isolate lg:overflow-hidden lg:bg-brand-blue-900 lg:pb-20 lg:pt-16")}
+      className={cn("bg-brand-blue-50 py-7 sm:py-10", big && "relative isolate overflow-hidden bg-brand-blue-900 pb-9 pt-10 lg:pb-20 lg:pt-16")}
     >
       {big && collection.sfondo && (
-        <div aria-hidden="true" className="absolute inset-0 -z-10 hidden lg:block">
+        <div aria-hidden="true" className="absolute inset-0 -z-10">
           <SmartImage src={collection.sfondo.src} alt="" label={collection.titolo} sizes="100vw" position={collection.sfondo.position} rounded="rounded-none" className="h-full" imgClassName="group-hover:scale-100" />
           <div className="absolute inset-0 bg-[linear-gradient(100deg,rgb(11_42_71/0.92)_0%,rgb(11_42_71/0.7)_45%,rgb(11_42_71/0.42)_100%)]" />
         </div>
@@ -125,17 +141,41 @@ export function CampaignCollection({ campaigns, buildCampaignId, copy, aisles }:
       )}
       {/* Con il titolo grande la sezione e' a tutta larghezza anche sotto: schede allineate al titolo. */}
       <Container size="wide" className={big ? "lg:max-w-none lg:px-[4vw]" : undefined}>
-        <div className={cn("mb-4 flex items-end justify-between gap-4 sm:mb-6", big && "lg:hidden")}>
-          <div className="min-w-0">
-            <h2 id="collection-title" className="border-l-[6px] border-brand-magenta-600 pl-3 !font-black text-brand-blue-900">
-              {collection.titolo}
+        {big ? (
+          // Sotto 1024 px, con il titolo grande: la stessa apertura del desktop in verticale (etichetta, parola enorme a
+          // tutta larghezza, sottotitolo, descrizione) e un ventaglio di tre foto al posto del collage.
+          <div className="on-dark mb-6 text-white lg:hidden">
+            {campaign.etichetta && (
+              <span className="inline-block rounded-md bg-brand-magenta-600 px-2.5 py-1 text-xs font-extrabold uppercase tracking-wide">{campaign.etichetta}</span>
+            )}
+            <h2 id="collection-title" className="mt-3 !leading-none">
+              <span className="sr-only">{collection.titolo}</span>
+              <span aria-hidden="true" className="block !text-[clamp(4.5rem,23vw,9rem)] font-black uppercase leading-[0.82] tracking-[-0.045em] text-white [text-shadow:0_4px_28px_rgb(0_0_0/0.3)]">
+                {collection.titoloGrande}
+              </span>
+              {collection.sottotitoloGrande && (
+                <span aria-hidden="true" className="mt-2 block pl-1 text-[clamp(1.75rem,8vw,3rem)] font-black leading-none tracking-[-0.02em] text-brand-magenta-100">
+                  {collection.sottotitoloGrande}
+                </span>
+              )}
             </h2>
-            <p className="mt-1 pl-[1.125rem] text-sm text-muted sm:text-base">{collection.descrizione}</p>
+            <p className="mt-4 pl-1 text-base leading-snug text-white/85">{collection.descrizione}</p>
+            {collection.galleria.length > 0 && <CollectionFan images={collection.galleria} />}
+            <div className={cn("mt-6 hidden justify-end gap-2", edges.overflow && "sm:flex")}>{arrows}</div>
           </div>
-          <div className={cn("hidden shrink-0 gap-2", edges.overflow && "sm:flex")}>
-            {arrows}
+        ) : (
+          <div className="mb-4 flex items-end justify-between gap-4 sm:mb-6">
+            <div className="min-w-0">
+              <h2 id="collection-title" className="border-l-[6px] border-brand-magenta-600 pl-3 !font-black text-brand-blue-900">
+                {collection.titolo}
+              </h2>
+              <p className="mt-1 pl-[1.125rem] text-sm text-muted sm:text-base">{collection.descrizione}</p>
+            </div>
+            <div className={cn("hidden shrink-0 gap-2", edges.overflow && "sm:flex")}>
+              {arrows}
+            </div>
           </div>
-        </div>
+        )}
         {big && edges.overflow && <div className="mb-5 hidden justify-end gap-2 lg:flex">{arrows}</div>}
       </Container>
       <Container size="wide" className={cn("px-0 sm:px-8", big && "lg:max-w-none lg:px-[4vw]")}>
@@ -149,7 +189,7 @@ export function CampaignCollection({ campaigns, buildCampaignId, copy, aisles }:
         <ul className="flex gap-3">
           {collection.idee.map((idea) => (
             <li key={idea.titolo} className={cn("w-[72%] shrink-0 snap-start sm:w-[calc((100%-2.25rem)/3.2)]", big ? "lg:w-[calc((100%-3rem)/3.3)]" : "lg:w-[calc((100%-3.75rem)/4.4)]")}>
-              <Link href={`/corridoi/${idea.corridoio}/`} className={cn("group flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border-2 border-brand-blue-100 bg-white hover:border-brand-blue-600", big && "lg:rounded-[var(--radius-xl)] lg:border-white/0 lg:shadow-lift lg:transition-transform lg:duration-300 lg:hover:-translate-y-1 lg:hover:border-brand-magenta-600")}>
+              <Link href={`/corridoi/${idea.corridoio}/`} className={cn("group flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border-2 border-brand-blue-100 bg-white hover:border-brand-blue-600", big && "border-white/0 shadow-lift lg:rounded-[var(--radius-xl)] lg:border-white/0 lg:transition-transform lg:duration-300 lg:hover:-translate-y-1 lg:hover:border-brand-magenta-600")}>
                 {idea.immagine?.src ? (
                   <SmartImage
                     src={idea.immagine.src}

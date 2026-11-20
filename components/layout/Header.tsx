@@ -7,7 +7,7 @@ import { Icon } from "@/components/ui/Icon";
 import { Logo } from "@/components/ui/Logo";
 import { SmartImage } from "@/components/ui/SmartImage";
 import type { HeaderCopy, NavGroup, NavItem, Store } from "@/lib/content/schemas";
-import { DEPARTMENT_PREFIX, groupDepartments, type DepartmentGroup } from "@/lib/navigation";
+import { DEPARTMENT_PREFIX, groupDepartments, seasonalMenu, type DepartmentGroup } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 import { MENU_OPEN_EVENT, StoreChip } from "./StoreChip";
 import { TabBar } from "./TabBar";
@@ -31,21 +31,6 @@ type HeaderProps = {
   campaigns: Campaign[];
   buildCampaignId: string;
 };
-
-/**
- * Voce di stagione della barra desktop, dalla `collezione` della campagna attiva: titolo grande (es. «Natale»),
- * le idee come voci della tendina (ognuna porta al suo reparto) e la foto del collage. Senza collezione non c'e'.
- */
-function seasonalMenu(campaign: Campaign): DepartmentGroup | null {
-  const c = campaign.collezione;
-  if (!c) return null;
-  const image = c.galleria[0] ?? c.idee.find((i) => i.immagine?.src)?.immagine;
-  return {
-    titolo: c.titoloGrande ?? campaign.etichetta ?? c.titolo,
-    immagine: image ?? { src: null, alt: "" },
-    items: c.idee.map((idea) => ({ label: idea.titolo, href: `/corridoi/${idea.corridoio}/`, evidenza: false, soloPiede: false })),
-  };
-}
 
 /**
  * Testata (desktop): fascia blu 900 con avviso, Negozi, Contatti, "Il tuo negozio" e Instagram; poi una sola riga bianca
@@ -228,7 +213,7 @@ export function Header({ items, groups, stores, copy, instagramUrl, campaigns, b
         </div>
       </header>
 
-      <TabBar items={items} groups={groups} copy={copy} />
+      <TabBar items={items} groups={groups} copy={copy} season={season ? { group: season, cta: campaign.cta } : null} />
     </>
   );
 }

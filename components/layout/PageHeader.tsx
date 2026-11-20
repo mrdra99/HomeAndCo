@@ -7,10 +7,16 @@ import { cn } from "@/lib/utils";
 
 export type BreadcrumbItem = { label: string; href: string };
 
-type BreadcrumbProps = { items: BreadcrumbItem[]; label: string; className?: string };
+type BreadcrumbProps = {
+  items: BreadcrumbItem[];
+  label: string;
+  className?: string;
+  /** Su foto o fondo scuro (testate mobile): testo bianco. */
+  onDark?: boolean;
+};
 
 /** Percorso con dati strutturati. L'ultima voce e' la pagina corrente (non cliccabile). */
-export function Breadcrumb({ items, label, className }: BreadcrumbProps) {
+export function Breadcrumb({ items, label, className, onDark }: BreadcrumbProps) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -19,15 +25,15 @@ export function Breadcrumb({ items, label, className }: BreadcrumbProps) {
   return (
     <nav aria-label={label} className={className}>
       <JsonLd data={jsonLd} />
-      <ol className="flex flex-wrap items-center gap-x-2 text-sm text-muted">
+      <ol className={cn("flex flex-wrap items-center gap-x-2 text-sm", onDark ? "text-white/80" : "text-muted")}>
         {items.map((b, i) => {
           const last = i === items.length - 1;
           return (
             <li key={b.href} className="flex items-center gap-2">
               {last ? (
-                <span aria-current="page" className="font-bold text-brand-blue-900">{b.label}</span>
+                <span aria-current="page" className={cn("font-bold", onDark ? "text-white" : "text-brand-blue-900")}>{b.label}</span>
               ) : (
-                <Link href={b.href} className="inline-flex min-h-11 items-center font-semibold text-brand-blue-700 underline-offset-4 hover:underline">
+                <Link href={b.href} className={cn("inline-flex min-h-11 items-center font-semibold underline-offset-4 hover:underline", onDark ? "text-white" : "text-brand-blue-700")}>
                   {b.label}
                 </Link>
               )}

@@ -11,6 +11,7 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { FlyersBoard } from "@/components/flyers/FlyersBoard";
 import { PromotionsGrid } from "@/components/flyers/PromotionsGrid";
+import { MobileHero } from "@/components/layout/MobileHero";
 import { WideHero } from "@/components/layout/WideHero";
 import { Button } from "@/components/ui/Button";
 import { content } from "@/lib/content";
@@ -45,7 +46,7 @@ export default async function OffertePage() {
 
   return (
     <>
-      {/* Desktop: testata a tutta larghezza come nei reparti; sotto 1024 px resta la testata compatta. */}
+      {/* Desktop: testata a tutta larghezza come nei reparti. */}
       {copy.immagineWide && (
         <WideHero
           titolo={copy.titolo}
@@ -61,13 +62,19 @@ export default async function OffertePage() {
           }
         />
       )}
-      <PageHeader
-        className={copy.immagineWide ? "lg:hidden" : undefined}
-        breadcrumbLabel={pages.breadcrumb.aria}
-        breadcrumb={breadcrumb}
-        title={copy.titolo}
-        lead={copy.intro}
-      />
+      {/* Sotto 1024 px: la versione da telefono, piu' bassa e senza pulsanti (subito sotto c'e' il volantino con i suoi). */}
+      {copy.immagineWide ? (
+        <MobileHero
+          compact
+          titolo={copy.titolo}
+          descrizione={copy.intro}
+          immagine={copy.immagineWide}
+          breadcrumb={breadcrumb}
+          breadcrumbLabel={pages.breadcrumb.aria}
+        />
+      ) : (
+        <PageHeader breadcrumbLabel={pages.breadcrumb.aria} breadcrumb={breadcrumb} title={copy.titolo} lead={copy.intro} />
+      )}
 
       <FlyersBoard
         flyers={flyers}

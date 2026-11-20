@@ -6,7 +6,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { SmartImage } from "@/components/ui/SmartImage";
 import type { HeaderCopy, NavGroup, NavItem } from "@/lib/content/schemas";
-import { groupDepartments } from "@/lib/navigation";
+import { groupDepartments, type DepartmentGroup } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 import { MENU_OPEN_EVENT } from "./StoreChip";
 
@@ -15,10 +15,26 @@ const TAB_ICONS: Record<HeaderCopy["tab"][number]["icona"], IconName> = {
   home: "home", reparti: "grid", volantino: "flyer", negozi: "store", carta: "card", contatti: "mail",
 };
 
-/** Barra blu con selezione magenta; Reparti apre un menu compatto sopra la barra, con gruppi espandibili. */
-export function TabBar({ items, groups, copy }: { items: NavItem[]; groups: NavGroup[]; copy: HeaderCopy }) {
+type TabBarProps = {
+  items: NavItem[];
+  groups: NavGroup[];
+  copy: HeaderCopy;
+  /** Gruppo di stagione della campagna attiva (lo stesso della barra desktop) e il suo invito; null fuori stagione. */
+  season: { group: DepartmentGroup; cta: { label: string; href: string } } | null;
+};
+
+/**
+ * Barra blu fissa in basso; la tab attiva ha la lineetta magenta in alto, come la sottolineatura della barra desktop.
+ * Reparti apre un menu compatto sopra la barra, con gruppi espandibili; in cima, se la campagna attiva ha una
+ * collezione, il gruppo di stagione in magenta (es. «Natale») con le idee verso i reparti.
+ */
+export function TabBar({ items, groups, copy, season }: TabBarProps) {
   const pathname = usePathname();
   const departmentGroups = groupDepartments(items, groups);
+  const sheetGroups = [
+    ...(season ? [{ group: season.group, season: true }] : []),
+    ...departmentGroups.map((group) => ({ group, season: false })),
+  ];
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [lastPath, setLastPath] = useState(pathname);
@@ -63,8 +79,9 @@ export function TabBar({ items, groups, copy }: { items: NavItem[]; groups: NavG
   const others = items.filter((i) => !i.href.startsWith(CORRIDOI_PREFIX) && !i.soloPiede && !tabHrefs.has(i.href));
   const isActive = (href: string) => !open && (href === "/" ? pathname === "/" : pathname.startsWith(href));
   const tabClass = (active: boolean) => cn(
-    "flex min-h-[var(--tabbar-h)] flex-col items-center justify-center gap-1 px-1 text-xs font-bold leading-none text-white transition-colors",
-    active ? "bg-brand-magenta-600" : "hover:bg-white/10 active:bg-white/15",
+    "relative flex min-h-[var(--tabbar-h)] flex-col items-center justify-center gap-1 px-1 text-xs font-bold leading-none text-white transition-colors",
+    "before:absolute before:inset-x-[18%] before:top-0 before:h-1 before:origin-center before:rounded-b-full before:bg-brand-magenta-600 before:transition-transform before:duration-200 before:content-['']",
+    active ? "bg-brand-blue-700 before:scale-x-100" : "before:scale-x-0 hover:bg-white/10 active:bg-white/15",
   );
 
   return (
@@ -106,27 +123,40 @@ export function TabBar({ items, groups, copy }: { items: NavItem[]; groups: NavG
           </button>
         </div>
         <div className="min-h-0 overflow-y-auto overscroll-contain px-3 pb-3">
-          {departmentGroups.map((group, i) => {
+          {sheetGroups.map(({ group, season: isSeason }, i) => {
             const expandedHere = expanded === group.titolo;
             const groupId = `${panelId}-group-${i}`;
+            // Le voci di stagione non si segnano come pagina corrente: piu' idee possono portare allo stesso reparto.
+            const current = (href: string) => !isSeason && href === pathname;
             return (
-              <section key={group.titolo} className="border-b border-brand-blue-100 last:border-b-0">
+              <section key={group.titolo} className={cn("border-b border-brand-blue-100 last:border-b-0", isSeason && "-mx-3 border-b-0 bg-brand-magenta-50 px-3 pt-1")}>
                 <h3>
                   <button type="button" aria-expanded={expandedHere} aria-controls={groupId}
                     onClick={() => setExpanded(expandedHere ? null : group.titolo)}
-                    className={cn("flex min-h-[4.5rem] w-full items-center gap-3 rounded-lg px-2 py-3 text-left text-base font-bold", expandedHere ? "text-brand-magenta-700" : "text-brand-blue-900 hover:bg-brand-blue-50")}>
-                    <span className="size-12 shrink-0 overflow-hidden rounded-lg"><SmartImage src={group.immagine.src} alt="" label={group.titolo} ratio="1/1" sizes="48px" rounded="rounded-lg" imgClassName="group-hover:scale-100" /></span>
+                    className={cn(
+                      "flex min-h-[4.5rem] w-full items-center gap-3 rounded-lg px-2 py-3 text-left text-base font-bold",
+                      isSeason ? "!text-xl font-black text-brand-magenta-700 hover:bg-brand-magenta-100/60"
+                        : expandedHere ? "text-brand-magenta-700" : "text-brand-blue-900 hover:bg-brand-blue-50",
+                    )}>
+                    <span className={cn("size-12 shrink-0 overflow-hidden rounded-lg", isSeason && "-rotate-6 ring-2 ring-white shadow-[0_6px_16px_rgb(11_42_71/0.25)]")}>
+                      <SmartImage src={group.immagine.src} alt="" label={group.titolo} ratio="1/1" sizes="48px" position={group.immagine.position} rounded="rounded-lg" imgClassName="group-hover:scale-100" />
+                    </span>
                     <span className="flex-1">{group.titolo}</span>
                     <Icon name="chevron" size={20} className={cn("shrink-0 transition-transform", expandedHere && "rotate-180")} />
                   </button>
                 </h3>
-                <ul id={groupId} hidden={!expandedHere} className="mb-3 ml-8 mr-2 border-l-2 border-brand-magenta-100 pl-3">
-                  {group.items.map((item) => <li key={item.href}>
-                    <Link href={item.href} onClick={close} aria-current={item.href === pathname ? "page" : undefined}
-                      className={cn("flex min-h-12 items-center justify-between gap-3 rounded-lg px-3 py-2 text-[0.9375rem] font-semibold leading-snug hover:bg-brand-blue-50", item.href === pathname && "bg-brand-magenta-50 text-brand-magenta-700")}>
-                      {item.label}<Icon name="arrow-right" size={17} className="shrink-0 text-brand-blue-600" />
+                <ul id={groupId} hidden={!expandedHere} className={cn("mb-3 ml-8 mr-2 border-l-2 pl-3", isSeason ? "border-brand-magenta-600" : "border-brand-magenta-100")}>
+                  {group.items.map((item) => <li key={`${item.href}|${item.label}`}>
+                    <Link href={item.href} onClick={close} aria-current={current(item.href) ? "page" : undefined}
+                      className={cn("flex min-h-12 items-center justify-between gap-3 rounded-lg px-3 py-2 text-[0.9375rem] font-semibold leading-snug", isSeason ? "hover:bg-brand-magenta-100/60" : "hover:bg-brand-blue-50", current(item.href) && "bg-brand-magenta-50 text-brand-magenta-700")}>
+                      {item.label}<Icon name="arrow-right" size={17} className={cn("shrink-0", isSeason ? "text-brand-magenta-700" : "text-brand-blue-600")} />
                     </Link>
                   </li>)}
+                  {isSeason && season && <li>
+                    <Link href={season.cta.href} onClick={close} className="flex min-h-12 items-center gap-2 px-3 py-2 text-[0.9375rem] font-extrabold text-brand-magenta-700 underline-offset-4 hover:underline">
+                      {season.cta.label}<Icon name="arrow-right" size={17} className="shrink-0" />
+                    </Link>
+                  </li>}
                 </ul>
               </section>
             );

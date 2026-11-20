@@ -30,7 +30,7 @@ Next.js (App Router) + TypeScript strict, Tailwind CSS v4 (token in `@theme`), `
 - Immagini mancanti → `<Placeholder />`; ogni segnaposto va censito in `ASSETS_TODO.md`.
 - Solo i colori del logo: blu per orientamento e informazioni, magenta per le chiamate commerciali. Le campagne cambiano immagini e testi, mai la palette (`--accent` fisso, presidiato da `palette.test.ts`).
 - Mobile first, raggi 8–14 px, animazioni minime e sempre con `prefers-reduced-motion`.
-- **Il mobile è confermato dal cliente (19/11/2026) e non si tocca**: le modifiche al desktop usano solo classi `lg:`+, componenti solo desktop accanto a quelli mobile (`lg:hidden`), effetti montati solo con `useMediaQuery(DESKTOP_QUERY)`. Prima di chiudere si confrontano gli screenshot a 390 px prima/dopo. Dettagli nel README, «Desktop e mobile».
+- **Desktop e mobile si modificano separatamente.** Il mobile era confermato dal cliente il 19/11/2026. Dal 20/11 riprende il linguaggio del desktop (blocco A: home e navigazione; blocco B: reparti e volantino), sempre con la tab bar in basso, adattato al telefono e non copiato. Un lavoro su un lato non deve cambiare l'altro: il desktop si tocca solo con classi `lg:`+ o componenti con `hidden lg:block`, il mobile solo con classi `max-lg:` o base già coperte da una `lg:`, componenti con `lg:hidden` e CSS in `@media (max-width: 1023.98px)`. Prima di chiudere si confrontano gli screenshot dell'altro lato, prima e dopo: 390 px per il mobile, 1440 e 1024 px per il desktop. Il confronto desktop si fa una vista alla volta, non con la cattura a pagina intera, che con il vetro sfocato dà falsi positivi. Dettagli nel README, «Desktop e mobile».
 - Tutto ciò che è stagionale (temi, sezioni, effetti come la neve) si accende dalle date delle campagne in `content/campaigns.json` (`lib/campaigns.ts`): mai date cablate nei componenti.
 - Mai ingrandire un'immagine: larghezza CSS ≤ larghezza reale / 2 (`lib/image-rules.ts`).
 - Mai inventare prezzi, sconti, marchi, telefoni o vantaggi della carta. La carta fedeltà torna in home, testata e tab bar solo con dati veri (`ASSETS_TODO.md`); oggi resta raggiungibile dal footer.
@@ -44,4 +44,4 @@ Next.js (App Router) + TypeScript strict, Tailwind CSS v4 (token in `@theme`), `
 - La campagna attiva è scelta in build e il contenuto è ricontrollato nel client dopo l'idratazione: al cambio di data, senza nuova build, può comparire per un attimo la campagna precedente.
 - Coordinate dei negozi non confermate (`coordinateConfermate: false` in `stores.json`): niente mappa né `geo` finché il cliente non dà il pin di ogni sede; «Indicazioni» va sempre per indirizzo.
 - Non committa Claude: a fine lavoro propone il messaggio di commit, committa l'utente.
-- > TODO: remote git non ancora configurato; quando c'è, aggiornare la chiave nel registry dell'harness.
+- Remote git: `origin` = github.com/mrdra99/HomeAndCo, base `main`. Su questa macchina non c'è `gh`: le PR si aprono dal sito.

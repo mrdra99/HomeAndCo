@@ -291,6 +291,45 @@
   .facts:not([data-inview]) .facts-card { opacity: 0; }
   .facts[data-inview] .facts-card { animation: facts-in 950ms cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--i, 0) * 160ms); }
 }
+/* Sotto 1024 px: stesso linguaggio in piccolo. Quattro schede di vetro in due colonne su forme sfocate che si spostano
+   appena (solo traslazione, niente cambio di forma: leggero per il telefono). Niente inclinazione: non c'e' il cursore. */
+@keyframes facts-drift-m1 { to { translate: 18vw 22%; } }
+@keyframes facts-drift-m2 { to { translate: -16vw -18%; } }
+@media (max-width: 1023.98px) {
+  .facts-blob { position: absolute; display: block; filter: blur(34px); border-radius: 44% 56% 52% 48% / 52% 44% 56% 48%; }
+  .facts-blob-1 { width: 70vw; height: 70vw; left: -22vw; top: -30%; background: radial-gradient(circle at 35% 35%, #8fc1e6, #0f6bb4 72%); opacity: 0.32; }
+  .facts-blob-2 { width: 52vw; height: 52vw; right: -12vw; top: 10%; background: #fad0e1; opacity: 0.85; }
+  .facts-blob-3 { width: 60vw; height: 60vw; left: 20vw; bottom: -40%; background: radial-gradient(circle, #cfe4f3, #5c9fd4 80%); opacity: 0.45; }
+  .facts-blob-4 { width: 30vw; height: 30vw; left: 6vw; bottom: -10%; background: #d11559; opacity: 0.14; }
+
+  .facts .facts-card {
+    border: 1px solid rgb(255 255 255 / 0.85);
+    border-radius: 1rem;
+    background: rgb(255 255 255 / 0.6);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    box-shadow: 0 12px 30px -14px rgb(11 42 71 / 0.3), inset 0 1px 0 rgb(255 255 255 / 0.9);
+  }
+  .facts .facts-icon {
+    border-radius: 44% 56% 52% 48% / 52% 44% 56% 48%;
+    background: linear-gradient(135deg, #0f6bb4 0%, #08578f 55%, #d11559 100%);
+    box-shadow: 0 8px 18px -8px rgb(15 107 180 / 0.6);
+  }
+}
+@media (max-width: 1023.98px) and (prefers-reduced-motion: no-preference) {
+  .facts-blob-1 { animation: facts-drift-m1 18s ease-in-out infinite alternate; }
+  .facts-blob-2 { animation: facts-drift-m2 22s ease-in-out infinite alternate; }
+}
+
+/* Titolo delle schede hero sotto 1024 px (components/campaign/CampaignHero.tsx → HeroCard): la stessa sfumatura dei
+   colori del logo del titolo della testata desktop (.wide-hero-title). Solo sopra le foto scure delle schede. */
+.hero-title-gradient {
+  background-image: linear-gradient(90deg, #ffffff 0%, #ffffff 30%, #d6e8f7 62%, #f8cadd 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 3px 16px rgb(0 0 0 / 0.45));
+}
 
 /* ------------------------------------------------------------------
    Testata desktop a tutta larghezza di reparti e volantino (components/layout/WideHero.tsx): entrata e titolo sfumato.
@@ -412,6 +451,60 @@ html[data-splash="seen"] .home-splash { display: none !important; }
   .cta-band[data-inview] .cta-reparto::after { animation: cta-underline 700ms cubic-bezier(0.34, 1.56, 0.64, 1) 750ms both; }
   .cta-band[data-inview] .cta-fade { animation: wide-fade 700ms cubic-bezier(0.16, 1, 0.3, 1) 450ms both; }
   .cta-band[data-inview] .cta-fade-late { animation-delay: 650ms; }
+}
+
+/* Sotto 1024 px la fascia di chiusura riprende il desktop in versione ferma: sfondo sfumato con bagliori immobili,
+   nome del reparto sfumato con la sottolineatura fucsia (ferma: sul mobile niente comparse allo scorrimento). Niente cuore
+   rotante ne' bagliori in movimento: sul telefono costerebbero batteria senza aggiungere nulla. */
+@media (max-width: 1023.98px) {
+  .cta-band { background: linear-gradient(150deg, #0f6bb4 0%, #08578f 60%, #0a3f68 100%); }
+  .cta-glow { position: absolute; display: block; border-radius: 9999px; filter: blur(40px); }
+  .cta-glow-1 { width: 60vw; height: 60vw; left: -20vw; top: -25%; background: #d11559; opacity: 0.35; }
+  .cta-glow-2 { width: 55vw; height: 55vw; right: -18vw; bottom: -30%; background: #5aa9e0; opacity: 0.4; }
+  .cta-glow-3 { display: none; }
+  .cta-heart { display: none; }
+  .cta-reparto {
+    position: relative;
+    display: inline-block;
+    background-image: linear-gradient(90deg, #ffffff 0%, #fde3ee 45%, #d6e8f7 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .cta-reparto::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.06em;
+    height: 0.12em;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, #d11559, #f0508c);
+    transform-origin: left;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Testata sotto 1024 px di reparti e volantino (components/layout/MobileHero.tsx): la stessa entrata di WideHero,
+   piu' corta (circa 0,9 s in tutto invece di 2,2 s). Niente con movimento ridotto.
+   ------------------------------------------------------------------ */
+.mobile-hero-wipe { display: none; }
+@keyframes mobile-hero-title {
+  from { clip-path: inset(-10% 100% -15% 0); }
+  to { clip-path: inset(-10% 0 -15% 0); }
+}
+@media (max-width: 1023.98px) and (prefers-reduced-motion: no-preference) {
+  .mobile-hero-wipe { display: block; position: absolute; inset: 0; z-index: 30; pointer-events: none; animation: wide-wipe 520ms cubic-bezier(0.76, 0, 0.24, 1) both; }
+  .mobile-hero-wipe-1 { background: #d11559; animation-delay: 40ms; }
+  .mobile-hero-wipe-2 { background: #0f6bb4; animation-duration: 440ms; }
+  .mobile-hero-bar { transform-origin: left; animation: wide-bar 500ms cubic-bezier(0.34, 1.56, 0.64, 1) 380ms both; }
+  .mobile-hero-title { animation: mobile-hero-title 700ms cubic-bezier(0.22, 1, 0.36, 1) 320ms both; }
+  .mobile-hero-fade { animation: wide-fade 500ms cubic-bezier(0.16, 1, 0.3, 1) 560ms both; }
+  .mobile-hero-fade-late { animation-delay: 660ms; }
+}
+/* La foto si assesta solo quando copre la testata (sotto 544 px); da 544 px e' un riquadro e resta ferma. */
+@media (max-width: 543.98px) and (prefers-reduced-motion: no-preference) {
+  .mobile-hero-photo { animation: wide-photo 1000ms cubic-bezier(0.16, 1, 0.3, 1) both; }
 }
 
 @keyframes mobile-departments-open {

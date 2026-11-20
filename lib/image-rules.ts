@@ -45,3 +45,10 @@ export const DEPARTMENT_CARD_MAX_CSS_WIDTH = [850, 610, 480, 480, 480] as const;
  * slide, finche' non arriva la grafica `bannerDesktop` da 3840 x 1280 px.
  */
 export const DESKTOP_FULL_BLEED_MIN_WIDTH = 2880;
+
+/**
+ * Testata sotto 1024 px di reparti e volantino (components/layout/MobileHero.tsx): sotto 544 px la foto copre tutta la
+ * larghezza (al massimo 543 px CSS), da 544 px e' un riquadro di 320 px. Le foto usate li' devono essere nitide a 543 px.
+ * Verificato dal test mobile-feedback.
+ */
+export const MOBILE_HERO_MAX_CSS_WIDTH = 543;

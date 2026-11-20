@@ -129,6 +129,8 @@ export const HomeCopySchema = z.object({
       etichetta: z.string().optional(),
       cta: Cta.optional(),
       link: z.string().min(1).optional(),
+      /** Sotto 1024 px la slide non compare (es. segnaposti, grafiche 3:1 con i testi dentro). */
+      soloDesktop: z.boolean().default(false),
     })).max(4).default([]),
   }),
   /** Fascia fatti: 3-4 fatti verificati con icona (nome di Icon). `desktop: false` = solo sotto 1024 px. */

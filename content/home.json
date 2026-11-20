@@ -39,7 +39,8 @@
         "cta": {
           "label": "Vai al reparto",
           "href": "/corridoi/feste-e-regalo/"
-        }
+        },
+        "soloDesktop": true
       }
     ]
   },

@@ -13,7 +13,7 @@ type SectionTitleProps = {
 
 /**
  * Titolo di sezione da cartello: barra piena a sinistra, testo a sinistra, nessun centraggio.
- * Da 1024 px molto piu' grande (feedback del 20/11: titoli che si vedano); sotto 1024 px invariato.
+ * Grande anche sotto 1024 px (fino a 2,75 rem) e da 1024 px molto piu' grande (feedback del 20/11: titoli che si vedano).
  */
 export function SectionTitle({ id, children, note, className, onColor }: SectionTitleProps) {
   return (
@@ -21,7 +21,7 @@ export function SectionTitle({ id, children, note, className, onColor }: Section
       <h2
         id={id}
         className={cn(
-          "border-l-[6px] pl-3 !font-black lg:border-l-8 lg:pl-5 lg:!text-[clamp(2.75rem,3.5vw,4.25rem)] lg:!leading-[1] lg:!tracking-[-0.03em]",
+          "border-l-[6px] pl-3 !text-[clamp(1.875rem,7.6vw,2.75rem)] !font-black !leading-[1.04] !tracking-[-0.025em] lg:border-l-8 lg:pl-5 lg:!text-[clamp(2.75rem,3.5vw,4.25rem)] lg:!leading-[1] lg:!tracking-[-0.03em]",
           onColor ? "border-white text-white" : "border-brand-magenta-600 text-brand-blue-900",
         )}
       >

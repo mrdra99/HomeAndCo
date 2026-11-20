@@ -101,17 +101,37 @@ Ogni JSON è validato all'avvio/build: se sbagli un campo l'errore dice file e p
 ### Menu
 Un solo file: `content/navigation.json`, oggetto con `voci` (array di `{ "label", "href", "evidenza"? }`, **massimo 10 voci** oltre ai reparti) e `gruppi` (i 5 gruppi della barra desktop e delle 5 schede di «I reparti» in home, ciascuno con `titolo`, `breve`, `immagine` `{ src, alt }` e `reparti`: href). Ogni reparto deve stare in un solo gruppo, altrimenti la build si ferma. `evidenza: true` mette la voce in risalto.
 
-Su desktop i gruppi stanno direttamente nella barra bianca: passando il mouse (o con clic, Invio, freccia giù) si apre la tendina con i reparti del gruppo e la sua foto. Tra 1024 e 1279 px la barra usa `breve` («Casa», «Giardino»…), da 1280 px il `titolo` intero. Dopo i gruppi, in magenta, c'è la voce di stagione: compare solo se la campagna attiva per data ha una `collezione` (oggi «Natale», dal 1/11 al 25/12) e la sua tendina elenca le idee della collezione, ognuna verso il suo reparto. Negozi e Contatti stanno nella fascia blu in alto. Su mobile non cambia nulla: tab bar e pannello dei reparti.
+Su desktop i gruppi stanno direttamente nella barra bianca: passando il mouse (o con clic, Invio, freccia giù) si apre la tendina con i reparti del gruppo e la sua foto. Tra 1024 e 1279 px la barra usa `breve` («Casa», «Giardino»…), da 1280 px il `titolo` intero. Dopo i gruppi, in magenta, c'è la voce di stagione: compare solo se la campagna attiva per data ha una `collezione` (oggi «Natale», dal 1/11 al 25/12) e la sua tendina elenca le idee della collezione, ognuna verso il suo reparto. Negozi e Contatti stanno nella fascia blu in alto. Su mobile restano la tab bar in basso e il pannello «Tutti i reparti». In cima al pannello compare lo stesso gruppo di stagione, in magenta, con le idee e l'invito della campagna (`seasonalMenu` in `lib/navigation.ts`, usato da entrambi). La tab attiva ha la lineetta magenta in alto, come la sottolineatura della barra desktop.
 
 ### Desktop e mobile: cosa vale dove
-Il feedback del 19/11/2026 riguarda **solo il desktop** (da 1024 px, `lg:` di Tailwind); il mobile è stato confermato e non si tocca. Le regole:
-- le classi nuove sono sempre `lg:` o superiori; dove serve un layout diverso c'è un componente solo desktop (`HomeBanner`, `WideHero`) e quello mobile resta com'è, con `lg:hidden`;
+Il feedback del 19/11/2026 riguardava **solo il desktop** (da 1024 px, `lg:` di Tailwind). Dal 20/11 anche il mobile riprende quel linguaggio.
+
+Cosa è stato portato sul mobile (blocco A, home e navigazione):
+- hero scorrevole (`HomeHeroMobile`) con le slide del banner;
+- titoli sfumati e titoli di sezione più grandi;
+- «Natale» con la parola grande e il ventaglio di foto;
+- fascia dei fatti in vetro;
+- riquadri che si colorano al tocco;
+- gruppo di stagione nel pannello Reparti.
+
+Cosa è stato portato sul mobile (blocco B, reparti e volantino):
+- testata con foto e titolo sfumato (`MobileHero`);
+- fascia di chiusura del reparto con sfondo sfumato e nome del reparto evidenziato, ferma;
+- scheda «In breve» e miniature del volantino.
+
+Restano solo desktop: neve, cuore allo scorrimento, splash, bagliori in movimento e cuore rotante della fascia di chiusura.
+
+Ogni lato si modifica senza cambiare l'altro. Le regole:
+- **lato desktop:** le classi nuove sono `lg:` o superiori; dove serve un layout diverso c'è un componente solo desktop (`HomeBanner`, `WideHero`) accanto a quello mobile con `lg:hidden`;
+- **lato mobile:** classi `max-lg:` oppure classi base che hanno già la loro versione `lg:` (che vince da 1024 px), componenti con `lg:hidden` e CSS in `@media (max-width: 1023.98px)`;
 - gli effetti (neve, cuore allo scorrimento) si montano solo dopo l'idratazione e solo se `(min-width: 1024px)` è vero (`lib/use-media-query.ts`): sotto quella larghezza non esistono nemmeno nel DOM;
 - le immagini solo desktop non sono `priority`: in un contenitore nascosto non vengono scaricate su mobile;
-- prima di chiudere un lavoro sul desktop si confrontano gli screenshot mobile a 390 px prima e dopo.
+- prima di chiudere si confrontano gli screenshot dell'altro lato, prima e dopo: mobile a 390 px, desktop a 1440 e 1024 px. Il desktop si confronta una vista alla volta, scorrendo: la cattura a pagina intera di Chrome (`captureBeyondViewport`) dipinge in modo diverso il vetro sfocato (`backdrop-filter`) e dà differenze di pixel che a schermo non esistono.
 
 ### Banner della home (desktop)
 Da bordo a bordo, rapporto **3:1**. La prima slide è sempre la campagna attiva per data: la sua grafica `bannerDesktop` (3840 × 1280 px, testi nella grafica) o, se manca, `immagineHero` con titolo e pulsanti sopra. Le slide successive sono in `content/home.json` → `banner.slide` (massimo 4): con `titolo` mostrano testo e pulsante sulla foto, senza `titolo` sono grafiche e tutta la slide è un link (`link`). `src: null` mostra un segnaposto con l'`label` indicata. Oggi la terza slide è un segnaposto scelto da noi, con «(segnaposto)» nel titolo, in attesa della grafica. Cambio automatico ogni 7 s con frecce ai lati, pallini e pausa; si ferma solo con il pulsante di pausa, con la navigazione da tastiera dentro il banner, quando è fuori dallo schermo o la scheda non è visibile; con movimento ridotto non parte da solo. Le foto devono essere larghe almeno 2880 px (test `desktop-feedback`).
+
+Sotto 1024 px le stesse slide sono schede che si scorrono col dito (`components/sections/HomeHeroMobile.tsx`). Prima viene la campagna (`immagineHero`, mai `bannerDesktop`), poi le slide con `titolo`. Le slide senza titolo (grafiche 3:1 con i testi dentro) e quelle con `"soloDesktop": true` restano solo al desktop: oggi il segnaposto. Niente scorrimento automatico: la scheda successiva si intravede a destra e i pallini sotto indicano la posizione.
 
 ### Effetti di stagione
 Si accendono con le **date della campagna**, come tutto il resto: in `content/campaigns.json` la campagna elenca i suoi `effetti` (oggi `"neve"` su Natale). Il componente `components/campaign/SeasonalEffects.tsx` legge la campagna attiva con la stessa logica di `lib/campaigns.ts` e la ricontrolla nel browser, quindi l'effetto si spegne da solo il 26 dicembre senza nuova build. Solo desktop e mai con movimento ridotto. Per un evento nuovo: aggiungere il nome in `CAMPAIGN_EFFECTS` (`lib/content/schemas.ts`), il componente nel registro `EFFECTS` di `SeasonalEffects.tsx`, e il nome negli `effetti` della campagna.
@@ -119,9 +139,15 @@ Si accendono con le **date della campagna**, come tutto il resto: in `content/ca
 La sezione della campagna in home (`collezione`) ha su desktop campi facoltativi: `titoloGrande` (la parola enorme, almeno metà schermo), `sottotitoloGrande`, `sfondo` (foto coperta da una velatura blu) e `galleria` (2-4 foto inclinate). Senza `titoloGrande` la sezione resta quella classica anche su desktop.
 
 ### Testata desktop dei reparti e del volantino
-Ogni reparto ha `immagineWide` in `content/aisles.json`: foto 2880 × 1200 px in `public/uploads/aisles/wide/<slug>.webp`, dagli originali del cliente (cartella `_Selezione`). Su desktop copre la testata da bordo a bordo, alta circa metà schermo, con il titolo grande sopra; senza `immagineWide` resta la testata classica. Su mobile resta sempre la testata classica. La pagina del volantino usa la stessa testata (`components/layout/WideHero.tsx`) con `content/pages.json` → `offerte.immagineWide`.
+Ogni reparto ha `immagineWide` in `content/aisles.json`: foto 2880 × 1200 px in `public/uploads/aisles/wide/<slug>.webp`, dagli originali del cliente (cartella `_Selezione`). Su desktop copre la testata da bordo a bordo, alta circa metà schermo, con il titolo grande sopra; senza `immagineWide` resta la testata classica. La pagina del volantino usa la stessa testata (`components/layout/WideHero.tsx`) con `content/pages.json` → `offerte.immagineWide`.
 
-Sulla pagina del volantino, da desktop, accanto alla copertina c'è la scheda «In breve» (`offerte.scheda`: pagine, date, negozi, PDF, tutti dai dati del volantino) e accanto al lettore le miniature di tutte le pagine (`offerte.miniature`): un clic apre quella pagina. Su desktop anche i titoli di sezione (`SectionTitle`) sono molto più grandi e la sezione delle aree merceologiche arriva a 96rem di larghezza.
+**Sotto 1024 px** la testata è `components/layout/MobileHero.tsx`, con la foto mobile del reparto (`immagine`) e non quella larga, che tagliata per un telefono perderebbe il soggetto:
+- **sotto 544 px:** la foto copre la testata, velata di blu dal basso, con percorso, titolo sfumato, descrizione e pulsanti sopra;
+- **da 544 a 1023 px:** fondo blu, testo a sinistra e foto in un riquadro di 20 rem.
+
+Il confine è a 544 px perché la foto più piccola dei reparti è larga 1086 px: a tutta larghezza resta nitida fino a 543 px CSS (`MOBILE_HERO_MAX_CSS_WIDTH`, test `mobile-feedback`). L'entrata è quella desktop accorciata (circa 0,9 s), e nulla si muove con movimento ridotto. Il volantino usa la versione bassa (`compact`) senza pulsanti, perché subito sotto c'è il volantino con le sue azioni. Senza `immagineWide` resta la testata classica a ogni larghezza.
+
+Sulla pagina del volantino, da desktop, accanto alla copertina c'è la scheda «In breve» (`offerte.scheda`: pagine, date, negozi, PDF, tutti dai dati del volantino) e accanto al lettore le miniature di tutte le pagine (`offerte.miniature`): un clic apre quella pagina. Sotto 1024 px la scheda «In breve» sta sotto il titolo del volantino e sostituisce le righe di date e negozi. Le miniature sono una striscia da scorrere col dito sotto il lettore e prendono il posto dei pallini; la pagina aperta resta sempre in vista. Su desktop anche i titoli di sezione (`SectionTitle`) sono molto più grandi e la sezione delle aree merceologiche arriva a 96rem di larghezza.
 
 ### Aggiungere una campagna
 In `content/campaigns.json` aggiungi un oggetto (la campagna senza date è il default e non va rimossa):

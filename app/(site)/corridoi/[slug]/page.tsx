@@ -10,6 +10,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AisleHero } from "@/components/aisles/AisleHero";
+import { MobileHero } from "@/components/layout/MobileHero";
 import { WideHero } from "@/components/layout/WideHero";
 import { AisleCampaignBanner } from "@/components/aisles/AisleCampaignBanner";
 import { AisleShelves } from "@/components/aisles/AisleShelves";
@@ -75,37 +76,54 @@ export default async function AislePage({ params }: { params: Promise<Params> })
 
   return (
     <>
-      {/* Desktop: foto a tutta larghezza con titolo grande. Senza foto larga resta la testata classica anche su desktop. */}
-      {aisle.immagineWide && (
-        <WideHero
-          key={aisle.slug}
+      {/* Con la foto larga: desktop a tutta larghezza (WideHero), sotto 1024 px la versione da telefono (MobileHero) con la
+          foto del reparto. Senza foto larga resta la testata classica a ogni larghezza. */}
+      {aisle.immagineWide ? (
+        <>
+          <WideHero
+            key={aisle.slug}
+            titolo={aisle.titolo}
+            descrizione={aisle.descrizione}
+            immagine={aisle.immagineWide}
+            breadcrumbLabel={pages.breadcrumb.aria}
+            breadcrumb={breadcrumb}
+            actions={
+              <>
+                {aisle.scaffali.length > 0 && <Button href="#scaffali" variant="primary" size="lg">{copy.scaffali}</Button>}
+                <Button href="/dove-siamo/" variant="light" size="lg">{copy.negozi}</Button>
+              </>
+            }
+          />
+          <MobileHero
+            key={`m-${aisle.slug}`}
+            titolo={aisle.titolo}
+            descrizione={aisle.descrizione}
+            immagine={aisle.immagine}
+            breadcrumbLabel={pages.breadcrumb.aria}
+            breadcrumb={breadcrumb}
+            actions={
+              <>
+                {aisle.scaffali.length > 0 && <Button href="#scaffali" variant="primary">{copy.scaffali}</Button>}
+                <Button href="/dove-siamo/" variant="light">{copy.negozi}</Button>
+              </>
+            }
+          />
+        </>
+      ) : (
+        <AisleHero
           titolo={aisle.titolo}
           descrizione={aisle.descrizione}
-          immagine={aisle.immagineWide}
+          immagine={aisle.immagine}
           breadcrumbLabel={pages.breadcrumb.aria}
           breadcrumb={breadcrumb}
           actions={
             <>
-              {aisle.scaffali.length > 0 && <Button href="#scaffali" variant="primary" size="lg">{copy.scaffali}</Button>}
-              <Button href="/dove-siamo/" variant="light" size="lg">{copy.negozi}</Button>
+              {aisle.scaffali.length > 0 && <Button href="#scaffali" variant="secondary">{copy.scaffali}</Button>}
+              <Button href="/dove-siamo/" variant="outline">{copy.negozi}</Button>
             </>
           }
         />
       )}
-      <AisleHero
-        className={aisle.immagineWide ? "lg:hidden" : undefined}
-        titolo={aisle.titolo}
-        descrizione={aisle.descrizione}
-        immagine={aisle.immagine}
-        breadcrumbLabel={pages.breadcrumb.aria}
-        breadcrumb={breadcrumb}
-        actions={
-          <>
-            {aisle.scaffali.length > 0 && <Button href="#scaffali" variant="secondary">{copy.scaffali}</Button>}
-            <Button href="/dove-siamo/" variant="outline">{copy.negozi}</Button>
-          </>
-        }
-      />
       <AisleNav items={switcher} current={aisle.slug} label={copy.tuttiIReparti} />
       <AisleShelves scaffali={aisle.scaffali} titolo={aisle.scaffaliTitolo} intro={aisle.scaffaliIntro} />
 

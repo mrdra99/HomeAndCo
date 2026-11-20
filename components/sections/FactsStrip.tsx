@@ -27,7 +27,7 @@ function onTiltEnd(e: PointerEvent<HTMLLIElement>) {
 }
 
 /**
- * Fascia fatti. Mobile: due colonne con tutti i fatti, invariata.
+ * Fascia fatti. Mobile: due colonne con tutti i fatti, come schede di vetro su forme sfocate che si spostano appena.
  * Desktop: solo i fatti `desktop` (oggi tre) come schede di vetro su uno sfondo fluido (forme sfocate che si muovono
  * piano), che entrano una dopo l'altra quando la fascia arriva sullo schermo; l'icona sta in una goccia che cambia
  * forma, e al passaggio del mouse la scheda si inclina verso il cursore con un riflesso di luce.
@@ -51,24 +51,24 @@ export function FactsStrip({ facts, label }: { facts: HomeCopy["fatti"]; label: 
   }, []);
 
   return (
-    <section ref={ref} aria-label={label} data-inview={inView || undefined} className="facts border-y border-brand-blue-100 bg-brand-blue-50 lg:relative lg:isolate lg:overflow-hidden lg:py-12">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 hidden lg:block">
+    <section ref={ref} aria-label={label} data-inview={inView || undefined} className="facts relative isolate overflow-hidden border-y border-brand-blue-100 bg-brand-blue-50 py-5 lg:py-12">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
         <span className="facts-blob facts-blob-1" />
         <span className="facts-blob facts-blob-2" />
         <span className="facts-blob facts-blob-3" />
         <span className="facts-blob facts-blob-4" />
       </div>
       <Container size="wide" className="px-0 sm:px-8">
-        <ul className="grid grid-cols-2 lg:grid-cols-3 lg:gap-6 lg:[perspective:1100px]">
+        <ul className="grid grid-cols-2 gap-2.5 px-4 sm:px-0 lg:grid-cols-3 lg:gap-6 lg:[perspective:1100px]">
           {facts.map((fact, i) => (
             <li
               key={fact.titolo}
               style={{ "--i": i } as CSSProperties}
               onPointerMove={onTilt}
               onPointerLeave={onTiltEnd}
-              className={`facts-card flex items-center gap-3 px-4 py-3 sm:px-5 lg:gap-5 lg:px-7 lg:py-8 ${i % 2 === 1 ? "border-l border-brand-blue-100" : ""} ${i > 1 ? "border-t border-brand-blue-100 lg:border-t-0" : ""} ${i > 0 ? "lg:border-l lg:border-brand-blue-100" : ""} ${fact.desktop ? "" : "lg:hidden"}`}
+              className={`facts-card flex items-center gap-3 px-3 py-3.5 sm:px-5 lg:gap-5 lg:px-7 lg:py-8 ${i > 0 ? "lg:border-l lg:border-brand-blue-100" : ""} ${fact.desktop ? "" : "lg:hidden"}`}
             >
-              <span className="facts-icon flex size-11 shrink-0 items-center justify-center rounded-md bg-brand-blue-600 text-white lg:size-[4.5rem]">
+              <span className="facts-icon flex size-11 shrink-0 items-center justify-center bg-brand-blue-600 text-white lg:size-[4.5rem]">
                 <Icon name={isIconName(fact.icona) ? fact.icona : "check"} size={24} className="relative lg:size-9" />
               </span>
               <span className="relative min-w-0 leading-tight">
