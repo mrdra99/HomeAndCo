@@ -16,10 +16,10 @@ type Props = { groups: DepartmentGroup[]; copy: HomeCopy["reparti"] };
 const SPAN = ["lg:col-span-7", "lg:col-span-5", "lg:col-span-4", "lg:col-span-4", "lg:col-span-4"];
 /** Larghezze delle foto in px CSS (limite in lib/image-rules.ts → DEPARTMENT_CARD_MAX_CSS_WIDTH). */
 const SIZES = [
-  "(min-width: 1280px) 720px, (min-width: 1024px) 58vw, (min-width: 480px) 100vw, 100vw",
-  "(min-width: 1280px) 520px, (min-width: 1024px) 42vw, (min-width: 480px) 50vw, 100vw",
+  "(min-width: 1536px) 850px, (min-width: 1024px) 56vw, (min-width: 480px) 100vw, 100vw",
+  "(min-width: 1536px) 610px, (min-width: 1024px) 40vw, (min-width: 480px) 50vw, 100vw",
 ];
-const SIZES_SMALL = "(min-width: 1280px) 400px, (min-width: 1024px) 33vw, (min-width: 480px) 50vw, 100vw";
+const SIZES_SMALL = "(min-width: 1536px) 480px, (min-width: 1024px) 32vw, (min-width: 480px) 50vw, 100vw";
 
 /**
  * «I reparti»: una scheda grande per macro-area (foto, titolo del gruppo, reparti come link di testo su fondo pieno).
@@ -28,9 +28,10 @@ const SIZES_SMALL = "(min-width: 1280px) 400px, (min-width: 1024px) 33vw, (min-w
 export function DepartmentCards({ groups, copy }: Props) {
   return (
     <section id="corridoi" aria-labelledby="reparti-title" className="scroll-mt-24 bg-white py-7 sm:py-10">
-      <Container size="wide">
+      {/* Desktop: sezione piu' larga del resto (fino a 96rem) perche' le schede riempiano lo schermo. */}
+      <Container size="wide" className="lg:max-w-[96rem]">
         <SectionTitle id="reparti-title">{copy.titolo}</SectionTitle>
-        <ul className="grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 lg:grid-cols-12 lg:gap-4">
+        <ul className="grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 lg:grid-cols-12 lg:gap-5">
           {groups.map((group, i) => (
             <li key={group.titolo} className={cn("flex", i === 0 && "min-[480px]:max-lg:col-span-2", SPAN[i])}>
               <article
@@ -38,7 +39,7 @@ export function DepartmentCards({ groups, copy }: Props) {
                 className="on-dark flex w-full flex-col overflow-hidden rounded-[var(--radius-xl)] bg-brand-blue-900 text-white"
               >
                 {/* Desktop: schede piu' alte (feedback del 19/11); la larghezza, e quindi la nitidezza delle foto, non cambia. */}
-                <div className={cn("relative min-h-44 flex-1 bg-brand-blue-100", i < 2 ? "lg:min-h-80" : "lg:min-h-64")}>
+                <div className={cn("relative min-h-44 flex-1 bg-brand-blue-100", i < 2 ? "lg:min-h-[26rem]" : "lg:min-h-80")}>
                   <SmartImage
                     src={group.immagine.src}
                     alt={group.immagine.alt}

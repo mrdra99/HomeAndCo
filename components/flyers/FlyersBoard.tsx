@@ -53,6 +53,8 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
   const archived = archivedFlyers(flyers, today).filter((f) => f.id !== featured?.id);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [viewingId, setViewingId] = useState<string | null>(null);
+  // Pagina del lettore guidata dalle miniature (desktop); torna alla prima a ogni cambio di volantino.
+  const [pageState, setPageState] = useState<{ id: string; n: number } | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
   const viewing = archived.find((f) => f.id === viewingId) ?? null;
@@ -66,6 +68,8 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
   }, [viewingId]);
 
   const eyebrow = ended ? copy.archivio.concluso : latest ? copy.ultimo : preview ? copy.anteprima : copy.inCorso;
+  const page = selected && pageState?.id === selected.id ? pageState.n : 0;
+  const setPage = (n: number) => selected && setPageState({ id: selected.id, n });
 
   return (
     <>
@@ -114,32 +118,32 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
               role={available.length > 1 && !ended ? "tabpanel" : undefined}
               aria-labelledby={available.length > 1 && !ended ? `tab-${selected.id}` : undefined}
               key={selected.id}
-              className="grid scroll-mt-4 gap-5 sm:grid-cols-[14rem_minmax(0,1fr)] sm:gap-8 lg:grid-cols-[18rem_minmax(0,1fr)] lg:gap-12"
+              className="grid scroll-mt-4 gap-5 sm:grid-cols-[14rem_minmax(0,1fr)] sm:gap-8 lg:grid-cols-[22rem_minmax(0,1fr)_18rem] lg:items-center lg:gap-12 xl:grid-cols-[24rem_minmax(0,1fr)_20rem]"
             >
-              <a href="#sfoglia" aria-label={`${copy.sfoglia}: ${selected.titolo}`} className="group relative mx-auto block w-44 sm:w-full">
+              <a href="#sfoglia" aria-label={`${copy.sfoglia}: ${selected.titolo}`} className="group relative mx-auto block w-44 sm:w-full lg:transition-transform lg:duration-500 lg:hover:-rotate-2 lg:hover:scale-[1.02]">
                 <SmartImage
                   src={selected.copertina.src}
                   alt={selected.copertina.alt || `Copertina del volantino ${selected.titolo}`}
                   label={selected.copertina.label ?? `Copertina volantino ${selected.titolo}`}
                   ratio="210/297"
                   priority
-                  sizes="(min-width: 1024px) 288px, (min-width: 640px) 224px, 176px"
+                  sizes="(min-width: 1280px) 384px, (min-width: 1024px) 352px, (min-width: 640px) 224px, 176px"
                   rounded="rounded-md"
-                  className={cn("ring-2", ended ? "opacity-85 ring-brand-blue-100" : "ring-brand-magenta-600")}
+                  className={cn("ring-2 lg:shadow-[0_24px_60px_-18px_rgb(11_42_71/0.45)]", ended ? "opacity-85 ring-brand-blue-100" : "ring-brand-magenta-600")}
                   imgClassName="group-hover:scale-100"
                 />
               </a>
               <div>
                 <p
                   className={cn(
-                    "inline-block rounded-md px-2.5 py-1 text-sm font-extrabold uppercase tracking-wide",
+                    "inline-block rounded-md px-2.5 py-1 text-sm font-extrabold uppercase tracking-wide lg:px-3.5 lg:py-1.5 lg:text-base",
                     ended ? "bg-brand-blue-900 text-white" : "bg-brand-magenta-600 text-white",
                   )}
                 >
                   {eyebrow}
                 </p>
-                <h2 className="mt-3 border-l-[6px] border-brand-magenta-600 pl-3 text-brand-blue-900">{selected.titolo}</h2>
-                <p className="mt-4 inline-flex items-center gap-2 rounded-md bg-sand px-3 py-2 text-lg font-extrabold text-brand-blue-900">
+                <h2 className="mt-3 border-l-[6px] border-brand-magenta-600 pl-3 text-brand-blue-900 lg:mt-4 lg:border-l-8 lg:pl-4 lg:!text-[clamp(2.75rem,3.6vw,4.25rem)] lg:!font-black lg:!leading-[0.98]">{selected.titolo}</h2>
+                <p className="mt-4 inline-flex items-center gap-2 rounded-md bg-sand px-3 py-2 text-lg font-extrabold text-brand-blue-900 lg:mt-6 lg:px-4 lg:py-2.5 lg:text-xl">
                   <Icon name="calendar" size={22} className="text-brand-magenta-700" />
                   <span>{datesLabel(selected)}</span>
                 </p>
@@ -175,14 +179,69 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
                   )}
                 </div>
               </div>
+              {/* Desktop: scheda con i dati veri dell'edizione (pagine, date, negozi, PDF), nessun dato inventato. */}
+              {copy.scheda && (
+                <div className="hidden self-stretch rounded-[var(--radius-xl)] border border-brand-blue-100 bg-sand p-7 lg:flex lg:flex-col lg:justify-center">
+                  <p className="text-sm font-extrabold uppercase tracking-wider text-brand-blue-700">{copy.scheda.titolo}</p>
+                  <dl className="mt-5 flex flex-col gap-5">
+                  {selected.pagine.length > 0 && (
+                    <div>
+                      <dt className="text-sm font-semibold text-muted">{copy.scheda.pagine}</dt>
+                      <dd className="text-5xl font-black leading-none text-brand-magenta-600">{selected.pagine.length}</dd>
+                    </div>
+                  )}
+                  <div>
+                    <dt className="text-sm font-semibold text-muted">{copy.scheda.validita}</dt>
+                    <dd className="text-lg font-extrabold leading-snug text-brand-blue-900">{datesLabel(selected)}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-sm font-semibold text-muted">{copy.scheda.negozi}</dt>
+                    <dd className="text-lg font-extrabold leading-snug text-brand-blue-900">{storesLabel(selected, storeNames, ended ? copy.negoziConclusi : copy.negozi)}</dd>
+                  </div>
+                  {selected.pdf && selected.pdfDimensione && (
+                    <div>
+                      <dt className="text-sm font-semibold text-muted">{copy.scheda.pdf}</dt>
+                      <dd className="text-lg font-extrabold leading-snug text-brand-blue-900">{selected.pdfDimensione}</dd>
+                    </div>
+                  )}
+                  </dl>
+                </div>
+              )}
             </div>
           </Container>
 
           {selected.pagine.length > 0 && (
-            <div id="sfoglia" className="mt-7 scroll-mt-4 bg-sand py-6 sm:py-9">
-              <Container size="wide">
-                <SectionTitle note={copy.visore.istruzioni}>{copy.visore.titolo}</SectionTitle>
-                <FlyerViewer key={selected.id} pages={selected.pagine} title={selected.titolo} copy={copy.visore} />
+            <div id="sfoglia" className="mt-7 scroll-mt-4 bg-sand py-6 sm:py-9 lg:mt-12 lg:py-14">
+              {/* Desktop: a sinistra titolo e miniature di tutte le pagine (un clic apre quella pagina), a destra il lettore. */}
+              <Container size="wide" className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,36rem)] lg:items-start lg:gap-14">
+                <div>
+                  <SectionTitle note={copy.visore.istruzioni} className="lg:flex-col lg:items-start lg:justify-start lg:gap-3">{copy.visore.titolo}</SectionTitle>
+                  {copy.miniature && selected.pagine.length > 1 && (
+                    <div className="hidden lg:block">
+                      <p className="mt-2 text-sm font-extrabold uppercase tracking-wider text-brand-blue-700">{copy.miniature.titolo}</p>
+                      <ul className="mt-3 grid grid-cols-4 gap-4 xl:grid-cols-5">
+                        {selected.pagine.map((p, i) => (
+                          <li key={p.src ?? i}>
+                            <button
+                              type="button"
+                              onClick={() => setPage(i)}
+                              aria-label={copy.miniature!.vaiAllaPagina.replace("{n}", String(i + 1))}
+                              aria-current={i === page ? "true" : undefined}
+                              className={cn(
+                                "group/thumb block w-full overflow-hidden rounded-md bg-white ring-2 transition",
+                                i === page ? "ring-brand-magenta-600 shadow-lift" : "ring-brand-blue-100 hover:ring-brand-blue-600",
+                              )}
+                            >
+                              <SmartImage src={p.src} alt="" label={p.label ?? copy.visore.pagina.replace("{n}", String(i + 1))} ratio="210/297" sizes="140px" rounded="rounded-none" imgClassName="group-hover:scale-100" />
+                              <span className={cn("block py-1 text-center text-xs font-bold", i === page ? "bg-brand-magenta-600 text-white" : "text-brand-blue-800")}>{i + 1}</span>
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+                <FlyerViewer key={selected.id} pages={selected.pagine} title={selected.titolo} copy={copy.visore} index={page} onIndexChange={setPage} className="lg:sticky lg:top-28" />
               </Container>
             </div>
           )}
@@ -218,7 +277,7 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
             <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
               {archived.map((f) => (
                 <li key={f.id}>
-                  <article className="grid h-full grid-cols-[6rem_minmax(0,1fr)] gap-4 rounded-[var(--radius-lg)] border-2 border-brand-blue-100 bg-white p-3">
+                  <article className="grid h-full grid-cols-[6rem_minmax(0,1fr)] gap-4 rounded-[var(--radius-lg)] border-2 border-brand-blue-100 bg-white p-3 lg:grid-cols-[8.5rem_minmax(0,1fr)] lg:gap-5 lg:rounded-[var(--radius-xl)] lg:p-5 lg:transition lg:duration-300 lg:hover:-translate-y-1 lg:hover:border-brand-blue-600 lg:hover:shadow-lift">
                     <SmartImage
                       src={f.copertina.src}
                       alt={f.copertina.alt || `Copertina del volantino ${f.titolo}`}
@@ -226,11 +285,11 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
                       ratio="210/297"
                       rounded="rounded-md"
                       className="self-start opacity-85 ring-1 ring-brand-blue-100"
-                      sizes="96px"
+                      sizes="(min-width: 1024px) 136px, 96px"
                     />
                     <div className="flex min-w-0 flex-col">
                       <p className="w-fit rounded-md bg-brand-blue-900 px-2 py-0.5 text-xs font-extrabold uppercase tracking-wide text-white">{copy.archivio.concluso}</p>
-                      <h3 className="mt-1.5 !text-lg leading-tight text-brand-blue-900">{f.titolo}</h3>
+                      <h3 className="mt-1.5 !text-lg leading-tight text-brand-blue-900 lg:mt-2.5 lg:!text-2xl lg:!font-black">{f.titolo}</h3>
                       <p className="mt-1 text-sm font-semibold text-ink">{datesLabel(f)}</p>
                       <p className="text-sm text-muted">{storesLabel(f, storeNames, copy.negoziConclusi)}</p>
                       <div className="mt-auto flex flex-wrap gap-x-4 pt-2">

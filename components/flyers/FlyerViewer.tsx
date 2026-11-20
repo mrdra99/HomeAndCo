@@ -15,6 +15,9 @@ type FlyerViewerProps = {
   /** Etichette del lettore (content/pages.json: offerte.visore). */
   copy: PagesCopy["offerte"]["visore"];
   className?: string;
+  /** Facoltativi: pagina guidata da fuori (miniature su desktop). Senza, il lettore gestisce la pagina da solo. */
+  index?: number;
+  onIndexChange?: (index: number) => void;
 };
 
 const SWIPE_PX = 60;
@@ -43,8 +46,10 @@ function Arrow({ dir, onClick, disabled, className, label }: { dir: "prev" | "ne
  * scorre e si fa pinch col browser). Carica solo la pagina corrente e le adiacenti.
  * Pagine senza `src` -> Placeholder con etichetta.
  */
-export function FlyerViewer({ pages, title, copy, className }: FlyerViewerProps) {
-  const [index, setIndex] = useState(0);
+export function FlyerViewer({ pages, title, copy, className, index: controlledIndex, onIndexChange }: FlyerViewerProps) {
+  const [innerIndex, setInnerIndex] = useState(0);
+  const index = controlledIndex ?? innerIndex;
+  const setIndex = onIndexChange ?? setInnerIndex;
   const [dir, setDir] = useState(0);
   const [zoomOpen, setZoomOpen] = useState(false);
   const [zoomed, setZoomed] = useState(false);
@@ -74,7 +79,7 @@ export function FlyerViewer({ pages, title, copy, className }: FlyerViewerProps)
       setDir(delta);
       setIndex(n);
     },
-    [index, last],
+    [index, last, setIndex],
   );
 
   // Apertura/chiusura del dialog modale in base allo stato.

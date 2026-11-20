@@ -466,6 +466,12 @@ export const PagesCopySchema = z.object({
   offerte: z.object({
     titolo: text,
     intro: text,
+    /** Testata desktop a tutta larghezza (components/layout/WideHero.tsx): foto larga almeno 2880 px. */
+    immagineWide: RequiredImageSchema.optional(),
+    /** Desktop: scheda con i dati dell'edizione accanto alla copertina. */
+    scheda: z.object({ titolo: text, pagine: text, validita: text, negozi: text, pdf: text }).optional(),
+    /** Desktop: miniature delle pagine accanto al lettore. */
+    miniature: z.object({ titolo: text, vaiAllaPagina: template("{n}") }).optional(),
     inCorso: text,
     ultimo: text,
     testoUltimo: text,

@@ -28,7 +28,7 @@ const layer = "pointer-events-none fixed right-[-8vw] top-1/2 z-[25] select-none
 function MovingHeart() {
   const { scrollYProgress } = useScroll();
   const p = useSpring(scrollYProgress, { stiffness: 70, damping: 18, mass: 0.5 });
-  const opacity = useTransform(p, [0, 0.04, 0.16, 1], [0, 0, 0.2, 0.2]);
+  const opacity = useTransform(p, [0, 0.04, 0.16, 1], [0, 0, 0.36, 0.36]);
   const x = useTransform(p, [0, 1], ["0vw", "-36vw"]);
   const rotate = useTransform(p, [0, 1], [14, -36]);
   const scale = useTransform(p, [0, 0.5, 1], [0.78, 1.1, 1.2]);
@@ -42,7 +42,7 @@ function MovingHeart() {
 
 function StaticHeart() {
   return (
-    <div aria-hidden="true" data-effect="cuore" className={layer} style={{ width: SIZE, transform: "translate(-12vw, -50%) rotate(-14deg)", opacity: 0.14 }}>
+    <div aria-hidden="true" data-effect="cuore" className={layer} style={{ width: SIZE, transform: "translate(-12vw, -50%) rotate(-14deg)", opacity: 0.26 }}>
       {/* eslint-disable-next-line @next/next/no-img-element -- SVG decorativo */}
       <img src={HEART} alt="" className="block h-auto w-full" draggable={false} />
     </div>

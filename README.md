@@ -105,7 +105,7 @@ Su desktop i gruppi stanno direttamente nella barra bianca: passando il mouse (o
 
 ### Desktop e mobile: cosa vale dove
 Il feedback del 19/11/2026 riguarda **solo il desktop** (da 1024 px, `lg:` di Tailwind); il mobile è stato confermato e non si tocca. Le regole:
-- le classi nuove sono sempre `lg:` o superiori; dove serve un layout diverso c'è un componente solo desktop (`HomeBanner`, `AisleHeroWide`) e quello mobile resta com'è, con `lg:hidden`;
+- le classi nuove sono sempre `lg:` o superiori; dove serve un layout diverso c'è un componente solo desktop (`HomeBanner`, `WideHero`) e quello mobile resta com'è, con `lg:hidden`;
 - gli effetti (neve, cuore allo scorrimento) si montano solo dopo l'idratazione e solo se `(min-width: 1024px)` è vero (`lib/use-media-query.ts`): sotto quella larghezza non esistono nemmeno nel DOM;
 - le immagini solo desktop non sono `priority`: in un contenitore nascosto non vengono scaricate su mobile;
 - prima di chiudere un lavoro sul desktop si confrontano gli screenshot mobile a 390 px prima e dopo.
@@ -118,8 +118,10 @@ Si accendono con le **date della campagna**, come tutto il resto: in `content/ca
 
 La sezione della campagna in home (`collezione`) ha su desktop campi facoltativi: `titoloGrande` (la parola enorme, almeno metà schermo), `sottotitoloGrande`, `sfondo` (foto coperta da una velatura blu) e `galleria` (2-4 foto inclinate). Senza `titoloGrande` la sezione resta quella classica anche su desktop.
 
-### Testata desktop dei reparti
-Ogni reparto ha `immagineWide` in `content/aisles.json`: foto 2880 × 1200 px in `public/uploads/aisles/wide/<slug>.webp`, dagli originali del cliente (cartella `_Selezione`). Su desktop copre la testata da bordo a bordo, alta circa metà schermo, con il titolo grande sopra; senza `immagineWide` resta la testata classica. Su mobile resta sempre la testata classica.
+### Testata desktop dei reparti e del volantino
+Ogni reparto ha `immagineWide` in `content/aisles.json`: foto 2880 × 1200 px in `public/uploads/aisles/wide/<slug>.webp`, dagli originali del cliente (cartella `_Selezione`). Su desktop copre la testata da bordo a bordo, alta circa metà schermo, con il titolo grande sopra; senza `immagineWide` resta la testata classica. Su mobile resta sempre la testata classica. La pagina del volantino usa la stessa testata (`components/layout/WideHero.tsx`) con `content/pages.json` → `offerte.immagineWide`.
+
+Sulla pagina del volantino, da desktop, accanto alla copertina c'è la scheda «In breve» (`offerte.scheda`: pagine, date, negozi, PDF, tutti dai dati del volantino) e accanto al lettore le miniature di tutte le pagine (`offerte.miniature`): un clic apre quella pagina. Su desktop anche i titoli di sezione (`SectionTitle`) sono molto più grandi e la sezione delle aree merceologiche arriva a 96rem di larghezza.
 
 ### Aggiungere una campagna
 In `content/campaigns.json` aggiungi un oggetto (la campagna senza date è il default e non va rimossa):

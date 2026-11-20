@@ -7,6 +7,22 @@
   "offerte": {
     "titolo": "Volantino e offerte",
     "intro": "Sfoglia il volantino Home & Co. o scarica il PDF. Date e negozi sono indicati su ogni edizione.",
+    "immagineWide": {
+      "src": "/uploads/pages/offerte-wide.webp",
+      "alt": "Scaffali con i cartellini delle offerte in un negozio Home & Co.",
+      "position": "50% 50%"
+    },
+    "scheda": {
+      "titolo": "In breve",
+      "pagine": "Pagine",
+      "validita": "Valido",
+      "negozi": "Negozi",
+      "pdf": "PDF"
+    },
+    "miniature": {
+      "titolo": "Tutte le pagine",
+      "vaiAllaPagina": "Vai alla pagina {n}"
+    },
     "inCorso": "Volantino in corso",
     "anteprima": "Prossimo volantino · anteprima",
     "testoInCorso": "Sfoglia le pagine o scarica il PDF. Le offerte valgono solo nelle date e nei negozi indicati.",

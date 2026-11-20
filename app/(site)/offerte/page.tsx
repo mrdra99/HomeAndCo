@@ -11,6 +11,8 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { FlyersBoard } from "@/components/flyers/FlyersBoard";
 import { PromotionsGrid } from "@/components/flyers/PromotionsGrid";
+import { WideHero } from "@/components/layout/WideHero";
+import { Button } from "@/components/ui/Button";
 import { content } from "@/lib/content";
 import { toIsoDate } from "@/lib/campaigns";
 import { buildMetadata } from "@/lib/seo";
@@ -36,14 +38,33 @@ export default async function OffertePage() {
     ? `https://wa.me/${settings.whatsapp.numero}?text=${encodeURIComponent(settings.whatsapp.messaggioPredefinito)}`
     : null;
 
+  const breadcrumb = [
+    { label: pages.breadcrumb.home, href: "/" },
+    { label: copy.titolo, href: "/offerte/" },
+  ];
+
   return (
     <>
+      {/* Desktop: testata a tutta larghezza come nei reparti; sotto 1024 px resta la testata compatta. */}
+      {copy.immagineWide && (
+        <WideHero
+          titolo={copy.titolo}
+          descrizione={copy.intro}
+          immagine={copy.immagineWide}
+          breadcrumb={breadcrumb}
+          breadcrumbLabel={pages.breadcrumb.aria}
+          actions={
+            <>
+              <Button href="#sfoglia" variant="primary" size="lg">{copy.sfoglia}</Button>
+              <Button href="#archivio" variant="light" size="lg">{copy.archivio.titolo}</Button>
+            </>
+          }
+        />
+      )}
       <PageHeader
+        className={copy.immagineWide ? "lg:hidden" : undefined}
         breadcrumbLabel={pages.breadcrumb.aria}
-        breadcrumb={[
-          { label: pages.breadcrumb.home, href: "/" },
-          { label: copy.titolo, href: "/offerte/" },
-        ]}
+        breadcrumb={breadcrumb}
         title={copy.titolo}
         lead={copy.intro}
       />

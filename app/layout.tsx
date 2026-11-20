@@ -34,7 +34,9 @@ export const viewport: Viewport = {
  */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="it" className={figtree.variable} data-scroll-behavior="smooth">
+    // suppressHydrationWarning: lo script dello splash (lib/splash.ts) aggiunge data-splash="seen" a <html> prima
+    // dell'idratazione, voluto. Vale solo per gli attributi di questo tag, non per il resto della pagina.
+    <html lang="it" className={figtree.variable} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body>
         <MotionProvider>{children}</MotionProvider>
       </body>

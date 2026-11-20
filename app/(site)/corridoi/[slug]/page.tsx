@@ -10,7 +10,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AisleHero } from "@/components/aisles/AisleHero";
-import { AisleHeroWide } from "@/components/aisles/AisleHeroWide";
+import { WideHero } from "@/components/layout/WideHero";
 import { AisleCampaignBanner } from "@/components/aisles/AisleCampaignBanner";
 import { AisleShelves } from "@/components/aisles/AisleShelves";
 import { AisleStoresCta } from "@/components/aisles/AisleStoresCta";
@@ -77,7 +77,7 @@ export default async function AislePage({ params }: { params: Promise<Params> })
     <>
       {/* Desktop: foto a tutta larghezza con titolo grande. Senza foto larga resta la testata classica anche su desktop. */}
       {aisle.immagineWide && (
-        <AisleHeroWide
+        <WideHero
           key={aisle.slug}
           titolo={aisle.titolo}
           descrizione={aisle.descrizione}
