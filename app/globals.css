@@ -359,6 +359,61 @@ html[data-splash="seen"] .home-splash { display: none !important; }
   .home-splash-band { animation: splash-up 720ms cubic-bezier(0.76, 0, 0.24, 1) 1430ms both; }
 }
 
+/* ------------------------------------------------------------------
+   Fascia di chiusura dei reparti su desktop (components/aisles/AisleStoresCta.tsx).
+   ------------------------------------------------------------------ */
+@keyframes cta-reveal {
+  from { clip-path: inset(-15% 100% -15% 0); translate: -24px 0; }
+  to { clip-path: inset(-15% 0 -15% 0); translate: 0 0; }
+}
+@keyframes cta-shimmer { to { background-position: -200% 50%; } }
+@keyframes cta-underline { from { scale: 0 1; } to { scale: 1 1; } }
+@keyframes cta-spin { to { rotate: 360deg; } }
+@media (min-width: 1024px) {
+  .cta-band { background: linear-gradient(115deg, #0f6bb4 0%, #08578f 55%, #0a3f68 100%); }
+  .cta-glow { position: absolute; display: block; border-radius: 9999px; filter: blur(60px); }
+  .cta-glow-1 { width: 30vw; height: 30vw; left: -6vw; top: -60%; background: #d11559; opacity: 0.45; }
+  .cta-glow-2 { width: 26vw; height: 26vw; left: 38%; bottom: -80%; background: #5aa9e0; opacity: 0.5; }
+  .cta-glow-3 { width: 18vw; height: 18vw; right: 22%; top: -50%; background: #f0508c; opacity: 0.35; }
+  .cta-heart { position: absolute; right: -4vw; top: 50%; width: min(34vw, 30rem); translate: 0 -50%; opacity: 0.12; }
+  /* Nome del reparto: sfumatura leggera dei colori del logo, con sottolineatura fucsia. */
+  .cta-reparto {
+    position: relative;
+    display: inline-block;
+    background-image: linear-gradient(90deg, #ffffff 0%, #fde3ee 25%, #ffffff 50%, #d6e8f7 75%, #ffffff 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .cta-reparto::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.08em;
+    height: 0.12em;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, #d11559, #f0508c);
+    transform-origin: left;
+  }
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .cta-glow-1 { animation: facts-drift-1 16s ease-in-out infinite alternate, facts-morph 10s ease-in-out infinite alternate; }
+  .cta-glow-2 { animation: facts-drift-2 19s ease-in-out infinite alternate, facts-morph 12s ease-in-out infinite alternate-reverse; }
+  .cta-glow-3 { animation: facts-drift-4 14s ease-in-out infinite alternate; }
+  .cta-heart { animation: cta-spin 60s linear infinite; }
+  .cta-reparto { animation: cta-shimmer 6s linear infinite; }
+  /* Entrata quando la fascia arriva sullo schermo (data-inview, impostato da IntersectionObserver). */
+  .cta-band:not([data-inview]) .cta-title,
+  .cta-band:not([data-inview]) .cta-fade { opacity: 0; }
+  .cta-band:not([data-inview]) .cta-reparto::after { scale: 0 1; }
+  .cta-band[data-inview] .cta-title { animation: cta-reveal 1100ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .cta-band[data-inview] .cta-reparto::after { animation: cta-underline 700ms cubic-bezier(0.34, 1.56, 0.64, 1) 750ms both; }
+  .cta-band[data-inview] .cta-fade { animation: wide-fade 700ms cubic-bezier(0.16, 1, 0.3, 1) 450ms both; }
+  .cta-band[data-inview] .cta-fade-late { animation-delay: 650ms; }
+}
+
 @keyframes mobile-departments-open {
   from { opacity: 0; transform: translateY(0.75rem); }
   to { opacity: 1; transform: translateY(0); }
