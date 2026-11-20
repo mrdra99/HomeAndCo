@@ -110,7 +110,7 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
   return (
     <>
       {selected ? (
-        <section aria-label={eyebrow} className="bg-white py-6 sm:py-9">
+        <section aria-label={eyebrow} className="bg-white lg:bg-transparent py-6 sm:py-9">
           <Container size="wide">
             {available.length > 1 && !ended && (
               <div role="tablist" aria-label={copy.schede} className="hide-scrollbar -mx-5 mb-5 flex gap-2 overflow-x-auto px-5 sm:mx-0 sm:px-0">
@@ -308,7 +308,7 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
           )}
         </section>
       ) : (
-        <section aria-label={copy.nessuno.titolo} className="bg-white py-6 sm:py-9">
+        <section aria-label={copy.nessuno.titolo} className="bg-white lg:bg-transparent py-6 sm:py-9">
           <Container size="wide">
             <Notice title={copy.nessuno.titolo} className="max-w-3xl">
               <p>{copy.nessuno.testo}</p>
@@ -332,7 +332,7 @@ export function FlyersBoard({ flyers, buildDate, storeNames, social, whatsappHre
       )}
 
       {archived.length > 0 && (
-        <section id="archivio" aria-labelledby="archivio-title" className="scroll-mt-4 bg-white py-7 sm:py-10">
+        <section id="archivio" aria-labelledby="archivio-title" className="scroll-mt-4 bg-white lg:bg-transparent py-7 sm:py-10">
           <Container size="wide">
             <SectionTitle id="archivio-title" note={copy.archivio.nota}>{copy.archivio.titolo}</SectionTitle>
             <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">

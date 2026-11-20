@@ -27,7 +27,7 @@ const SIZES_SMALL = "(min-width: 1536px) 480px, (min-width: 1024px) 32vw, (min-w
  */
 export function DepartmentCards({ groups, copy }: Props) {
   return (
-    <section id="corridoi" aria-labelledby="reparti-title" className="scroll-mt-24 bg-white py-7 sm:py-10">
+    <section id="corridoi" aria-labelledby="reparti-title" className="scroll-mt-24 bg-white lg:bg-transparent py-7 sm:py-10">
       {/* Desktop: sezione piu' larga del resto (fino a 96rem) perche' le schede riempiano lo schermo. */}
       <Container size="wide" className="lg:max-w-[96rem]">
         <SectionTitle id="reparti-title">{copy.titolo}</SectionTitle>

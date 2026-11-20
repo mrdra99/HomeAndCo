@@ -50,7 +50,7 @@ export default async function ContattiPage() {
         lead={withForm ? copy.introModulo : copy.intro.replace("{email}", email)}
       />
 
-      <section className="bg-white py-6 sm:py-9">
+      <section className="bg-white lg:bg-transparent py-6 sm:py-9">
         <Container size="wide" className="space-y-6 sm:space-y-8">
           <div className={withForm ? "grid items-start gap-5 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-8" : undefined}>
             {withForm && (

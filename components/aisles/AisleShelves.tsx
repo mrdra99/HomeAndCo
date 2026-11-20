@@ -82,7 +82,7 @@ export function AisleShelves({ scaffali, titolo, intro }: AisleShelvesProps) {
   const few = scaffali.length < 3;
 
   return (
-    <section id="scaffali" aria-labelledby="scaffali-titolo" className="scroll-mt-4 bg-white py-7 sm:py-10">
+    <section id="scaffali" aria-labelledby="scaffali-titolo" className="scroll-mt-4 bg-white lg:bg-transparent py-7 sm:py-10">
       <Container size="wide">
         <SectionTitle id="scaffali-titolo" note={intro}>{titolo}</SectionTitle>
 

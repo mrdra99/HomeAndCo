@@ -12,7 +12,7 @@ type Props = { stores: Store[]; copy: HomeCopy["negozi"]; statusCopy: HeaderCopy
 /** "Dove siamo" (#dove-siamo): tre schede con stato adesso, indirizzo, orari, indicazioni, foto o riquadro con pin (nessuna mappa di terzi in home). */
 export function StoresSection({ stores, copy, statusCopy, neutralPrefix }: Props) {
   return (
-    <section id="dove-siamo" aria-labelledby="dove-siamo-title" className="bg-white py-7 sm:py-10">
+    <section id="dove-siamo" aria-labelledby="dove-siamo-title" className="bg-white lg:bg-transparent py-7 sm:py-10">
       <Container size="wide">
         <SectionTitle id="dove-siamo-title" note={copy.descrizione}>{copy.titolo}</SectionTitle>
         <ul className="grid gap-3 md:grid-cols-3 md:gap-4">

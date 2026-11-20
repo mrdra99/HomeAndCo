@@ -127,7 +127,7 @@ export default async function AislePage({ params }: { params: Promise<Params> })
       <AisleNav items={switcher} current={aisle.slug} label={copy.tuttiIReparti} />
       <AisleShelves scaffali={aisle.scaffali} titolo={aisle.scaffaliTitolo} intro={aisle.scaffaliIntro} />
 
-      <section className="bg-white py-6 sm:py-8">
+      <section className="bg-white lg:bg-transparent py-6 sm:py-8">
         <Container size="wide" className="space-y-5">
           <AisleCampaignBanner campaigns={campaigns} buildCampaignId={activeCampaign.id} slug={aisle.slug} />
         </Container>
