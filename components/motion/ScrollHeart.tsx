@@ -19,15 +19,19 @@ export function ScrollHeart() {
   return reduced ? <StaticHeart /> : <MovingHeart />;
 }
 
-const layer = "pointer-events-none fixed right-[-8vw] top-1/2 z-[25] select-none";
+/*
+ * mix-blend-multiply: sul bianco il cuore si vede netto nei colori del marchio, sul testo scuro sparisce
+ * (moltiplicare per il blu scuro resta blu scuro), quindi la leggibilita' non cambia.
+ */
+const layer = "pointer-events-none fixed right-[-8vw] top-1/2 z-[25] select-none mix-blend-multiply";
 
 function MovingHeart() {
   const { scrollYProgress } = useScroll();
   const p = useSpring(scrollYProgress, { stiffness: 70, damping: 18, mass: 0.5 });
-  const opacity = useTransform(p, [0, 0.04, 0.16, 1], [0, 0, 0.085, 0.085]);
+  const opacity = useTransform(p, [0, 0.04, 0.16, 1], [0, 0, 0.2, 0.2]);
   const x = useTransform(p, [0, 1], ["0vw", "-36vw"]);
   const rotate = useTransform(p, [0, 1], [14, -36]);
-  const scale = useTransform(p, [0, 0.5, 1], [0.78, 1.08, 1.18]);
+  const scale = useTransform(p, [0, 0.5, 1], [0.78, 1.1, 1.2]);
   return (
     <m.div aria-hidden="true" data-effect="cuore" className={layer} style={{ width: SIZE, y: "-50%", x, rotate, scale, opacity }}>
       {/* eslint-disable-next-line @next/next/no-img-element -- SVG decorativo, nessuna variante da generare */}
@@ -38,7 +42,7 @@ function MovingHeart() {
 
 function StaticHeart() {
   return (
-    <div aria-hidden="true" data-effect="cuore" className={layer} style={{ width: SIZE, transform: "translate(-12vw, -50%) rotate(-14deg)", opacity: 0.06 }}>
+    <div aria-hidden="true" data-effect="cuore" className={layer} style={{ width: SIZE, transform: "translate(-12vw, -50%) rotate(-14deg)", opacity: 0.14 }}>
       {/* eslint-disable-next-line @next/next/no-img-element -- SVG decorativo */}
       <img src={HEART} alt="" className="block h-auto w-full" draggable={false} />
     </div>

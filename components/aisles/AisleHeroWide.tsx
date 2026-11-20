@@ -20,9 +20,14 @@ type AisleHeroWideProps = {
  * che resta la testata sotto 1024 px.
  */
 export function AisleHeroWide({ titolo, descrizione, immagine, breadcrumb, breadcrumbLabel, actions }: AisleHeroWideProps) {
+  // Entrata (app/globals.css → .aisle-hero-*): due bande magenta e blu attraversano la testata e scoprono la foto,
+  // che si assesta con uno zoom; il titolo si rivela da sinistra mentre il colore lo attraversa. Solo CSS, una volta
+  // per pagina (la pagina monta il componente con key = slug), niente con movimento ridotto.
   return (
-    <header className="on-dark relative isolate hidden h-[clamp(26rem,54vh,40rem)] overflow-hidden bg-brand-blue-900 text-white lg:block">
-      <div className="absolute inset-0 -z-20">
+    <header className="aisle-hero on-dark relative isolate hidden h-[clamp(26rem,54vh,40rem)] overflow-hidden bg-brand-blue-900 text-white lg:block">
+      <span aria-hidden="true" className="aisle-hero-wipe aisle-hero-wipe-1" />
+      <span aria-hidden="true" className="aisle-hero-wipe aisle-hero-wipe-2" />
+      <div className="aisle-hero-photo absolute inset-0 -z-20">
         <SmartImage
           src={immagine.src}
           alt={immagine.alt}
@@ -58,10 +63,10 @@ export function AisleHeroWide({ titolo, descrizione, immagine, breadcrumb, bread
           </ol>
         </nav>
         <div className="mt-auto max-w-[60rem]">
-          <span aria-hidden="true" className="block h-2 w-24 rounded-full bg-brand-magenta-600" />
-          <h1 className="mt-5 !text-[clamp(3.25rem,5.6vw,6rem)] !font-black !leading-[0.95] text-white [text-shadow:0_4px_30px_rgb(0_0_0/0.35)]">{titolo}</h1>
-          <p className="mt-4 max-w-[40rem] text-xl leading-snug text-white/90">{descrizione}</p>
-          {actions && <div className="mt-7 flex flex-wrap gap-3">{actions}</div>}
+          <span aria-hidden="true" className="aisle-hero-bar block h-2 w-24 rounded-full bg-[linear-gradient(90deg,#d11559,#0f6bb4)]" />
+          <h1 className="aisle-hero-title mt-5 pb-2 !text-[clamp(3.25rem,5.6vw,6rem)] !font-black !leading-[0.98]">{titolo}</h1>
+          <p className="aisle-hero-fade mt-3 max-w-[40rem] text-xl leading-snug text-white/90">{descrizione}</p>
+          {actions && <div className="aisle-hero-fade aisle-hero-fade-late mt-7 flex flex-wrap gap-3">{actions}</div>}
         </div>
       </div>
     </header>

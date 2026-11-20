@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { HeroArt } from "@/components/campaign/HeroArt";
 import { useActiveCampaign } from "@/components/campaign/useActiveCampaign";
 import { Button } from "@/components/ui/Button";
@@ -70,10 +70,28 @@ export function HomeBanner({ campaigns, buildCampaignId, buildDate, copy, headin
 
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [hovered, setHovered] = useState(false);
+  // Pausa solo per chi naviga da tastiera dentro il banner: col mouse lo scorrimento non si ferma mai da solo
+  // (prima si fermava al passaggio del mouse e, dopo un clic su una freccia, restava fermo col focus sulla freccia).
+  const [keyboardFocus, setKeyboardFocus] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const rootRef = useRef<HTMLElement>(null);
   const go = useCallback((next: number) => setIndex(((next % count) + count) % count), [count]);
 
-  const running = count > 1 && !paused && !hovered && !reduced;
+  // Fermo quando il banner e' fuori dallo schermo o la scheda non e' visibile.
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting && !document.hidden), { threshold: 0.2 });
+    io.observe(el);
+    const onVisibility = () => setVisible(!document.hidden && el.getBoundingClientRect().bottom > 0);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, []);
+
+  const running = count > 1 && !paused && !keyboardFocus && !reduced && visible;
   useEffect(() => {
     if (!running) return;
     const id = window.setTimeout(() => go(index + 1), INTERVAL);
@@ -84,15 +102,14 @@ export function HomeBanner({ campaigns, buildCampaignId, buildDate, copy, headin
 
   return (
     <section
+      ref={rootRef}
       aria-roledescription="carousel"
       aria-label={copy.aria}
       data-home-banner
       className="on-dark relative hidden aspect-[3/1] w-full overflow-hidden bg-brand-blue-900 text-white lg:block"
-      onPointerEnter={() => setHovered(true)}
-      onPointerLeave={() => setHovered(false)}
-      onFocus={() => setHovered(true)}
+      onFocus={(e) => setKeyboardFocus((e.target as HTMLElement).matches(":focus-visible"))}
       onBlur={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setHovered(false);
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setKeyboardFocus(false);
       }}
       onKeyDown={(e) => {
         if (e.key === "ArrowRight") go(index + 1);
@@ -133,13 +150,14 @@ export function HomeBanner({ campaigns, buildCampaignId, buildDate, copy, headin
                 <div className="absolute inset-0 -z-20">{media}</div>
                 <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(3_15_27/0.86),rgb(3_15_27/0.5)_38%,rgb(3_15_27/0.05)_72%)]" />
                 {slide.credito && <span className="absolute bottom-3 right-4 rounded bg-brand-blue-900/90 px-2 py-0.5 text-[11px] text-white/90">{slide.credito}</span>}
-                <div className="mx-auto flex h-full w-full max-w-7xl items-center px-8">
-                  <div key={active ? `on-${index}` : "off"} className={cn("max-w-[40rem]", active && "banner-in")}>
-                    {slide.etichetta && <span className="inline-block rounded-md bg-brand-magenta-600 px-3 py-1.5 text-sm font-extrabold uppercase tracking-wide">{slide.etichetta}</span>}
-                    <BannerTitle as={i === 0 ? Heading : "h2"}>{slide.titolo}</BannerTitle>
-                    {slide.testo && <p className="mt-4 max-w-[34rem] text-lg leading-snug text-white/90 xl:text-xl">{slide.testo}</p>}
+                {/* Rientro sinistro: mai meno di 6 rem, cosi' la freccia laterale non tocca il titolo; da 1440 px allineato al logo. */}
+                <div className="flex h-full w-full items-center pr-24 [padding-left:max(6.5rem,calc((100vw-80rem)/2+2rem))]">
+                  <div key={active ? `on-${index}` : "off"} className={cn("max-w-[56rem]", active && "banner-in")}>
+                    {slide.etichetta && <span className="inline-block rounded-md bg-brand-magenta-600 px-3.5 py-2 text-base font-extrabold uppercase tracking-wide xl:text-lg">{slide.etichetta}</span>}
+                    <BannerTitle as={i === 0 ? Heading : "h2"} big={i === 0}>{slide.titolo}</BannerTitle>
+                    {slide.testo && <p className="mt-4 max-w-[38rem] text-xl leading-snug text-white/90 xl:text-2xl">{slide.testo}</p>}
                     {(slide.cta || slide.ctaSecondaria) && (
-                      <div className="mt-6 flex flex-wrap gap-3">
+                      <div className="mt-7 flex flex-wrap gap-3">
                         {slide.cta && <Button href={slide.cta.href} variant="primary" size="lg">{slide.cta.label}</Button>}
                         {slide.ctaSecondaria && <Button href={slide.ctaSecondaria.href} variant="light" size="lg">{slide.ctaSecondaria.label}</Button>}
                       </div>
@@ -160,9 +178,10 @@ export function HomeBanner({ campaigns, buildCampaignId, buildDate, copy, headin
 
       {count > 1 && (
         <>
-          {/* Comandi in basso al centro: frecce ai lati dei pallini, cosi' non coprono mai il titolo. */}
+          {/* Frecce ai lati, a meta' altezza; pallini e pausa in basso al centro. */}
+          <ArrowButton side="left" label={copy.precedente} onClick={() => go(index - 1)} />
+          <ArrowButton side="right" label={copy.successivo} onClick={() => go(index + 1)} />
           <div className="absolute inset-x-0 bottom-5 z-20 flex items-center justify-center gap-2">
-            <ArrowButton side="left" label={copy.precedente} onClick={() => go(index - 1)} />
             {slides.map((slide, i) => (
               <button
                 key={slide.key}
@@ -183,7 +202,6 @@ export function HomeBanner({ campaigns, buildCampaignId, buildDate, copy, headin
                 </span>
               </button>
             ))}
-            <ArrowButton side="right" label={copy.successivo} onClick={() => go(index + 1)} />
             <button
               type="button"
               aria-label={paused || reduced ? copy.riprendi : copy.pausa}
@@ -200,8 +218,18 @@ export function HomeBanner({ campaigns, buildCampaignId, buildDate, copy, headin
   );
 }
 
-function BannerTitle({ as: Tag, children }: { as: "h1" | "h2"; children: ReactNode }) {
-  return <Tag className="mt-4 !text-[clamp(3rem,4.4vw,5.25rem)] !font-black !leading-[0.95] text-white">{children}</Tag>;
+/** Il titolo della campagna (prima slide) e' il piu' grande della pagina; le altre slide restano un gradino sotto. */
+function BannerTitle({ as: Tag, big, children }: { as: "h1" | "h2"; big: boolean; children: ReactNode }) {
+  return (
+    <Tag
+      className={cn(
+        "mt-5 !font-black !leading-[0.92] !tracking-[-0.035em] text-white [text-shadow:0_4px_32px_rgb(0_0_0/0.35)]",
+        big ? "!text-[clamp(3.75rem,6.2vw,7.75rem)]" : "!text-[clamp(3rem,4.4vw,5.25rem)]",
+      )}
+    >
+      {children}
+    </Tag>
+  );
 }
 
 function ArrowButton({ side, label, onClick }: { side: "left" | "right"; label: string; onClick: () => void }) {
@@ -211,11 +239,11 @@ function ArrowButton({ side, label, onClick }: { side: "left" | "right"; label: 
       aria-label={label}
       onClick={onClick}
       className={cn(
-        "flex size-11 items-center justify-center rounded-full bg-white/90 text-brand-blue-900 shadow-lift hover:bg-white",
-        side === "left" ? "mr-1" : "ml-1",
+        "absolute top-1/2 z-20 flex size-14 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-brand-blue-900 shadow-lift hover:bg-white",
+        side === "left" ? "left-6" : "right-6",
       )}
     >
-      <Icon name="arrow-right" size={22} className={side === "left" ? "rotate-180" : undefined} />
+      <Icon name="arrow-right" size={26} className={side === "left" ? "rotate-180" : undefined} />
     </button>
   );
 }

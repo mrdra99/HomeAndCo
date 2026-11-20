@@ -30,9 +30,15 @@
       },
       {
         "immagine": {
-          "src": null,
-          "alt": "",
-          "label": "Grafica banner 3 (3840 × 1280 px)"
+          "src": "/uploads/banner/fiori-decorazioni.webp",
+          "alt": "Fiori decorativi bianchi sugli scaffali del reparto feste",
+          "position": "50% 50%"
+        },
+        "etichetta": "Reparto feste e idee regalo",
+        "titolo": "Fiori e decorazioni per la casa (segnaposto)",
+        "cta": {
+          "label": "Vai al reparto",
+          "href": "/corridoi/feste-e-regalo/"
         }
       }
     ]

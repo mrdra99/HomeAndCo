@@ -33,7 +33,15 @@ export default async function SiteLayout({ children }: { children: ReactNode }) 
       >
         {settings.testata.a11y.saltaAlContenuto}
       </a>
-      <Header items={navigation.voci} groups={navigation.gruppi} stores={stores} copy={settings.testata} instagramUrl={settings.social.instagram} />
+      <Header
+        items={navigation.voci}
+        groups={navigation.gruppi}
+        stores={stores}
+        copy={settings.testata}
+        instagramUrl={settings.social.instagram}
+        campaigns={campaigns}
+        buildCampaignId={activeCampaign.id}
+      />
       {/* pb-tabbar: lo spazio della tab bar fissa (solo sotto 1024 px) e dell'area sicura, cosi' il footer non finisce sotto. */}
       <div className="pb-tabbar">
         <main id="contenuto" tabIndex={-1} className="outline-none">

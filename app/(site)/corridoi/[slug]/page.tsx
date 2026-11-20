@@ -78,6 +78,7 @@ export default async function AislePage({ params }: { params: Promise<Params> })
       {/* Desktop: foto a tutta larghezza con titolo grande. Senza foto larga resta la testata classica anche su desktop. */}
       {aisle.immagineWide && (
         <AisleHeroWide
+          key={aisle.slug}
           titolo={aisle.titolo}
           descrizione={aisle.descrizione}
           immagine={aisle.immagineWide}

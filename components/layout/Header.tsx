@@ -11,6 +11,8 @@ import { DEPARTMENT_PREFIX, groupDepartments, type DepartmentGroup } from "@/lib
 import { cn } from "@/lib/utils";
 import { MENU_OPEN_EVENT, StoreChip } from "./StoreChip";
 import { TabBar } from "./TabBar";
+import { useActiveCampaign } from "@/components/campaign/useActiveCampaign";
+import type { Campaign } from "@/lib/content/schemas";
 
 const CORRIDOI_PREFIX = DEPARTMENT_PREFIX;
 /** Ritardi del passaggio del mouse: aprire non deve scattare sfiorando la barra, chiudere non deve scattare uscendo di un pixel. */
@@ -25,7 +27,25 @@ type HeaderProps = {
   stores: Store[];
   copy: HeaderCopy;
   instagramUrl: string;
+  /** Campagne: la voce di stagione nella barra desktop segue la campagna attiva per data. */
+  campaigns: Campaign[];
+  buildCampaignId: string;
 };
+
+/**
+ * Voce di stagione della barra desktop, dalla `collezione` della campagna attiva: titolo grande (es. «Natale»),
+ * le idee come voci della tendina (ognuna porta al suo reparto) e la foto del collage. Senza collezione non c'e'.
+ */
+function seasonalMenu(campaign: Campaign): DepartmentGroup | null {
+  const c = campaign.collezione;
+  if (!c) return null;
+  const image = c.galleria[0] ?? c.idee.find((i) => i.immagine?.src)?.immagine;
+  return {
+    titolo: c.titoloGrande ?? campaign.etichetta ?? c.titolo,
+    immagine: image ?? { src: null, alt: "" },
+    items: c.idee.map((idea) => ({ label: idea.titolo, href: `/corridoi/${idea.corridoio}/`, evidenza: false, soloPiede: false })),
+  };
+}
 
 /**
  * Testata (desktop): fascia blu 900 con avviso, Negozi, Contatti, "Il tuo negozio" e Instagram; poi una sola riga bianca
@@ -34,8 +54,10 @@ type HeaderProps = {
  * (logo + negozio) e tab bar fissa in basso, invariate.
  * Scorrimento: solo la riga bianca e' `sticky`; la fascia blu scorre via con la pagina.
  */
-export function Header({ items, groups, stores, copy, instagramUrl }: HeaderProps) {
+export function Header({ items, groups, stores, copy, instagramUrl, campaigns, buildCampaignId }: HeaderProps) {
   const [open, setOpen] = useState<number | null>(null);
+  const campaign = useActiveCampaign(campaigns, buildCampaignId);
+  const season = seasonalMenu(campaign);
   const pathname = usePathname();
   const rootRef = useRef<HTMLElement>(null);
   const timer = useRef<number | undefined>(undefined);
@@ -43,6 +65,11 @@ export function Header({ items, groups, stores, copy, instagramUrl }: HeaderProp
   const focusFirst = useRef(false);
 
   const departmentGroups = groupDepartments(items, groups);
+  // Tendine della barra: i gruppi di reparti e, in coda, la voce di stagione (se la campagna attiva ne ha una).
+  const menus: { group: DepartmentGroup; season: boolean }[] = [
+    ...departmentGroups.map((group) => ({ group, season: false })),
+    ...(season ? [{ group: season, season: true }] : []),
+  ];
   const main = items.filter((i) => !i.href.startsWith(CORRIDOI_PREFIX) && !i.soloPiede);
   const primary = main.filter((i) => !i.evidenza);
   const highlighted = main.filter((i) => i.evidenza);
@@ -136,15 +163,17 @@ export function Header({ items, groups, stores, copy, instagramUrl }: HeaderProp
 
           <nav aria-label={copy.a11y.navigazione} className="hidden lg:block lg:flex-1 lg:self-stretch">
             <ul className="flex h-full items-center gap-0.5">
-              {departmentGroups.map((group, i) => (
+              {menus.map(({ group, season: isSeason }, i) => (
                 <DepartmentMenu
                   key={group.titolo}
                   group={group}
                   index={i}
-                  alignRight={i >= departmentGroups.length - 2}
+                  alignRight={i >= menus.length - 2}
                   open={open === i}
                   pathname={pathname}
-                  allLabel={copy.repartiLabel}
+                  allLabel={isSeason ? campaign.cta.label : copy.repartiLabel}
+                  allHref={isSeason ? campaign.cta.href : "/#corridoi"}
+                  season={isSeason}
                   onHover={(entering) => {
                     if (entering) {
                       schedule(() => {
@@ -211,6 +240,9 @@ type DepartmentMenuProps = {
   open: boolean;
   pathname: string;
   allLabel: string;
+  allHref: string;
+  /** Voce di stagione: magenta, per distinguerla dai reparti. */
+  season: boolean;
   onHover: (entering: boolean) => void;
   onToggle: () => void;
   onArrowDown: () => void;
@@ -222,9 +254,9 @@ type DepartmentMenuProps = {
  * Un gruppo nella barra: titolo (pulsante con aria-expanded) e tendina con i suoi reparti e la foto del gruppo.
  * La voce occupa tutta l'altezza della barra, cosi' la tendina parte dal bordo inferiore e il mouse ci arriva senza vuoti.
  */
-function DepartmentMenu({ group, index, alignRight, open, pathname, allLabel, onHover, onToggle, onArrowDown, onLeaveFocus, onNavigate }: DepartmentMenuProps) {
+function DepartmentMenu({ group, index, alignRight, open, pathname, allLabel, allHref, season, onHover, onToggle, onArrowDown, onLeaveFocus, onNavigate }: DepartmentMenuProps) {
   const panelId = `reparti-gruppo-menu-${index}`;
-  const active = group.items.some((item) => pathname === item.href);
+  const active = !season && group.items.some((item) => pathname === item.href);
   return (
     <li
       className="relative flex h-full items-center"
@@ -248,8 +280,10 @@ function DepartmentMenu({ group, index, alignRight, open, pathname, allLabel, on
         className={cn(
           "relative inline-flex min-h-11 items-center gap-1 rounded-md px-2.5 text-[0.95rem] font-bold transition-colors",
           "after:absolute after:inset-x-2.5 after:-bottom-[0.9rem] after:h-[3px] after:rounded-full after:bg-brand-magenta-600 after:transition-transform after:duration-200 after:content-['']",
-          open || active ? "text-brand-blue-700 after:scale-x-100" : "text-brand-blue-900 after:scale-x-0 hover:text-brand-blue-700",
-          open && "bg-brand-blue-50",
+          season
+            ? cn("font-extrabold text-brand-magenta-700 hover:text-brand-magenta-600", open ? "bg-brand-magenta-50 after:scale-x-100" : "after:scale-x-0")
+            : open || active ? "text-brand-blue-700 after:scale-x-100" : "text-brand-blue-900 after:scale-x-0 hover:text-brand-blue-700",
+          open && !season && "bg-brand-blue-50",
         )}
       >
         <span className="xl:hidden">{group.breve ?? group.titolo}</span>
@@ -287,7 +321,7 @@ function DepartmentMenu({ group, index, alignRight, open, pathname, allLabel, on
                   </li>
                 ))}
               </ul>
-              <Link href="/#corridoi" onClick={onNavigate} className="mt-3 inline-flex min-h-11 items-center gap-1.5 text-sm font-extrabold text-brand-magenta-700 underline-offset-4 hover:underline">
+              <Link href={allHref} onClick={onNavigate} className="mt-3 inline-flex min-h-11 items-center gap-1.5 text-sm font-extrabold text-brand-magenta-700 underline-offset-4 hover:underline">
                 {allLabel}
                 <Icon name="arrow-right" size={16} />
               </Link>
