@@ -305,7 +305,7 @@ function DepartmentMenu({ group, index, alignRight, open, pathname, allLabel, al
               <p className="border-b-2 border-brand-blue-100 pb-2 text-[0.8125rem] font-extrabold uppercase tracking-wider text-brand-blue-700">{group.titolo}</p>
               <ul className="mt-2">
                 {group.items.map((item) => (
-                  <li key={item.href}>
+                  <li key={`${item.href}|${item.label}`}>
                     <Link
                       href={item.href}
                       onClick={onNavigate}
