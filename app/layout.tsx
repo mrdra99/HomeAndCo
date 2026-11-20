@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Figtree } from "next/font/google";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { SITE_CLAIM, SITE_NAME, SITE_URL } from "@/lib/site";
+import { SPLASH_SEEN_SCRIPT } from "@/lib/splash";
 import "./globals.css";
 
 const figtree = Figtree({
@@ -37,6 +38,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     // suppressHydrationWarning: lo script dello splash (lib/splash.ts) aggiunge data-splash="seen" a <html> prima
     // dell'idratazione, voluto. Vale solo per gli attributi di questo tag, non per il resto della pagina.
     <html lang="it" className={figtree.variable} data-scroll-behavior="smooth" suppressHydrationWarning>
+      <head>
+        {/* Qui e non nella home: un <script> che React crea nel client (pagina ridisegnata dopo una navigazione) non
+            viene eseguito e in sviluppo avvisa; il root layout invece si idrata soltanto, mai ricreato. Sincrono nell'<head>,
+            quindi gira prima del disegno. Non next/script beforeInteractive: in App Router lo accoda e lo esegue dopo i chunk. */}
+        <script dangerouslySetInnerHTML={{ __html: SPLASH_SEEN_SCRIPT }} />
+      </head>
       <body>
         <MotionProvider>{children}</MotionProvider>
       </body>

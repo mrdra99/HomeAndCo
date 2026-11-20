@@ -29,7 +29,7 @@ function shouldSkip(): boolean {
  * Sequenza tutta in CSS (app/globals.css → .home-splash*), quindi parte anche prima dell'idratazione: il cuore entra con
  * un rimbalzo e un'onda, compare la scritta, poi lo schermo bianco sale e scopre la home seguito da una banda magenta.
  * Dura meno di 2,2 s; un clic o un tasto lo chiudono subito. Decorativo: aria-hidden, nessun focus intrappolato.
- * Chi l'ha gia' visto non lo rivede: lo nasconde lo script SPLASH_SEEN_SCRIPT (lib/splash.ts) prima del disegno.
+ * Chi l'ha gia' visto non lo rivede: lo nasconde lo script SPLASH_SEEN_SCRIPT (lib/splash.ts, caricato in app/layout.tsx) prima del disegno.
  */
 export function HomeSplash() {
   const skip = useSyncExternalStore(subscribeNothing, shouldSkip, () => false);

@@ -10,7 +10,6 @@ import { StoreVideos } from "@/components/sections/StoreVideos";
 import { StoresSection } from "@/components/sections/StoresSection";
 import { Container } from "@/components/ui/Container";
 import { HomeSplash } from "@/components/motion/HomeSplash";
-import { SPLASH_SEEN_SCRIPT } from "@/lib/splash";
 import { content, getActiveCampaign } from "@/lib/content";
 import { toIsoDate } from "@/lib/campaigns";
 import { groupDepartments } from "@/lib/navigation";
@@ -55,8 +54,7 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Splash alla prima visita (solo desktop): lo script lo nasconde prima del disegno a chi l'ha gia' visto. */}
-      <script dangerouslySetInnerHTML={{ __html: SPLASH_SEEN_SCRIPT }} />
+      {/* Splash alla prima visita (solo desktop): a chi l'ha gia' visto lo nasconde SPLASH_SEEN_SCRIPT, nel root layout. */}
       <HomeSplash />
       <PromoBoard
         campaigns={campaigns}
