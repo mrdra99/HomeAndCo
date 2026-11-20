@@ -51,7 +51,17 @@ export function DepartmentCards({ groups, copy }: Props) {
                   />
                 </div>
                 <div className="p-4 sm:p-5 lg:p-6">
-                  <h3 id={`reparti-gruppo-${i}`} className="!text-xl !font-black leading-tight text-white lg:!text-[1.625rem]">{group.titolo}</h3>
+                  {/* Desktop: titoli alternati nell'azzurro e nel fucsia del logo (tinte chiare, contrasto in globals.css),
+                      cosi' si distinguono dai reparti bianchi sotto. Mobile invariato. */}
+                  <h3
+                    id={`reparti-gruppo-${i}`}
+                    className={cn(
+                      "!text-xl !font-black leading-tight text-white lg:!text-[1.75rem]",
+                      i % 2 === 0 ? "lg:text-brand-blue-300" : "lg:text-brand-magenta-400",
+                    )}
+                  >
+                    {group.titolo}
+                  </h3>
                   <ul className={cn("mt-2 grid gap-x-4", i === 0 && "sm:grid-cols-2")}>
                     {group.items.map((item) => (
                       <li key={item.href}>

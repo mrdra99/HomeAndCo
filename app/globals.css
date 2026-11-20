@@ -16,6 +16,11 @@
        ink #14233b su sand .............. 14.11 */
   --color-brand-blue-50: #eaf3fa;
   --color-brand-blue-100: #cfe4f3;
+  /* Tinte chiare dei colori del logo per testo su blu 900 (titoli delle schede delle aree, desktop):
+       blu 300 #5aa9e0 su blu 900 ....... 6.25  OK
+       magenta 400 #f0508c su blu 900 ... 4.33  OK per testo grande (>= 24 px o 19 px grassetto) */
+  --color-brand-blue-300: #5aa9e0;
+  --color-brand-magenta-400: #f0508c;
   --color-brand-blue-600: #0f6bb4;
   --color-brand-blue-700: #08578f;
   --color-brand-blue-800: #0a3f68;

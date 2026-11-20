@@ -19,6 +19,7 @@ type AisleShelvesProps = {
 
 const SWIPE_PX = 60;
 const CARD_SIZES = "(min-width: 1024px) 384px, (min-width: 640px) 45vw, 80vw";
+const CARD_SIZES_FEW = "(min-width: 1024px) 600px, (min-width: 640px) 45vw, 80vw";
 
 /**
  * Foto degli scaffali di una categoria. Smartphone: scorrimento orizzontale con scroll-snap;
@@ -76,13 +77,16 @@ export function AisleShelves({ scaffali, titolo, intro }: AisleShelvesProps) {
 
   const current = open !== null ? scaffali[open] : null;
   const caption = current ? [current.titolo, current.descrizione].filter(Boolean).join(" - ") : "";
+  // Desktop con meno di 3 foto: due colonne a tutta riga in formato 4:3 (niente vuoto a destra sotto la descrizione).
+  // Le foto restano nitide: al massimo 600 px CSS, foto larghe almeno 1350 px. Sotto 1024 px invariato.
+  const few = scaffali.length < 3;
 
   return (
     <section id="scaffali" aria-labelledby="scaffali-titolo" className="scroll-mt-4 bg-white py-7 sm:py-10">
       <Container size="wide">
         <SectionTitle id="scaffali-titolo" note={intro}>{titolo}</SectionTitle>
 
-        <ul className="hide-scrollbar -mx-5 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto px-5 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 lg:grid-cols-3">
+        <ul className={`hide-scrollbar -mx-5 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto px-5 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 ${few ? "lg:grid-cols-2 lg:gap-5" : "lg:grid-cols-3"}`}>
           {scaffali.map((s, i) => (
             <li key={`${s.immagine.src}-${i}`} className="w-[80%] shrink-0 snap-start sm:w-auto">
               <button
@@ -99,8 +103,9 @@ export function AisleShelves({ scaffali, titolo, intro }: AisleShelvesProps) {
                   ratio="1/1"
                   position={s.immagine.position}
                   imgClassName="scale-[1.12] group-hover:scale-[1.12]"
-                  sizes={CARD_SIZES}
+                  sizes={few ? CARD_SIZES_FEW : CARD_SIZES}
                   rounded="rounded-none"
+                  className={few ? "lg:!aspect-[4/3]" : undefined}
                 />
                 {(s.titolo || s.descrizione) && (
                   <span className="block p-3">

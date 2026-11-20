@@ -51,6 +51,12 @@ export function FlyerViewer({ pages, title, copy, className, index: controlledIn
   const index = controlledIndex ?? innerIndex;
   const setIndex = onIndexChange ?? setInnerIndex;
   const [dir, setDir] = useState(0);
+  // Pagina cambiata da fuori (miniature): direzione dell'animazione ricavata dal salto, aggiornata durante il render.
+  const [lastIndex, setLastIndex] = useState(index);
+  if (lastIndex !== index) {
+    setLastIndex(index);
+    setDir(index > lastIndex ? 1 : -1);
+  }
   const [zoomOpen, setZoomOpen] = useState(false);
   const [zoomed, setZoomed] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);

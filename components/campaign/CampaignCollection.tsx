@@ -157,7 +157,8 @@ export function CampaignCollection({ campaigns, buildCampaignId, copy, aisles }:
                     label={idea.titolo}
                     ratio="4/3"
                     position={idea.immagine.position}
-                    sizes={big ? "(min-width: 1024px) 28vw, (min-width: 640px) 230px, 72vw" : "(min-width: 1024px) 300px, (min-width: 640px) 230px, 72vw"}
+                    // Desktop in px, non in vw: un vw piu' piccolo di 72 cambierebbe le varianti proposte anche al mobile.
+                    sizes={big ? "(min-width: 1024px) 540px, (min-width: 640px) 230px, 72vw" : "(min-width: 1024px) 300px, (min-width: 640px) 230px, 72vw"}
                     rounded="rounded-none"
                     imgClassName="group-hover:scale-100"
                   />
