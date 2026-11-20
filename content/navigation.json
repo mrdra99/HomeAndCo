@@ -87,6 +87,7 @@
   "gruppi": [
     {
       "titolo": "Per la casa",
+      "breve": "Casa",
       "immagine": {
         "src": "/uploads/aisles/casa-e-cucina-dettaglio-1.webp",
         "alt": "Piatti e ciotole sugli scaffali Home & Co."
@@ -100,6 +101,7 @@
     },
     {
       "titolo": "Pulizia e cura",
+      "breve": "Pulizia",
       "immagine": {
         "src": "/uploads/aisles/cura-persona-e-beauty-dettaglio-1.webp",
         "alt": "Prodotti per la cura della persona sugli scaffali Home & Co."
@@ -111,6 +113,7 @@
     },
     {
       "titolo": "Regali e tempo libero",
+      "breve": "Regali",
       "immagine": {
         "src": "/uploads/aisles/feste-e-regalo-dettaglio-3.webp",
         "alt": "Buste e confezioni regalo sugli scaffali Home & Co."
@@ -123,6 +126,7 @@
     },
     {
       "titolo": "Animali e giardino",
+      "breve": "Giardino",
       "immagine": {
         "src": "/uploads/aisles/animali-dettaglio-1.webp",
         "alt": "Prodotti per animali sugli scaffali Home & Co."
@@ -134,6 +138,7 @@
     },
     {
       "titolo": "Fai da te e auto",
+      "breve": "Fai da te",
       "immagine": {
         "src": "/uploads/aisles/ferramenta-e-fai-da-te-dettaglio-1.webp",
         "alt": "Utensili e ferramenta sugli scaffali Home & Co."

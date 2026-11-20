@@ -99,7 +99,27 @@ public/
 Ogni JSON è validato all'avvio/build: se sbagli un campo l'errore dice file e percorso. I campi `"provvisorio": true` segnalano testi o dati da confermare.
 
 ### Menu
-Un solo file: `content/navigation.json`, oggetto con `voci` (array di `{ "label", "href", "evidenza"? }`, **massimo 10 voci** oltre ai reparti) e `gruppi` (i 5 gruppi del mega-menu e delle 5 schede di «I reparti» in home, ciascuno con `titolo`, `immagine` `{ src, alt }` e `reparti`: href). Ogni reparto deve stare in un solo gruppo, altrimenti la build si ferma. `evidenza: true` mette la voce in risalto.
+Un solo file: `content/navigation.json`, oggetto con `voci` (array di `{ "label", "href", "evidenza"? }`, **massimo 10 voci** oltre ai reparti) e `gruppi` (i 5 gruppi della barra desktop e delle 5 schede di «I reparti» in home, ciascuno con `titolo`, `breve`, `immagine` `{ src, alt }` e `reparti`: href). Ogni reparto deve stare in un solo gruppo, altrimenti la build si ferma. `evidenza: true` mette la voce in risalto.
+
+Su desktop i gruppi stanno direttamente nella barra bianca: passando il mouse (o con clic, Invio, freccia giù) si apre la tendina con i reparti del gruppo e la sua foto. Tra 1024 e 1279 px la barra usa `breve` («Casa», «Giardino»…), da 1280 px il `titolo` intero. Negozi e Contatti stanno nella fascia blu in alto. Su mobile non cambia nulla: tab bar e pannello dei reparti.
+
+### Desktop e mobile: cosa vale dove
+Il feedback del 19/11/2026 riguarda **solo il desktop** (da 1024 px, `lg:` di Tailwind); il mobile è stato confermato e non si tocca. Le regole:
+- le classi nuove sono sempre `lg:` o superiori; dove serve un layout diverso c'è un componente solo desktop (`HomeBanner`, `AisleHeroWide`) e quello mobile resta com'è, con `lg:hidden`;
+- gli effetti (neve, cuore allo scorrimento) si montano solo dopo l'idratazione e solo se `(min-width: 1024px)` è vero (`lib/use-media-query.ts`): sotto quella larghezza non esistono nemmeno nel DOM;
+- le immagini solo desktop non sono `priority`: in un contenitore nascosto non vengono scaricate su mobile;
+- prima di chiudere un lavoro sul desktop si confrontano gli screenshot mobile a 390 px prima e dopo.
+
+### Banner della home (desktop)
+Da bordo a bordo, rapporto **3:1**. La prima slide è sempre la campagna attiva per data: la sua grafica `bannerDesktop` (3840 × 1280 px, testi nella grafica) o, se manca, `immagineHero` con titolo e pulsanti sopra. Le slide successive sono in `content/home.json` → `banner.slide` (massimo 4): con `titolo` mostrano testo e pulsante sulla foto, senza `titolo` sono grafiche e tutta la slide è un link (`link`). `src: null` mostra un segnaposto con l'`label` indicata. Cambio ogni 7 s, pausa al passaggio del mouse, al focus e con il pulsante; con movimento ridotto non parte da solo. Le foto devono essere larghe almeno 2880 px (test `desktop-feedback`).
+
+### Effetti di stagione
+Si accendono con le **date della campagna**, come tutto il resto: in `content/campaigns.json` la campagna elenca i suoi `effetti` (oggi `"neve"` su Natale). Il componente `components/campaign/SeasonalEffects.tsx` legge la campagna attiva con la stessa logica di `lib/campaigns.ts` e la ricontrolla nel browser, quindi l'effetto si spegne da solo il 26 dicembre senza nuova build. Solo desktop e mai con movimento ridotto. Per un evento nuovo: aggiungere il nome in `CAMPAIGN_EFFECTS` (`lib/content/schemas.ts`), il componente nel registro `EFFECTS` di `SeasonalEffects.tsx`, e il nome negli `effetti` della campagna.
+
+La sezione della campagna in home (`collezione`) ha su desktop campi facoltativi: `titoloGrande` (la parola enorme, almeno metà schermo), `sottotitoloGrande`, `sfondo` (foto coperta da una velatura blu) e `galleria` (2-4 foto inclinate). Senza `titoloGrande` la sezione resta quella classica anche su desktop.
+
+### Testata desktop dei reparti
+Ogni reparto ha `immagineWide` in `content/aisles.json`: foto 2880 × 1200 px in `public/uploads/aisles/wide/<slug>.webp`, dagli originali del cliente (cartella `_Selezione`). Su desktop copre la testata da bordo a bordo, alta circa metà schermo, con il titolo grande sopra; senza `immagineWide` resta la testata classica. Su mobile resta sempre la testata classica.
 
 ### Aggiungere una campagna
 In `content/campaigns.json` aggiungi un oggetto (la campagna senza date è il default e non va rimossa):

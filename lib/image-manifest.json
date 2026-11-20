@@ -191,6 +191,82 @@
     "prefix": "/_images/pulizia-e-cura-persona-dettaglio-3-1dd5e07543f7",
     "width": 1800
   },
+  "/uploads/aisles/wide/animali.webp": {
+    "prefix": "/_images/animali-f6da1da0a54c",
+    "width": 2880
+  },
+  "/uploads/aisles/wide/biancheria-e-arredo.webp": {
+    "prefix": "/_images/biancheria-e-arredo-aa173bb72be5",
+    "width": 2880
+  },
+  "/uploads/aisles/wide/casa-e-cucina.webp": {
+    "prefix": "/_images/casa-e-cucina-2698e397e3d7",
+    "width": 2880
+  },
+  "/uploads/aisles/wide/cura-auto.webp": {
+    "prefix": "/_images/cura-auto-2bef63d73a71",
+    "width": 2880
+  },
+  "/uploads/aisles/wide/cura-persona-e-beauty.webp": {
+    "prefix": "/_images/cura-persona-e-beauty-13d57be6c7ba",
+    "width": 2880
+  },
+  "/uploads/aisles/wide/ferramenta-e-fai-da-te.webp": {
+    "prefix": "/_images/ferramenta-e-fai-da-te-dbd62c8a68f5",
+    "width": 2880
+  },
+  "/uploads/aisles/wide/feste-e-regalo.webp": {
+    "prefix": "/_images/feste-e-regalo-7ff25ae395ec",
+    "width": 2880
+  },
+  "/uploads/aisles/wide/giardinaggio.webp": {
+    "prefix": "/_images/giardinaggio-e9f733bfbad5",
+    "width": 2880
+  },
+  "/uploads/aisles/wide/giochi-e-giocattoli.webp": {
+    "prefix": "/_images/giochi-e-giocattoli-a32c3a0076d8",
+    "width": 2880
+  },
+  "/uploads/aisles/wide/hobby-cartoleria-auto.webp": {
+    "prefix": "/_images/hobby-cartoleria-auto-085bcc30c08f",
+    "width": 2880
+  },
+  "/uploads/aisles/wide/illuminazione-e-accessori.webp": {
+    "prefix": "/_images/illuminazione-e-accessori-779640ceb8dd",
+    "width": 2880
+  },
+  "/uploads/aisles/wide/ordine-e-bagno.webp": {
+    "prefix": "/_images/ordine-e-bagno-39291539836b",
+    "width": 2880
+  },
+  "/uploads/aisles/wide/pulizia-e-cura-persona.webp": {
+    "prefix": "/_images/pulizia-e-cura-persona-c8f405b3e8e3",
+    "width": 2880
+  },
+  "/uploads/banner/negozio-lucca-esterno.webp": {
+    "prefix": "/_images/negozio-lucca-esterno-fd3c99dc9442",
+    "width": 2880
+  },
+  "/uploads/campaigns/natale/natale-pacchi-kraft.webp": {
+    "prefix": "/_images/natale-pacchi-kraft-fe797d190e26",
+    "width": 1200
+  },
+  "/uploads/campaigns/natale/natale-pacchi-rosa.webp": {
+    "prefix": "/_images/natale-pacchi-rosa-b605b8e20d5d",
+    "width": 1200
+  },
+  "/uploads/campaigns/natale/natale-palline-oro.webp": {
+    "prefix": "/_images/natale-palline-oro-d1c53835fd5b",
+    "width": 1200
+  },
+  "/uploads/campaigns/natale/natale-sfondo.webp": {
+    "prefix": "/_images/natale-sfondo-64b7700dc74b",
+    "width": 3200
+  },
+  "/uploads/campaigns/natale/natale-tavola-addobbi.webp": {
+    "prefix": "/_images/natale-tavola-addobbi-549a447e6ff9",
+    "width": 1200
+  },
   "/uploads/flyers/home-co-apertura-sesto-2026-1.webp": {
     "prefix": "/_images/home-co-apertura-sesto-2026-1-4df9168f665d",
     "width": 1400

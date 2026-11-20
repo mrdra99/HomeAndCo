@@ -10,6 +10,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AisleHero } from "@/components/aisles/AisleHero";
+import { AisleHeroWide } from "@/components/aisles/AisleHeroWide";
 import { AisleCampaignBanner } from "@/components/aisles/AisleCampaignBanner";
 import { AisleShelves } from "@/components/aisles/AisleShelves";
 import { AisleStoresCta } from "@/components/aisles/AisleStoresCta";
@@ -66,18 +67,37 @@ export default async function AislePage({ params }: { params: Promise<Params> })
     .sort((a, b) => a.ordine - b.ordine)
     .map((a) => ({ slug: a.slug, label: breve.get(a.slug) ?? a.titoloBreve }));
 
+  const breadcrumb = [
+    { label: pages.breadcrumb.home, href: "/" },
+    { label: pages.breadcrumb.reparti, href: "/#corridoi" },
+    { label: aisle.titolo, href: `/corridoi/${aisle.slug}/` },
+  ];
+
   return (
     <>
+      {/* Desktop: foto a tutta larghezza con titolo grande. Senza foto larga resta la testata classica anche su desktop. */}
+      {aisle.immagineWide && (
+        <AisleHeroWide
+          titolo={aisle.titolo}
+          descrizione={aisle.descrizione}
+          immagine={aisle.immagineWide}
+          breadcrumbLabel={pages.breadcrumb.aria}
+          breadcrumb={breadcrumb}
+          actions={
+            <>
+              {aisle.scaffali.length > 0 && <Button href="#scaffali" variant="primary" size="lg">{copy.scaffali}</Button>}
+              <Button href="/dove-siamo/" variant="light" size="lg">{copy.negozi}</Button>
+            </>
+          }
+        />
+      )}
       <AisleHero
+        className={aisle.immagineWide ? "lg:hidden" : undefined}
         titolo={aisle.titolo}
         descrizione={aisle.descrizione}
         immagine={aisle.immagine}
         breadcrumbLabel={pages.breadcrumb.aria}
-        breadcrumb={[
-          { label: pages.breadcrumb.home, href: "/" },
-          { label: pages.breadcrumb.reparti, href: "/#corridoi" },
-          { label: aisle.titolo, href: `/corridoi/${aisle.slug}/` },
-        ]}
+        breadcrumb={breadcrumb}
         actions={
           <>
             {aisle.scaffali.length > 0 && <Button href="#scaffali" variant="secondary">{copy.scaffali}</Button>}

@@ -7,6 +7,36 @@
     },
     "aria": "In primo piano"
   },
+  "banner": {
+    "aria": "In evidenza",
+    "precedente": "Slide precedente",
+    "successivo": "Slide successiva",
+    "vaiAllaSlide": "Vai alla slide {n}",
+    "pausa": "Ferma lo scorrimento",
+    "riprendi": "Riprendi lo scorrimento",
+    "slide": [
+      {
+        "immagine": {
+          "src": "/uploads/banner/negozio-lucca-esterno.webp",
+          "alt": "Facciata del negozio Home & Co. di Lucca con l'insegna",
+          "position": "50% 0%"
+        },
+        "etichetta": "Prato · Lucca · Sesto Fiorentino",
+        "titolo": "Tre negozi in Toscana",
+        "cta": {
+          "label": "Orari e indicazioni",
+          "href": "/dove-siamo/"
+        }
+      },
+      {
+        "immagine": {
+          "src": null,
+          "alt": "",
+          "label": "Grafica banner 3 (3840 × 1280 px)"
+        }
+      }
+    ]
+  },
   "fatti": [
     {
       "icona": "calendar",
@@ -26,7 +56,8 @@
     {
       "icona": "grid",
       "titolo": "13 reparti",
-      "testo": "Dalla cucina alla cura dell’auto"
+      "testo": "Dalla cucina alla cura dell’auto",
+      "desktop": false
     }
   ],
   "reparti": {

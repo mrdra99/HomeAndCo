@@ -41,6 +41,11 @@ Fonte e condizioni: [Pexels License](https://www.pexels.com/license/). Uso previ
 | `/uploads/photos/rinvasi-terriccio.webp` | Kampus Production | [Pagina originale](https://www.pexels.com/photo/dirty-garden-tools-7658756/) | Pexels License |
 | `/uploads/photos/giochi-cane.webp` | Tetiana Kos | [Pagina originale](https://www.pexels.com/photo/photo-of-a-white-dog-playing-with-a-ball-7017670/) | Pexels License |
 | `/uploads/photos/lavaggio-auto.webp` | Srattha Nualsate | [Pagina originale](https://www.pexels.com/photo/man-squeezing-a-sponge-into-a-bucket-13005115/) | Pexels License |
+| `/uploads/campaigns/natale/natale-sfondo.webp` | indicato sulla pagina | [Pagina originale](https://www.pexels.com/photo/15380962/) | Pexels License |
+| `/uploads/campaigns/natale/natale-palline-oro.webp` | indicato sulla pagina | [Pagina originale](https://www.pexels.com/photo/close-up-of-gold-christmas-baubles-9524007/) | Pexels License |
+| `/uploads/campaigns/natale/natale-pacchi-kraft.webp` | Ylanite Koppens | [Pagina originale](https://www.pexels.com/photo/photo-of-two-brown-wrapped-gifts-on-wooden-table-1693650/) | Pexels License |
+| `/uploads/campaigns/natale/natale-tavola-addobbi.webp` | cottonbro studio | [Pagina originale](https://www.pexels.com/photo/christmas-present-on-the-table-6062978/) | Pexels License |
+| `/uploads/campaigns/natale/natale-pacchi-rosa.webp` | indicato sulla pagina | [Pagina originale](https://www.pexels.com/photo/christmas-gifts-and-ornaments-3309878/) | Pexels License |
 
 ## Volantini originali
 

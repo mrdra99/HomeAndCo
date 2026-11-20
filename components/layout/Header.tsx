@@ -2,16 +2,20 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { Logo } from "@/components/ui/Logo";
+import { SmartImage } from "@/components/ui/SmartImage";
 import type { HeaderCopy, NavGroup, NavItem, Store } from "@/lib/content/schemas";
-import { DEPARTMENT_PREFIX, groupDepartments } from "@/lib/navigation";
+import { DEPARTMENT_PREFIX, groupDepartments, type DepartmentGroup } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 import { MENU_OPEN_EVENT, StoreChip } from "./StoreChip";
 import { TabBar } from "./TabBar";
 
 const CORRIDOI_PREFIX = DEPARTMENT_PREFIX;
+/** Ritardi del passaggio del mouse: aprire non deve scattare sfiorando la barra, chiudere non deve scattare uscendo di un pixel. */
+const OPEN_DELAY = 90;
+const CLOSE_DELAY = 180;
 
 type HeaderProps = {
   /** Voci di content/navigation.json: principali + reparti (href /corridoi/...). */
@@ -24,58 +28,61 @@ type HeaderProps = {
 };
 
 /**
- * Testata pulita (desktop): fascia blu 900 con avviso, "Il tuo negozio" e Instagram, poi una sola riga bianca con
- * logo, «Tutti i reparti» (mega-menu a gruppi, solo testo), Negozi, Contatti e, a destra, Volantino.
- * Sotto 1024 px: nessuna fascia; barra compatta (logo + negozio) e tab bar fissa in basso.
- * Scorrimento: solo la riga bianca e' `sticky`; la fascia blu scorre via con la pagina (scelta voluta: il negozio
- * si imposta in cima, e dalla pagina di ogni negozio resta il pulsante «Imposta come il tuo negozio»).
+ * Testata (desktop): fascia blu 900 con avviso, Negozi, Contatti, "Il tuo negozio" e Instagram; poi una sola riga bianca
+ * con logo, i gruppi di reparti (ognuno apre la sua tendina al passaggio del mouse, al clic o da tastiera) e Volantino.
+ * Tra 1024 e 1279 px i gruppi usano l'etichetta corta (`breve`). Sotto 1024 px: nessuna fascia; barra compatta
+ * (logo + negozio) e tab bar fissa in basso, invariate.
+ * Scorrimento: solo la riga bianca e' `sticky`; la fascia blu scorre via con la pagina.
  */
 export function Header({ items, groups, stores, copy, instagramUrl }: HeaderProps) {
-  const [megaOpen, setMegaOpen] = useState(false);
+  const [open, setOpen] = useState<number | null>(null);
   const pathname = usePathname();
   const rootRef = useRef<HTMLElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
-  const megaRef = useRef<HTMLDivElement>(null);
-  const focusFirstRef = useRef(false);
-  const megaId = useId();
+  const timer = useRef<number | undefined>(undefined);
+  const openedByHover = useRef(false);
+  const focusFirst = useRef(false);
 
   const departmentGroups = groupDepartments(items, groups);
   const main = items.filter((i) => !i.href.startsWith(CORRIDOI_PREFIX) && !i.soloPiede);
   const primary = main.filter((i) => !i.evidenza);
   const highlighted = main.filter((i) => i.evidenza);
-  const repartiActive = pathname.startsWith(CORRIDOI_PREFIX);
   const cities = stores.map((s) => s.cittaBreve ?? s.citta);
 
   // Chiude il menu a ogni navigazione (aggiornamento durante il render, senza effetto).
   const [lastPath, setLastPath] = useState(pathname);
   if (lastPath !== pathname) {
     setLastPath(pathname);
-    setMegaOpen(false);
+    setOpen(null);
   }
 
-  // ArrowDown sul pulsante Reparti: apre il menu e porta il focus sul primo link.
+  const schedule = (fn: () => void, delay: number) => {
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(fn, delay);
+  };
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
+  // Freccia giu' sul titolo di un gruppo: apre la tendina e porta il focus sul primo reparto.
   useEffect(() => {
-    if (megaOpen && focusFirstRef.current) {
-      focusFirstRef.current = false;
-      megaRef.current?.querySelector<HTMLElement>("a[href]")?.focus();
-    }
-  }, [megaOpen]);
+    if (open === null || !focusFirst.current) return;
+    focusFirst.current = false;
+    rootRef.current?.querySelector<HTMLElement>(`[data-dept-panel="${open}"] a[href]`)?.focus();
+  }, [open]);
 
   useEffect(() => {
-    if (!megaOpen) return;
+    if (open === null) return;
     window.dispatchEvent(new CustomEvent(MENU_OPEN_EVENT, { detail: "mega" }));
     const onOther = (e: Event) => {
-      if ((e as CustomEvent).detail !== "mega") setMegaOpen(false);
+      if ((e as CustomEvent).detail !== "mega") setOpen(null);
     };
-    window.addEventListener(MENU_OPEN_EVENT, onOther);
     const onDown = (e: MouseEvent) => {
-      if (!rootRef.current?.contains(e.target as Node)) setMegaOpen(false);
+      if (!rootRef.current?.contains(e.target as Node)) setOpen(null);
     };
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Escape") return;
-      setMegaOpen(false);
-      triggerRef.current?.focus();
+      rootRef.current?.querySelector<HTMLElement>(`[data-dept-trigger="${open}"]`)?.focus();
+      setOpen(null);
     };
+    window.addEventListener(MENU_OPEN_EVENT, onOther);
     document.addEventListener("mousedown", onDown);
     document.addEventListener("keydown", onKey);
     return () => {
@@ -83,17 +90,14 @@ export function Header({ items, groups, stores, copy, instagramUrl }: HeaderProp
       document.removeEventListener("mousedown", onDown);
       document.removeEventListener("keydown", onKey);
     };
-  }, [megaOpen]);
+  }, [open]);
 
-  const linkClass = (active: boolean) =>
-    cn(
-      "inline-flex min-h-11 items-center rounded-md px-3 text-[0.95rem] font-bold transition-colors",
-      active ? "bg-brand-blue-50 text-brand-blue-700" : "text-brand-blue-900 hover:bg-brand-blue-50 hover:text-brand-blue-700",
-    );
+  const stripLink = (active: boolean) =>
+    cn("inline-flex min-h-11 items-center font-semibold underline-offset-4 hover:underline", active && "underline");
 
   return (
     <>
-      {/* Livello 1: avviso e social (solo desktop) */}
+      {/* Livello 1: avviso, link di servizio e social (solo desktop) */}
       {/* z-50: il menu a tendina del negozio si apre sopra la riga bianca sticky (z-40) */}
       <div className="on-dark relative z-50 hidden bg-brand-blue-900 text-sm text-white lg:block">
         <div className="mx-auto flex min-h-12 w-full max-w-7xl items-center justify-between gap-4 px-8">
@@ -103,7 +107,12 @@ export function Header({ items, groups, stores, copy, instagramUrl }: HeaderProp
             {cities.length > 0 && <span aria-hidden="true" className="hidden xl:inline"> · </span>}
             <span className="hidden xl:inline">{cities.join(" · ")}</span>
           </p>
-          <div className="flex shrink-0 items-center gap-4">
+          <div className="flex shrink-0 items-center gap-5">
+            {primary.map((item) => (
+              <Link key={item.href} href={item.href} aria-current={item.href === pathname ? "page" : undefined} className={stripLink(item.href === pathname)}>
+                {item.label}
+              </Link>
+            ))}
             <StoreChip stores={stores} copy={copy.negozio} tone="bar" />
             <a
               href={instagramUrl}
@@ -119,46 +128,54 @@ export function Header({ items, groups, stores, copy, instagramUrl }: HeaderProp
       </div>
 
       <header ref={rootRef} className="sticky top-0 z-40 border-b border-brand-blue-100 bg-white">
-        {/* Livello 2: logo, menu, negozio */}
-        <div className="mx-auto flex h-16 w-full max-w-7xl items-center gap-4 px-4 sm:px-8 lg:h-[4.5rem] lg:gap-6">
+        {/* Livello 2: logo, gruppi di reparti, volantino */}
+        <div className="mx-auto flex h-16 w-full max-w-7xl items-center gap-4 px-4 sm:px-8 lg:h-[4.5rem] lg:gap-5">
           <Link href="/" aria-label={copy.a11y.logo} className="inline-flex min-h-11 shrink-0 items-center rounded-md">
-            <Logo priority className="w-32 sm:w-36 lg:w-44" />
+            <Logo priority className="w-32 sm:w-36 lg:w-36 xl:w-44" />
           </Link>
 
-          <nav aria-label={copy.a11y.navigazione} className="hidden lg:block lg:flex-1">
-            <ul className="flex items-center gap-1">
-              <li>
-                <button
-                  ref={triggerRef}
-                  type="button"
-                  aria-expanded={megaOpen}
-                  aria-controls={megaId}
-                  onClick={() => setMegaOpen((o) => !o)}
-                  onKeyDown={(e) => {
-                    if (e.key !== "ArrowDown") return;
-                    e.preventDefault();
-                    if (megaOpen) {
-                      megaRef.current?.querySelector<HTMLElement>("a[href]")?.focus();
+          <nav aria-label={copy.a11y.navigazione} className="hidden lg:block lg:flex-1 lg:self-stretch">
+            <ul className="flex h-full items-center gap-0.5">
+              {departmentGroups.map((group, i) => (
+                <DepartmentMenu
+                  key={group.titolo}
+                  group={group}
+                  index={i}
+                  alignRight={i >= departmentGroups.length - 2}
+                  open={open === i}
+                  pathname={pathname}
+                  allLabel={copy.repartiLabel}
+                  onHover={(entering) => {
+                    if (entering) {
+                      schedule(() => {
+                        openedByHover.current = true;
+                        setOpen(i);
+                      }, open === null ? OPEN_DELAY : 0);
                     } else {
-                      focusFirstRef.current = true;
-                      setMegaOpen(true);
+                      schedule(() => setOpen((o) => (o === i ? null : o)), CLOSE_DELAY);
                     }
                   }}
-                  className={cn(
-                    "on-dark inline-flex min-h-11 items-center gap-1 rounded-md px-4 text-[0.95rem] font-bold text-white transition-colors",
-                    megaOpen || repartiActive ? "bg-brand-blue-900" : "bg-brand-blue-600 hover:bg-brand-blue-700",
-                  )}
-                >
-                  {copy.repartiLabel}
-                  <Icon name="chevron" size={18} className={cn("transition-transform", megaOpen && "rotate-180")} />
-                </button>
-              </li>
-              {primary.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} aria-current={item.href === pathname ? "page" : undefined} className={linkClass(item.href === pathname)}>
-                    {item.label}
-                  </Link>
-                </li>
+                  onToggle={() => {
+                    window.clearTimeout(timer.current);
+                    // Un clic subito dopo l'apertura al passaggio del mouse conferma la tendina, non la richiude.
+                    if (open === i && openedByHover.current) {
+                      openedByHover.current = false;
+                      return;
+                    }
+                    openedByHover.current = false;
+                    setOpen(open === i ? null : i);
+                  }}
+                  onArrowDown={() => {
+                    if (open === i) {
+                      rootRef.current?.querySelector<HTMLElement>(`[data-dept-panel="${i}"] a[href]`)?.focus();
+                    } else {
+                      focusFirst.current = true;
+                      setOpen(i);
+                    }
+                  }}
+                  onLeaveFocus={() => setOpen((o) => (o === i ? null : o))}
+                  onNavigate={() => setOpen(null)}
+                />
               ))}
               {/* La voce evidenziata (Volantino) chiude la riga a destra. */}
               {highlighted.map((item, i) => (
@@ -166,9 +183,9 @@ export function Header({ items, groups, stores, copy, instagramUrl }: HeaderProp
                   <Link
                     href={item.href}
                     aria-current={item.href === pathname ? "page" : undefined}
-                    className="inline-flex min-h-11 items-center rounded-md bg-brand-magenta-600 px-5 text-[0.95rem] font-bold text-white transition-colors hover:bg-brand-magenta-700"
+                    className="btn-bounce inline-flex min-h-11 items-center rounded-md bg-brand-magenta-600 px-4 text-[1.05rem] font-extrabold text-white transition-colors hover:bg-brand-magenta-700"
                   >
-                    {item.label}
+                    <span className="btn-label">{item.label}</span>
                   </Link>
                 </li>
               ))}
@@ -180,43 +197,114 @@ export function Header({ items, groups, stores, copy, instagramUrl }: HeaderProp
             <StoreChip stores={stores} copy={copy.negozio} />
           </div>
         </div>
-
-        {/* Mega-menu «Tutti i reparti» (desktop): gruppi di testo, a tutta larghezza del contenitore */}
-        {megaOpen && (
-          <div id={megaId} ref={megaRef} className="absolute inset-x-0 top-full hidden border-b border-brand-blue-100 bg-white shadow-lift lg:block">
-            <div className="mx-auto max-h-[75dvh] w-full max-w-7xl overflow-y-auto px-8 pb-8 pt-6">
-              <div className="grid grid-cols-3 gap-x-8 gap-y-8 xl:grid-cols-5">
-                {departmentGroups.map((group) => (
-                  <section key={group.titolo} aria-label={group.titolo}>
-                    <h2 className="border-b-2 border-brand-blue-100 pb-2 !text-[0.8125rem] font-extrabold uppercase tracking-wider text-brand-blue-700">
-                      {group.titolo}
-                    </h2>
-                    <ul className="mt-2">
-                      {group.items.map((item) => (
-                        <li key={item.href}>
-                          <Link
-                            href={item.href}
-                            onClick={() => setMegaOpen(false)}
-                            aria-current={item.href === pathname ? "page" : undefined}
-                            className={cn(
-                              "-mx-2 flex min-h-11 items-center rounded-md px-2 py-1.5 text-[0.95rem] font-semibold leading-snug hover:bg-brand-blue-50 hover:text-brand-blue-700",
-                              item.href === pathname ? "bg-brand-blue-50 text-brand-blue-700" : "text-brand-blue-900",
-                            )}
-                          >
-                            {item.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
       </header>
 
       <TabBar items={items} groups={groups} copy={copy} />
     </>
+  );
+}
+
+type DepartmentMenuProps = {
+  group: DepartmentGroup;
+  index: number;
+  alignRight: boolean;
+  open: boolean;
+  pathname: string;
+  allLabel: string;
+  onHover: (entering: boolean) => void;
+  onToggle: () => void;
+  onArrowDown: () => void;
+  onLeaveFocus: () => void;
+  onNavigate: () => void;
+};
+
+/**
+ * Un gruppo nella barra: titolo (pulsante con aria-expanded) e tendina con i suoi reparti e la foto del gruppo.
+ * La voce occupa tutta l'altezza della barra, cosi' la tendina parte dal bordo inferiore e il mouse ci arriva senza vuoti.
+ */
+function DepartmentMenu({ group, index, alignRight, open, pathname, allLabel, onHover, onToggle, onArrowDown, onLeaveFocus, onNavigate }: DepartmentMenuProps) {
+  const panelId = `reparti-gruppo-menu-${index}`;
+  const active = group.items.some((item) => pathname === item.href);
+  return (
+    <li
+      className="relative flex h-full items-center"
+      onPointerEnter={(e) => e.pointerType === "mouse" && onHover(true)}
+      onPointerLeave={(e) => e.pointerType === "mouse" && onHover(false)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) onLeaveFocus();
+      }}
+    >
+      <button
+        type="button"
+        data-dept-trigger={index}
+        aria-expanded={open}
+        aria-controls={panelId}
+        onClick={onToggle}
+        onKeyDown={(e) => {
+          if (e.key !== "ArrowDown") return;
+          e.preventDefault();
+          onArrowDown();
+        }}
+        className={cn(
+          "relative inline-flex min-h-11 items-center gap-1 rounded-md px-2.5 text-[0.95rem] font-bold transition-colors",
+          "after:absolute after:inset-x-2.5 after:-bottom-[0.9rem] after:h-[3px] after:rounded-full after:bg-brand-magenta-600 after:transition-transform after:duration-200 after:content-['']",
+          open || active ? "text-brand-blue-700 after:scale-x-100" : "text-brand-blue-900 after:scale-x-0 hover:text-brand-blue-700",
+          open && "bg-brand-blue-50",
+        )}
+      >
+        <span className="xl:hidden">{group.breve ?? group.titolo}</span>
+        <span className="hidden xl:inline">{group.titolo}</span>
+        <Icon name="chevron" size={16} className={cn("transition-transform duration-200", open && "rotate-180")} />
+      </button>
+
+      {open && (
+        <div
+          id={panelId}
+          data-dept-panel={index}
+          className={cn(
+            "nav-pop absolute top-full z-10 mt-px w-[34rem] overflow-hidden rounded-b-[var(--radius-xl)] border border-t-0 border-brand-blue-100 bg-white shadow-lift",
+            alignRight ? "right-0" : "left-0",
+          )}
+        >
+          <div className="grid grid-cols-[minmax(0,1fr)_12rem]">
+            <div className="p-5">
+              <p className="border-b-2 border-brand-blue-100 pb-2 text-[0.8125rem] font-extrabold uppercase tracking-wider text-brand-blue-700">{group.titolo}</p>
+              <ul className="mt-2">
+                {group.items.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      onClick={onNavigate}
+                      aria-current={item.href === pathname ? "page" : undefined}
+                      className={cn(
+                        "group/link -mx-2 flex min-h-11 items-center justify-between gap-3 rounded-md px-2 py-1.5 text-base font-bold leading-snug hover:bg-brand-blue-50 hover:text-brand-blue-700",
+                        item.href === pathname ? "bg-brand-blue-50 text-brand-blue-700" : "text-brand-blue-900",
+                      )}
+                    >
+                      {item.label}
+                      <Icon name="arrow-right" size={16} className="-translate-x-1 opacity-0 transition group-hover/link:translate-x-0 group-hover/link:opacity-100" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <Link href="/#corridoi" onClick={onNavigate} className="mt-3 inline-flex min-h-11 items-center gap-1.5 text-sm font-extrabold text-brand-magenta-700 underline-offset-4 hover:underline">
+                {allLabel}
+                <Icon name="arrow-right" size={16} />
+              </Link>
+            </div>
+            <SmartImage
+              src={group.immagine.src}
+              alt=""
+              label={group.titolo}
+              sizes="192px"
+              position={group.immagine.position}
+              rounded="rounded-none"
+              className="h-full min-h-56"
+              imgClassName="group-hover:scale-100"
+            />
+          </div>
+        </div>
+      )}
+    </li>
   );
 }

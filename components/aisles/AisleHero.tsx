@@ -11,15 +11,16 @@ type AisleHeroProps = {
   breadcrumb: BreadcrumbItem[];
   breadcrumbLabel: string;
   actions?: ReactNode;
+  className?: string;
 };
 
 /**
  * Testata del reparto: percorso, titolo, descrizione, foto. Le foto dei reparti sono larghe
  * 1086 px o piu': la foto non supera mai 480 px (limite nitido 543 px), a qualsiasi larghezza di schermo.
  */
-export function AisleHero({ titolo, descrizione, immagine, breadcrumb, breadcrumbLabel, actions }: AisleHeroProps) {
+export function AisleHero({ titolo, descrizione, immagine, breadcrumb, breadcrumbLabel, actions, className }: AisleHeroProps) {
   return (
-    <header className="border-b border-brand-blue-100 bg-sand">
+    <header className={`border-b border-brand-blue-100 bg-sand ${className ?? ""}`}>
       <Container size="wide" className="pb-4 pt-1 sm:pb-6">
         <Breadcrumb items={breadcrumb} label={breadcrumbLabel} />
         <div className="mt-1 grid gap-4 md:grid-cols-[minmax(0,1fr)_20rem] md:items-center md:gap-8 lg:grid-cols-[minmax(0,1fr)_30rem] lg:gap-10">

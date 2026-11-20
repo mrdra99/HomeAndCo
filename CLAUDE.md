@@ -30,6 +30,8 @@ Next.js (App Router) + TypeScript strict, Tailwind CSS v4 (token in `@theme`), `
 - Immagini mancanti → `<Placeholder />`; ogni segnaposto va censito in `ASSETS_TODO.md`.
 - Solo i colori del logo: blu per orientamento e informazioni, magenta per le chiamate commerciali. Le campagne cambiano immagini e testi, mai la palette (`--accent` fisso, presidiato da `palette.test.ts`).
 - Mobile first, raggi 8–14 px, animazioni minime e sempre con `prefers-reduced-motion`.
+- **Il mobile è confermato dal cliente (19/11/2026) e non si tocca**: le modifiche al desktop usano solo classi `lg:`+, componenti solo desktop accanto a quelli mobile (`lg:hidden`), effetti montati solo con `useMediaQuery(DESKTOP_QUERY)`. Prima di chiudere si confrontano gli screenshot a 390 px prima/dopo. Dettagli nel README, «Desktop e mobile».
+- Tutto ciò che è stagionale (temi, sezioni, effetti come la neve) si accende dalle date delle campagne in `content/campaigns.json` (`lib/campaigns.ts`): mai date cablate nei componenti.
 - Mai ingrandire un'immagine: larghezza CSS ≤ larghezza reale / 2 (`lib/image-rules.ts`).
 - Mai inventare prezzi, sconti, marchi, telefoni o vantaggi della carta. La carta fedeltà torna in home, testata e tab bar solo con dati veri (`ASSETS_TODO.md`); oggi resta raggiungibile dal footer.
 - Massimo 10 pagine nel menu; elenco corridoi provvisorio, modificabile da un solo file.

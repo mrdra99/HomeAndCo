@@ -15,10 +15,14 @@ const VARIANTS: Record<Variant, string> = {
   /** Su fondi pieni blu o magenta. */
   light: "bg-white text-brand-blue-900 hover:bg-brand-blue-50",
 };
+/**
+ * Da 1024 px il pulsante si stringe e la scritta cresce (feedback del 19/11): meno imbottitura, testo piu' grande
+ * e piu' pesante, rimbalzo della scritta al passaggio del mouse (app/globals.css → .btn-bounce). Sotto 1024 px invariato.
+ */
 const SIZES: Record<Size, string> = {
-  sm: "min-h-11 px-4 text-sm",
-  md: "min-h-11 px-5 text-base",
-  lg: "min-h-12 px-6 text-lg",
+  sm: "min-h-11 px-4 text-sm lg:px-3 lg:text-[0.95rem]",
+  md: "min-h-11 px-5 text-base lg:px-3.5 lg:text-[1.075rem]",
+  lg: "min-h-12 px-6 text-lg lg:px-4 lg:text-xl",
 };
 
 type Common = {
@@ -37,7 +41,7 @@ export type ButtonProps = AsLink | AsButton;
 export function Button(props: ButtonProps) {
   const { variant = "primary", size = "md", iconLeft, iconRight, className, children, ...rest } = props;
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 rounded-md py-2.5 text-center font-bold leading-snug",
+    "btn-bounce inline-flex items-center justify-center gap-2 rounded-md py-2.5 text-center font-bold leading-snug lg:gap-1.5 lg:font-extrabold lg:tracking-[-0.005em]",
     "transition-colors duration-150",
     "disabled:pointer-events-none disabled:opacity-50",
     VARIANTS[variant],
@@ -47,7 +51,7 @@ export function Button(props: ButtonProps) {
   const content = (
     <>
       {iconLeft}
-      <span>{children}</span>
+      <span className="btn-label">{children}</span>
       {iconRight}
     </>
   );

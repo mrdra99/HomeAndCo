@@ -19,7 +19,7 @@ export function AisleNav({ items, current, label }: { items: AisleNavItem[]; cur
                   href={`/corridoi/${a.slug}/`}
                   aria-current={on ? "page" : undefined}
                   className={cn(
-                    "inline-flex min-h-11 items-center rounded-md border-2 px-3.5 text-sm font-bold",
+                    "btn-hover inline-flex min-h-11 items-center rounded-md border-2 px-3.5 text-sm font-bold",
                     on ? "border-brand-blue-600 bg-brand-blue-600 text-white" : "border-brand-blue-100 bg-white text-brand-blue-900 hover:border-brand-blue-600",
                   )}
                 >

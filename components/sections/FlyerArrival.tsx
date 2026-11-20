@@ -49,7 +49,7 @@ export function FlyerArrival({ flyers, buildDate, stores, copy }: Props) {
           <h2 className="mt-1 !text-xl leading-tight text-white">{flyer.titolo}</h2>
           <p className="mt-2 text-xs">{formatDateRangeIt(flyer.validoDal, flyer.validoAl)}</p>
           <p className="mt-1 text-xs text-white/80">{names ? copy.soloNegozi.replace("{negozi}", names) : copy.tuttiINegozi}</p>
-          <Link href="/offerte/" onClick={close} className="mt-3 inline-flex min-h-11 items-center rounded-md bg-brand-magenta-600 px-3 text-sm font-bold text-white hover:bg-brand-magenta-700">
+          <Link href="/offerte/" onClick={close} className="btn-hover mt-3 inline-flex min-h-11 items-center rounded-md bg-brand-magenta-600 px-3 text-sm font-bold text-white hover:bg-brand-magenta-700">
             {found?.status === "upcoming" ? copy.ctaAnteprima : copy.ctaAttivo}
           </Link>
         </div>

@@ -9,6 +9,10 @@
       "src": "/uploads/aisles/cucina-corsia-ritoccata.webp",
       "alt": "Corsia Home & Co. con piatti, ciotole e accessori per la cucina"
     },
+    "immagineWide": {
+      "src": "/uploads/aisles/wide/casa-e-cucina.webp",
+      "alt": "Padelle e pentole appese nel reparto casa e cucina"
+    },
     "colore": "#0B6CB0",
     "inEvidenza": [],
     "scaffali": [
@@ -57,6 +61,10 @@
       "src": "/uploads/aisles/biancheria-e-arredo-reparto.webp",
       "alt": "Il reparto biancheria e arredo di Home & Co."
     },
+    "immagineWide": {
+      "src": "/uploads/aisles/wide/biancheria-e-arredo.webp",
+      "alt": "Coperte, trapunte e cuscini sugli scaffali del reparto biancheria"
+    },
     "colore": "#D11559",
     "inEvidenza": [],
     "scaffali": [
@@ -104,6 +112,10 @@
     "immagine": {
       "src": "/uploads/aisles/pulizia-corsia-ritoccata.webp",
       "alt": "La corsia detersivi e accessori per la pulizia di Home & Co."
+    },
+    "immagineWide": {
+      "src": "/uploads/aisles/wide/pulizia-e-cura-persona.webp",
+      "alt": "Detersivi e profumatori per il bucato sugli scaffali"
     },
     "colore": "#0B6CB0",
     "inEvidenza": [],
@@ -154,6 +166,10 @@
       "src": "/uploads/aisles/cura-persona-e-beauty-reparto.webp",
       "alt": "Il reparto cura della persona e beauty di Home & Co."
     },
+    "immagineWide": {
+      "src": "/uploads/aisles/wide/cura-persona-e-beauty.webp",
+      "alt": "Matite, rossetti e trucchi nel reparto beauty"
+    },
     "scaffali": [
       {
         "titolo": "Make-up e cosmetici",
@@ -200,6 +216,10 @@
     "immagine": {
       "src": "/uploads/aisles/animali-reparto.webp",
       "alt": "Il reparto animali di Home & Co."
+    },
+    "immagineWide": {
+      "src": "/uploads/aisles/wide/animali.webp",
+      "alt": "Giochi colorati per cani e gatti appesi nel reparto animali"
     },
     "colore": "#0B6CB0",
     "inEvidenza": [],
@@ -249,6 +269,10 @@
       "src": "/uploads/aisles/fiori-corsia-ritoccata.webp",
       "alt": "Corsia Home & Co. con fiori artificiali e accessori per la casa"
     },
+    "immagineWide": {
+      "src": "/uploads/aisles/wide/giardinaggio.webp",
+      "alt": "Concimi e prodotti per l'orto e il giardino sugli scaffali"
+    },
     "colore": "#D11559",
     "inEvidenza": [],
     "scaffali": [
@@ -296,6 +320,10 @@
     "immagine": {
       "src": "/uploads/aisles/hobby-cartoleria-auto-reparto.webp",
       "alt": "Il reparto cartoleria e creatività di Home & Co."
+    },
+    "immagineWide": {
+      "src": "/uploads/aisles/wide/hobby-cartoleria-auto.webp",
+      "alt": "Quaderni e blocchi sugli scaffali della cartoleria"
     },
     "colore": "#0B6CB0",
     "inEvidenza": [],
@@ -346,6 +374,10 @@
       "src": "/uploads/aisles/feste-e-regalo-dettaglio-1.webp",
       "alt": "Palloncini colorati sugli scaffali del reparto feste e idee regalo Home & Co."
     },
+    "immagineWide": {
+      "src": "/uploads/aisles/wide/feste-e-regalo.webp",
+      "alt": "Buste regalo decorate nel reparto feste e idee regalo"
+    },
     "scaffali": [
       {
         "titolo": "Palloncini e allestimenti",
@@ -393,6 +425,10 @@
     "immagine": {
       "src": "/uploads/aisles/ferramenta-e-fai-da-te-dettaglio-1.webp",
       "alt": "Utensili da lavoro nel reparto Home & Co."
+    },
+    "immagineWide": {
+      "src": "/uploads/aisles/wide/ferramenta-e-fai-da-te.webp",
+      "alt": "Pinze, forbici e attrezzi appesi nel reparto ferramenta"
     },
     "scaffali": [
       {
@@ -442,6 +478,10 @@
       "src": "/uploads/aisles/illuminazione-e-accessori-reparto.webp",
       "alt": "Il reparto illuminazione e accessori tech di Home & Co."
     },
+    "immagineWide": {
+      "src": "/uploads/aisles/wide/illuminazione-e-accessori.webp",
+      "alt": "Paralumi in tessuto nel reparto illuminazione"
+    },
     "scaffali": [
       {
         "titolo": "Lampade per la casa",
@@ -489,6 +529,10 @@
     "immagine": {
       "src": "/uploads/aisles/ordine-e-bagno-dettaglio-2.webp",
       "alt": "Ceste e organizzazione nel reparto Home & Co."
+    },
+    "immagineWide": {
+      "src": "/uploads/aisles/wide/ordine-e-bagno.webp",
+      "alt": "Dispenser e accessori da bagno sugli scaffali"
     },
     "scaffali": [
       {
@@ -538,6 +582,10 @@
       "src": "/uploads/aisles/cura-auto-reparto.webp",
       "alt": "Il reparto cura dell’auto di Home & Co."
     },
+    "immagineWide": {
+      "src": "/uploads/aisles/wide/cura-auto.webp",
+      "alt": "Liquidi e prodotti per la cura dell'auto sugli scaffali"
+    },
     "scaffali": [
       {
         "titolo": "Pulizia e manutenzione",
@@ -576,6 +624,10 @@
     "immagine": {
       "src": "/uploads/aisles/giocattoli-reparto.webp",
       "alt": "Giochi e giocattoli sugli scaffali Home & Co."
+    },
+    "immagineWide": {
+      "src": "/uploads/aisles/wide/giochi-e-giocattoli.webp",
+      "alt": "Giochi e giocattoli in scatola sugli scaffali"
     },
     "colore": "#D11559",
     "inEvidenza": [],

@@ -119,9 +119,39 @@
     "provvisorio": true,
     "etichetta": "Speciale Natale",
     "ricorrenza": "annuale",
+    "effetti": ["neve"],
     "collezione": {
       "titolo": "Natale: da dove partire",
       "descrizione": "Addobbi, regali, tavola, tessili e luce. Ogni scheda porta al reparto.",
+      "titoloGrande": "Natale",
+      "sottotitoloGrande": "da dove partire",
+      "sfondo": {
+        "src": "/uploads/campaigns/natale/natale-sfondo.webp",
+        "alt": "Luci natalizie sfocate e rami innevati",
+        "position": "70% 50%"
+      },
+      "galleria": [
+        {
+          "src": "/uploads/campaigns/natale/natale-pacchi-rosa.webp",
+          "alt": "Pacchi regalo rosa con nastri dorati",
+          "position": "50% 45%"
+        },
+        {
+          "src": "/uploads/campaigns/natale/natale-palline-oro.webp",
+          "alt": "Palline di Natale dorate e glitterate",
+          "position": "50% 60%"
+        },
+        {
+          "src": "/uploads/campaigns/natale/natale-tavola-addobbi.webp",
+          "alt": "Palline rosse, bacche e un piccolo regalo sulla tavola delle feste",
+          "position": "50% 60%"
+        },
+        {
+          "src": "/uploads/campaigns/natale/natale-pacchi-kraft.webp",
+          "alt": "Due regali incartati in carta kraft con rametti di pino",
+          "position": "40% 50%"
+        }
+      ],
       "idee": [
         {
           "titolo": "Addobbi e decorazioni",

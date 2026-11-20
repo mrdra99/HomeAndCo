@@ -11,6 +11,7 @@ const base = {
   tema: "default",
   cta: { label: "x", href: "/" },
   corridoiInEvidenza: [],
+  effetti: [],
   provvisorio: false,
 };
 const camp = (id: string, inizio: string | null, fine: string | null, priorita = 0): Campaign => ({

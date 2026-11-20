@@ -6,15 +6,22 @@ import { Analytics } from "@/components/consent/Analytics";
 import { ConsentProvider } from "@/components/consent/ConsentProvider";
 import { CookieBanner } from "@/components/consent/CookieBanner";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { content } from "@/lib/content";
+import { SeasonalEffects } from "@/components/campaign/SeasonalEffects";
+import { ScrollHeart } from "@/components/motion/ScrollHeart";
+import { content, getActiveCampaign } from "@/lib/content";
 import { jsonLdOrganization } from "@/lib/seo";
 
-/** Layout del sito vetrina: skip link, header, contenuto, footer, WhatsApp flottante (sotto 1024 px, sopra la tab bar). */
+/**
+ * Layout del sito vetrina: skip link, header, contenuto, footer, WhatsApp flottante (sotto 1024 px, sopra la tab bar).
+ * Solo desktop (montati dopo l'idratazione, mai sotto 1024 px): cuore del marchio allo scorrimento ed effetti della campagna attiva.
+ */
 export default async function SiteLayout({ children }: { children: ReactNode }) {
-  const [settings, navigation, stores] = await Promise.all([
+  const [settings, navigation, stores, campaigns, activeCampaign] = await Promise.all([
     content.getSettings(),
     content.getNavigation(),
     content.getStores(),
+    content.getCampaigns(),
+    getActiveCampaign(),
   ]);
 
   return (
@@ -41,6 +48,8 @@ export default async function SiteLayout({ children }: { children: ReactNode }) 
           messaggio={settings.whatsapp.messaggioPredefinito}
         />
       )}
+      <ScrollHeart />
+      <SeasonalEffects campaigns={campaigns} buildCampaignId={activeCampaign.id} />
       <CookieBanner copy={settings.consenso} />
       <Analytics gaId={settings.analytics.gaId} metaPixelId={settings.analytics.metaPixelId} />
     </ConsentProvider>

@@ -167,6 +167,60 @@
   .flyer-plane { animation: flyer-plane 1100ms ease-out both; }
 }
 
+/* ------------------------------------------------------------------
+   Solo desktop (>= 1024 px): sotto quella larghezza queste regole non esistono.
+   ------------------------------------------------------------------ */
+/* Tendina dei reparti nella testata. */
+@keyframes nav-pop {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+/* Rimbalzo della scritta dei pulsanti al passaggio del mouse. */
+@keyframes label-bounce {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-4px) scale(1.04); }
+  55% { transform: translateY(1px); }
+  75% { transform: translateY(-1.5px); }
+}
+/* Banner della home: dissolvenza tra le slide e titolo che entra. */
+@keyframes banner-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes banner-progress {
+  from { width: 0; }
+  to { width: 100%; }
+}
+/*
+ * Tutti i pulsanti (desktop, con mouse): al passaggio si espandono leggermente. Vale per <button> e per i link
+ * con aspetto da pulsante (.btn-bounce del componente Button, .btn-hover sugli altri). Fuori da @layer: vince
+ * sulle utility `transition-*` di Tailwind, a cui aggiunge `transform` senza togliere i colori. Le utility
+ * scale-/translate- di Tailwind v4 usano le proprieta' `scale`/`translate`, quindi non entrano in conflitto.
+ */
+@media (min-width: 1024px) and (hover: hover) and (prefers-reduced-motion: no-preference) {
+  :is(button, .btn-bounce, .btn-hover):not(:disabled, [aria-disabled="true"]) {
+    transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+    transition-duration: 180ms;
+    transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  :is(button, .btn-bounce, .btn-hover):not(:disabled, [aria-disabled="true"]):hover {
+    transform: scale(1.04);
+  }
+  :is(button, .btn-bounce, .btn-hover):not(:disabled, [aria-disabled="true"]):active {
+    transform: scale(0.98);
+  }
+}
+@media (min-width: 1024px) {
+  .btn-label { display: inline-block; }
+  @media (prefers-reduced-motion: no-preference) {
+    .nav-pop { animation: nav-pop 160ms ease-out both; }
+    .btn-bounce:hover .btn-label,
+    .btn-bounce:focus-visible .btn-label { animation: label-bounce 620ms cubic-bezier(0.28, 0.84, 0.42, 1) both; }
+    .banner-in { animation: banner-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .banner-progress { animation-name: banner-progress; animation-timing-function: linear; animation-fill-mode: both; }
+  }
+}
+
 @keyframes mobile-departments-open {
   from { opacity: 0; transform: translateY(0.75rem); }
   to { opacity: 1; transform: translateY(0); }

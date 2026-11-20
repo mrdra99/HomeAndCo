@@ -36,3 +36,11 @@ export const VIDEO_POSTER_MAX_CSS_WIDTH = 320;
  * Il test department-cards verifica che ogni foto sia larga almeno il doppio.
  */
 export const DEPARTMENT_CARD_MAX_CSS_WIDTH = [720, 520, 400, 400, 400] as const;
+
+/**
+ * Foto a tutta larghezza su desktop (testata del reparto, slide fotografiche del banner in home): nitide fino a
+ * 1440 px CSS sui 2x, quindi larghe almeno 2880 px. Verificato dal test desktop-feedback.
+ * Eccezione temporanea accettata dal cliente il 20/11/2026: la foto della campagna di Natale (1536 px) nella prima
+ * slide, finche' non arriva la grafica `bannerDesktop` da 3840 x 1280 px.
+ */
+export const DESKTOP_FULL_BLEED_MIN_WIDTH = 2880;

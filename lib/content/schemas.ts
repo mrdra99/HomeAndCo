@@ -34,6 +34,16 @@ export const ImageSchema = z.object({
 export type ImageRef = z.infer<typeof ImageSchema>;
 
 const Cta = z.object({ label: z.string().min(1), href: z.string().min(1) });
+/** Immagine obbligatoria: percorso e alt fedele. */
+const RequiredImageSchema = ImageSchema.extend({ src: z.string().min(1), alt: z.string().min(1) });
+
+/**
+ * Effetti di stagione disponibili (solo desktop, mai con prefers-reduced-motion).
+ * Una campagna li accende per nome in content/campaigns.json → `effetti`; il componente
+ * di ogni effetto e' registrato in components/campaign/SeasonalEffects.tsx.
+ */
+export const CAMPAIGN_EFFECTS = ["neve"] as const;
+export type CampaignEffect = (typeof CAMPAIGN_EFFECTS)[number];
 
 // ---------- Campaign ----------
 export const CampaignSchema = z
@@ -49,9 +59,23 @@ export const CampaignSchema = z
     tema: z.string().default("default"),
     etichetta: z.string().optional(),
     sticker: z.string().optional(),
+    /** Effetti di stagione accesi durante la campagna (desktop). */
+    effetti: z.array(z.enum(CAMPAIGN_EFFECTS)).default([]),
+    /**
+     * Grafica del banner desktop in home (rapporto 3:1, consigliata 3840 x 1280 px), con i testi gia' nella grafica.
+     * Se manca, la prima slide usa `immagineHero` con titolo e pulsanti sopra.
+     */
+    bannerDesktop: RequiredImageSchema.optional(),
     collezione: z.object({
       titolo: z.string().min(1),
       descrizione: z.string(),
+      /** Desktop: parola grande della sezione (es. "Natale") e riga sotto (es. "da dove partire"). */
+      titoloGrande: z.string().min(1).optional(),
+      sottotitoloGrande: z.string().min(1).optional(),
+      /** Desktop: foto di sfondo della sezione, coperta da una velatura blu. */
+      sfondo: RequiredImageSchema.optional(),
+      /** Desktop: foto di atmosfera accanto al titolo grande (2-4). */
+      galleria: z.array(RequiredImageSchema).max(4).default([]),
       idee: z.array(z.object({
         titolo: z.string().min(1),
         testo: z.string(),
@@ -88,8 +112,27 @@ export const HomeCopySchema = z.object({
   }),
   /** Etichetta accessibile della fascia fatti. */
   fattiAria: text,
-  /** Fascia fatti: 3-4 fatti verificati con icona (nome di Icon). */
-  fatti: z.array(z.object({ icona: text, titolo: text, testo: text })).min(3).max(4),
+  /** Banner desktop a tutta larghezza: la prima slide e' la campagna attiva, poi queste. */
+  banner: z.object({
+    aria: text,
+    precedente: text,
+    successivo: text,
+    vaiAllaSlide: template("{n}"),
+    pausa: text,
+    riprendi: text,
+    slide: z.array(z.object({
+      /** Grafica 3:1 (3840 x 1280 px) o foto; src null = segnaposto censito in ASSETS_TODO.md. */
+      immagine: ImageSchema,
+      /** Con titolo: testo e pulsante sopra la foto. Senza: la grafica porta i suoi testi e tutta la slide e' un link. */
+      titolo: z.string().min(1).optional(),
+      testo: z.string().optional(),
+      etichetta: z.string().optional(),
+      cta: Cta.optional(),
+      link: z.string().min(1).optional(),
+    })).max(4).default([]),
+  }),
+  /** Fascia fatti: 3-4 fatti verificati con icona (nome di Icon). `desktop: false` = solo sotto 1024 px. */
+  fatti: z.array(z.object({ icona: text, titolo: text, testo: text, desktop: z.boolean().default(true) })).min(3).max(4),
   reparti: z.object({ titolo: text, descrizione: text }),
   idee: z.object({ vaiAlReparto: z.string().refine((v) => v.includes("{reparto}"), "Il testo deve contenere {reparto}"), scorriPrecedente: text, scorriSuccessivo: text, regione: text }),
   /** Volantino: usato dal riquadro del primo schermo e dalla fascia magenta. */
@@ -152,6 +195,8 @@ export const AisleSchema = z.object({
   descrizione: z.string(),
   descrizioneLunga: z.string(),
   immagine: ImageSchema,
+  /** Testata desktop a tutta larghezza: foto larga almeno 2880 px (regola in lib/image-rules.ts). */
+  immagineWide: RequiredImageSchema.optional(),
   colore: hexColor.optional(),
   inEvidenza: z.array(AisleHighlightSchema).default([]),
   /** Foto degli scaffali in negozio; vuoto = la sezione non compare. */
@@ -384,6 +429,8 @@ export type NavItem = z.infer<typeof NavItemSchema>;
 const DEPT_PREFIX = "/corridoi/";
 export const NavGroupSchema = z.object({
   titolo: z.string().min(1),
+  /** Etichetta corta nella barra desktop tra 1024 e 1279 px, dove il titolo intero non entra. */
+  breve: z.string().min(1).optional(),
   /** Foto della scheda del gruppo in home (una per gruppo, alt fedele obbligatorio). */
   immagine: ImageSchema.extend({ src: z.string().min(1), alt: z.string().min(1) }),
   /** Href dei reparti (come in `voci`), nell'ordine in cui compaiono nel menu. */

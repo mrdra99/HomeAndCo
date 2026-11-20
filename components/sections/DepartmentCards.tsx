@@ -37,7 +37,8 @@ export function DepartmentCards({ groups, copy }: Props) {
                 aria-labelledby={`reparti-gruppo-${i}`}
                 className="on-dark flex w-full flex-col overflow-hidden rounded-[var(--radius-xl)] bg-brand-blue-900 text-white"
               >
-                <div className={cn("relative min-h-44 flex-1 bg-brand-blue-100", i < 2 ? "lg:min-h-64" : "lg:min-h-52")}>
+                {/* Desktop: schede piu' alte (feedback del 19/11); la larghezza, e quindi la nitidezza delle foto, non cambia. */}
+                <div className={cn("relative min-h-44 flex-1 bg-brand-blue-100", i < 2 ? "lg:min-h-80" : "lg:min-h-64")}>
                   <SmartImage
                     src={group.immagine.src}
                     alt={group.immagine.alt}
@@ -48,14 +49,14 @@ export function DepartmentCards({ groups, copy }: Props) {
                     className="absolute inset-0"
                   />
                 </div>
-                <div className="p-4 sm:p-5">
-                  <h3 id={`reparti-gruppo-${i}`} className="!text-xl !font-black leading-tight text-white">{group.titolo}</h3>
+                <div className="p-4 sm:p-5 lg:p-6">
+                  <h3 id={`reparti-gruppo-${i}`} className="!text-xl !font-black leading-tight text-white lg:!text-[1.625rem]">{group.titolo}</h3>
                   <ul className={cn("mt-2 grid gap-x-4", i === 0 && "sm:grid-cols-2")}>
                     {group.items.map((item) => (
                       <li key={item.href}>
                         <Link
                           href={item.href}
-                          className="-mx-2 flex min-h-11 items-center rounded-md px-2 py-1 text-base font-semibold leading-snug text-white underline-offset-4 hover:bg-white/10 hover:underline"
+                          className="-mx-2 flex min-h-11 items-center rounded-md px-2 py-1 text-base font-semibold leading-snug text-white underline-offset-4 hover:bg-white/10 hover:underline lg:text-[1.0625rem]"
                         >
                           {item.label}
                         </Link>
