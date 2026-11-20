@@ -41,7 +41,7 @@ export default async function CartaFedeltaPage() {
       />
 
       {!filled ? (
-        <section className="bg-white py-6 sm:py-9">
+        <section className="bg-white lg:bg-transparent py-6 sm:py-9">
           <Container size="wide" className="space-y-4">
             <div className="flex flex-wrap gap-3">
               <Button href="/offerte/" variant="secondary" iconRight={<Icon name="arrow-right" size={20} />}>
@@ -52,7 +52,7 @@ export default async function CartaFedeltaPage() {
           </Container>
         </section>
       ) : (
-      <section className="bg-white py-6 sm:py-9">
+      <section className="bg-white lg:bg-transparent py-6 sm:py-9">
         <Container size="wide">
           <div className="grid gap-5 md:grid-cols-[18rem_minmax(0,1fr)] md:items-start md:gap-8 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-12">
             <LoyaltyCard nome={loyalty.nome} className="max-w-72" />

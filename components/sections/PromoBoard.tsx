@@ -38,7 +38,7 @@ export function PromoBoard({ campaigns, buildCampaignId, buildDate, flyers, stor
   const found = homeFlyer(flyers, today);
   const leadFlyer = found && found.status !== "latest";
   return (
-    <section aria-label={copy.tabellone.aria} className="bg-white pb-2 pt-3 sm:pt-5 lg:pt-0">
+    <section aria-label={copy.tabellone.aria} className="bg-white lg:bg-transparent pb-2 pt-3 sm:pt-5 lg:pt-0">
       {/* Desktop: banner da bordo a bordo al posto della foto della campagna (che resta sotto 1024 px). */}
       <HomeBanner campaigns={campaigns} buildCampaignId={buildCampaignId} buildDate={buildDate} copy={copy.banner} headingLevel={leadFlyer ? "h2" : "h1"} />
       <Container size="wide" className="lg:pt-6">

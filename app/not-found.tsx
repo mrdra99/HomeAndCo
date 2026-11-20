@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <SiteLayout>
-      <section className="bg-white py-10 sm:py-16">
+      <section className="bg-white lg:bg-transparent py-10 sm:py-16">
         <Container size="wide">
           <p className="text-sm font-extrabold uppercase tracking-wide text-brand-magenta-700">Errore 404</p>
           <h1 className="mt-2 border-l-[6px] border-brand-magenta-600 pl-3 text-brand-blue-900">Pagina non trovata</h1>

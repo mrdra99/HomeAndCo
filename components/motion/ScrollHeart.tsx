@@ -9,7 +9,7 @@ const SIZE = "min(46vw, 44rem)";
 
 /**
  * Cuore del marchio fisso sullo sfondo, solo desktop. Scorrendo compare, scivola dal bordo destro verso il centro
- * e si inclina a sinistra; la molla smorza lo scroll della rotellina. Nessun clic intercettato, sotto testata e neve.
+ * e si inclina a sinistra; la molla smorza lo scroll della rotellina. Nessun clic intercettato, dietro tutti i contenuti.
  * Con movimento ridotto resta fermo e inclinato. Sotto 1024 px non viene montato.
  */
 export function ScrollHeart() {
@@ -20,10 +20,12 @@ export function ScrollHeart() {
 }
 
 /*
- * mix-blend-multiply: sul bianco il cuore si vede netto nei colori del marchio, sul testo scuro sparisce
- * (moltiplicare per il blu scuro resta blu scuro), quindi la leggibilita' non cambia.
+ * Sullo sfondo (richiesta del cliente, 20/11/2026: sopra i contenuti dava fastidio). z-index negativo nel contesto
+ * radice: si dipinge subito dopo il crema del body e prima di tutto il resto, quindi si vede solo dove la pagina e'
+ * crema e passa sotto card, foto e fasce piene. Non serve rendere `main` un contesto di impilamento, che chiuderebbe
+ * lightbox e modali sotto la testata.
  */
-const layer = "pointer-events-none fixed right-[-8vw] top-1/2 z-[25] select-none mix-blend-multiply";
+const layer = "pointer-events-none fixed right-[-8vw] top-1/2 -z-10 select-none";
 
 function MovingHeart() {
   const { scrollYProgress } = useScroll();
