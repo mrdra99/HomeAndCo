@@ -130,11 +130,11 @@ export function Footer({ settings, stores, items }: FooterProps) {
               href={copy.credito.url}
               target="_blank"
               rel="noopener"
-              className={`${linkCls} gap-2 whitespace-nowrap text-sm !text-white`}
+              className={`${linkCls} gap-1 whitespace-nowrap text-[8px]/3 !text-white`}
             >
               <span lang="en">{copy.credito.testo}</span>
               {/* eslint-disable-next-line @next/next/no-img-element -- logo esterno piccolo, nessuna variante da generare */}
-              <img src={copy.credito.logo} alt="" width={28} height={28} className="size-7 shrink-0 rounded-md bg-white" draggable={false} />
+              <img src={copy.credito.logo} alt="" width={16} height={16} className="size-4 shrink-0 rounded-sm bg-white" draggable={false} />
               <span className="font-extrabold">{copy.credito.nome}</span>
             </a>
           </div>
