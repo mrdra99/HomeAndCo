@@ -76,7 +76,13 @@
     "partitaIva": "P.IVA",
     "privacy": "Privacy",
     "cookie": "Cookie",
-    "preferenzeCookie": "Preferenze cookie"
+    "preferenzeCookie": "Preferenze cookie",
+    "credito": {
+      "testo": "Created by",
+      "nome": "Sarti Magi Creations",
+      "url": "https://sartimagicreations.it/",
+      "logo": "/credits/sarti-magi-creations.jpg"
+    }
   },
   "siteUrl": "https://home-co.it",
   "analytics": {

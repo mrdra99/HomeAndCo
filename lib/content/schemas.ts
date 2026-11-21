@@ -155,7 +155,7 @@ export const HomeCopySchema = z.object({
     /** Con un volantino in primo piano la fascia magenta non lo ripete: solo un rimando all'archivio. */
     archivio: z.object({ fascia: text, cta: text }),
   }),
-  negozi: z.object({ titolo: text, descrizione: text, indicazioni: text, tutti: text, orari: text, mappa: text }),
+  negozi: z.object({ titolo: text, indicazioni: text, tutti: text, orari: text, mappa: text }),
   carta: z.object({ titolo: text, cta: text }),
   social: z.object({
     titolo: text,
@@ -366,6 +366,13 @@ export const FooterCopySchema = z.object({
   privacy: z.string().min(1),
   cookie: z.string().min(1),
   preferenzeCookie: z.string().min(1),
+  /** Firma di chi ha realizzato il sito, ultima riga del piede. Il logo sta in public/credits/. */
+  credito: z.object({
+    testo: z.string().min(1),
+    nome: z.string().min(1),
+    url: z.string().url(),
+    logo: z.string().startsWith("/"),
+  }),
 });
 export type FooterCopy = z.infer<typeof FooterCopySchema>;
 

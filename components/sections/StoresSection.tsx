@@ -14,7 +14,7 @@ export function StoresSection({ stores, copy, statusCopy, neutralPrefix }: Props
   return (
     <section id="dove-siamo" aria-labelledby="dove-siamo-title" className="bg-white lg:bg-transparent py-7 sm:py-10">
       <Container size="wide">
-        <SectionTitle id="dove-siamo-title" note={copy.descrizione}>{copy.titolo}</SectionTitle>
+        <SectionTitle id="dove-siamo-title">{copy.titolo}</SectionTitle>
         <ul className="grid gap-3 md:grid-cols-3 md:gap-4">
           {stores.map((store) => (
             <li key={store.id} className="h-full">
