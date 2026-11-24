@@ -17,6 +17,22 @@
     "slide": [
       {
         "immagine": {
+          "src": "/uploads/banner/natale-2026.webp",
+          "alt": "Logo Home & Co. tra illustrazioni di Natale: palline appese, un albero, regali, un orsacchiotto con il cappello di Babbo Natale e uno schiaccianoci"
+        },
+        "link": "/#idee-di-stagione",
+        "soloDesktop": true
+      },
+      {
+        "immagine": {
+          "src": "/uploads/banner/home-and-co.webp",
+          "alt": "Logo Home & Co. tra illustrazioni di regali, un orsacchiotto, cuscini, una lampada e una pianta nei colori magenta e blu"
+        },
+        "link": "/#corridoi",
+        "soloDesktop": true
+      },
+      {
+        "immagine": {
           "src": "/uploads/banner/negozio-lucca-esterno.webp",
           "alt": "Facciata del negozio Home & Co. di Lucca con l'insegna",
           "position": "50% 0%"
@@ -27,14 +43,6 @@
           "label": "Orari e indicazioni",
           "href": "/dove-siamo/"
         }
-      },
-      {
-        "immagine": {
-          "src": "/uploads/banner/home-and-co.webp",
-          "alt": "Logo Home & Co. tra illustrazioni di regali, un orsacchiotto, cuscini, una lampada e una pianta nei colori magenta e blu"
-        },
-        "link": "/#corridoi",
-        "soloDesktop": true
       }
     ]
   },
