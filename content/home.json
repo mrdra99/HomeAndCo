@@ -30,16 +30,10 @@
       },
       {
         "immagine": {
-          "src": "/uploads/banner/fiori-decorazioni.webp",
-          "alt": "Fiori decorativi bianchi sugli scaffali del reparto feste",
-          "position": "50% 50%"
+          "src": "/uploads/banner/home-and-co.webp",
+          "alt": "Logo Home & Co. tra illustrazioni di regali, un orsacchiotto, cuscini, una lampada e una pianta nei colori magenta e blu"
         },
-        "etichetta": "Reparto feste e idee regalo",
-        "titolo": "Fiori e decorazioni per la casa (segnaposto)",
-        "cta": {
-          "label": "Vai al reparto",
-          "href": "/corridoi/feste-e-regalo/"
-        },
+        "link": "/#corridoi",
         "soloDesktop": true
       }
     ]
