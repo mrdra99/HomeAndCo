@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 import type { Flyer, HomeCopy } from "@/lib/content/schemas";
-import { homeFlyer } from "@/lib/flyers";
+import { flyersForHome, homeFlyer } from "@/lib/flyers";
 import { useToday } from "@/lib/date-store";
 
 type Props = {
@@ -19,7 +19,7 @@ type Props = {
  */
 export function FlyerBand({ flyers, buildDate, copy }: Props) {
   const today = useToday(buildDate);
-  const hasFlyer = homeFlyer(flyers, today) !== null;
+  const hasFlyer = homeFlyer(flyersForHome(flyers), today) !== null;
   const text = hasFlyer ? copy.archivio : null;
   return (
     <section id="volantino" aria-label={copy.titolo} className="border-y border-brand-blue-100 bg-brand-blue-50">

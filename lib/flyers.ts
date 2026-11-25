@@ -76,6 +76,11 @@ export function flyerAppliesToStore(f: Flyer, storeId: string): boolean {
 
 export type HomeFlyerStatus = "current" | "upcoming" | "latest";
 
+/** Edizioni abilitate nei riquadri della home; il popup usa invece il catalogo completo. */
+export function flyersForHome(flyers: Flyer[]): Flyer[] {
+  return flyers.filter((flyer) => flyer.mostraInHome !== false);
+}
+
 /** Ultima edizione scelta dal cliente: le date restano quelle stampate sul volantino. */
 export function featuredFlyer(flyers: Flyer[], date: Date = new Date()): Flyer | null {
   const today = toIsoDate(date);

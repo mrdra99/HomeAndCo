@@ -45,7 +45,8 @@
       "src": "/uploads/flyers/home-co-natale-2026-1.webp",
       "alt": "Copertina del volantino Home & Co. Natale 2026, offerte dal 2 all’11 dicembre in tutti i negozi"
     },
-    "provvisorio": false
+    "provvisorio": false,
+    "mostraInHome": false
   },
   {
     "id": "caramelle-halloween",
@@ -118,7 +119,7 @@
       "alt": "Sesto Fiorentino · ottobre 2026, pagina 1"
     },
     "provvisorio": false,
-    "archiviato": true
+    "inPrimoPiano": true
   },
   {
     "id": "halloween-2026",

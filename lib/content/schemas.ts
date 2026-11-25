@@ -277,6 +277,8 @@ export const FlyerSchema = z
     validoAl: isoDate.nullable(),
     periodo: z.string().optional(),
     archiviato: z.boolean().optional(),
+    /** Se false, aggiorna popup e catalogo senza cambiare i riquadri della home. */
+    mostraInHome: z.boolean().optional(),
     /** Ultima edizione ufficiale da tenere consultabile fino alla successiva, senza prorogare le offerte. */
     inPrimoPiano: z.boolean().optional(),
     negozi: z.union([z.literal("tutti"), z.array(z.string())]),

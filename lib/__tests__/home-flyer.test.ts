@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import flyersJson from "../../content/flyers.json";
 import loyaltyJson from "../../content/loyalty.json";
 import { FlyerSchema, LoyaltyProgramSchema, type Flyer } from "../content/schemas";
-import { archivedFlyers, homeFlyer } from "../flyers";
+import { archivedFlyers, flyersForHome, homeFlyer } from "../flyers";
 import { isLoyaltyFilled } from "../loyalty";
 
 const d = (iso: string) => new Date(`${iso}T12:00:00Z`);
@@ -49,6 +49,14 @@ describe("volantino in home: quale mostrare", () => {
     expect(homeFlyer([october], d("2026-11-09"))).toMatchObject({ status: "latest", flyer: { validoAl: "2026-11-01" } });
     expect(homeFlyer([october, november], d("2026-11-26"))).toMatchObject({ status: "current", flyer: { id: "novembre" } });
     expect(homeFlyer([october, november], d("2026-12-01"))).toBeNull();
+  });
+  it("l'aggiornamento del popup non cambia i riquadri della home precedente", () => {
+    const all = FlyerSchema.array().parse(flyersJson);
+    for (const date of ["2026-11-25", "2026-12-02", "2026-12-12"]) {
+      expect(homeFlyer(flyersForHome(all), d(date))).toMatchObject({ status: "latest", flyer: { id: "sesto-ottobre-2026" } });
+      expect(archivedFlyers(all, d(date)).map((f) => f.id)).toContain("sesto-ottobre-2026");
+    }
+    expect(flyersForHome(all).some((f) => f.id === "natale-2026")).toBe(false);
   });
 });
 
