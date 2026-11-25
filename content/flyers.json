@@ -1,5 +1,53 @@
 [
   {
+    "id": "natale-2026",
+    "titolo": "Volantino Natale 2026",
+    "validoDal": "2026-12-02",
+    "validoAl": "2026-12-11",
+    "negozi": "tutti",
+    "pagine": [
+      {
+        "src": "/uploads/flyers/home-co-natale-2026-1.webp",
+        "alt": "Volantino Natale 2026, pagina 1"
+      },
+      {
+        "src": "/uploads/flyers/home-co-natale-2026-2.webp",
+        "alt": "Volantino Natale 2026, pagina 2"
+      },
+      {
+        "src": "/uploads/flyers/home-co-natale-2026-3.webp",
+        "alt": "Volantino Natale 2026, pagina 3"
+      },
+      {
+        "src": "/uploads/flyers/home-co-natale-2026-4.webp",
+        "alt": "Volantino Natale 2026, pagina 4"
+      },
+      {
+        "src": "/uploads/flyers/home-co-natale-2026-5.webp",
+        "alt": "Volantino Natale 2026, pagina 5"
+      },
+      {
+        "src": "/uploads/flyers/home-co-natale-2026-6.webp",
+        "alt": "Volantino Natale 2026, pagina 6"
+      },
+      {
+        "src": "/uploads/flyers/home-co-natale-2026-7.webp",
+        "alt": "Volantino Natale 2026, pagina 7"
+      },
+      {
+        "src": "/uploads/flyers/home-co-natale-2026-8.webp",
+        "alt": "Volantino Natale 2026, pagina 8"
+      }
+    ],
+    "pdf": "/uploads/flyers/home-co-natale-2026.pdf",
+    "pdfDimensione": "17,4 MB",
+    "copertina": {
+      "src": "/uploads/flyers/home-co-natale-2026-1.webp",
+      "alt": "Copertina del volantino Home & Co. Natale 2026, offerte dal 2 all’11 dicembre in tutti i negozi"
+    },
+    "provvisorio": false
+  },
+  {
     "id": "caramelle-halloween",
     "titolo": "Halloween con i bambini",
     "validoDal": null,
@@ -70,7 +118,7 @@
       "alt": "Sesto Fiorentino · ottobre 2026, pagina 1"
     },
     "provvisorio": false,
-    "inPrimoPiano": true
+    "archiviato": true
   },
   {
     "id": "halloween-2026",

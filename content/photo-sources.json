@@ -767,6 +767,14 @@
       "sha256": "c3d419032928a7aab242de13a1d1ddf1b1e873b2e9ee0444cceb1c6a491987a9",
       "pages": 1,
       "note": "Il documento non riporta date né una sede esclusiva; archiviato esplicitamente senza inventare un periodo di validità."
+    },
+    {
+      "file": "/uploads/flyers/home-co-natale-2026.pdf",
+      "source": "PDF fornito dal cliente il 25 novembre 2026: Home e CO promozionale Natale 2026.pdf",
+      "kind": "PDF ottimizzato per il web con pagine raster a 2200 px di larghezza; originale conservato nei Download, contenuti e dimensioni delle pagine invariati",
+      "sha256": "951bb9c42864fbbcc15f6c7775b534b1526890abf7d1287ae39cf05777cbb400",
+      "pages": 8,
+      "originalSha256": "8989262c679979698426a22d0f4e6737a338140f4ba69196e02e8e82b12f0bd6"
     }
   ]
 }

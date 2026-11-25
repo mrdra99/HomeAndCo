@@ -29,7 +29,7 @@ describe("video e cataloghi forniti dal cliente", () => {
     expect(october.validoAl).toBe("2026-11-01");
     const now = new Date("2026-11-05T12:00:00Z");
     expect(currentFlyers(all, now)).toEqual([]);
-    expect(upcomingFlyers(all, now)).toEqual([]);
+    expect(upcomingFlyers(all, now).map((f) => f.id)).toEqual(["natale-2026"]);
     expect(archivedFlyers(all, now).map((f) => f.id)).toEqual(expect.arrayContaining(["sesto-ottobre-2026", "caramelle-halloween"]));
     const sweets = all.find((f) => f.id === "caramelle-halloween")!;
     expect(sweets.validoDal).toBeNull();

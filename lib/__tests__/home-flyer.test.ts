@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import flyersJson from "../../content/flyers.json";
 import loyaltyJson from "../../content/loyalty.json";
 import { FlyerSchema, LoyaltyProgramSchema, type Flyer } from "../content/schemas";
-import { homeFlyer } from "../flyers";
+import { archivedFlyers, homeFlyer } from "../flyers";
 import { isLoyaltyFilled } from "../loyalty";
 
 const d = (iso: string) => new Date(`${iso}T12:00:00Z`);
@@ -33,13 +33,15 @@ describe("volantino in home: quale mostrare", () => {
     expect(homeFlyer([fl("vecchio", "2026-10-01", "2026-10-31", { archiviato: true })], d("2026-10-15"))).toBeNull();
     expect(homeFlyer([], d("2026-11-06"))).toBeNull();
   });
-  it("mantiene l’ultima edizione ufficiale di ottobre fino al nuovo volantino", () => {
+  it("mostra Natale nel popup come anteprima, poi in corso e infine in archivio; conserva ottobre nello storico", () => {
     const all = FlyerSchema.array().parse(flyersJson);
-    expect(homeFlyer(all, d("2026-11-06"))).toMatchObject({ status: "latest", flyer: { id: "sesto-ottobre-2026", validoAl: "2026-11-01" } });
-    // simulazione: un volantino di dicembre farebbe tornare il riquadro ricco con la copertina
-    const withDecember = [...all, fl("natale-2026-test", "2026-12-04", "2026-12-24")];
-    expect(homeFlyer(withDecember, d("2026-11-06"))).toMatchObject({ status: "upcoming" });
-    expect(homeFlyer(withDecember, d("2026-12-10"))).toMatchObject({ status: "current" });
+    expect(homeFlyer(all, d("2026-11-25"))).toMatchObject({ status: "upcoming", flyer: { id: "natale-2026", validoDal: "2026-12-02", validoAl: "2026-12-11" } });
+    expect(homeFlyer(all, new Date("2026-12-01T22:59:59Z"))?.status).toBe("upcoming");
+    expect(homeFlyer(all, new Date("2026-12-01T23:00:00Z"))).toMatchObject({ status: "current", flyer: { id: "natale-2026" } });
+    expect(homeFlyer(all, new Date("2026-12-11T22:59:59Z"))?.status).toBe("current");
+    expect(homeFlyer(all, new Date("2026-12-11T23:00:00Z"))).toBeNull();
+    expect(archivedFlyers(all, d("2026-11-25")).map((f) => f.id)).toContain("sesto-ottobre-2026");
+    expect(archivedFlyers(all, d("2026-12-12")).map((f) => f.id)).toContain("natale-2026");
   });
   it("non prolunga le offerte e non ripropone ottobre dopo un'edizione successiva", () => {
     const october = fl("ottobre", "2026-10-23", "2026-11-01", { inPrimoPiano: true });

@@ -120,10 +120,12 @@ describe("volantino nella pagina del negozio", () => {
     expect(storeFlyer([list[0]], "prato", d("2026-10-25"))).toBeNull();
     expect(storeFlyer(list, "lucca", d("2027-01-10"))).toBeNull();
   });
-  it("l'ultima edizione ufficiale di Sesto resta solo sulla pagina di Sesto", () => {
-    expect(storeFlyer(flyers, "sesto-fiorentino", d("2026-11-09"))).toMatchObject({ status: "latest", flyer: { id: "sesto-ottobre-2026" } });
-    expect(storeFlyer(flyers, "prato", d("2026-11-09"))).toBeNull();
-    expect(storeFlyer(flyers, "lucca", d("2026-11-09"))).toBeNull();
+  it("mostra il nuovo volantino di Natale in tutte le sedi e lo rimuove alla scadenza", () => {
+    for (const store of stores) {
+      expect(storeFlyer(flyers, store.id, d("2026-11-25"))).toMatchObject({ status: "upcoming", flyer: { id: "natale-2026" } });
+      expect(storeFlyer(flyers, store.id, d("2026-12-02"))).toMatchObject({ status: "current", flyer: { id: "natale-2026" } });
+    }
+    for (const store of stores) expect(storeFlyer(flyers, store.id, d("2026-12-12"))).toBeNull();
   });
 });
 
@@ -134,9 +136,9 @@ describe("tabellone in home: blocco grande", () => {
     expect(boardMode(list, d("2026-11-06"))).toBe("flyer");
     expect(boardMode(list, d("2026-10-31"))).toBe("flyer");
   });
-  it("nessun volantino utile: resta la campagna (comportamento di oggi)", () => {
+  it("nessun volantino utile: resta la campagna", () => {
     expect(boardMode([], d("2026-11-06"))).toBe("campaign");
-    expect(boardMode(flyers, d("2026-11-06"))).toBe("campaign");
+    expect(boardMode(flyers, d("2026-12-12"))).toBe("campaign");
     expect(boardMode([{ ...fl("v", "2026-10-01", "2026-10-31"), archiviato: true }], d("2026-10-15"))).toBe("campaign");
     expect(boardMode([fl("v", "2026-10-01", "2026-10-31")], d("2026-11-01"))).toBe("campaign");
   });
