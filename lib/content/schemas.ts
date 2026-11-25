@@ -161,7 +161,7 @@ export const HomeCopySchema = z.object({
     titolo: text,
     descrizione: z.string(),
     video: z.object({ src: z.string(), poster: ImageSchema, titolo: z.string(), descrizione: z.string() }),
-    reels: z.array(z.object({ href: z.string().url(), titolo: z.string(), immagine: ImageSchema })).length(2),
+    reels: z.array(z.object({ href: z.string().url(), titolo: z.string(), immagine: ImageSchema })).length(3),
     instagram: text,
     videoAlternativa: text,
     seguici: text,

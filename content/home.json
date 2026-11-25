@@ -118,7 +118,7 @@
   },
   "social": {
     "titolo": "Il negozio in video",
-    "descrizione": "Un video girato tra gli scaffali e due reel dal nostro profilo Instagram.",
+    "descrizione": "Un video girato tra gli scaffali e tre reel dal nostro profilo Instagram.",
     "video": {
       "src": "/uploads/videos/home-co-negozio.mp4",
       "poster": {
@@ -129,6 +129,14 @@
       "descrizione": "Un video girato nei nostri reparti."
     },
     "reels": [
+      {
+        "href": "https://www.instagram.com/homeandco.casa/reel/DgIjodjGeUp/",
+        "titolo": "Il Natale è arrivato da Home & Co.",
+        "immagine": {
+          "src": "/uploads/social/reel-DgIjodjGeUp.webp",
+          "alt": "Anteprima del reel Home & Co.: il reparto di Natale con elfi, gnomi e orsi polari di peluche"
+        }
+      },
       {
         "href": "https://www.instagram.com/homeandco.casa/reel/DfFjURSmFmC/",
         "titolo": "Quattro cose che trovi da Home & Co.",

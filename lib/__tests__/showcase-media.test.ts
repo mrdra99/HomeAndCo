@@ -9,9 +9,10 @@ import { archivedFlyers, currentFlyers, upcomingFlyers } from "../flyers";
 const file = (path: string) => join(process.cwd(), "public", path);
 
 describe("video e cataloghi forniti dal cliente", () => {
-  it("collega le anteprime ai due reel richiesti, senza un player Instagram incorporato", () => {
+  it("collega le anteprime ai tre reel richiesti, senza un player Instagram incorporato", () => {
     const copy = HomeCopySchema.parse(home).social;
     expect(copy.reels.map((r) => r.href)).toEqual([
+      "https://www.instagram.com/homeandco.casa/reel/DgIjodjGeUp/",
       "https://www.instagram.com/homeandco.casa/reel/DfFjURSmFmC/",
       "https://www.instagram.com/homeandco.casa/reel/DfVDk6fARQB/",
     ]);
